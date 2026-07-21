@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
+
+// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
+const revlynWordmark = "/logos/revlyn-wordmark.png";
 
 export const metadata: Metadata = {
   title: "Case study: Datapel · Lead conversion 19% → 68% in a two-week HubSpot rebuild",
@@ -388,6 +392,8 @@ export default function DatapelCase() {
           </Link>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }
@@ -735,5 +741,66 @@ function RepSessionsCard() {
         <span className="text-ink font-bold">Reps stopped routing around the CRM</span>
       </div>
     </div>
+  );
+}
+
+/* ─────────────────────── Footer ─────────────────────── */
+function Footer() {
+  return (
+    <footer className="relative bg-ink text-paper overflow-hidden">
+      {/* Giant wordmark backdrop */}
+      <div className="pointer-events-none absolute inset-x-0 -bottom-6 md:-bottom-16 flex justify-center">
+        <span
+          className="display leading-none tracking-tighter text-transparent select-none"
+          style={{
+            fontSize: "clamp(8rem, 26vw, 24rem)",
+            WebkitTextStroke: "1px rgba(255,255,255,0.08)",
+          }}
+        >
+          revlyn
+        </span>
+      </div>
+
+      <div className="relative max-w-[1400px] mx-auto px-6 py-14 grid md:grid-cols-3 gap-10">
+        <div>
+          <Image src={revlynWordmark} alt="Revlyn" width={120} height={32} className="h-8 w-auto" style={{ filter: "invert(1) hue-rotate(180deg)" }} />
+          <p className="mt-4 text-paper/60 max-w-xs">
+            An extended CRM, RevOps, GTM and AI team for B2B founders and revenue leaders.
+          </p>
+        </div>
+        <div>
+          <div className="mono text-[11px] uppercase tracking-[0.22em] text-paper/65">Explore</div>
+          <ul className="mt-4 space-y-2.5 text-paper/85">
+            <li><Link href="/work/fintech-scale-up" className="hover:text-fire">Work</Link></li>
+            <li><Link href="/use-cases" className="hover:text-fire">Use cases</Link></li>
+            <li><Link href="/about" className="hover:text-fire">About</Link></li>
+            <li><Link href="/contact" className="hover:text-fire">Contact</Link></li>
+          </ul>
+        </div>
+        <div>
+          <div className="mono text-[11px] uppercase tracking-[0.22em] text-paper/65">Say hello</div>
+          <ul className="mt-4 space-y-2.5 text-paper/85">
+            <li><a href="mailto:info@revlyn.io" className="hover:text-fire">info@revlyn.io</a></li>
+            <li>+91 75030 44000</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="relative max-w-[1400px] mx-auto px-6">
+        <div className="border-t border-paper/10 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-[12px] text-paper/65">
+          <span className="flex items-center gap-3">
+            <span className="mono">© {new Date().getFullYear()} Revlyn</span>
+            <span className="text-paper/25">·</span>
+            <span>Built by operators, in Gurugram</span>
+          </span>
+          <span className="flex items-center gap-5">
+            <a href="#" className="hover:text-paper transition-colors">Privacy</a>
+            <a href="#" className="hover:text-paper transition-colors">Terms</a>
+            <a href="#" className="hover:text-paper transition-colors">Security</a>
+            <a href="#" className="hover:text-paper transition-colors">Cookies</a>
+          </span>
+        </div>
+      </div>
+    </footer>
   );
 }
