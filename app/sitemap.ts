@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/partners/hubspot",
     "/partners/bitscale",
     "/work/fintech-scale-up",
+    "/work/datapel",
     "/hubspot-as-a-service",
     "/hubspot-implementation",
     "/hubspot-optimization",

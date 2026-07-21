@@ -81,8 +81,10 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [whatOpen, setWhatOpen] = useState(false);
   const [hubspotOpen, setHubspotOpen] = useState(false);
+  const [workOpen, setWorkOpen] = useState(false);
   const whatRef = useRef<HTMLDivElement>(null);
   const hubspotRef = useRef<HTMLDivElement>(null);
+  const workRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const isHome = pathname === "/";
 
@@ -96,6 +98,7 @@ export function Nav() {
     const handle = (e: MouseEvent) => {
       if (!whatRef.current?.contains(e.target as Node)) setWhatOpen(false);
       if (!hubspotRef.current?.contains(e.target as Node)) setHubspotOpen(false);
+      if (!workRef.current?.contains(e.target as Node)) setWorkOpen(false);
     };
     document.addEventListener("mousedown", handle);
     return () => document.removeEventListener("mousedown", handle);
@@ -104,11 +107,15 @@ export function Nav() {
   const anchor = (id: string) => (isHome ? `#${id}` : `/#${id}`);
 
   const mainLinks = [
-    { label: "Work", to: "/work/fintech-scale-up" },
     { label: "Use cases", to: "/use-cases" },
     { label: "Partners", to: "/partners" },
     { label: "About", to: "/about" },
     { label: "Contact", to: "/contact" },
+  ];
+
+  const workLinks = [
+    { label: "Fintech Scale-Up", to: "/work/fintech-scale-up", note: "Series B fintech · 47 days" },
+    { label: "Datapel", to: "/work/datapel", note: "Warehouse software · 19% → 68%" },
   ];
 
   const whatLinks = [
@@ -127,6 +134,10 @@ export function Nav() {
   ];
 
   const hubspotActive = hubspotLinks.some(
+    (l) => l.to === pathname || pathname?.startsWith(l.to),
+  );
+
+  const workActive = workLinks.some(
     (l) => l.to === pathname || pathname?.startsWith(l.to),
   );
 
@@ -238,6 +249,60 @@ export function Nav() {
                           key={link.to}
                           href={link.to}
                           onClick={() => setHubspotOpen(false)}
+                          className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
+                            active ? "bg-ink text-paper" : "text-ink/80 hover:text-ink hover:bg-bone"
+                          }`}
+                        >
+                          <span>
+                            <span className="block font-medium">{link.label}</span>
+                            <span className={`block text-[11px] ${active ? "text-paper/60" : "text-ink/50"}`}>
+                              {link.note}
+                            </span>
+                          </span>
+                          <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">→</span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {/* Work */}
+              <div ref={workRef} className="relative shrink-0">
+                <button
+                  onClick={() => setWorkOpen((v) => !v)}
+                  onMouseEnter={() => setWorkOpen(true)}
+                  className={`relative px-4 py-1.5 text-sm rounded-full whitespace-nowrap transition-colors ${
+                    workOpen || workActive ? "text-paper" : "text-ink/75 hover:text-ink"
+                  }`}
+                  aria-expanded={workOpen}
+                >
+                  {(workOpen || workActive) && (
+                    <span className="absolute inset-0 rounded-full bg-ink -z-0" />
+                  )}
+                  <span className="relative z-10 flex items-center gap-1">
+                    Work
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className={`transition-transform ${workOpen ? "rotate-180" : ""}`}>
+                      <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </button>
+
+                {workOpen && (
+                  <div
+                    onMouseLeave={() => setWorkOpen(false)}
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[300px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden"
+                  >
+                    <div className="mono text-[10px] text-ink/45 px-3 py-2 border-b border-ink/5 mb-1">
+                      Case studies
+                    </div>
+                    {workLinks.map((link) => {
+                      const active = link.to === pathname || pathname?.startsWith(link.to);
+                      return (
+                        <Link
+                          key={link.to}
+                          href={link.to}
+                          onClick={() => setWorkOpen(false)}
                           className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
                             active ? "bg-ink text-paper" : "text-ink/80 hover:text-ink hover:bg-bone"
                           }`}
