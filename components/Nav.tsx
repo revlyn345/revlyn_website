@@ -41,7 +41,7 @@ function SignalStrip() {
     "HubSpot Solutions Partner",
     "Bitscale certified",
     "Avg. Slack response 14 min",
-    "127 portals shipped",
+    "50 portals shipped",
     "Operators, not account managers",
   ];
   return (
@@ -81,6 +81,7 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [whatOpen, setWhatOpen] = useState(false);
   const [hubspotOpen, setHubspotOpen] = useState(false);
+  const [implOpen, setImplOpen] = useState(false);
   const [workOpen, setWorkOpen] = useState(false);
   const whatRef = useRef<HTMLDivElement>(null);
   const hubspotRef = useRef<HTMLDivElement>(null);
@@ -97,7 +98,10 @@ export function Nav() {
   useEffect(() => {
     const handle = (e: MouseEvent) => {
       if (!whatRef.current?.contains(e.target as Node)) setWhatOpen(false);
-      if (!hubspotRef.current?.contains(e.target as Node)) setHubspotOpen(false);
+      if (!hubspotRef.current?.contains(e.target as Node)) {
+        setHubspotOpen(false);
+        setImplOpen(false);
+      }
       if (!workRef.current?.contains(e.target as Node)) setWorkOpen(false);
     };
     document.addEventListener("mousedown", handle);
@@ -125,6 +129,13 @@ export function Nav() {
     ["Stack", "stack", "Tools we run on"],
     ["Proof", "proof", "Case ledger"],
   ] as const;
+
+  const implementationLinks = [
+    { label: "Marketing Hub", to: "/hubspot-implementation/marketing-hub", note: "Campaigns, forms, attribution" },
+    { label: "Sales Hub", to: "/hubspot-implementation/sales-hub", note: "Pipeline, sequences, forecast" },
+    { label: "Service Hub", to: "/hubspot-implementation/service-hub", note: "Tickets, SLAs, CSAT" },
+    { label: "Content Hub", to: "/hubspot-implementation/content-hub", note: "CMS, SEO, templates" },
+  ];
 
   const hubspotLinks = [
     { label: "HubSpot as a Service", to: "/hubspot-as-a-service", note: "Ongoing operator" },
@@ -235,34 +246,89 @@ export function Nav() {
 
                 {hubspotOpen && (
                   <div
-                    onMouseLeave={() => setHubspotOpen(false)}
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[300px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden"
+                    onMouseLeave={() => {
+                      setHubspotOpen(false);
+                      setImplOpen(false);
+                    }}
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 flex items-start gap-2"
                   >
-                    <div className="mono text-[10px] text-ink/45 px-3 py-2 border-b border-ink/5 mb-1 flex items-center justify-between">
-                      <span>HubSpot practice</span>
-                      <span className="text-fire">Solutions Partner</span>
-                    </div>
-                    {hubspotLinks.map((link) => {
-                      const active = link.to === pathname || pathname?.startsWith(link.to);
-                      return (
-                        <Link
-                          key={link.to}
-                          href={link.to}
-                          onClick={() => setHubspotOpen(false)}
-                          className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
-                            active ? "bg-ink text-paper" : "text-ink/80 hover:text-ink hover:bg-bone"
-                          }`}
-                        >
-                          <span>
-                            <span className="block font-medium">{link.label}</span>
-                            <span className={`block text-[11px] ${active ? "text-paper/60" : "text-ink/50"}`}>
-                              {link.note}
+                    <div className="w-[300px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden">
+                      <div className="mono text-[10px] text-ink/45 px-3 py-2 border-b border-ink/5 mb-1 flex items-center justify-between">
+                        <span>HubSpot practice</span>
+                        <span className="text-fire">Solutions Partner</span>
+                      </div>
+                      {hubspotLinks.map((link) => {
+                        const active = link.to === pathname || pathname?.startsWith(link.to);
+                        const isImplementation = link.to === "/hubspot-implementation";
+                        return (
+                          <Link
+                            key={link.to}
+                            href={link.to}
+                            onMouseEnter={() => setImplOpen(isImplementation)}
+                            onClick={() => {
+                              setHubspotOpen(false);
+                              setImplOpen(false);
+                            }}
+                            className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
+                              active || (isImplementation && implOpen)
+                                ? "bg-ink text-paper"
+                                : "text-ink/80 hover:text-ink hover:bg-bone"
+                            }`}
+                          >
+                            <span>
+                              <span className="block font-medium">{link.label}</span>
+                              <span
+                                className={`block text-[11px] ${
+                                  active || (isImplementation && implOpen) ? "text-paper/60" : "text-ink/50"
+                                }`}
+                              >
+                                {link.note}
+                              </span>
                             </span>
-                          </span>
-                          <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">→</span>
-                        </Link>
-                      );
-                    })}
+                            {isImplementation ? (
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-fire shrink-0">
+                                <path d="M9 6l6 6-6 6" />
+                              </svg>
+                            ) : (
+                              <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">→</span>
+                            )}
+                          </Link>
+                        );
+                      })}
+                    </div>
+
+                    {implOpen && (
+                      <div className="w-[300px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden">
+                        <div className="mono text-[10px] text-ink/45 px-3 py-2 border-b border-ink/5 mb-1 flex items-center justify-between">
+                          <span>Implementation</span>
+                          <span className="text-fire">4 hubs</span>
+                        </div>
+                        {implementationLinks.map((link) => {
+                          const active = link.to === pathname || pathname?.startsWith(link.to);
+                          return (
+                            <Link
+                              key={link.to}
+                              href={link.to}
+                              onClick={() => {
+                                setHubspotOpen(false);
+                                setImplOpen(false);
+                              }}
+                              className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
+                                active ? "bg-ink text-paper" : "text-ink/80 hover:text-ink hover:bg-bone"
+                              }`}
+                            >
+                              <span>
+                                <span className="block font-medium">{link.label}</span>
+                                <span className={`block text-[11px] ${active ? "text-paper/60" : "text-ink/50"}`}>
+                                  {link.note}
+                                </span>
+                              </span>
+                              <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">→</span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

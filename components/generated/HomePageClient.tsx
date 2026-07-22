@@ -1495,10 +1495,10 @@ function AIAgentTerminal() {
   }, [lines.length]);
 
   return (
-    <section className="border-b-2 border-ink bg-ink text-paper relative overflow-hidden">
+    <section data-no-premium className="border-b-2 border-ink bg-ink text-paper relative overflow-hidden">
       <div className="absolute inset-0 stripes opacity-[0.06] pointer-events-none" />
-      <div className="max-w-[1400px] mx-auto px-6 py-20 grid md:grid-cols-12 gap-10 items-center relative" ref={ref}>
-        <div className="md:col-span-5">
+      <div className="max-w-[1400px] mx-auto px-6 py-20 grid md:grid-cols-12 gap-10 items-start relative" ref={ref} data-pin>
+        <div className="md:col-span-5" data-pin-inner>
           <div className="mono text-fire">// AI LAYER</div>
           <h2 className="display text-[clamp(2rem,4.5vw,3.75rem)] mt-3 text-paper">
             AI agents that

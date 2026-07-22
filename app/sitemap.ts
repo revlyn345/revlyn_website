@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const baseUrl = "https://revlyn.io"; // TODO: replace with real production domain
+const baseUrl = "https://revlyn.io";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
@@ -16,6 +16,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/work/datapel",
     "/hubspot-as-a-service",
     "/hubspot-implementation",
+    "/hubspot-implementation/content-hub",
+    "/hubspot-implementation/sales-hub",
+    "/hubspot-implementation/service-hub",
     "/hubspot-optimization",
     "/hubspot-audit",
   ];

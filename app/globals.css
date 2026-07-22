@@ -172,6 +172,14 @@
   animation: marquee-slow 60s linear infinite;
 }
 
+/* Used by the client logo wall (HomePageClient's Track component), which
+   triples its item list ([...items, ...items, ...items]) so the loop point
+   is at one-third of the total width, not one-half. */
+@keyframes revlyn-marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-33.3333%); }
+}
+
 @keyframes blink {
   50% { opacity: 0.15; }
 }

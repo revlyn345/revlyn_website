@@ -84,7 +84,7 @@ function Hero() {
             </a>
           </div>
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mono text-xs">
-            <Stat label="HUBSPOT BUILDS SHIPPED" value="127+" />
+            <Stat label="HUBSPOT BUILDS SHIPPED" value="50+" />
             <Stat label="AVG. OPERATOR TENURE" value="8 YRS" hi />
             <Stat label="FIRST SLACK REPLY" value="< 14m" />
             <Stat label="STAYED PAST YEAR 1" value="92%" />
