@@ -736,12 +736,9 @@ function CTA() {
           A 30-minute working session for Founders and Heads of Sales, Marketing, Revenue or GTM. We'll map what your internal HubSpot, RevOps, GTM and AI function should look like — and whether Revlyn is the right team to run it.
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-4">
-          <a
-            href="mailto:info@revlyn.io?subject=HubSpot%20as%20a%20Service%20-%20intro%20call"
-            className="brutal-border bg-ink text-paper px-8 py-5 display text-2xl brutal-shadow-fire hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[5px_5px_0_0_var(--color-fire)] transition-all"
-          >
+          <BookCallButton className="brutal-border bg-ink text-paper px-8 py-5 display text-2xl brutal-shadow-fire hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[5px_5px_0_0_var(--color-fire)] transition-all">
             → BOOK A CALL
-          </a>
+          </BookCallButton>
           <a
             href="#services"
             className="brutal-border bg-paper text-ink px-8 py-5 display text-2xl hover:bg-fire hover:text-paper transition-colors"

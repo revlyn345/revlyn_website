@@ -571,12 +571,9 @@ function ClosingSpread() {
           which layer to touch first, and what a realistic six-week and six-month picture looks like.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-4">
-          <a
-            href="mailto:info@revlyn.io?subject=Intro%20call"
-            className="inline-flex items-center gap-2 bg-fire text-paper border-2 border-paper px-8 py-4 mono text-sm uppercase tracking-widest shadow-[8px_8px_0_0_var(--color-volt)] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[3px_3px_0_0_var(--color-volt)] transition-all"
-          >
+          <BookCallButton className="inline-flex items-center gap-2 bg-fire text-paper border-2 border-paper px-8 py-4 mono text-sm uppercase tracking-widest shadow-[8px_8px_0_0_var(--color-volt)] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[3px_3px_0_0_var(--color-volt)] transition-all">
             Book a 30-min call <span>→</span>
-          </a>
+          </BookCallButton>
           <Link
             href="/hubspot-as-a-service"
             className="inline-flex items-center gap-2 border-2 border-paper/40 px-8 py-4 mono text-sm uppercase tracking-widest hover:bg-paper hover:text-ink transition-colors"

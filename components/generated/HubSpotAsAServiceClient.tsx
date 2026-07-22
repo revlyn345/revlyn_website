@@ -70,13 +70,10 @@ function Hero() {
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <a
-              href="mailto:info@revlyn.io?subject=HubSpot%20as%20a%20Service%20-%20intro%20call"
-              className="group brutal-border bg-ink text-paper px-6 py-4 display text-xl brutal-shadow-fire hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[5px_5px_0_0_var(--color-fire)] transition-all"
-            >
+            <BookCallButton className="group brutal-border bg-ink text-paper px-6 py-4 display text-xl brutal-shadow-fire hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[5px_5px_0_0_var(--color-fire)] transition-all">
               BOOK A 30-MIN CALL
               <span className="ml-2 inline-block group-hover:translate-x-1 transition-transform">→</span>
-            </a>
+            </BookCallButton>
             <a
               href="#what-you-get"
               className="brutal-border bg-volt text-ink px-6 py-4 display text-xl hover:bg-paper transition-colors"
@@ -936,12 +933,9 @@ function CTA() {
             honest about whether we're the right team to help. No pitch deck.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <a
-              href="mailto:info@revlyn.io?subject=HubSpot%20as%20a%20Service%20-%20intro%20call"
-              className="brutal-border bg-fire text-paper display text-xl px-6 py-4 brutal-shadow hover:-translate-y-0.5 transition-transform"
-            >
+            <BookCallButton className="brutal-border bg-fire text-paper display text-xl px-6 py-4 brutal-shadow hover:-translate-y-0.5 transition-transform">
               BOOK A CALL →
-            </a>
+            </BookCallButton>
             <Link
               href="/contact"
               className="brutal-border bg-volt text-ink display text-xl px-6 py-4 hover:-translate-y-0.5 transition-transform"

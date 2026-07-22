@@ -78,19 +78,34 @@ function SignalStrip() {
   );
 }
 
+type MenuKey = "what" | "hubspot" | "partners" | "work";
+
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const [whatOpen, setWhatOpen] = useState(false);
-  const [hubspotOpen, setHubspotOpen] = useState(false);
+  // Only one top-level dropdown can be open at a time. Using a single
+  // "which menu" value instead of four separate booleans means opening
+  // one menu automatically closes whichever other one was open — hovering
+  // from "What we do" straight into "HubSpot" no longer leaves both panels
+  // stacked open, since setting activeMenu to "hubspot" is by definition
+  // also un-setting it from "what".
+  const [activeMenu, setActiveMenu] = useState<MenuKey | null>(null);
   const [implOpen, setImplOpen] = useState(false);
-  const [workOpen, setWorkOpen] = useState(false);
-  const [partnersOpen, setPartnersOpen] = useState(false);
   const whatRef = useRef<HTMLDivElement>(null);
   const hubspotRef = useRef<HTMLDivElement>(null);
   const workRef = useRef<HTMLDivElement>(null);
   const partnersRef = useRef<HTMLDivElement>(null);
+  // Used to position the Implementation flyout so it starts level with the
+  // "Implementation" row instead of the top of the HubSpot panel.
+  const hubspotPanelRef = useRef<HTMLDivElement>(null);
+  const implRowRef = useRef<HTMLAnchorElement>(null);
+  const [implOffset, setImplOffset] = useState(0);
   const pathname = usePathname();
   const isHome = pathname === "/";
+
+  const whatOpen = activeMenu === "what";
+  const hubspotOpen = activeMenu === "hubspot";
+  const partnersOpen = activeMenu === "partners";
+  const workOpen = activeMenu === "work";
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 20);
@@ -100,17 +115,37 @@ export function Nav() {
 
   useEffect(() => {
     const handle = (e: MouseEvent) => {
-      if (!whatRef.current?.contains(e.target as Node)) setWhatOpen(false);
-      if (!hubspotRef.current?.contains(e.target as Node)) {
-        setHubspotOpen(false);
+      const target = e.target as Node;
+      const insideAny =
+        whatRef.current?.contains(target) ||
+        hubspotRef.current?.contains(target) ||
+        workRef.current?.contains(target) ||
+        partnersRef.current?.contains(target);
+      if (!insideAny) {
+        setActiveMenu(null);
         setImplOpen(false);
       }
-      if (!workRef.current?.contains(e.target as Node)) setWorkOpen(false);
-      if (!partnersRef.current?.contains(e.target as Node)) setPartnersOpen(false);
     };
     document.addEventListener("mousedown", handle);
     return () => document.removeEventListener("mousedown", handle);
   }, []);
+
+  // Closing the HubSpot menu (or switching to a different top-level menu)
+  // should always take the Implementation flyout with it.
+  useEffect(() => {
+    if (activeMenu !== "hubspot") setImplOpen(false);
+  }, [activeMenu]);
+
+  // Measure where the "Implementation" row sits inside the HubSpot panel so
+  // the flyout can be positioned to start right next to it, rather than
+  // defaulting to the top of the panel.
+  useEffect(() => {
+    if (hubspotOpen && hubspotPanelRef.current && implRowRef.current) {
+      const panelTop = hubspotPanelRef.current.getBoundingClientRect().top;
+      const rowTop = implRowRef.current.getBoundingClientRect().top;
+      setImplOffset(rowTop - panelTop);
+    }
+  }, [hubspotOpen]);
 
   const anchor = (id: string) => (isHome ? `#${id}` : `/#${id}`);
 
@@ -194,8 +229,8 @@ export function Nav() {
               {/* What we do */}
               <div ref={whatRef} className="relative shrink-0">
                 <button
-                  onClick={() => setWhatOpen((v) => !v)}
-                  onMouseEnter={() => setWhatOpen(true)}
+                  onClick={() => setActiveMenu((v) => (v === "what" ? null : "what"))}
+                  onMouseEnter={() => setActiveMenu("what")}
                   className={`relative px-4 py-1.5 text-sm rounded-full whitespace-nowrap transition-colors ${
                     whatOpen ? "text-paper" : "text-ink/75 hover:text-ink"
                   }`}
@@ -212,7 +247,7 @@ export function Nav() {
 
                 {whatOpen && (
                   <div
-                    onMouseLeave={() => setWhatOpen(false)}
+                    onMouseLeave={() => setActiveMenu(null)}
                     className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[280px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden"
                   >
                     <div className="mono text-[10px] text-ink/45 px-3 py-2 border-b border-ink/5 mb-1">
@@ -222,7 +257,7 @@ export function Nav() {
                       <a
                         key={id}
                         href={anchor(id)}
-                        onClick={() => setWhatOpen(false)}
+                        onClick={() => setActiveMenu(null)}
                         className="group flex items-center justify-between px-3 py-2 rounded-xl text-sm text-ink/80 hover:text-ink hover:bg-bone transition-colors"
                       >
                         <span>
@@ -239,8 +274,8 @@ export function Nav() {
               {/* HubSpot */}
               <div ref={hubspotRef} className="relative shrink-0">
                 <button
-                  onClick={() => setHubspotOpen((v) => !v)}
-                  onMouseEnter={() => setHubspotOpen(true)}
+                  onClick={() => setActiveMenu((v) => (v === "hubspot" ? null : "hubspot"))}
+                  onMouseEnter={() => setActiveMenu("hubspot")}
                   className={`relative px-4 py-1.5 text-sm rounded-full transition-colors ${
                     hubspotOpen || hubspotActive ? "text-paper" : "text-ink/75 hover:text-ink"
                   }`}
@@ -259,13 +294,10 @@ export function Nav() {
 
                 {hubspotOpen && (
                   <div
-                    onMouseLeave={() => {
-                      setHubspotOpen(false);
-                      setImplOpen(false);
-                    }}
+                    onMouseLeave={() => setActiveMenu(null)}
                     className="absolute top-full left-1/2 -translate-x-1/2 mt-2 flex items-start gap-2"
                   >
-                    <div className="w-[300px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden">
+                    <div ref={hubspotPanelRef} className="w-[300px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden">
                       <div className="mono text-[10px] text-ink/45 px-3 py-2 border-b border-ink/5 mb-1 flex items-center justify-between">
                         <span>HubSpot practice</span>
                         <span className="text-fire">Solutions Partner</span>
@@ -277,9 +309,10 @@ export function Nav() {
                           <Link
                             key={link.to}
                             href={link.to}
+                            ref={isImplementation ? implRowRef : undefined}
                             onMouseEnter={() => setImplOpen(isImplementation)}
                             onClick={() => {
-                              setHubspotOpen(false);
+                              setActiveMenu(null);
                               setImplOpen(false);
                             }}
                             className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
@@ -311,7 +344,10 @@ export function Nav() {
                     </div>
 
                     {implOpen && (
-                      <div className="w-[300px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden">
+                      <div
+                        style={{ marginTop: implOffset }}
+                        className="w-[300px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden"
+                      >
                         <div className="mono text-[10px] text-ink/45 px-3 py-2 border-b border-ink/5 mb-1 flex items-center justify-between">
                           <span>Implementation</span>
                           <span className="text-fire">4 hubs</span>
@@ -323,7 +359,7 @@ export function Nav() {
                               key={link.to}
                               href={link.to}
                               onClick={() => {
-                                setHubspotOpen(false);
+                                setActiveMenu(null);
                                 setImplOpen(false);
                               }}
                               className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
@@ -349,8 +385,8 @@ export function Nav() {
               {/* Partners */}
               <div ref={partnersRef} className="relative shrink-0">
                 <button
-                  onClick={() => setPartnersOpen((v) => !v)}
-                  onMouseEnter={() => setPartnersOpen(true)}
+                  onClick={() => setActiveMenu((v) => (v === "partners" ? null : "partners"))}
+                  onMouseEnter={() => setActiveMenu("partners")}
                   className={`relative px-4 py-1.5 text-sm rounded-full whitespace-nowrap transition-colors ${
                     partnersOpen || partnersActive ? "text-paper" : "text-ink/75 hover:text-ink"
                   }`}
@@ -369,7 +405,7 @@ export function Nav() {
 
                 {partnersOpen && (
                   <div
-                    onMouseLeave={() => setPartnersOpen(false)}
+                    onMouseLeave={() => setActiveMenu(null)}
                     className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[280px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden"
                   >
                     <div className="mono text-[10px] text-ink/45 px-3 py-2 border-b border-ink/5 mb-1 flex items-center justify-between">
@@ -382,7 +418,7 @@ export function Nav() {
                         <Link
                           key={link.to}
                           href={link.to}
-                          onClick={() => setPartnersOpen(false)}
+                          onClick={() => setActiveMenu(null)}
                           className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
                             active ? "bg-ink text-paper" : "text-ink/80 hover:text-ink hover:bg-bone"
                           }`}
@@ -404,8 +440,8 @@ export function Nav() {
               {/* Work */}
               <div ref={workRef} className="relative shrink-0">
                 <button
-                  onClick={() => setWorkOpen((v) => !v)}
-                  onMouseEnter={() => setWorkOpen(true)}
+                  onClick={() => setActiveMenu((v) => (v === "work" ? null : "work"))}
+                  onMouseEnter={() => setActiveMenu("work")}
                   className={`relative px-4 py-1.5 text-sm rounded-full whitespace-nowrap transition-colors ${
                     workOpen || workActive ? "text-paper" : "text-ink/75 hover:text-ink"
                   }`}
@@ -424,7 +460,7 @@ export function Nav() {
 
                 {workOpen && (
                   <div
-                    onMouseLeave={() => setWorkOpen(false)}
+                    onMouseLeave={() => setActiveMenu(null)}
                     className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[300px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden"
                   >
                     <div className="mono text-[10px] text-ink/45 px-3 py-2 border-b border-ink/5 mb-1">
@@ -436,7 +472,7 @@ export function Nav() {
                         <Link
                           key={link.to}
                           href={link.to}
-                          onClick={() => setWorkOpen(false)}
+                          onClick={() => setActiveMenu(null)}
                           className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
                             active ? "bg-ink text-paper" : "text-ink/80 hover:text-ink hover:bg-bone"
                           }`}

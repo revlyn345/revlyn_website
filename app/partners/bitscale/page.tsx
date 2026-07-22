@@ -1138,16 +1138,12 @@ function FinalCTA() {
           </h2>
         </div>
         <div className="space-y-3">
-          <Link
-            href="/contact"
-            data-magnetic="16"
-            className="group flex items-center justify-between gap-3 bg-ink text-paper border-2 border-ink px-5 py-4 mono text-[11px] uppercase tracking-[0.22em] hover:bg-paper hover:text-ink transition-colors"
-          >
+          <BookCallButton className="group flex items-center justify-between gap-3 bg-ink text-paper border-2 border-ink px-5 py-4 mono text-[11px] uppercase tracking-[0.22em] hover:bg-paper hover:text-ink transition-colors">
             Book a 20-minute walkthrough
             <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
               →
             </span>
-          </Link>
+          </BookCallButton>
           <Link
             href="/partners/bitscale"
             className="group flex items-center justify-between gap-3 bg-transparent text-paper border-2 border-paper px-5 py-4 mono text-[11px] uppercase tracking-[0.22em] hover:bg-paper hover:text-ink transition-colors"

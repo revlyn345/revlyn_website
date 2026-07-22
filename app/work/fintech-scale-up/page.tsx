@@ -222,12 +222,9 @@ export default function CaseStudy() {
               30 minutes, no deck. We open your portal on the call and tell you the three things we'd change first.
             </p>
           </div>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-3 brutal-border bg-ink text-paper px-6 py-4 display text-xl brutal-shadow-fire hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[5px_5px_0_0_var(--color-fire)] transition-all"
-          >
+          <BookCallButton className="inline-flex items-center gap-3 brutal-border bg-ink text-paper px-6 py-4 display text-xl brutal-shadow-fire hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[5px_5px_0_0_var(--color-fire)] transition-all">
             BOOK A CALL →
-          </Link>
+          </BookCallButton>
         </div>
       </section>
 

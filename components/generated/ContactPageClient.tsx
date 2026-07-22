@@ -271,12 +271,9 @@ function ContactForm() {
                       Expect a reply within one business day, directly from someone who has run this before.
                     </p>
                     <div className="mt-8">
-                      <a
-                        href="mailto:info@revlyn.io?subject=Book%20a%2030-min%20call%20with%20Revlyn"
-                        className="inline-flex items-center gap-2 bg-ink text-paper px-6 py-3 border-2 border-ink hover:bg-fire transition-colors mono text-xs uppercase tracking-[0.22em]"
-                      >
+                      <BookCallButton className="inline-flex items-center gap-2 bg-ink text-paper px-6 py-3 border-2 border-ink hover:bg-fire transition-colors mono text-xs uppercase tracking-[0.22em]">
                         Book a 30-min call <span>→</span>
-                      </a>
+                      </BookCallButton>
                     </div>
                   </div>
                 ) : (

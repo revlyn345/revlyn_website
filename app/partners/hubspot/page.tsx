@@ -393,14 +393,10 @@ function FinalCTA() {
               30-minute diagnostic. We screenshare your HubSpot, mark what is leaking, and hand you a written recap the same day.
             </p>
           </div>
-          <Link
-            href="/contact"
-            data-magnetic="20"
-            className="group relative inline-flex items-center gap-2 bg-fire text-paper border-2 border-paper px-6 py-4 mono text-xs uppercase tracking-[0.22em] hover:bg-volt hover:text-ink transition-colors self-start"
-          >
+          <BookCallButton className="group relative inline-flex items-center gap-2 bg-fire text-paper border-2 border-paper px-6 py-4 mono text-xs uppercase tracking-[0.22em] hover:bg-volt hover:text-ink transition-colors self-start">
             Book the diagnostic
             <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
-          </Link>
+          </BookCallButton>
         </div>
       </div>
     </section>

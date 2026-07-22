@@ -83,12 +83,9 @@ export default function DatapelCase() {
                 >
                   READ THE NUMBERS ↓
                 </a>
-                <Link
-                  href="/contact"
-                  className="brutal-border bg-paper text-ink px-5 py-3 display text-sm hover:bg-volt transition-colors inline-flex items-center gap-2"
-                >
+                <BookCallButton className="brutal-border bg-paper text-ink px-5 py-3 display text-sm hover:bg-volt transition-colors inline-flex items-center gap-2">
                   BOOK A CALL →
-                </Link>
+                </BookCallButton>
               </div>
             </div>
 
@@ -385,12 +382,9 @@ export default function DatapelCase() {
               we'd change first.
             </p>
           </div>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-3 brutal-border bg-ink text-paper px-6 py-4 display text-xl brutal-shadow-fire hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[5px_5px_0_0_var(--color-fire)] transition-all"
-          >
+          <BookCallButton className="inline-flex items-center gap-3 brutal-border bg-ink text-paper px-6 py-4 display text-xl brutal-shadow-fire hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[5px_5px_0_0_var(--color-fire)] transition-all">
             BOOK A CALL →
-          </Link>
+          </BookCallButton>
         </div>
       </section>
 
