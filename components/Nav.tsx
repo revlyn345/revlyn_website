@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { BookCallButton } from "@/components/BookCallButton";
 
 /* ── Live clock (Gurugram / IST) ─────────────────────────────────── */
 function useIstClock() {
@@ -485,17 +486,14 @@ export function Nav() {
               </svg>
               +91 75030 44000
             </a>
-            <a
-              href={isHome ? "#book" : "/contact"}
-              className="group relative inline-flex items-center gap-2 rounded-full bg-ink text-paper pl-4 pr-1.5 py-1.5 text-sm font-medium hover:bg-fire transition-colors"
-            >
+            <BookCallButton className="group relative inline-flex items-center gap-2 rounded-full bg-ink text-paper pl-4 pr-1.5 py-1.5 text-sm font-medium hover:bg-fire transition-colors">
               Book a call
               <span className="inline-flex items-center justify-center h-7 w-7 rounded-full bg-paper text-ink transition-transform group-hover:translate-x-0.5">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M13 5l7 7-7 7" />
                 </svg>
               </span>
-            </a>
+            </BookCallButton>
           </div>
         </div>
       </div>

@@ -20,11 +20,10 @@ export async function submitContact(data: ContactFormData): Promise<ContactActio
 
   // TODO: wire submission to email, Slack, CRM, or database.
   console.log("[contact] submission received", {
-    name: parsed.data.name,
+    firstName: parsed.data.firstName,
+    lastName: parsed.data.lastName,
     email: parsed.data.email,
-    company: parsed.data.company,
-    role: parsed.data.role,
-    source: parsed.data.source,
+    phone: parsed.data.phone,
   });
 
   return { success: true, message: "Thanks — we will reply within one business day." };

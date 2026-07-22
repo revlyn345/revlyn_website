@@ -36,7 +36,7 @@ const ausformingLogo = "/logos/ausforming.svg";
 // TODO: source "sparkle.svg" is a Lovable-hosted logo asset — not migrated.
 const sparkleLogo = "/logos/sparkle.svg";
 // TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
-const revlynWordmark = "/logos/revlyn-wordmark.svg";
+const revlynWordmark = "/logos/revlyn-wordmark.png";
 import { WebGLHeroField } from "@/components/WebGLHeroField";
 
 import {
@@ -51,6 +51,7 @@ import {
 } from "@/components/AnimatedVisuals";
 import { ServicesSpec, MethodRhythm, ProofLedger } from "@/components/DenseSections";
 import Image from "next/image";
+import { BookCallButton } from "@/components/BookCallButton";
 
 
 
@@ -202,11 +203,11 @@ function Hero() {
                 <span className="relative z-10">engine<span className="text-fire">.</span></span>
                 <span
                   aria-hidden
-                  className="absolute left-0 right-[0.35em] bottom-[0.08em] h-[0.09em] bg-fire"
+                  className="absolute left-0 right-[0.35em] -bottom-[0.16em] h-[0.09em] bg-fire"
                 />
                 <span
                   aria-hidden
-                  className="absolute right-[0.18em] bottom-[0.08em] h-[0.09em] w-[0.09em] bg-ink"
+                  className="absolute right-[0.18em] -bottom-[0.16em] h-[0.09em] w-[0.09em] bg-ink"
                 />
               </span>
             </span>
@@ -802,14 +803,14 @@ function Footer() {
         {/* Editorial lead */}
         <div className="grid md:grid-cols-12 gap-10 pb-14 border-b border-paper/10">
           <div className="md:col-span-7">
-            <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/45 mb-6 flex items-center gap-3">
+            <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-6 flex items-center gap-3">
               <span className="h-px w-8 bg-fire" />
               End of the page. Start of the conversation.
             </div>
             <h3 className="display text-5xl md:text-7xl leading-[0.9] tracking-[-0.035em]">
               Revenue systems,
               <br />
-              <span className="text-paper/50">operated by </span>
+              <span className="text-paper/65">operated by </span>
               <span className="text-fire">seniors</span>
               <span className="text-fire">.</span>
             </h3>
@@ -817,15 +818,12 @@ function Footer() {
               A small team of revenue operators for Founders and Heads of Sales, Marketing, Revenue and GTM. We build the portal, tune the pipeline, wire the AI, and stay on the account.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a
-                href="/contact"
-                className="group inline-flex items-center gap-2 rounded-full bg-fire text-paper pl-5 pr-1.5 py-1.5 text-sm font-medium hover:bg-paper hover:text-ink transition-colors"
-              >
+              <BookCallButton className="group inline-flex items-center gap-2 rounded-full bg-fire text-paper pl-5 pr-1.5 py-1.5 text-sm font-medium hover:bg-paper hover:text-ink transition-colors">
                 Book a diagnostic call
                 <span className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-ink text-paper group-hover:translate-x-0.5 transition-transform">
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
                 </span>
-              </a>
+              </BookCallButton>
               <a
                 href="mailto:info@revlyn.io"
                 className="inline-flex items-center gap-2 rounded-full border border-paper/25 px-5 py-2.5 text-sm text-paper hover:bg-paper hover:text-ink transition-colors"
@@ -842,10 +840,10 @@ function Footer() {
           </div>
 
           <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10">
-            <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/45 mb-6 flex items-center gap-3">
+            <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-6 flex items-center gap-3">
               <span>Field notes</span>
               <span className="h-px flex-1 bg-paper/10" />
-              <span className="text-paper/45">Monthly · 2 min</span>
+              <span className="text-paper/60">Monthly · 2 min</span>
             </div>
             <h4 className="display text-3xl md:text-4xl leading-[0.95] tracking-[-0.02em]">
               The <span className="text-fire">operator&rsquo;s notebook</span>.
@@ -853,30 +851,30 @@ function Footer() {
             <p className="mt-3 text-paper/65 text-sm">
               Short essays on revenue systems, HubSpot, RevOps and AI. Written by the same operators who run the portals.
             </p>
-            <form className="mt-5" onSubmit={(e) => e.preventDefault()}>
+            <div className="mt-5">
               <div className="flex items-stretch rounded-full border border-paper/20 bg-paper/5 pl-5 pr-1 py-1 focus-within:border-fire transition-colors">
                 <input
                   type="email"
                   placeholder="you@company.com"
                   className="flex-1 bg-transparent outline-none py-2 text-paper placeholder:text-paper/40"
                 />
-                <button className="group inline-flex items-center gap-2 rounded-full bg-paper text-ink pl-4 pr-2 py-1.5 text-sm font-medium hover:bg-fire hover:text-paper transition-colors">
+                <button type="button" className="group inline-flex items-center gap-2 rounded-full bg-paper text-ink pl-4 pr-2 py-1.5 text-sm font-medium hover:bg-fire hover:text-paper transition-colors">
                   Subscribe
                   <span className="inline-flex items-center justify-center h-7 w-7 rounded-full bg-ink text-paper group-hover:translate-x-0.5 transition-transform">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
                   </span>
                 </button>
               </div>
-              <p className="mt-3 text-[11px] text-paper/45">
+              <p className="mt-3 text-[11px] text-paper/60">
                 One email a month. Unsubscribe with one click.
               </p>
-            </form>
+            </div>
 
             {/* Studio card */}
             <div className="mt-8 rounded-2xl border border-paper/12 bg-paper/[0.03] p-5">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/45 mb-2">Studio</div>
+                  <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-2">Studio</div>
                   <div className="text-paper leading-snug">
                     Gurugram, Haryana
                     <br />
@@ -884,7 +882,7 @@ function Footer() {
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/45 mb-2">Hours</div>
+                  <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-2">Hours</div>
                   <div className="text-paper">Mon, Fri</div>
                   <div className="text-paper/60 text-sm">09:30 to 19:30 IST</div>
                 </div>
@@ -962,19 +960,30 @@ function Footer() {
             <div key={col.h}>
               <div className="text-paper text-[15px] font-medium mb-5">{col.h}</div>
               <ul className="space-y-3">
-                {col.l.map(([label, href]) => (
-                  <li key={label}>
-                    <a
-                      href={href}
-                      className="group inline-flex items-center gap-1 text-[13.5px] text-paper/60 hover:text-fire transition-colors"
-                    >
-                      <span>{label}</span>
-                      <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">
-                        →
-                      </span>
-                    </a>
-                  </li>
-                ))}
+                {col.l.map(([label, href]) =>
+                  label === "Book a call" ? (
+                    <li key={label}>
+                      <BookCallButton className="group inline-flex items-center gap-1 text-[13.5px] text-paper/60 hover:text-fire transition-colors">
+                        <span>{label}</span>
+                        <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">
+                          →
+                        </span>
+                      </BookCallButton>
+                    </li>
+                  ) : (
+                    <li key={label}>
+                      <a
+                        href={href}
+                        className="group inline-flex items-center gap-1 text-[13.5px] text-paper/60 hover:text-fire transition-colors"
+                      >
+                        <span>{label}</span>
+                        <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">
+                          →
+                        </span>
+                      </a>
+                    </li>
+                  )
+                )}
               </ul>
             </div>
           ))}
@@ -1016,13 +1025,13 @@ function Footer() {
               style={{ filter: "invert(1) hue-rotate(180deg)" }}
             />
           </div>
-          <p className="mono text-[10px] tracking-[0.22em] uppercase text-paper/45 max-w-md md:text-right">
+          <p className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 max-w-md md:text-right">
             Revenue, built like an engine. Operated like a team you already trust.
           </p>
         </div>
 
         {/* Base line */}
-        <div className="mt-10 pt-6 border-t border-paper/10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-[12px] text-paper/50">
+        <div className="mt-10 pt-6 border-t border-paper/10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-[12px] text-paper/65">
           <span className="flex items-center gap-3">
             <span className="mono">© 2026 Revlyn</span>
             <span className="text-paper/25">·</span>
