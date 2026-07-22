@@ -30,12 +30,12 @@ const jetbrainsMono = JetBrains_Mono({
 const siteUrl = "https://revlyn.io"; // TODO: replace with the real production domain
 const siteName = "Revlyn";
 const defaultDescription =
-  "Revlyn is a revenue operations partner for B2B startups and mid-market companies — CRM, RevOps, GTM, and AI consulting, plus a dedicated HubSpot practice.";
+  "Revlyn is a revenue operations partner for B2B startups and mid-market companies - CRM, RevOps, GTM, and AI consulting, plus a dedicated HubSpot practice.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Revlyn — Revenue Operators for B2B Growth Teams",
+    default: "Revlyn - Revenue Operators for B2B Growth Teams",
     template: "%s | Revlyn",
   },
   description: defaultDescription,
@@ -51,14 +51,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName,
-    title: "Revlyn — Revenue Operators for B2B Growth Teams",
+    title: "Revlyn - Revenue Operators for B2B Growth Teams",
     description: defaultDescription,
     url: siteUrl,
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: siteName }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Revlyn — Revenue Operators for B2B Growth Teams",
+    title: "Revlyn - Revenue Operators for B2B Growth Teams",
     description: defaultDescription,
     images: ["/og-image.png"],
   },
