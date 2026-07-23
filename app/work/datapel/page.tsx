@@ -45,7 +45,7 @@ export default function DatapelCase() {
           <div className="flex items-center gap-3 mono text-[11px] tracking-[0.16em] text-ink/60 mb-8">
             <Link href="/" className="hover:text-fire">REVLYN</Link>
             <span>/</span>
-            <Link href="/work/fintech-scale-up" className="hover:text-fire">WORK</Link>
+            <Link href="/work" className="hover:text-fire">WORK</Link>
             <span>/</span>
             <span className="text-ink">DATAPEL</span>
           </div>

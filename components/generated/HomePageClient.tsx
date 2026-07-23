@@ -11,13 +11,9 @@ const dashboardMockup = "/dashboard-mockup.jpg";
 const aiTerminal = "/ai-terminal.jpg";
 const caseFounder = "/case-founder.jpg";
 const playbookDesk = "/playbook-desk.jpg";
-// TODO: source "cap" is a Lovable-hosted logo asset — not migrated.
 const capLogo = "/logos/cap.svg";
-// TODO: source "detrack" is a Lovable-hosted logo asset — not migrated.
 const detrackLogo = "/logos/detrack.svg";
-// TODO: source "irim" is a Lovable-hosted logo asset — not migrated.
 const irimLogo = "/logos/irim.svg";
-// TODO: source "intuitive" is a Lovable-hosted logo asset — not migrated.
 const intuitiveLogo = "/logos/intuitive.svg";
 // TODO: source "runo" is a Lovable-hosted logo asset — not migrated.
 const runoLogo = "/logos/runo.svg";
@@ -1208,15 +1204,11 @@ function TeamStrip() {
     <section className="border-b-2 border-ink bg-bone">
       <div className="max-w-[1400px] mx-auto px-6 py-20 grid md:grid-cols-12 gap-10 items-center">
         <div className="md:col-span-5">
-          <SectionHeader n="09" label="The people" title="Former VPs of RevOps and GTM — now on your side." />
+          <SectionHeader n="09" label="The people" title="Former VPs of RevOps and GTM - now on your side." />
           <p className="mt-6 text-lg leading-relaxed">
             Four senior operators. Every engagement gets two of us embedded, one on the CRM and data side, one on GTM and AI. No juniors, no offshore, no sub-contracting.
           </p>
-          <ul className="mt-6 space-y-2 mono text-xs">
-            <li>▸ 40+ combined years across HubSpot, Salesforce & warehouses</li>
-            <li>▸ Shipped systems at Ramp, Vercel, Rippling, Airtable-scale co's</li>
-            <li>▸ Author of the internal "Revenue Handbook" used by 60+ teams</li>
-          </ul>
+          
         </div>
         <div className="md:col-span-7">
           <div className="brutal-border brutal-shadow overflow-hidden bg-ink">
@@ -1231,10 +1223,10 @@ function TeamStrip() {
           </div>
           <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 mono text-xs">
             {[
-              ["MARK L.", "CRM / SFDC"],
-              ["AYA T.", "REVOPS / WHSE"],
-              ["JADE R.", "GTM / OUTBOUND"],
-              ["RAJ P.", "AI / AGENTS"],
+              ["RISHABH", "CEO & FOUNDER"],
+              ["KARTIK", "HEAD OF CRM"],
+              ["KRISHNANSHU", "AI ENGINEER"],
+              ["SHANTANU", "CRM AUTOMATION"],
             ].map(([n, r]) => (
               <div key={n} className="brutal-border p-3">
                 <div className="display text-base">{n}</div>
