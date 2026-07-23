@@ -162,6 +162,7 @@ export function Nav() {
   ];
 
   const workLinks = [
+    { label: "Ausforming", to: "/work/ausforming", note: "GTM engine from zero · 50%+ reply-to-call" },
     { label: "Fintech Scale-Up", to: "/work/fintech-scale-up", note: "Series B fintech · 47 days" },
     { label: "Datapel", to: "/work/datapel", note: "Warehouse software · 19% → 68%" },
   ];
