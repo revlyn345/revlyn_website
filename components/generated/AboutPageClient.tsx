@@ -5,7 +5,6 @@ import Image from "next/image";
 import { BookCallButton } from "@/components/BookCallButton";
 // TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
 const revlynWordmark = "/logos/revlyn-wordmark.png";
-const teamGrid = "/team-grid.jpg";
 
 
 export default function AboutPageClient() {
@@ -236,58 +235,43 @@ function Manifesto() {
 function StrikeTeam() {
   const roster = [
     {
-      role: "Founding operator · CRM &amp; architecture",
-      name: "The architect",
-      tenure: "14 yrs",
+      role: "CEO &amp; founder · CRM &amp; architecture",
+      name: "Rishabh",
+      photo: "/team/rishabh.jpg",
       spec: "Object models",
       note: "Was Head of RevOps at two B2B SaaS companies before Revlyn. Writes the schema before the first workflow ships.",
       tint: "fire",
     },
     {
-      role: "Founding operator · GTM &amp; lifecycle",
-      name: "The GTM lead",
-      tenure: "11 yrs",
+      role: "Head of CRM · lifecycle &amp; funnel",
+      name: "Kartik",
+      photo: "/team/kartik.jpg",
       spec: "Lifecycle",
       note: "Ex-Head of Marketing Ops. Owns the funnel math, from first touch to renewal, and the reports the board reads.",
       tint: "volt",
     },
     {
-      role: "Principal · automation &amp; AI",
-      name: "The automation engineer",
-      tenure: "9 yrs",
+      role: "AI engineer · automation &amp; agents",
+      name: "Krishnanshu",
+      photo: "/team/krishnanshu.jpg",
       spec: "Workflows · AI",
       note: "Ships every workflow with a Loom and a rollback plan. Currently building the internal library of tested AI agents.",
       tint: "fire",
     },
     {
-      role: "Principal · data &amp; reporting",
-      name: "The data lead",
-      tenure: "10 yrs",
-      spec: "Attribution",
-      note: "Reconciles every board metric back to the property, workflow, and stage that produced it. Retires shadow-CRMs.",
-      tint: "volt",
-    },
-    {
-      role: "Principal · sales enablement",
-      name: "The enablement lead",
-      tenure: "8 yrs",
+      role: "CRM automation · workflow builds",
+      name: "Shantanu",
+      photo: "/team/shantanu.jpg",
       spec: "Rep adoption",
       note: "Writes the playbook and the Loom library so a new rep can onboard in a day, not a quarter.",
-      tint: "fire",
-    },
-    {
-      role: "Principal · portal governance",
-      name: "The governance lead",
-      tenure: "7 yrs",
-      spec: "Change control",
-      note: "Runs the weekly change queue, the monthly reconciliation, and the quarterly retire-what-no-longer-earns-its-keep review.",
       tint: "volt",
     },
   ];
 
   return (
     <section className="p-8 md:p-16 border-b-2 border-ink">
-      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+      <div className="max-w-[1400px] mx-auto">
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
         <div>
           <p className="mono text-xs uppercase tracking-[0.28em] mb-3 text-ink/50">
             Strike team · direct access
@@ -307,32 +291,30 @@ function StrikeTeam() {
         </div>
       </div>
 
-      <div className="mb-10 grid md:grid-cols-3 gap-0 border-2 border-ink">
+      <div className="mb-10 grid md:grid-cols-2 gap-0 border-2 border-ink">
         {roster.map((r, i) => (
           <article
             key={r.name}
-            className={`p-6 md:p-7 bg-paper relative transition-all group hover:bg-bone
-              ${i % 3 !== 2 ? "md:border-r-2 md:border-ink" : ""}
-              ${i < 3 ? "md:border-b-2 md:border-ink" : ""}
+            className={`p-5 md:p-6 bg-paper relative transition-all group hover:bg-bone
+              ${i % 2 !== 1 ? "md:border-r-2 md:border-ink" : ""}
+              ${i < 2 ? "md:border-b-2 md:border-ink" : ""}
               ${i !== roster.length - 1 ? "border-b-2 border-ink md:border-b-0" : ""}
-              ${i < 3 ? "border-b-2 border-ink" : ""}
+              ${i < 2 ? "border-b-2 border-ink" : ""}
             `}
           >
             <div
               className="absolute top-0 right-0 mono text-[10px] uppercase tracking-widest px-2 py-1 border-l-2 border-b-2 border-ink"
               style={{ background: r.tint === "fire" ? "#ff5722" : "#ffeb3b", color: "#0a0a0a" }}
             >
-              {String(i + 1).padStart(2, "0")} / 06
+              {String(i + 1).padStart(2, "0")} / 04
             </div>
-            <div
-              className="aspect-[4/5] bg-ink/5 border-2 border-ink mb-6 relative overflow-hidden"
-              style={{
-                backgroundImage: `url(${teamGrid})`,
-                backgroundSize: "300% 200%",
-                backgroundPosition: `${(i % 3) * 50}% ${Math.floor(i / 3) * 100}%`,
-                filter: "grayscale(1) contrast(1.05)",
-              }}
-            >
+            <div className="aspect-[4/3] bg-ink/5 border-2 border-ink mb-4 relative overflow-hidden">
+              <img
+                src={r.photo}
+                alt={r.name}
+                className="absolute inset-0 w-full h-full object-cover grayscale contrast-[1.05]"
+                loading="lazy"
+              />
               <div className="absolute inset-0 bg-ink/10 group-hover:bg-transparent transition-colors duration-500" />
               <div className="absolute bottom-2 left-2 mono text-[9px] uppercase tracking-widest bg-paper border border-ink px-1.5 py-0.5">
                 Portrait · {String(i + 1).padStart(3, "0")}
@@ -345,20 +327,19 @@ function StrikeTeam() {
             />
             <h4 className="display text-xl md:text-2xl font-bold uppercase tracking-tight">{r.name}</h4>
 
-            <div className="mt-4 pt-4 border-t-2 border-dashed border-ink/20 space-y-2">
-              <Row k="Tenure" v={r.tenure} />
+            <div className="mt-3 pt-3 border-t-2 border-dashed border-ink/20 space-y-2">
               <Row k="Specialization" v={r.spec} />
               <Row k="In your Slack" v="Daily" />
             </div>
 
-            <p className="mt-5 text-sm text-ink/70 leading-relaxed border-t border-ink/10 pt-4">{r.note}</p>
+            <p className="mt-3 text-sm text-ink/70 leading-relaxed border-t border-ink/10 pt-3">{r.note}</p>
           </article>
         ))}
       </div>
 
       <div className="border-2 border-ink bg-bone p-6 md:p-8 flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
         <div className="mono text-xs uppercase tracking-widest text-ink/70">
-          Practice size held at 12 operators, on purpose. We take on two founding teams per quarter.
+          Team held at four senior operators, on purpose. We take on two founding teams per quarter.
         </div>
         <Link
           href="/contact"
@@ -366,6 +347,7 @@ function StrikeTeam() {
         >
           Meet the operator on your account <span>→</span>
         </Link>
+      </div>
       </div>
     </section>
   );

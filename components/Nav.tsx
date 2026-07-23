@@ -151,6 +151,7 @@ export function Nav() {
 
   const mainLinks = [
     { label: "Use cases", to: "/use-cases" },
+    { label: "Blogs", to: "/blog" },
     { label: "About", to: "/about" },
     { label: "Contact", to: "/contact" },
   ];
