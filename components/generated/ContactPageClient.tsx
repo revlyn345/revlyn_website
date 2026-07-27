@@ -44,12 +44,12 @@ function Hero() {
               workflow that keeps breaking. A senior operator, not an SDR, reads it and
               replies within one business day.
             </p>
-            <div className="mt-8 inline-flex items-center gap-3 border-2 border-ink bg-paper px-4 py-2">
-              <span className="relative flex h-2.5 w-2.5">
+            <div className="mt-8 inline-flex flex-wrap items-center gap-3 border-2 border-ink bg-paper px-4 py-2 max-w-full">
+              <span className="relative flex h-2.5 w-2.5 shrink-0">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-fire opacity-60" />
                 <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-fire" />
               </span>
-              <span className="mono text-xs uppercase tracking-[0.22em]">
+              <span className="mono text-xs uppercase tracking-[0.22em] min-w-0">
                 Inbox open · Avg. reply &lt; 14m during business hours
               </span>
             </div>
@@ -157,10 +157,10 @@ function ContactForm() {
     <section className="border-b-2 border-ink bg-bone relative">
       <div className="absolute inset-0 stripes opacity-[0.03] pointer-events-none" />
       <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24 relative">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16" data-pin>
           {/* Left sidebar: dossier ledger */}
-          <aside className="lg:col-span-5">
-            <div className="sticky top-28 space-y-6">
+          <aside className="lg:col-span-5" data-pin-inner>
+            <div className="space-y-6">
               {/* Ledger card */}
               <div className="brutal-border bg-ink text-paper p-6 md:p-8 relative overflow-hidden">
                 <div className="absolute top-0 right-0 mono text-[10px] uppercase tracking-[0.22em] bg-volt text-ink px-2 py-1 border-l-2 border-b-2 border-ink">
@@ -446,7 +446,7 @@ function Footer() {
       <div className="relative max-w-[1400px] mx-auto px-6 pt-20 pb-14">
         {/* Editorial lead */}
         <div className="grid md:grid-cols-12 gap-10 pb-14 border-b border-paper/10">
-          <div className="md:col-span-7">
+          <div className="md:col-span-7 min-w-0">
             <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-6 flex items-center gap-3">
               <span className="h-px w-8 bg-fire" />
               End of the page. Start of the conversation.
@@ -483,7 +483,7 @@ function Footer() {
             </div>
           </div>
 
-          <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10">
+          <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10 min-w-0">
             <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-6 flex items-center gap-3">
               <span>Field notes</span>
               <span className="h-px flex-1 bg-paper/10" />
@@ -500,7 +500,7 @@ function Footer() {
                 <input
                   type="email"
                   placeholder="you@company.com"
-                  className="flex-1 bg-transparent outline-none py-2 text-paper placeholder:text-paper/40"
+                  className="flex-1 min-w-0 bg-transparent outline-none py-2 text-paper placeholder:text-paper/40"
                 />
                 <button type="button" className="group inline-flex items-center gap-2 rounded-full bg-paper text-ink pl-4 pr-2 py-1.5 text-sm font-medium hover:bg-fire hover:text-paper transition-colors">
                   Subscribe

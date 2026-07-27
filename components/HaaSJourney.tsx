@@ -208,6 +208,7 @@ export function HaaSRhythm() {
   ];
 
   const [active, setActive] = useState(0);
+  const pinRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const nodes = document.querySelectorAll<HTMLElement>("[data-rhythm-step]");
     if (!nodes.length) return;
@@ -244,9 +245,9 @@ export function HaaSRhythm() {
         </div>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-6 pb-32 grid md:grid-cols-12 gap-12">
-        <div className="md:col-span-5 hidden md:block">
-          <div className="sticky top-24">
+      <div className="max-w-[1400px] mx-auto px-6 pb-32 grid md:grid-cols-12 gap-12" ref={pinRef} data-pin>
+        <div className="md:col-span-5 hidden md:block" data-pin-inner>
+          <div>
             <RhythmOrbit active={active} count={rituals.length} label={rituals[active]?.when || ""} />
             <div className="mt-6 flex items-center justify-between mono text-[10px] tracking-[0.22em] uppercase text-ink/50">
               <span>Ritual {String(active + 1).padStart(2, "0")} / {String(rituals.length).padStart(2, "0")}</span>

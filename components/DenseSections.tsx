@@ -228,9 +228,10 @@ function ServiceCard({ spec, idx }: { spec: Spec; idx: number }) {
       id={`svc-${spec.id}`}
       data-reveal
       className="bg-paper p-8 md:p-12 grid md:grid-cols-[280px_1fr] gap-10 scroll-mt-24 group"
+      data-pin
     >
       {/* LEFT — identity */}
-      <header className="md:sticky md:top-24 self-start">
+      <header className="self-start" data-pin-inner>
         <div className="flex items-center gap-2 mb-6">
           <span className={`w-2 h-2 rounded-full ${accent}`} />
           <span className="mono text-[10.5px] text-ink/50">{spec.code} / {String(idx + 1).padStart(2, "0")}</span>

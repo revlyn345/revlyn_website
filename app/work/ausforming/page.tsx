@@ -729,18 +729,18 @@ function SlaFlow() {
   ];
   return (
     <div className="brutal-border bg-paper text-ink overflow-hidden">
-      <div className="flex items-center justify-between px-5 py-3 border-b-2 border-ink bg-ink text-paper">
-        <div className="flex items-center gap-2 mono text-[10px] tracking-[0.16em]">
-          <span className="w-2 h-2 rounded-full bg-fire animate-pulse" />
-          REPLY WORKFLOW · REAL TIME
+      <div className="flex flex-wrap items-center justify-between gap-2 px-5 py-3 border-b-2 border-ink bg-ink text-paper">
+        <div className="flex items-center gap-2 mono text-[10px] tracking-[0.16em] min-w-0">
+          <span className="w-2 h-2 rounded-full bg-fire animate-pulse shrink-0" />
+          <span>REPLY WORKFLOW · REAL TIME</span>
         </div>
-        <div className="mono text-[10px] text-paper/50">CORE OF THE ENGAGEMENT</div>
+        <div className="mono text-[10px] text-paper/50 shrink-0">CORE OF THE ENGAGEMENT</div>
       </div>
       <ol className="divide-y divide-ink/10">
         {steps.map(([t, k, note], i) => (
           <li
             key={k}
-            className="px-5 py-4 grid grid-cols-[90px_180px_1fr] gap-4 items-start hover:bg-bone/60 transition-colors"
+            className="px-5 py-4 grid grid-cols-1 gap-1 md:grid-cols-[90px_180px_1fr] md:gap-4 items-start hover:bg-bone/60 transition-colors"
           >
             <div className="display text-lg text-fire tabular-nums">{t}</div>
             <div className="font-semibold text-[14px]">{k}</div>
@@ -749,9 +749,9 @@ function SlaFlow() {
           </li>
         ))}
       </ol>
-      <div className="px-5 py-3 border-t-2 border-ink bg-volt flex items-center justify-between mono text-[10px]">
-        <span className="text-ink">Nothing leaks between reply and booking</span>
-        <span className="text-ink font-bold">&gt;50% of replies become discovery calls</span>
+      <div className="px-5 py-3 border-t-2 border-ink bg-volt flex flex-wrap items-center justify-between gap-2 mono text-[10px]">
+        <span className="text-ink min-w-0">Nothing leaks between reply and booking</span>
+        <span className="text-ink font-bold shrink-0">&gt;50% of replies become discovery calls</span>
       </div>
     </div>
   );
@@ -830,7 +830,7 @@ function Footer() {
       <div className="relative max-w-[1400px] mx-auto px-6 pt-20 pb-14">
         {/* Editorial lead */}
         <div className="grid md:grid-cols-12 gap-10 pb-14 border-b border-paper/10">
-          <div className="md:col-span-7">
+          <div className="md:col-span-7 min-w-0">
             <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-6 flex items-center gap-3">
               <span className="h-px w-8 bg-fire" />
               End of the page. Start of the conversation.
@@ -867,7 +867,7 @@ function Footer() {
             </div>
           </div>
 
-          <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10">
+          <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10 min-w-0">
             <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-6 flex items-center gap-3">
               <span>Field notes</span>
               <span className="h-px flex-1 bg-paper/10" />
@@ -884,7 +884,7 @@ function Footer() {
                 <input
                   type="email"
                   placeholder="you@company.com"
-                  className="flex-1 bg-transparent outline-none py-2 text-paper placeholder:text-paper/40"
+                  className="flex-1 min-w-0 bg-transparent outline-none py-2 text-paper placeholder:text-paper/40"
                 />
                 <button type="button" className="group inline-flex items-center gap-2 rounded-full bg-paper text-ink pl-4 pr-2 py-1.5 text-sm font-medium hover:bg-fire hover:text-paper transition-colors">
                   Subscribe

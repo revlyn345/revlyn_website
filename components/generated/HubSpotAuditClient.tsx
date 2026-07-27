@@ -436,8 +436,8 @@ function SurfaceMap() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-10 items-start">
-          <div className="lg:col-span-6 lg:sticky lg:top-24" data-reveal>
+        <div className="grid lg:grid-cols-12 gap-10 items-start" data-pin>
+          <div className="lg:col-span-6" data-reveal data-pin-inner>
             <div className="relative rounded-2xl border-2 border-ink bg-bone p-6 shadow-[10px_10px_0_0_#ff5722]">
               <svg viewBox="0 0 400 480" className="w-full h-auto" data-hero-schematic>
                 <defs>
@@ -965,7 +965,7 @@ function Footer() {
       <div className="relative max-w-[1400px] mx-auto px-6 pt-20 pb-14">
         {/* Editorial lead */}
         <div className="grid md:grid-cols-12 gap-10 pb-14 border-b border-paper/10">
-          <div className="md:col-span-7">
+          <div className="md:col-span-7 min-w-0">
             <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-6 flex items-center gap-3">
               <span className="h-px w-8 bg-fire" />
               End of the page. Start of the conversation.
@@ -1002,7 +1002,7 @@ function Footer() {
             </div>
           </div>
 
-          <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10">
+          <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10 min-w-0">
             <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-6 flex items-center gap-3">
               <span>Field notes</span>
               <span className="h-px flex-1 bg-paper/10" />
@@ -1019,7 +1019,7 @@ function Footer() {
                 <input
                   type="email"
                   placeholder="you@company.com"
-                  className="flex-1 bg-transparent outline-none py-2 text-paper placeholder:text-paper/40"
+                  className="flex-1 min-w-0 bg-transparent outline-none py-2 text-paper placeholder:text-paper/40"
                 />
                 <button type="button" className="group inline-flex items-center gap-2 rounded-full bg-paper text-ink pl-4 pr-2 py-1.5 text-sm font-medium hover:bg-fire hover:text-paper transition-colors">
                   Subscribe

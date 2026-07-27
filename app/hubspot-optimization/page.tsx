@@ -780,7 +780,7 @@ function BeforeAfter() {
           </div>
         </div>
         <div className="rounded-2xl border-2 border-ink overflow-hidden">
-          <div className="grid grid-cols-[110px_1fr_1fr] mono text-[10px] tracking-widest uppercase bg-ink text-paper">
+          <div className="hidden md:grid grid-cols-[110px_1fr_1fr] mono text-[10px] tracking-widest uppercase bg-ink text-paper">
             <div className="px-4 py-3">Area</div>
             <div className="px-4 py-3 border-l border-paper/10">Before</div>
             <div
@@ -795,21 +795,23 @@ function BeforeAfter() {
           {rows.map(([a, b, c, color]) => (
             <div
               key={a}
-              className="grid grid-cols-[110px_1fr_1fr] border-t border-ink/10"
+              className="grid grid-cols-1 md:grid-cols-[110px_1fr_1fr] border-t border-ink/10"
             >
               <div
-                className="px-4 py-5 mono text-xs tracking-widest uppercase font-bold"
+                className="px-4 py-2 md:py-5 mono text-xs tracking-widest uppercase font-bold"
                 style={{ background: color, opacity: 0.85 }}
               >
                 {a}
               </div>
-              <div className="px-4 py-5 border-l border-ink/10 text-ink/60 line-through decoration-ink/20 bg-paper">
+              <div className="px-4 py-3 md:py-5 md:border-l border-ink/10 text-ink/60 line-through decoration-ink/20 bg-paper">
+                <span className="mono text-[9px] uppercase tracking-widest text-ink/40 block mb-1 md:hidden">Before</span>
                 {b}
               </div>
               <div
-                className="px-4 py-5 border-l border-ink/10 font-medium"
+                className="px-4 py-3 md:py-5 md:border-l border-ink/10 font-medium"
                 style={{ background: `${color}22` }}
               >
+                <span className="mono text-[9px] uppercase tracking-widest text-ink/40 block mb-1 md:hidden">After</span>
                 {c}
               </div>
             </div>
@@ -1052,7 +1054,7 @@ function Footer() {
       <div className="relative max-w-[1400px] mx-auto px-6 pt-20 pb-14">
         {/* Editorial lead */}
         <div className="grid md:grid-cols-12 gap-10 pb-14 border-b border-paper/10">
-          <div className="md:col-span-7">
+          <div className="md:col-span-7 min-w-0">
             <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-6 flex items-center gap-3">
               <span className="h-px w-8 bg-fire" />
               End of the page. Start of the conversation.
@@ -1089,7 +1091,7 @@ function Footer() {
             </div>
           </div>
 
-          <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10">
+          <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10 min-w-0">
             <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-6 flex items-center gap-3">
               <span>Field notes</span>
               <span className="h-px flex-1 bg-paper/10" />
@@ -1106,7 +1108,7 @@ function Footer() {
                 <input
                   type="email"
                   placeholder="you@company.com"
-                  className="flex-1 bg-transparent outline-none py-2 text-paper placeholder:text-paper/40"
+                  className="flex-1 min-w-0 bg-transparent outline-none py-2 text-paper placeholder:text-paper/40"
                 />
                 <button type="button" className="group inline-flex items-center gap-2 rounded-full bg-paper text-ink pl-4 pr-2 py-1.5 text-sm font-medium hover:bg-fire hover:text-paper transition-colors">
                   Subscribe

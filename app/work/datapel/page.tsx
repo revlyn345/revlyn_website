@@ -712,20 +712,26 @@ function RepSessionsCard() {
           : "bg-paper text-ink border border-ink";
   return (
     <div className="brutal-border bg-paper overflow-hidden">
-      <div className="flex items-center justify-between px-5 py-3 border-b-2 border-ink bg-ink text-paper">
-        <div className="flex items-center gap-2 mono text-[10px] tracking-[0.16em]">
-          <span className="w-2 h-2 rounded-full bg-fire animate-pulse" />
-          WORKING-SESSION LOG · FIRST MONTH POST-LAUNCH
+      <div className="flex flex-wrap items-center justify-between gap-2 px-5 py-3 border-b-2 border-ink bg-ink text-paper">
+        <div className="flex items-center gap-2 mono text-[10px] tracking-[0.16em] min-w-0">
+          <span className="w-2 h-2 rounded-full bg-fire animate-pulse shrink-0" />
+          <span>WORKING-SESSION LOG · FIRST MONTH POST-LAUNCH</span>
         </div>
-        <div className="mono text-[10px] text-paper/50">EVERY 2ND DAY · WITH REPS</div>
+        <div className="mono text-[10px] text-paper/50 shrink-0">EVERY 2ND DAY · WITH REPS</div>
       </div>
       <ul className="divide-y divide-ink/10">
         {sessions.map((s) => (
-          <li key={s.d} className="px-5 py-3.5 grid grid-cols-[70px_160px_1fr_auto] gap-4 items-start hover:bg-bone/50 transition-colors">
+          <li key={s.d} className="px-5 py-3.5 grid grid-cols-2 gap-x-4 gap-y-2 md:grid-cols-[70px_160px_1fr_auto] md:gap-4 items-start hover:bg-bone/50 transition-colors">
             <div className="display text-lg text-fire tabular-nums">{s.d}</div>
-            <div className="mono text-[11px] text-ink/70 pt-1">{s.who}</div>
-            <div className="text-[14px] text-ink/85 leading-snug">{s.note}</div>
-            <div className={`mono text-[9px] tracking-[0.14em] px-2 py-1 h-fit ${tagStyle(s.tag)}`}>
+            <div className="text-right md:text-left">
+              <span className={`mono text-[9px] tracking-[0.14em] px-2 py-1 h-fit inline-block md:hidden ${tagStyle(s.tag)}`}>
+                {s.tag.toUpperCase()}
+              </span>
+              <span className="hidden md:inline mono text-[11px] text-ink/70 pt-1">{s.who}</span>
+            </div>
+            <div className="col-span-2 md:col-span-1 mono text-[11px] text-ink/70 md:hidden">{s.who}</div>
+            <div className="col-span-2 md:col-span-1 text-[14px] text-ink/85 leading-snug">{s.note}</div>
+            <div className={`hidden md:block mono text-[9px] tracking-[0.14em] px-2 py-1 h-fit ${tagStyle(s.tag)}`}>
               {s.tag.toUpperCase()}
             </div>
           </li>
@@ -768,7 +774,7 @@ function Footer() {
       <div className="relative max-w-[1400px] mx-auto px-6 pt-20 pb-14">
         {/* Editorial lead */}
         <div className="grid md:grid-cols-12 gap-10 pb-14 border-b border-paper/10">
-          <div className="md:col-span-7">
+          <div className="md:col-span-7 min-w-0">
             <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-6 flex items-center gap-3">
               <span className="h-px w-8 bg-fire" />
               End of the page. Start of the conversation.
@@ -805,7 +811,7 @@ function Footer() {
             </div>
           </div>
 
-          <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10">
+          <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10 min-w-0">
             <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-6 flex items-center gap-3">
               <span>Field notes</span>
               <span className="h-px flex-1 bg-paper/10" />
@@ -822,7 +828,7 @@ function Footer() {
                 <input
                   type="email"
                   placeholder="you@company.com"
-                  className="flex-1 bg-transparent outline-none py-2 text-paper placeholder:text-paper/40"
+                  className="flex-1 min-w-0 bg-transparent outline-none py-2 text-paper placeholder:text-paper/40"
                 />
                 <button type="button" className="group inline-flex items-center gap-2 rounded-full bg-paper text-ink pl-4 pr-2 py-1.5 text-sm font-medium hover:bg-fire hover:text-paper transition-colors">
                   Subscribe
