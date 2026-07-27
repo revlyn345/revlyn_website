@@ -58,7 +58,7 @@ export function LeakVsSealVisual() {
           <text x="200" y="170" textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" fill="#ff5722">↓ REALITY: 2,300</text>
         </svg>
         <ul className="mt-4 space-y-1.5 text-sm">
-          {["CRM full of half-finished notes","Pipeline nobody trusts","Reps skip the process","AI stuck in the sandbox"].map(t =>
+          {["CRM full of half-finished notes", "Pipeline nobody trusts", "Reps skip the process", "AI stuck in the sandbox"].map(t =>
             <li key={t} className="flex gap-2"><span className="text-fire">✕</span><span className="line-through decoration-fire/70">{t}</span></li>
           )}
         </ul>
@@ -74,16 +74,16 @@ export function LeakVsSealVisual() {
           <path d="M140 100 L260 100" stroke="#0a0a0a" strokeWidth="2" className="rv-flow" fill="none" />
           <path d="M140 150 L260 150" stroke="#0a0a0a" strokeWidth="2" className="rv-flow" fill="none" />
           {/* Checkmarks */}
-          {[[100,60],[300,60],[170,190],[230,190]].map(([x,y],i) => (
-            <g key={i} style={{ animation: `rv-tick 2s ${i*.4}s ease-in-out infinite` }}>
+          {[[100, 60], [300, 60], [170, 190], [230, 190]].map(([x, y], i) => (
+            <g key={i} style={{ animation: `rv-tick 2s ${i * .4}s ease-in-out infinite` }}>
               <circle cx={x} cy={y} r="10" fill="#0a0a0a" />
-              <path d={`M${x-4} ${y} L${x-1} ${y+3} L${x+5} ${y-3}`} stroke="#ffeb3b" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+              <path d={`M${x - 4} ${y} L${x - 1} ${y + 3} L${x + 5} ${y - 3}`} stroke="#ffeb3b" strokeWidth="2.5" fill="none" strokeLinecap="round" />
             </g>
           ))}
           <text x="200" y="130" textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" fill="#0a0a0a">ONE SCHEMA · ONE TRUTH</text>
         </svg>
         <ul className="mt-4 space-y-1.5 text-sm font-medium">
-          {["One schema, one source of truth","Pipeline you present to the board","Motion reps actually run","AI wired with real guardrails"].map(t =>
+          {["One schema, one source of truth", "Pipeline you present to the board", "Motion reps actually run", "AI wired with real guardrails"].map(t =>
             <li key={t} className="flex gap-2"><span>✓</span><span>{t}</span></li>
           )}
         </ul>
@@ -110,22 +110,22 @@ export function MethodRunnerVisual() {
       <div className="relative h-10 border-2 border-paper flex overflow-hidden">
         {stages.map((s, i) => (
           <div key={s.t} className="relative border-r-2 border-paper last:border-r-0"
-            style={{ width: `${s.w}%`, background: s.c, opacity: 0 as unknown as number, animation: `rv-tick 1s ${i*.35+.2}s ease-out forwards` }}>
+            style={{ width: `${s.w}%`, background: s.c, opacity: 0 as unknown as number, animation: `rv-tick 1s ${i * .35 + .2}s ease-out forwards` }}>
             {/* scan shimmer */}
             <div className="absolute inset-0 opacity-40"
-              style={{ background: "linear-gradient(90deg,transparent,rgba(0,0,0,.35),transparent)", animation: `rv-scan 4s ${i*.5}s linear infinite` }}/>
+              style={{ background: "linear-gradient(90deg,transparent,rgba(0,0,0,.35),transparent)", animation: `rv-scan 4s ${i * .5}s linear infinite` }} />
           </div>
         ))}
         {/* Runner head */}
         <div className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-fire border-2 border-paper"
-          style={{ animation: "rv-scan 8s ease-in-out infinite" }}/>
+          style={{ animation: "rv-scan 8s ease-in-out infinite" }} />
       </div>
       <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
         {stages.map((s, i) => (
           <div key={s.t} className="border-l-2 border-paper/40 pl-3">
             <div className="mono text-[10px] text-fire">{s.d}</div>
             <div className="display text-lg text-paper mt-1">{s.t}</div>
-            <div className="mono text-[10px] text-paper/50 mt-1">STAGE {String(i+1).padStart(2,"0")}</div>
+            <div className="mono text-[10px] text-paper/50 mt-1">STAGE {String(i + 1).padStart(2, "0")}</div>
           </div>
         ))}
       </div>
@@ -136,29 +136,29 @@ export function MethodRunnerVisual() {
 /* ───── 3. STACK CONSTELLATION · animated node graph ───── */
 export function StackConstellationVisual() {
   const nodes = [
-    { id: "CRM",       x: 200, y: 40,  c: "#ff5722" },
-    { id: "WHSE",      x: 340, y: 100, c: "#ffeb3b" },
-    { id: "ELT",       x: 340, y: 200, c: "#ffffff" },
-    { id: "ENRICH",    x: 200, y: 260, c: "#ff5722" },
-    { id: "OUTREACH",  x: 60,  y: 200, c: "#ffeb3b" },
-    { id: "PLG",       x: 60,  y: 100, c: "#ffffff" },
-    { id: "CALL·INTEL",x: 200, y: 150, c: "#ffeb3b" },
-    { id: "AI",        x: 200, y: 150, c: "#ff5722" },
+    { id: "CRM", x: 200, y: 40, c: "#ff5722" },
+    { id: "WHSE", x: 340, y: 100, c: "#ffeb3b" },
+    { id: "ELT", x: 340, y: 200, c: "#ffffff" },
+    { id: "ENRICH", x: 200, y: 260, c: "#ff5722" },
+    { id: "OUTREACH", x: 60, y: 200, c: "#ffeb3b" },
+    { id: "PLG", x: 60, y: 100, c: "#ffffff" },
+    { id: "CALL·INTEL", x: 200, y: 150, c: "#ffeb3b" },
+    { id: "AI", x: 200, y: 150, c: "#ff5722" },
   ];
-  const edges = [[0,6],[1,6],[2,6],[3,6],[4,6],[5,6],[6,7]];
+  const edges = [[0, 6], [1, 6], [2, 6], [3, 6], [4, 6], [5, 6], [6, 7]];
   return (
     <div className="brutal-border bg-ink p-4 md:p-8 relative overflow-hidden">
       <LoopStyles />
       <svg viewBox="0 0 400 300" className="w-full h-auto">
         {/* grid */}
-        {Array.from({length:8}).map((_,i)=>(
-          <line key={"h"+i} x1="0" y1={i*40} x2="400" y2={i*40} stroke="#222" strokeWidth="1" />
+        {Array.from({ length: 8 }).map((_, i) => (
+          <line key={"h" + i} x1="0" y1={i * 40} x2="400" y2={i * 40} stroke="#222" strokeWidth="1" />
         ))}
-        {Array.from({length:11}).map((_,i)=>(
-          <line key={"v"+i} x1={i*40} y1="0" x2={i*40} y2="300" stroke="#222" strokeWidth="1" />
+        {Array.from({ length: 11 }).map((_, i) => (
+          <line key={"v" + i} x1={i * 40} y1="0" x2={i * 40} y2="300" stroke="#222" strokeWidth="1" />
         ))}
         {/* edges */}
-        {edges.map(([a,b],i)=>(
+        {edges.map(([a, b], i) => (
           <line key={i} x1={nodes[a].x} y1={nodes[a].y} x2={nodes[b].x} y2={nodes[b].y}
             stroke="#ff5722" strokeWidth="1.5" className="rv-flow" />
         ))}
@@ -168,25 +168,25 @@ export function StackConstellationVisual() {
         <circle cx="200" cy="150" r="48" fill="none" stroke="#ff5722" strokeWidth="1" strokeDasharray="2 8"
           style={{ transformOrigin: "200px 150px", animation: "rv-rotate 20s linear infinite reverse" }} />
         {/* nodes */}
-        {nodes.map((n,i)=>(
-          <g key={n.id+i}>
+        {nodes.map((n, i) => (
+          <g key={n.id + i}>
             {i === 7 ? (
               <>
-                <circle cx={n.x} cy={n.y} r="18" fill="#0a0a0a" stroke="#ff5722" strokeWidth="2"/>
-                <text x={n.x} y={n.y+4} textAnchor="middle" fontSize="11" fontFamily="Inter Tight, Inter, sans-serif" fontWeight="700" fill="#ff5722">AI</text>
+                <circle cx={n.x} cy={n.y} r="18" fill="#0a0a0a" stroke="#ff5722" strokeWidth="2" />
+                <text x={n.x} y={n.y + 4} textAnchor="middle" fontSize="11" fontFamily="Inter Tight, Inter, sans-serif" fontWeight="700" fill="#ff5722">AI</text>
               </>
             ) : i === 6 ? null : (
               <>
-                <rect x={n.x-32} y={n.y-11} width="64" height="22" fill="#0a0a0a" stroke={n.c} strokeWidth="1.5"/>
-                <text x={n.x} y={n.y+4} textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill={n.c}>{n.id}</text>
-                <circle cx={n.x-32} cy={n.y-11} r="2.5" fill={n.c} className="rv-pulse"/>
+                <rect x={n.x - 32} y={n.y - 11} width="64" height="22" fill="#0a0a0a" stroke={n.c} strokeWidth="1.5" />
+                <text x={n.x} y={n.y + 4} textAnchor="middle" fontSize="10" fontFamily="JetBrains Mono, monospace" fill={n.c}>{n.id}</text>
+                <circle cx={n.x - 32} cy={n.y - 11} r="2.5" fill={n.c} className="rv-pulse" />
               </>
             )}
           </g>
         ))}
       </svg>
       <div className="absolute top-3 right-3 mono text-[10px] text-paper/60 flex items-center gap-2">
-        <span className="w-1.5 h-1.5 bg-fire rv-blink inline-block"/> LIVE · 8 SUBSYSTEMS
+        <span className="w-1.5 h-1.5 bg-fire rv-blink inline-block" /> LIVE · 8 SUBSYSTEMS
       </div>
     </div>
   );
@@ -195,7 +195,7 @@ export function StackConstellationVisual() {
 /* ───── 4. MANIFESTO STAMPS · rotating principles ───── */
 export function ManifestoStampsVisual({ rules }: { rules: string[] }) {
   const rotations = [-2, 1.5, -1, 2, -1.5, 1];
-  const colors = ["bg-paper","bg-volt","bg-paper","bg-fire text-paper","bg-paper","bg-ink text-paper"];
+  const colors = ["bg-paper", "bg-volt", "bg-paper", "bg-fire text-paper", "bg-paper", "bg-ink text-paper"];
   return (
     <div className="grid md:grid-cols-3 gap-6">
       <LoopStyles />
@@ -203,14 +203,14 @@ export function ManifestoStampsVisual({ rules }: { rules: string[] }) {
         <div key={r} className="relative">
           <div className={`brutal-border p-6 min-h-[180px] flex flex-col justify-between ${colors[i]} brutal-shadow`}
             style={{ transform: `rotate(${rotations[i]}deg)` }}>
-            <div className="mono text-[10px] opacity-70">RULE · {String(i+1).padStart(2,"0")} / 06</div>
+            <div className="mono text-[10px] opacity-70">RULE · {String(i + 1).padStart(2, "0")} / 06</div>
             <div className="display text-2xl md:text-3xl leading-tight">{r}</div>
             <div className="mono text-[10px] opacity-70 flex justify-between">
               <span>REVLYN OS</span><span>v.3.0</span>
             </div>
           </div>
           <div className="absolute -top-2 -right-2 w-8 h-8 border-2 border-ink bg-volt grid place-items-center display text-sm rv-pulse">
-            {i+1}
+            {i + 1}
           </div>
         </div>
       ))}
@@ -220,7 +220,7 @@ export function ManifestoStampsVisual({ rules }: { rules: string[] }) {
 
 /* ───── 5. AGENT SIGNAL BARS · sound-bar visualizer ───── */
 export function AgentBarsVisual() {
-  const bars = Array.from({length: 24});
+  const bars = Array.from({ length: 24 });
   return (
     <div className="brutal-border border-paper bg-[#0d0d0d] p-4">
       <LoopStyles />
@@ -229,9 +229,9 @@ export function AgentBarsVisual() {
           <div key={i} className="flex-1 origin-bottom"
             style={{
               background: i % 4 === 0 ? "#ff5722" : i % 3 === 0 ? "#ffeb3b" : "#ffffff",
-              height: `${20 + (i*17) % 80}%`,
-              animation: `rv-bar ${.6 + (i*.07)%.9}s ease-in-out ${i*.05}s infinite`,
-            }}/>
+              height: `${20 + (i * 17) % 80}%`,
+              animation: `rv-bar ${.6 + (i * .07) % .9}s ease-in-out ${i * .05}s infinite`,
+            }} />
         ))}
       </div>
       <div className="flex justify-between mt-2 mono text-[10px] text-paper/50">
@@ -322,7 +322,7 @@ export function PlaybookRingsVisual() {
               strokeDashoffset="40"
               style={{ transformOrigin: "30px 30px", animation: `rv-rotate ${8 + i * 2}s linear infinite` }}
             />
-            <text x="30" y="34" textAnchor="middle" fontFamily="Space Grotesk" fontWeight="700" fontSize="9" fill="#0a0a0a">{it.k}</text>
+            <text x="30" y="34" textAnchor="middle" fontFamily="Space Grotesk" fontWeight="700" fontSize="5" fill="#0a0a0a">{it.k}</text>
           </svg>
         </div>
       ))}

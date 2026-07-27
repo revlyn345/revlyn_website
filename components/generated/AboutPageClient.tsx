@@ -238,6 +238,7 @@ function StrikeTeam() {
       role: "CEO &amp; founder · CRM &amp; architecture",
       name: "Rishabh",
       photo: "/team/rishabh.jpg",
+      photoPosition: "center 20%",
       spec: "Object models",
       note: "Was Head of RevOps at two B2B SaaS companies before Revlyn. Writes the schema before the first workflow ships.",
       tint: "fire",
@@ -246,6 +247,7 @@ function StrikeTeam() {
       role: "Head of CRM · lifecycle &amp; funnel",
       name: "Kartik",
       photo: "/team/kartik.jpg",
+      photoPosition: "center",
       spec: "Lifecycle",
       note: "Ex-Head of Marketing Ops. Owns the funnel math, from first touch to renewal, and the reports the board reads.",
       tint: "volt",
@@ -254,6 +256,7 @@ function StrikeTeam() {
       role: "AI engineer · automation &amp; agents",
       name: "Krishnanshu",
       photo: "/team/krishnanshu.jpg",
+      photoPosition: "center 10%",
       spec: "Workflows · AI",
       note: "Ships every workflow with a Loom and a rollback plan. Currently building the internal library of tested AI agents.",
       tint: "fire",
@@ -262,6 +265,7 @@ function StrikeTeam() {
       role: "CRM automation · workflow builds",
       name: "Shantanu",
       photo: "/team/shantanu.jpg",
+      photoPosition: "center",
       spec: "Rep adoption",
       note: "Writes the playbook and the Loom library so a new rep can onboard in a day, not a quarter.",
       tint: "volt",
@@ -313,6 +317,7 @@ function StrikeTeam() {
                 src={r.photo}
                 alt={r.name}
                 className="absolute inset-0 w-full h-full object-cover grayscale contrast-[1.05]"
+                style={{ objectPosition: r.photoPosition }}
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-ink/10 group-hover:bg-transparent transition-colors duration-500" />
