@@ -47,7 +47,7 @@ function StackSchematic() {
         <span className="text-fire">4 STAGES · FIXED SEQUENCE</span>
       </div>
 
-      <div className="mt-5 grid grid-cols-4 gap-2">
+      <div className="mt-5 grid grid-cols-1 md:grid-cols-4 gap-2">
         {stages.map((s, i) => (
           <div key={s.k} className="relative">
             <div className={`h-24 ${s.tint} flex flex-col items-start justify-between p-3`}>
@@ -61,7 +61,7 @@ function StackSchematic() {
         ))}
       </div>
 
-      <div className="mt-5 grid grid-cols-4 gap-2 text-[11px] leading-snug text-ink/70">
+      <div className="mt-5 grid grid-cols-1 md:grid-cols-4 gap-2 text-[11px] leading-snug text-ink/70">
         <div>Dedupe, then enrich, so the record base is true.</div>
         <div>Views, fields, workflows, plus a data dictionary.</div>
         <div>Every sync logged and mapped, one source of truth.</div>
@@ -301,7 +301,7 @@ function PipelineBoard() {
         <div className="mono text-[10px] tracking-[0.18em]">SALES PIPELINE · GATED</div>
         <div className="mono text-[10px] tracking-[0.18em] text-volt">ENTRY CONDITIONS ENFORCED</div>
       </div>
-      <div className="grid grid-cols-5 divide-x-2 divide-ink">
+      <div className="grid grid-cols-1 md:grid-cols-5 divide-x-2 divide-ink">
         {stages.map((s, i) => (
           <div key={s.name} className={`p-4 ${i % 2 ? "bg-bone" : ""}`}>
             <div className="mono text-[10px] tracking-[0.16em] text-fire">STAGE {i + 1}</div>
@@ -832,7 +832,7 @@ function Footer() {
         </div>
 
         {/* Link grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
           {/* 6-column link grid */}
           {[
             {

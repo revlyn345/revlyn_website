@@ -123,7 +123,7 @@ function Hero() {
             </Link>
           </div>
 
-          <div className="mt-14 grid grid-cols-3 gap-6 max-w-lg">
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-lg">
             {[
               ["83", "portals we have rehabilitated", COLORS.fire],
               ["100%", "of your history stays put", COLORS.volt],
@@ -745,7 +745,7 @@ function DataFlow() {
               </g>
             ))}
           </svg>
-          <div className="grid grid-cols-3 gap-4 mt-8 mono text-[11px] tracking-widest uppercase text-paper/50">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 mono text-[11px] tracking-widest uppercase text-paper/50">
             <div>← Symptoms</div>
             <div className="text-center text-fire">Diagnose + repair</div>
             <div className="text-right">Outcomes →</div>
@@ -1145,7 +1145,7 @@ function Footer() {
         </div>
 
         {/* Link grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
           {/* 6-column link grid */}
           {[
             {

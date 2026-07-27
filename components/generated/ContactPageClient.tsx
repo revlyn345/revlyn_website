@@ -88,7 +88,7 @@ function Hero() {
                   <animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite" />
                 </circle>
               </svg>
-              <div className="mt-4 grid grid-cols-2 gap-2 mono text-[10px] uppercase tracking-[0.18em]">
+              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2 mono text-[10px] uppercase tracking-[0.18em]">
                 <div className="border border-ink bg-paper px-2 py-1.5">
                   <div className="text-ink/50">FROM</div>
                   <div>You</div>
@@ -103,7 +103,7 @@ function Hero() {
         </div>
 
         {/* Bottom meta strip */}
-        <div className="mt-14 border-t-2 border-ink pt-5 grid grid-cols-2 md:grid-cols-4 gap-6 mono text-[11px] uppercase tracking-[0.22em]">
+        <div className="mt-14 border-t-2 border-ink pt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mono text-[11px] uppercase tracking-[0.22em]">
           <div><div className="text-ink/50">Response SLA</div><div className="text-ink mt-1">1 business day</div></div>
           <div><div className="text-ink/50">First reply from</div><div className="text-ink mt-1">A senior operator</div></div>
           <div><div className="text-ink/50">Coverage</div><div className="text-ink mt-1">Gurugram · Remote · US/EU hours</div></div>
@@ -539,7 +539,7 @@ function Footer() {
         </div>
 
         {/* Link grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
           {/* 6-column link grid */}
           {[
             {

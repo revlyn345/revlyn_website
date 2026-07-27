@@ -112,7 +112,7 @@ function HeroQueue() {
           ))}
         </div>
 
-        <div className="mt-6 grid grid-cols-4 gap-3">
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-3">
           {[
             { k: "−38%", v: "Median resolve" },
             { k: "42%", v: "Deflected" },
@@ -953,7 +953,7 @@ export default function ServiceHub() {
                 </Link>
               </div>
 
-              <div className="mt-14 grid grid-cols-3 gap-4 max-w-[600px]" data-stagger>
+              <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-[600px]" data-stagger>
                 {[
                   { k: "−38%", v: "Median resolve", n: "against last quarter" },
                   { k: "+22", v: "NPS points", n: "measured 90 days post-live" },
@@ -1364,7 +1364,7 @@ function Footer() {
         </div>
 
         {/* Link grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
           {/* 6-column link grid */}
           {[
             {

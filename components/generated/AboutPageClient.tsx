@@ -134,7 +134,7 @@ function Origin() {
           </p>
         </div>
 
-        <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           {[
             { n: "120+", l: "Portals audited", bg: "bg-paper" },
             { n: "$4B+", l: "Pipeline under management", bg: "bg-paper" },
@@ -285,7 +285,10 @@ function StrikeTeam() {
             <span className="text-ink/40">No juniors, no account managers.</span>
           </h2>
         </div>
-       
+        <div className="max-w-xs mono text-xs uppercase tracking-widest text-ink/60">
+          Average tenure per operator sits at 9.8 years of CRM, RevOps, GTM or AI leadership. Every one of them is
+          in your Slack.
+        </div>
       </div>
 
       <div className="mb-10 grid md:grid-cols-2 gap-0 border-2 border-ink">
@@ -690,7 +693,7 @@ function Footer() {
         </div>
 
         {/* Link grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
           {/* 6-column link grid */}
           {[
             {

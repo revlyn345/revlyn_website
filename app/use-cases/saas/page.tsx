@@ -134,7 +134,7 @@ function LifecycleVisual() {
         <div className="mt-14 relative">
           <div className="hidden md:block absolute top-8 left-6 right-6 h-1 bg-ink" />
           <div className="hidden md:block absolute top-8 left-6 h-1 bg-fire" style={{ width: "83%" }} />
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-4 relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-4 relative">
             {stages.map((s, i) => (
               <div key={s.n} className="text-center">
                 <div className="mx-auto w-16 h-16 brutal-border bg-paper flex items-center justify-center display text-2xl relative z-10">
@@ -674,7 +674,7 @@ function Footer() {
         </div>
 
         {/* Link grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
           {/* 6-column link grid */}
           {[
             {

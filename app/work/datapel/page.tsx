@@ -106,7 +106,7 @@ export default function DatapelCase() {
             <div className="mono text-[10px] text-paper/50">MEASURED · POST-LAUNCH</div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {[
               { k: "Lead conversion", before: "19%", after: "68%", delta: "+49pp", accent: "volt" },
               { k: "Demo to closure", before: "28%", after: "~42%", delta: "+50%", accent: "fire" },
@@ -596,7 +596,7 @@ function AuditCoverageCard() {
         <span>FIG.03 · AUDIT COVERAGE</span>
         <span>DATAPEL / WEEK 0</span>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
         {items.map(([k, v, tint]) => (
           <div key={k} className={`brutal-border p-3 ${tint}`}>
             <div className="mono text-[9px] tracking-[0.14em] opacity-70">{k.toUpperCase()}</div>
@@ -861,7 +861,7 @@ function Footer() {
         </div>
 
         {/* Link grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
           {/* 6-column link grid */}
           {[
             {

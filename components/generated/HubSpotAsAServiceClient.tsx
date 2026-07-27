@@ -81,7 +81,7 @@ function Hero() {
               SEE WHAT WE RUN ↓
             </a>
           </div>
-          <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mono text-xs">
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mono text-xs">
             <Stat label="HUBSPOT BUILDS SHIPPED" value="50+" />
             <Stat label="AVG. OPERATOR TENURE" value="8 YRS" hi />
             <Stat label="FIRST SLACK REPLY" value="< 14m" />
@@ -1092,7 +1092,7 @@ function Footer() {
         </div>
 
         {/* Link grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
           {/* 6-column link grid */}
           {[
             {

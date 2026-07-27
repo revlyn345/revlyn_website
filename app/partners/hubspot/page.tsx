@@ -109,7 +109,7 @@ function Hero() {
         </div>
 
         {/* Metric strip */}
-        <div data-reveal data-reveal-delay="0.35" className="mt-14 border-t-2 border-ink pt-6 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div data-reveal data-reveal-delay="0.35" className="mt-14 border-t-2 border-ink pt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {[
             ["127", "Portals shipped"],
             ["6yr", "Longest active retainer"],
@@ -525,7 +525,7 @@ function Footer() {
         </div>
 
         {/* Link grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
           {/* 6-column link grid */}
           {[
             {

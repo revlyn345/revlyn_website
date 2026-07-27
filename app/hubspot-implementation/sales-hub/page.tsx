@@ -70,7 +70,7 @@ function HeroPipeline() {
           <span className="mono text-[10px] px-2 py-0.5 rounded bg-volt text-ink">S-Hub</span>
         </div>
 
-        <div className="grid grid-cols-5 gap-3 mb-3">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-3 mb-3">
           {stages.map((s, i) => (
             <div key={s} className="mono text-[10px] uppercase tracking-[0.16em] text-ink/60">
               {String(i + 1).padStart(2, "0")} · {s}
@@ -129,7 +129,7 @@ function HeroPipeline() {
           ))}
         </svg>
 
-        <div className="mt-6 grid grid-cols-4 gap-3">
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-3">
           {[
             { k: "±8%", v: "Forecast" },
             { k: "3.2×", v: "Rep updates" },
@@ -308,7 +308,7 @@ function CadenceTimeline() {
 
       <div className="relative">
         <div className="absolute left-0 right-0 top-8 h-[2px] bg-ink/20" />
-        <div className="grid grid-cols-7 gap-2 relative">
+        <div className="grid grid-cols-1 md:grid-cols-7 gap-2 relative">
           {touches.map((t, i) => (
             <div key={i} className="flex flex-col items-center">
               <div className="mono text-[10px] text-ink/50 mb-2">D{t.day}</div>
@@ -485,7 +485,7 @@ function QuoteFlow() {
         <div className="mono text-[11px] text-ink/60">QUOTE.FLOW / END-TO-END</div>
         <Tag tone="ink">CPQ · light</Tag>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4" data-stagger>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4" data-stagger>
         {steps.map((s, i) => (
           <div key={s.k} className="relative group" data-tilt="4">
             <div
@@ -898,7 +898,7 @@ export default function SalesHub() {
                 </Link>
               </div>
 
-              <div className="mt-14 grid grid-cols-3 gap-4 max-w-[600px]" data-stagger>
+              <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-[600px]" data-stagger>
                 {[
                   { k: "3.2×", v: "Rep adoption", n: "measured week 8" },
                   { k: "±8%", v: "Forecast variance", n: "vs ±30% before" },
@@ -1308,7 +1308,7 @@ function Footer() {
         </div>
 
         {/* Link grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
           {/* 6-column link grid */}
           {[
             {

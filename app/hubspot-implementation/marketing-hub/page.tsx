@@ -615,7 +615,7 @@ export default function MarketingHub() {
                 </Link>
               </div>
 
-              <div className="mt-14 grid grid-cols-3 gap-4 max-w-[600px]" data-stagger>
+              <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-[600px]" data-stagger>
                 {[
                   { k: "68%", v: "MQL → SQL", n: "vs 22% pre-build" },
                   { k: "4-6 wk", v: "Time to live", n: "fixed scope" },
@@ -897,7 +897,7 @@ function Footer() {
         </div>
 
         {/* Link grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
           {/* 6-column link grid */}
           {[
             {

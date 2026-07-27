@@ -103,7 +103,7 @@ export default function AusformingCase() {
             <div className="mono text-[10px] text-paper/50">MEASURED · STEADY STATE</div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
             {[
               { k: "Outbound volume", after: "1,000+", sub: "emails/day · Smartlead", accent: "volt" },
               { k: "Reply rate", after: "1–1.5%", sub: "senior SAP buyers", accent: "fire" },
@@ -463,7 +463,7 @@ function VideoTestimonial() {
           allowFullScreen
         />
       </div>
-      <div className="grid grid-cols-3 border-t-2 border-ink mono text-[10px] tracking-[0.14em] text-ink/70">
+      <div className="grid grid-cols-1 md:grid-cols-3 border-t-2 border-ink mono text-[10px] tracking-[0.14em] text-ink/70">
         <div className="px-4 py-3 border-r border-ink/10">
           <div className="text-ink/45">SPEAKER</div>
           <div className="text-ink mt-1">Sahil Naqvi</div>
@@ -540,7 +540,7 @@ function FunnelCard() {
           ))}
         </ul>
 
-        <div className="mt-5 pt-4 border-t border-ink/10 grid grid-cols-3 gap-3 text-center">
+        <div className="mt-5 pt-4 border-t border-ink/10 grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
           <div>
             <div className="mono text-[9px] tracking-[0.16em] text-ink/50">CALLS/MO</div>
             <div className="display text-xl mt-1 tabular-nums text-fire">20</div>
@@ -923,7 +923,7 @@ function Footer() {
         </div>
 
         {/* Link grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
           {/* 6-column link grid */}
           {[
             {
