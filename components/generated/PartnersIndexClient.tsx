@@ -196,7 +196,7 @@ function Hero() {
                 <span className="border border-ink bg-paper px-2 py-0.5">Certified · 2 of 2</span>
                 <span className="tabular-nums">Rev · Today</span>
               </div>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <Link href="/partners/hubspot" className="group/plaque border-2 border-ink bg-paper p-3 hover:bg-fire hover:text-paper transition-colors">
                   <div className="mono text-[10px] uppercase tracking-[0.22em] opacity-60">01</div>
                   <div className="display text-2xl leading-none mt-2">HubSpot</div>
@@ -217,7 +217,7 @@ function Hero() {
         </div>
 
         {/* Meta strip */}
-        <div data-reveal data-reveal-delay="0.35" className="mt-14 border-t-2 border-ink pt-5 grid grid-cols-2 md:grid-cols-4 gap-6 mono text-[11px] uppercase tracking-[0.22em]">
+        <div data-reveal data-reveal-delay="0.35" className="mt-14 border-t-2 border-ink pt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mono text-[11px] uppercase tracking-[0.22em]">
           <div><div className="text-ink/50">Partners</div><div className="text-ink mt-1">02 · On purpose</div></div>
           <div><div className="text-ink/50">Depth over breadth</div><div className="text-ink mt-1">In-portal weekly</div></div>
           <div><div className="text-ink/50">Certified</div><div className="text-ink mt-1">By the platform</div></div>
@@ -385,7 +385,7 @@ function PartnersLedger() {
 
                   <p className="mt-5 text-ink/75 leading-relaxed">{p.blurb}</p>
 
-                  <div className="mt-6 border-t-2 border-ink pt-4 grid grid-cols-2 gap-4">
+                  <div className="mt-6 border-t-2 border-ink pt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <div className="mono text-[10px] uppercase tracking-[0.22em] text-ink/50">
                         Scope with us

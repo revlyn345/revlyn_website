@@ -617,7 +617,7 @@ function StackGrid() {
           <div className="lg:col-span-7">
             <StackConstellationVisual />
           </div>
-          <div className="lg:col-span-5 grid grid-cols-2 gap-0 brutal-border self-start">
+          <div className="lg:col-span-5 grid grid-cols-1 md:grid-cols-2 gap-0 brutal-border self-start">
             {stack.map((s, i) => (
               <div
                 key={s.g}
@@ -693,7 +693,7 @@ function Numbers() {
   ];
   return (
     <section className="border-b-2 border-ink bg-fire text-paper">
-      <div className="max-w-[1400px] mx-auto px-6 py-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="max-w-[1400px] mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {stats.map((s, i) => (
           <div key={s.l} className={`p-4 ${i !== stats.length - 1 ? "md:border-r-2 md:border-paper" : ""}`}>
             <div className="display text-6xl md:text-7xl">{s.n}</div>
@@ -898,7 +898,7 @@ function Footer() {
         </div>
 
         {/* Link grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
           {/* 6-column link grid */}
           {[
             {
@@ -1101,7 +1101,7 @@ function StoryVisual() {
             ))}
           </ol>
 
-          <div className="mt-6 grid grid-cols-3 gap-3 mono text-xs">
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3 mono text-xs">
             <div className="brutal-border p-3">
               <div className="text-[10px] text-muted-foreground">EMBED</div>
               <div className="display text-xl mt-1">2 OPS</div>
@@ -1139,7 +1139,7 @@ function MacroShot() {
           <div className="mt-6">
             <SystemLoopVisual />
           </div>
-          <ul className="mt-6 grid grid-cols-2 gap-2 mono text-[11px]">
+          <ul className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-2 mono text-[11px]">
             {[
               "LEADS → OPPS",
               "OPPS → WON",
@@ -1188,7 +1188,7 @@ function FunnelVisual() {
             height={912}
           />
         </div>
-        <div className="mt-6 grid grid-cols-2 md:grid-cols-5 gap-0 brutal-border">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-0 brutal-border">
           {[
             ["ATTRACT", "SEO · ADS · PLG"],
             ["QUALIFY", "ICP · SCORE · SLA"],
@@ -1235,7 +1235,7 @@ function TeamStrip() {
               height={1008}
             />
           </div>
-          <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 mono text-xs">
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mono text-xs">
             {[
               ["MARK L.", "CRM / SFDC"],
               ["AYA T.", "REVOPS / WHSE"],
@@ -1610,7 +1610,7 @@ function Playbook() {
           <div className="mt-8">
             <PlaybookRingsVisual />
           </div>
-          <ul className="mt-4 grid grid-cols-2 gap-1 mono text-[11px] text-muted-foreground">
+          <ul className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-1 mono text-[11px] text-muted-foreground">
             {[
               ["ICP", "segments + firmographics"],
               ["MOTIONS", "outbound · PLG · partner"],
@@ -1675,7 +1675,7 @@ function CaseStories() {
               />
             </div>
 
-            <div className="mt-8 grid grid-cols-3 gap-3">
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-3">
               {[
                 ["+$14M", "ARR ADDED · 12MO"],
                 ["-62%", "MANUAL SDR WORK"],
@@ -1729,7 +1729,7 @@ function CaseStories() {
               <h4 className="display text-2xl md:text-3xl">{c.title}</h4>
               <p className="mt-4 leading-relaxed opacity-90">{c.d1}</p>
               <p className="mt-3 leading-relaxed opacity-90">{c.d2}</p>
-              <div className="mt-5 grid grid-cols-3 gap-2">
+              <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-2">
                 {c.stats.map(([k, v]) => (
                   <div key={k} className="brutal-border border-current p-2 bg-paper text-ink">
                     <div className="display text-lg">{k}</div>
@@ -1763,7 +1763,7 @@ function WhoItsFor() {
             If you're the one accountable for revenue this quarter, this is the team you hire before you add another internal operations head.
           </p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3">
           {roles.map((r, i) => (
             <div key={r.role} className={`brutal-border p-5 hover:brutal-shadow transition-all ${i === 0 ? "bg-fire text-paper" : i === 2 ? "bg-volt" : "bg-paper"}`}>
               <div className="mono text-[10px] opacity-70">0{i + 1}</div>
@@ -2111,7 +2111,7 @@ function RevenueStackScroll() {
       </div>
 
       {/* footer strip */}
-      <div className="absolute left-3 right-3 bottom-3 grid grid-cols-3 gap-1 mono text-[9px] z-10">
+      <div className="absolute left-3 right-3 bottom-3 grid grid-cols-1 md:grid-cols-3 gap-1 mono text-[9px] z-10">
         <div className="border border-paper/25 px-2 py-1.5">
           <div className="opacity-50">LAYERS</div>
           <div className="tabular-nums">04 / 04</div>

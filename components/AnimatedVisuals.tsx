@@ -120,7 +120,7 @@ export function MethodRunnerVisual() {
         <div className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-fire border-2 border-paper"
           style={{ animation: "rv-scan 8s ease-in-out infinite" }}/>
       </div>
-      <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
         {stages.map((s, i) => (
           <div key={s.t} className="border-l-2 border-paper/40 pl-3">
             <div className="mono text-[10px] text-fire">{s.d}</div>
@@ -310,7 +310,7 @@ export function PlaybookRingsVisual() {
     { k: "GUARDRAILS", c: "#ff5722" },
   ];
   return (
-    <div className="grid grid-cols-4 gap-3">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
       <LoopStyles />
       {items.map((it, i) => (
         <div key={it.k} className="brutal-border bg-paper p-3 grid place-items-center aspect-square">

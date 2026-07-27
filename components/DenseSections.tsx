@@ -534,7 +534,7 @@ export function ProofLedger() {
 
               {/* metrics table */}
               <div>
-                <div className="grid grid-cols-[1.4fr_1fr_1fr_0.9fr] border-b border-ink/15 pb-2 mb-1 mono text-[10.5px] text-ink/40">
+                <div className="hidden md:grid grid-cols-[1.4fr_1fr_1fr_0.9fr] border-b border-ink/15 pb-2 mb-1 mono text-[10.5px] text-ink/40">
                   <div>Metric</div>
                   <div className="text-right tabular-nums">Before</div>
                   <div className="text-right tabular-nums">After</div>
@@ -543,13 +543,22 @@ export function ProofLedger() {
                 {c.metrics.map((m, j) => (
                   <div
                     key={j}
-                    className="grid grid-cols-[1.4fr_1fr_1fr_0.9fr] items-baseline py-3 border-b border-ink/8 last:border-b-0 text-[13.5px]"
+                    className="py-3 border-b border-ink/8 last:border-b-0 text-[13.5px] md:grid md:grid-cols-[1.4fr_1fr_1fr_0.9fr] md:items-baseline"
                   >
-                    <div className="text-ink/85">{m.k}</div>
-                    <div className="text-right tabular-nums text-ink/45 line-through decoration-ink/30">{m.before}</div>
-                    <div className="text-right tabular-nums font-medium text-ink">{m.after}</div>
-                    <div className="text-right tabular-nums">
-                      <span className="inline-block px-1.5 py-0.5 bg-volt/60 text-ink text-[12px]">{m.delta}</span>
+                    <div className="text-ink/85 mb-2 md:mb-0">{m.k}</div>
+                    <div className="grid grid-cols-3 gap-3 md:contents">
+                      <div className="md:text-right">
+                        <span className="mono text-[9.5px] text-ink/40 md:hidden block mb-0.5">Before</span>
+                        <span className="tabular-nums text-ink/45 line-through decoration-ink/30">{m.before}</span>
+                      </div>
+                      <div className="md:text-right">
+                        <span className="mono text-[9.5px] text-ink/40 md:hidden block mb-0.5">After</span>
+                        <span className="tabular-nums font-medium text-ink">{m.after}</span>
+                      </div>
+                      <div className="md:text-right">
+                        <span className="mono text-[9.5px] text-ink/40 md:hidden block mb-0.5">Δ</span>
+                        <span className="inline-block px-1.5 py-0.5 bg-volt/60 text-ink text-[12px]">{m.delta}</span>
+                      </div>
                     </div>
                   </div>
                 ))}
