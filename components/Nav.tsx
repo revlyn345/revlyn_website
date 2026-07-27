@@ -107,6 +107,15 @@ export function Nav() {
   const partnersOpen = activeMenu === "partners";
   const workOpen = activeMenu === "work";
 
+  // Mobile menu — the desktop pill nav (<nav className="hidden md:flex">)
+  // has no mobile equivalent, so below md there was previously no way to
+  // reach any page except the ones linked from the homepage body. This adds
+  // a hamburger button + slide-down panel with the same links, grouped the
+  // same way, as an accordion.
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileSection, setMobileSection] = useState<MenuKey | null>(null);
+  const [mobileImplOpen, setMobileImplOpen] = useState(false);
+
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", on);
@@ -135,6 +144,21 @@ export function Nav() {
   useEffect(() => {
     if (activeMenu !== "hubspot") setImplOpen(false);
   }, [activeMenu]);
+
+  // Close the mobile menu whenever the route changes (e.g. tapping a link).
+  useEffect(() => {
+    setMobileOpen(false);
+    setMobileSection(null);
+    setMobileImplOpen(false);
+  }, [pathname]);
+
+  // Prevent the page from scrolling behind the mobile menu while it's open.
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
   // Measure where the "Implementation" row sits inside the HubSpot panel so
   // the flyout can be positioned to start right next to it, rather than
@@ -532,9 +556,172 @@ export function Nav() {
                 </svg>
               </span>
             </BookCallButton>
+
+            {/* Hamburger — mobile only, opens the slide-down menu below */}
+            <button
+              type="button"
+              onClick={() => setMobileOpen((v) => !v)}
+              aria-expanded={mobileOpen}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full border border-ink/15 bg-paper/80 text-ink shrink-0"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                {mobileOpen ? (
+                  <path d="M18 6L6 18M6 6l12 12" />
+                ) : (
+                  <path d="M3 6h18M3 12h18M3 18h18" />
+                )}
+              </svg>
+            </button>
           </div>
         </div>
       </div>
+
+      {/* ── Mobile menu backdrop + panel ────────────────────────────── */}
+      {mobileOpen && (
+        <>
+          <div
+            className="md:hidden fixed inset-0 z-30 bg-ink/20"
+            onClick={() => setMobileOpen(false)}
+            aria-hidden
+          />
+          <div className="md:hidden absolute inset-x-0 top-full z-40 bg-paper max-h-[75vh] overflow-y-auto border-t border-ink/10 shadow-xl">
+          <div className="px-6 py-6 flex flex-col gap-1">
+            {/* What we do — accordion */}
+            <button
+              type="button"
+              onClick={() => setMobileSection((v) => (v === "what" ? null : "what"))}
+              className="flex items-center justify-between py-3 border-b border-ink/10 text-left"
+            >
+              <span className="text-base font-medium">What we do</span>
+              <span className={`transition-transform ${mobileSection === "what" ? "rotate-180" : ""}`}>⌄</span>
+            </button>
+            {mobileSection === "what" && (
+              <div className="pl-4 pb-2">
+                {whatLinks.map(([label, id, note]) => (
+                  <a
+                    key={id}
+                    href={anchor(id)}
+                    className="block py-2.5 border-b border-ink/5"
+                  >
+                    <span className="block text-sm font-medium">{label}</span>
+                    <span className="block text-xs text-ink/50">{note}</span>
+                  </a>
+                ))}
+              </div>
+            )}
+
+            {/* HubSpot — accordion, with nested Implementation */}
+            <button
+              type="button"
+              onClick={() => setMobileSection((v) => (v === "hubspot" ? null : "hubspot"))}
+              className="flex items-center justify-between py-3 border-b border-ink/10 text-left"
+            >
+              <span className="text-base font-medium">HubSpot</span>
+              <span className={`transition-transform ${mobileSection === "hubspot" ? "rotate-180" : ""}`}>⌄</span>
+            </button>
+            {mobileSection === "hubspot" && (
+              <div className="pl-4 pb-2">
+                {hubspotLinks.map((link) => {
+                  const isImplementation = link.to === "/hubspot-implementation";
+                  return (
+                    <div key={link.to}>
+                      <div className="flex items-center justify-between border-b border-ink/5">
+                        <Link href={link.to} className="block py-2.5 flex-1">
+                          <span className="block text-sm font-medium">{link.label}</span>
+                          <span className="block text-xs text-ink/50">{link.note}</span>
+                        </Link>
+                        {isImplementation && (
+                          <button
+                            type="button"
+                            onClick={() => setMobileImplOpen((v) => !v)}
+                            aria-label="Toggle Implementation sub-menu"
+                            className="px-2 py-2.5"
+                          >
+                            <span className={`inline-block transition-transform ${mobileImplOpen ? "rotate-180" : ""}`}>⌄</span>
+                          </button>
+                        )}
+                      </div>
+                      {isImplementation && mobileImplOpen && (
+                        <div className="pl-4">
+                          {implementationLinks.map((sub) => (
+                            <Link key={sub.to} href={sub.to} className="block py-2 border-b border-ink/5">
+                              <span className="block text-sm">{sub.label}</span>
+                              <span className="block text-xs text-ink/50">{sub.note}</span>
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Partners — accordion */}
+            <button
+              type="button"
+              onClick={() => setMobileSection((v) => (v === "partners" ? null : "partners"))}
+              className="flex items-center justify-between py-3 border-b border-ink/10 text-left"
+            >
+              <span className="text-base font-medium">Partners</span>
+              <span className={`transition-transform ${mobileSection === "partners" ? "rotate-180" : ""}`}>⌄</span>
+            </button>
+            {mobileSection === "partners" && (
+              <div className="pl-4 pb-2">
+                {partnersLinks.map((link) => (
+                  <Link key={link.to} href={link.to} className="block py-2.5 border-b border-ink/5">
+                    <span className="block text-sm font-medium">{link.label}</span>
+                    <span className="block text-xs text-ink/50">{link.note}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            {/* Work — accordion */}
+            <button
+              type="button"
+              onClick={() => setMobileSection((v) => (v === "work" ? null : "work"))}
+              className="flex items-center justify-between py-3 border-b border-ink/10 text-left"
+            >
+              <span className="text-base font-medium">Work</span>
+              <span className={`transition-transform ${mobileSection === "work" ? "rotate-180" : ""}`}>⌄</span>
+            </button>
+            {mobileSection === "work" && (
+              <div className="pl-4 pb-2">
+                {workLinks.map((link) => (
+                  <Link key={link.to} href={link.to} className="block py-2.5 border-b border-ink/5">
+                    <span className="block text-sm font-medium">{link.label}</span>
+                    <span className="block text-xs text-ink/50">{link.note}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            {/* Flat links */}
+            {mainLinks.map((link) => (
+              <Link key={link.to} href={link.to} className="py-3 border-b border-ink/10 text-base font-medium">
+                {link.label}
+              </Link>
+            ))}
+
+            {/* Phone + Book a call, pinned at the bottom of the list */}
+            <a
+              href="tel:+917503044000"
+              className="flex items-center gap-2 py-4 text-sm text-ink/70"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z" />
+              </svg>
+              +91 75030 44000
+            </a>
+            <BookCallButton className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-ink text-paper py-3.5 text-base font-medium mb-6">
+              Book a call
+            </BookCallButton>
+          </div>
+          </div>
+        </>
+      )}
     </header>
   );
 }

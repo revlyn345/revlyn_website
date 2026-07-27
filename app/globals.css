@@ -213,3 +213,20 @@
 .revlyn-marquee:hover > div:first-child {
   animation-play-state: paused !important;
 }
+
+/* Hard safety net for [data-pin]/[data-pin-inner] (see MotionRuntime.tsx).
+   That JS is gated to run on desktop only, but this CSS guarantees the
+   pinned element can never end up position:fixed/absolute below the md
+   breakpoint — even if the JS hasn't reloaded yet, or GSAP left stale
+   inline styles behind from a resize. Without this, a pinned text block
+   can end up stuck in place while its sibling scrolls underneath it,
+   causing the two to visually overlap. */
+@media (max-width: 767px) {
+  [data-pin-inner] {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    width: auto !important;
+    transform: none !important;
+  }
+}

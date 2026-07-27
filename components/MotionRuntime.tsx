@@ -158,34 +158,42 @@ function setupScrollTriggers() {
   // long as the [data-pin] container itself is scrolling past — used for
   // "sticky sidebar next to a taller scrolling column" layouts. This
   // replaces CSS `position: sticky`, which conflicts with Lenis smooth-scroll.
-  gsap.utils.toArray("[data-pin]").forEach((el: any) => {
-    const inner = el.querySelector("[data-pin-inner]");
-    if (!inner) return;
-    ScrollTrigger.create({
-      trigger: el,
-      start: "top 100",
-      end: "bottom bottom",
-      pin: inner,
-      pinSpacing: false,
-    });
-    const scrubbers = el.querySelectorAll("[data-pin-scrub]");
-    scrubbers.forEach((s: any, i: number) => {
-      gsap.fromTo(
-        s,
-        { autoAlpha: 0, y: 40 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          scrollTrigger: {
-            trigger: el,
-            start: `top+=${(i / scrubbers.length) * 100}% top`,
-            end: `top+=${((i + 1) / scrubbers.length) * 100}% top`,
-            scrub: true,
+  //
+  // Desktop-only: these layouts are always a wide grid (e.g. text column +
+  // terminal/visual column side by side). Below the md breakpoint those
+  // columns stack vertically instead, so pinning the text in place while
+  // the second column scrolls past underneath it causes the two to visually
+  // overlap — exactly the garbled/overlapping text seen on mobile.
+  if (window.matchMedia("(min-width: 768px)").matches) {
+    gsap.utils.toArray("[data-pin]").forEach((el: any) => {
+      const inner = el.querySelector("[data-pin-inner]");
+      if (!inner) return;
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top 100",
+        end: "bottom bottom",
+        pin: inner,
+        pinSpacing: false,
+      });
+      const scrubbers = el.querySelectorAll("[data-pin-scrub]");
+      scrubbers.forEach((s: any, i: number) => {
+        gsap.fromTo(
+          s,
+          { autoAlpha: 0, y: 40 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            scrollTrigger: {
+              trigger: el,
+              start: `top+=${(i / scrubbers.length) * 100}% top`,
+              end: `top+=${((i + 1) / scrubbers.length) * 100}% top`,
+              scrub: true,
+            },
           },
-        },
-      );
+        );
+      });
     });
-  });
+  }
 
   // ── COUNTUP: [data-count-to="142"] ───────────────
   gsap.utils.toArray("[data-count-to]").forEach((el: any) => {

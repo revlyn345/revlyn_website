@@ -285,10 +285,7 @@ function StrikeTeam() {
             <span className="text-ink/40">No juniors, no account managers.</span>
           </h2>
         </div>
-        <div className="max-w-xs mono text-xs uppercase tracking-widest text-ink/60">
-          Average tenure per operator sits at 9.8 years of CRM, RevOps, GTM or AI leadership. Every one of them is
-          in your Slack.
-        </div>
+       
       </div>
 
       <div className="mb-10 grid md:grid-cols-2 gap-0 border-2 border-ink">

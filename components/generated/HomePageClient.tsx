@@ -11,9 +11,13 @@ const dashboardMockup = "/dashboard-mockup.jpg";
 const aiTerminal = "/ai-terminal.jpg";
 const caseFounder = "/case-founder.jpg";
 const playbookDesk = "/playbook-desk.jpg";
+// TODO: source "cap" is a Lovable-hosted logo asset — not migrated.
 const capLogo = "/logos/cap.svg";
+// TODO: source "detrack" is a Lovable-hosted logo asset — not migrated.
 const detrackLogo = "/logos/detrack.svg";
+// TODO: source "irim" is a Lovable-hosted logo asset — not migrated.
 const irimLogo = "/logos/irim.svg";
+// TODO: source "intuitive" is a Lovable-hosted logo asset — not migrated.
 const intuitiveLogo = "/logos/intuitive.svg";
 // TODO: source "runo" is a Lovable-hosted logo asset — not migrated.
 const runoLogo = "/logos/runo.svg";
@@ -33,7 +37,6 @@ const ausformingLogo = "/logos/ausforming.svg";
 const sparkleLogo = "/logos/sparkle.svg";
 // TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
 const revlynWordmark = "/logos/revlyn-wordmark.png";
-import { WebGLHeroField } from "@/components/WebGLHeroField";
 
 import {
   LeakVsSealVisual,
@@ -185,12 +188,30 @@ function ChapterDivider({
 /* ─────────────────────────────  HERO  ───────────────────────────── */
 function Hero() {
   return (
-    <section className="relative border-b-2 border-ink overflow-hidden">
-      {/* WebGL plasma field */}
-      <WebGLHeroField />
-      <div className="absolute inset-0 stripes opacity-[0.04] pointer-events-none" />
-      <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24 grid md:grid-cols-12 gap-8 relative">
+    <section className="relative border-b-2 border-ink overflow-hidden min-h-[85vh] flex items-center">
+      {/* Revenue engine background photo — EXPERIMENT: a uniform flat wash
+          across the whole image (not a left-heavy gradient), matching the
+          reference look where the photo is evenly light everywhere and the
+          text simply sits on top of it, centered in a taller hero. */}
+      <div className="absolute inset-0">
+        <Image
+          src="/hero-revenue-engine.png"
+          alt=""
+          fill
+          priority
+          className="object-cover object-center"
+          style={{ filter: "brightness(1.3) contrast(0.9) saturate(0.85)" }}
+        />
+        <div className="absolute inset-0 bg-paper/60" />
+        {/* Soft bottom fade so the operator row / border transition feels intentional, not cut off */}
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-paper/60 to-transparent pointer-events-none" />
+      </div>
+      <div className="w-full max-w-[1400px] mx-auto px-8 md:px-16 lg:px-20 py-16 md:py-24 grid md:grid-cols-12 gap-8 relative">
         <div className="md:col-span-8">
+          <div data-reveal className="mono text-xs uppercase tracking-[0.2em] text-ink/60 mb-4">
+            HubSpot · RevOps · GTM systems
+          </div>
+
           <h1 data-reveal className="display text-[clamp(3rem,9vw,8.5rem)] leading-[0.9] tracking-[-0.045em]">
             <span className="block">Revenue,</span>
             <span className="block">
@@ -210,40 +231,29 @@ function Hero() {
           </h1>
 
           <p data-reveal data-reveal-delay="0.15" className="mt-8 max-w-2xl text-lg md:text-xl leading-snug">
-            Most B2B companies work with two or three agencies before they find one that stays. It's a structural issue, the agency model rewards new logos over lived-in accounts. We built Revlyn to sit on the other side of that equation: eight years inside RevOps, 120+ HubSpot builds behind us, and the same senior operators on your Slack every week.
-          </p>
-          <p data-reveal data-reveal-delay="0.2" className="mt-4 max-w-2xl text-base text-muted-foreground leading-snug">
-            Strategy is only useful if someone ships it. So we do both, the thinking and the building, with senior operators end to end. When a deal stalls in stage 4 on a Sunday, you get a human who has seen that pattern before, not a ticket in a queue.
+            We build and run the CRM, reporting and automation behind B2B revenue teams. HubSpot implementation, RevOps and GTM systems, handled by the same two people from month one onward.
           </p>
 
           <div data-reveal data-reveal-delay="0.3" className="mt-10 flex flex-wrap items-center gap-4">
             <a
               href="#book"
               data-magnetic="22"
-              className="group brutal-border bg-ink text-paper px-6 py-4 display text-xl brutal-shadow-fire hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[5px_5px_0_0_var(--color-fire)] transition-all"
+              className="rounded-full bg-paper text-ink border-2 border-ink px-7 py-4 display text-lg hover:bg-bone transition-colors"
             >
               BOOK A 30-MIN CALL
-              <span className="ml-2 inline-block group-hover:translate-x-1 transition-transform">→</span>
             </a>
             <a
               href="#services"
               data-magnetic="14"
-              className="brutal-border bg-volt text-ink px-6 py-4 display text-xl hover:bg-paper transition-colors"
+              className="group inline-flex items-center gap-3 rounded-full bg-ink text-paper px-7 py-4 display text-lg hover:bg-fire transition-colors"
             >
-              SEE WHAT WE RUN ↓
+              SEE WHAT WE RUN
+              <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-paper text-ink group-hover:translate-x-0.5 transition-transform">
+                ↓
+              </span>
             </a>
           </div>
-
-          {/* Operator row · faces + combined experience */}
-          <OperatorRow />
         </div>
-
-        {/* Hero visual · scroll-driven anatomy of a revenue stack */}
-        <div className="md:col-span-4 relative" data-hero-schematic>
-          <RevenueStackScroll />
-        </div>
-
-
 
       </div>
     </section>
@@ -1204,11 +1214,15 @@ function TeamStrip() {
     <section className="border-b-2 border-ink bg-bone">
       <div className="max-w-[1400px] mx-auto px-6 py-20 grid md:grid-cols-12 gap-10 items-center">
         <div className="md:col-span-5">
-          <SectionHeader n="09" label="The people" title="Former VPs of RevOps and GTM - now on your side." />
+          <SectionHeader n="09" label="The people" title="Former VPs of RevOps and GTM — now on your side." />
           <p className="mt-6 text-lg leading-relaxed">
             Four senior operators. Every engagement gets two of us embedded, one on the CRM and data side, one on GTM and AI. No juniors, no offshore, no sub-contracting.
           </p>
-          
+          <ul className="mt-6 space-y-2 mono text-xs">
+            <li>▸ 40+ combined years across HubSpot, Salesforce & warehouses</li>
+            <li>▸ Shipped systems at Ramp, Vercel, Rippling, Airtable-scale co's</li>
+            <li>▸ Author of the internal "Revenue Handbook" used by 60+ teams</li>
+          </ul>
         </div>
         <div className="md:col-span-7">
           <div className="brutal-border brutal-shadow overflow-hidden bg-ink">
@@ -1223,10 +1237,10 @@ function TeamStrip() {
           </div>
           <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3 mono text-xs">
             {[
-              ["RISHABH", "CEO & FOUNDER"],
-              ["KARTIK", "HEAD OF CRM"],
-              ["KRISHNANSHU", "AI ENGINEER"],
-              ["SHANTANU", "CRM AUTOMATION"],
+              ["MARK L.", "CRM / SFDC"],
+              ["AYA T.", "REVOPS / WHSE"],
+              ["JADE R.", "GTM / OUTBOUND"],
+              ["RAJ P.", "AI / AGENTS"],
             ].map(([n, r]) => (
               <div key={n} className="brutal-border p-3">
                 <div className="display text-base">{n}</div>

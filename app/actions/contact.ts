@@ -1,24 +1,8 @@
 "use server";
-
-// NOTE: files marked "use server" may only export async functions — the
-// schema/types live in lib/contact-schema.ts and are re-exported for
-// convenience so existing imports of `contactSchema` / `ContactFormData`
-// from "@/app/actions/contact" keep working.
 import { contactSchema, type ContactFormData, type ContactActionResult } from "@/lib/contact-schema";
-
-// HubSpot form this page submits into.
-// Extracted from the share.hsforms.com embed link:
-//   _hsPortalId=50824762
-//   _hsFormId=4331c0e5-dd21-493f-8b32-a692976a3104
-//   _hsHublet=na1
 const HUBSPOT_PORTAL_ID = "50824762";
 const HUBSPOT_FORM_ID = "4331c0e5-dd21-493f-8b32-a692976a3104";
-const HUBSPOT_HUBLET: string = "na1"; // na1 | eu1 — matches the account region
-
-// HubSpot's internal property name for the free-text message field varies by
-// portal (it's whatever the form was built with — often "message" or a
-// custom property). Update this if HubSpot rejects the submission with an
-// "invalid fields" error naming a different property.
+const HUBSPOT_HUBLET: string = "na1"; 
 const HUBSPOT_MESSAGE_FIELD = "message";
 
 export async function submitContact(data: ContactFormData): Promise<ContactActionResult> {
