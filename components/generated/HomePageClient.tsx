@@ -898,14 +898,14 @@ function Footer() {
         </div>
 
         {/* Link grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 py-14 border-b border-paper/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-8 py-14 border-b border-paper/10">
           {/* 6-column link grid */}
           {[
             {
               h: "Get started",
               l: [
                 ["Book a call", "/contact"],
-                ["Diagnostic", "/contact#intake"],
+                ["Diagnostic", "/contact"],
                 ["Pricing", "/hubspot-as-a-service#pricing"],
                 ["Request a proposal", "/contact"],
               ],
@@ -916,18 +916,25 @@ function Footer() {
                 ["HubSpot as a Service", "/hubspot-as-a-service"],
                 ["Implementation", "/hubspot-implementation"],
                 ["Optimization", "/hubspot-optimization"],
-                ["Migration", "/hubspot-implementation#migration"],
-                ["Audit", "/hubspot-optimization#audit"],
+                ["Migration", "/hubspot-implementation"],
+                ["Audit", "/hubspot-audit"],
+              ],
+            },
+            {
+              h: "Work",
+              l: [
+                ["Ausforming", "/work/ausforming"],
+                ["Datapel", "/work/datapel"],
+                ["Detrack", "/work/detrack"],
               ],
             },
             {
               h: "Practice",
               l: [
-                ["RevOps", "/#services"],
-                ["GTM Engineering", "/#services"],
-                ["AI Workflows", "/#services"],
-                ["Lifecycle & Nurture", "/#services"],
-                ["Reporting & Forecast", "/#services"],
+                ["CRM Architecture", "/#svc-crm"],
+                ["RevOps", "/#svc-revops"],
+                ["GTM Design", "/#svc-gtm"],
+                ["AI Infrastructure", "/#svc-ai"],
               ],
             },
             {
@@ -935,9 +942,9 @@ function Footer() {
               l: [
                 ["Overview", "/use-cases"],
                 ["B2B SaaS", "/use-cases/saas"],
-                ["Mid-market", "/use-cases"],
-                ["Founders", "/use-cases"],
-                ["Heads of GTM", "/use-cases"],
+                ["Professional services", "/use-cases"],
+                ["Marketplaces", "/use-cases"],
+                ["Fintech", "/use-cases"],
               ],
             },
             {
@@ -955,8 +962,7 @@ function Footer() {
                 ["Contact", "/contact"],
                 ["Case ledger", "/#proof"],
                 ["Method", "/#method"],
-                ["Field notes", "#"],
-                ["Careers", "/about#team"],
+                ["Field notes", "/blog"],
               ],
             },
           ].map((col) => (
