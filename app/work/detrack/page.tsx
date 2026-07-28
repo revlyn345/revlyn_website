@@ -84,8 +84,8 @@ function StackBoard() {
     { tool: "Intercom", role: "Support + reporting", note: "Sending signal into HubSpot" },
   ];
   return (
-    <div className="brutal-border bg-paper">
-      <div className="grid grid-cols-[140px_1fr_1fr] mono text-[10px] tracking-[0.16em] text-ink/50 border-b border-ink/15 px-4 py-3">
+    <div className="brutal-border bg-paper overflow-x-auto">
+      <div className="grid grid-cols-[140px_1fr_1fr] min-w-[560px] mono text-[10px] tracking-[0.16em] text-ink/50 border-b border-ink/15 px-4 py-3">
         <span>TOOL</span>
         <span>ROLE</span>
         <span>WHAT WAS HAPPENING</span>
@@ -93,7 +93,7 @@ function StackBoard() {
       {rows.map((r, i) => (
         <div
           key={r.tool}
-          className={`grid grid-cols-[140px_1fr_1fr] items-center px-4 py-4 text-[14px] ${
+          className={`grid grid-cols-[140px_1fr_1fr] min-w-[560px] items-center px-4 py-4 text-[14px] ${
             i < rows.length - 1 ? "border-b border-ink/10" : ""
           }`}
         >
@@ -102,7 +102,7 @@ function StackBoard() {
           <span className="text-ink/80">{r.note}</span>
         </div>
       ))}
-      <div className="border-t-2 border-ink bg-bone px-4 py-3 mono text-[11px] text-ink/70">
+      <div className="border-t-2 border-ink bg-bone px-4 py-3 mono text-[11px] text-ink/70 min-w-[560px]">
         The same company existed in more than one place. Every report carried a quiet asterisk.
       </div>
     </div>
@@ -157,12 +157,12 @@ function DictionaryCard() {
     { name: "Deal type", owner: "Sales", source: "HubSpot", allowed: "New · Expansion · Renewal" },
   ];
   return (
-    <div className="brutal-border bg-paper">
-      <div className="border-b-2 border-ink bg-ink text-paper px-4 py-3 flex items-center justify-between">
-        <div className="mono text-[10px] tracking-[0.18em]">DATA DICTIONARY · EXTRACT</div>
-        <div className="mono text-[10px] tracking-[0.18em] text-fire">4 OF 87 FIELDS</div>
+    <div className="brutal-border bg-paper overflow-x-auto">
+      <div className="border-b-2 border-ink bg-ink text-paper px-4 py-3 flex flex-wrap items-center justify-between gap-2 min-w-[600px]">
+        <div className="mono text-[10px] tracking-[0.18em] min-w-0">DATA DICTIONARY · EXTRACT</div>
+        <div className="mono text-[10px] tracking-[0.18em] text-fire shrink-0">4 OF 87 FIELDS</div>
       </div>
-      <div className="grid grid-cols-[1.2fr_1fr_1fr_1.4fr] mono text-[10px] tracking-[0.14em] text-ink/50 px-4 py-2 border-b border-ink/10">
+      <div className="grid grid-cols-[1.2fr_1fr_1fr_1.4fr] min-w-[600px] mono text-[10px] tracking-[0.14em] text-ink/50 px-4 py-2 border-b border-ink/10">
         <span>FIELD</span>
         <span>OWNER</span>
         <span>SOURCE</span>
@@ -171,7 +171,7 @@ function DictionaryCard() {
       {fields.map((f, i) => (
         <div
           key={f.name}
-          className={`grid grid-cols-[1.2fr_1fr_1fr_1.4fr] items-center px-4 py-3 text-[13px] ${
+          className={`grid grid-cols-[1.2fr_1fr_1fr_1.4fr] min-w-[600px] items-center px-4 py-3 text-[13px] ${
             i < fields.length - 1 ? "border-b border-ink/10" : ""
           }`}
         >
@@ -195,15 +195,15 @@ function WorkflowTracker() {
     { id: "WF-041", name: "Health = Red", trigger: "Intercom → HubSpot", touches: "Company · Deal · CS queue" },
   ];
   return (
-    <div className="brutal-border bg-volt text-ink">
-      <div className="border-b-2 border-ink px-4 py-3 flex items-center justify-between">
-        <div className="mono text-[10px] tracking-[0.18em]">WORKFLOW TRACKER · LIVE MAP</div>
-        <div className="mono text-[10px] tracking-[0.18em]">3 OF 42</div>
+    <div className="brutal-border bg-volt text-ink overflow-x-auto">
+      <div className="border-b-2 border-ink px-4 py-3 flex flex-wrap items-center justify-between gap-2 min-w-[600px]">
+        <div className="mono text-[10px] tracking-[0.18em] min-w-0">WORKFLOW TRACKER · LIVE MAP</div>
+        <div className="mono text-[10px] tracking-[0.18em] shrink-0">3 OF 42</div>
       </div>
       {flows.map((f, i) => (
         <div
           key={f.id}
-          className={`px-4 py-3 grid grid-cols-[80px_1fr_1fr_1.2fr] items-center text-[13px] ${
+          className={`px-4 py-3 grid grid-cols-[80px_1fr_1fr_1.2fr] min-w-[600px] items-center text-[13px] ${
             i < flows.length - 1 ? "border-b border-ink/20" : ""
           }`}
         >
@@ -213,7 +213,7 @@ function WorkflowTracker() {
           <span className="text-ink/80 mono text-[11px]">{f.touches}</span>
         </div>
       ))}
-      <div className="border-t-2 border-ink px-4 py-3 mono text-[11px] bg-ink/5">
+      <div className="border-t-2 border-ink px-4 py-3 mono text-[11px] bg-ink/5 min-w-[600px]">
         Every automation, written down. No more invisible fights over the same record.
       </div>
     </div>
@@ -453,7 +453,7 @@ export default function DetrackCase() {
           <div className="md:col-span-4">
             <ChapterHead num="01" title="Who Detrack is, and why the stack got busy" />
           </div>
-          <div className="md:col-span-8 space-y-4 text-[15px] leading-relaxed text-ink/85">
+          <div className="md:col-span-8 min-w-0 space-y-4 text-[15px] leading-relaxed text-ink/85">
             <p>
               Detrack is delivery management software used across Australia, New Zealand, and beyond.
               Like most SaaS teams that scale quickly, their systems grew alongside the business.
@@ -486,7 +486,7 @@ export default function DetrackCase() {
               Each tool doing its job. The problem was in the gaps between them.
             </p>
           </div>
-          <div className="md:col-span-8">
+          <div className="md:col-span-8 min-w-0">
             <StackBoard />
           </div>
         </div>
@@ -519,7 +519,7 @@ export default function DetrackCase() {
               useful than dirty ones, and enrichment onto duplicates just multiplies the mess.
             </p>
           </div>
-          <div className="md:col-span-8">
+          <div className="md:col-span-8 min-w-0">
             <DedupeVisual />
           </div>
         </div>
@@ -546,7 +546,7 @@ export default function DetrackCase() {
               that give a growing team a shared understanding of its own system.
             </p>
           </div>
-          <div className="md:col-span-8 grid gap-6">
+          <div className="md:col-span-8 min-w-0 grid gap-6">
             <DictionaryCard />
             <WorkflowTracker />
           </div>
@@ -564,7 +564,7 @@ export default function DetrackCase() {
               faster.
             </p>
           </div>
-          <div className="md:col-span-8">
+          <div className="md:col-span-8 min-w-0">
             <SyncMap />
           </div>
         </div>
@@ -580,7 +580,7 @@ export default function DetrackCase() {
               can finally be reliable. The sales pipeline gets entry conditions on every stage.
             </p>
           </div>
-          <div className="md:col-span-8 space-y-6">
+          <div className="md:col-span-8 min-w-0 space-y-6">
             <PipelineBoard />
             <OperateCards />
           </div>
@@ -610,7 +610,7 @@ export default function DetrackCase() {
               Not a portal with more in it. One with less doubt in it.
             </p>
           </div>
-          <div className="md:col-span-8 grid gap-4">
+          <div className="md:col-span-8 min-w-0 grid gap-4">
             {[
               {
                 title: "Clean earns trust",
@@ -860,6 +860,7 @@ function Footer() {
                 ["Ausforming", "/work/ausforming"],
                 ["Datapel", "/work/datapel"],
                 ["Detrack", "/work/detrack"],
+                ["Integrity Fire", "/work/integrity-fire"],
               ],
             },
             {

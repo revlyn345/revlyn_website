@@ -190,6 +190,7 @@ export function Nav() {
     { label: "Ausforming", to: "/work/ausforming", note: "GTM engine from zero · 50%+ reply-to-call" },
     { label: "Detrack", to: "/work/detrack", note: "SaaS stack simplification" },
     { label: "Datapel", to: "/work/datapel", note: "Warehouse software · 19% → 68%" },
+    { label: "Integrity Fire", to: "/work/integrity-fire", note: "Field service · people, process, technology" },
   ];
 
   const whatLinks = [

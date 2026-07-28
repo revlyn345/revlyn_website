@@ -192,7 +192,7 @@ export default function AusformingCase() {
             </div>
           </div>
 
-          <div className="md:col-span-8">
+          <div className="md:col-span-8 min-w-0">
             <StartingInventory />
           </div>
         </div>
@@ -209,7 +209,7 @@ export default function AusformingCase() {
               and outbound that burns your sending domain.
             </p>
           </div>
-          <div className="md:col-span-8">
+          <div className="md:col-span-8 min-w-0">
             <TargetingDoc />
           </div>
         </div>
@@ -236,7 +236,7 @@ export default function AusformingCase() {
               the list in two, because the biggest accounts deserve a different kind of attention.
             </p>
           </div>
-          <div className="md:col-span-8">
+          <div className="md:col-span-8 min-w-0">
             <MotionSplit />
           </div>
         </div>
@@ -253,7 +253,7 @@ export default function AusformingCase() {
               of the customer the others do not see.
             </p>
           </div>
-          <div className="md:col-span-8">
+          <div className="md:col-span-8 min-w-0">
             <StackDiagram />
           </div>
         </div>
@@ -274,7 +274,7 @@ export default function AusformingCase() {
               thing this whole system produces. We built for the first few minutes after it lands.
             </p>
           </div>
-          <div className="md:col-span-8">
+          <div className="md:col-span-8 min-w-0">
             <SlaFlow />
           </div>
         </div>
@@ -291,7 +291,7 @@ export default function AusformingCase() {
               pretending to be alive. That is where most forecasts fall apart.
             </p>
           </div>
-          <div className="md:col-span-8">
+          <div className="md:col-span-8 min-w-0">
             <GatedPipeline />
           </div>
         </div>
@@ -337,7 +337,7 @@ export default function AusformingCase() {
               RECORDED · SYDNEY
             </div>
           </div>
-          <div className="md:col-span-8">
+          <div className="md:col-span-8 min-w-0">
             <VideoTestimonial />
           </div>
         </div>
@@ -350,7 +350,7 @@ export default function AusformingCase() {
           <div className="md:col-span-4">
             <ChapterHead num="08" title="What Ausforming has now" />
           </div>
-          <div className="md:col-span-8 grid gap-4">
+          <div className="md:col-span-8 min-w-0 grid gap-4">
             {[
               {
                 stat: "1,000+/day",
@@ -611,11 +611,11 @@ function TargetingDoc() {
   ];
   return (
     <div className="brutal-border bg-paper text-ink overflow-hidden">
-      <div className="flex items-center justify-between px-5 py-3 border-b-2 border-ink bg-volt">
-        <div className="mono text-[10px] tracking-[0.16em] text-ink">
+      <div className="flex flex-wrap items-center justify-between gap-2 px-5 py-3 border-b-2 border-ink bg-volt">
+        <div className="mono text-[10px] tracking-[0.16em] text-ink min-w-0">
           TARGETING · v1.0 · AUSFORMING × REVLYN
         </div>
-        <div className="mono text-[10px] text-ink/70">AGREED · BEFORE ANY TOOL</div>
+        <div className="mono text-[10px] text-ink/70 shrink-0">AGREED · BEFORE ANY TOOL</div>
       </div>
 
       <ol className="divide-y-2 divide-ink/10">
@@ -768,15 +768,15 @@ function GatedPipeline() {
   ];
   return (
     <div className="brutal-border bg-paper overflow-hidden">
-      <div className="flex items-center justify-between px-5 py-3 border-b-2 border-ink bg-ink text-paper mono text-[10px] tracking-[0.16em]">
-        <span>PIPELINE · GATED STAGES</span>
-        <span className="text-fire">EVERY STAGE HAS ENTRY + EXIT CRITERIA</span>
+      <div className="flex flex-wrap items-center justify-between gap-2 px-5 py-3 border-b-2 border-ink bg-ink text-paper mono text-[10px] tracking-[0.16em]">
+        <span className="min-w-0">PIPELINE · GATED STAGES</span>
+        <span className="text-fire shrink-0">EVERY STAGE HAS ENTRY + EXIT CRITERIA</span>
       </div>
-      <ol>
+      <ol className="overflow-x-auto">
         {stages.map((st, i) => (
           <li
             key={st.s}
-            className="px-5 py-4 border-b border-ink/10 last:border-0 grid grid-cols-[40px_180px_1fr_1fr] gap-4 items-start hover:bg-bone/50 transition-colors"
+            className="px-5 py-4 border-b border-ink/10 last:border-0 grid grid-cols-[40px_180px_1fr_1fr] min-w-[820px] gap-4 items-start hover:bg-bone/50 transition-colors"
           >
             <div className="display text-2xl text-fire tabular-nums leading-none">
               {String(i + 1).padStart(2, "0")}
@@ -951,6 +951,7 @@ function Footer() {
                 ["Ausforming", "/work/ausforming"],
                 ["Datapel", "/work/datapel"],
                 ["Detrack", "/work/detrack"],
+                ["Integrity Fire", "/work/integrity-fire"],
               ],
             },
             {

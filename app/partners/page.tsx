@@ -358,12 +358,12 @@ function PartnersLedger() {
                   <span aria-hidden className="pointer-events-none absolute -top-[3px] -left-[3px] w-3 h-3 border-t-2 border-l-2 border-fire opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <span aria-hidden className="pointer-events-none absolute -bottom-[3px] -right-[3px] w-3 h-3 border-b-2 border-r-2 border-fire opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-                  <div className="flex items-center justify-between border-b border-ink/15 pb-3 mb-6">
-                    <span className="mono text-[11px] uppercase tracking-[0.22em]">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-ink/15 pb-3 mb-6">
+                    <span className="mono text-[11px] uppercase tracking-[0.22em] min-w-0">
                       {p.code} · {p.category}
                     </span>
                     <span
-                      className={`mono text-[10px] uppercase tracking-[0.22em] px-2 py-1 border border-ink flex items-center gap-1.5 ${
+                      className={`shrink-0 mono text-[10px] uppercase tracking-[0.22em] px-2 py-1 border border-ink flex items-center gap-1.5 ${
                         isFire ? "bg-fire text-paper" : "bg-volt text-ink"
                       }`}
                     >
@@ -615,6 +615,7 @@ function Footer() {
                 ["Ausforming", "/work/ausforming"],
                 ["Datapel", "/work/datapel"],
                 ["Detrack", "/work/detrack"],
+                ["Integrity Fire", "/work/integrity-fire"],
               ],
             },
             {

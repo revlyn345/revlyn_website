@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/partners/bitscale",
     "/work/ausforming",
     "/work/detrack",
+    "/work/integrity-fire",
     "/work/datapel",
     "/hubspot-as-a-service",
     "/hubspot-implementation",
