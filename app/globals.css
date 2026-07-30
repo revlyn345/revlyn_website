@@ -241,3 +241,35 @@
     transform: none !important;
   }
 }
+
+/* HubSpot chat widget — cap the expanded window's size.
+   HubSpot has no official "resize the widget" setting (confirmed via their
+   own community forum — an open feature request for years). This overrides
+   the container HubSpot's script injects directly into the page. It's
+   unofficial: HubSpot could change their internal markup/IDs at any time,
+   which would silently stop this from applying. If the widget stops being
+   capped after a HubSpot update, right-click it → Inspect in the browser
+   to find its current container ID/class and update the selectors below. */
+#hubspot-messages-iframe-container {
+  max-height: 600px !important;
+  bottom: 20px !important;
+}
+#hubspot-messages-iframe-container iframe {
+  max-height: 600px !important;
+}
+
+@media (max-width: 480px) {
+  /* On phones, HubSpot's default behaviour is a deliberate full-screen
+     takeover for usability. Capping it there too, per your request that
+     this applies on mobile as well as desktop. */
+  #hubspot-messages-iframe-container {
+    max-height: 70vh !important;
+    bottom: 10px !important;
+    right: 10px !important;
+    left: 10px !important;
+    width: auto !important;
+  }
+  #hubspot-messages-iframe-container iframe {
+    max-height: 70vh !important;
+  }
+}

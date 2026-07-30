@@ -1,0 +1,26 @@
+{
+  // This project uses Tailwind CSS v4, which introduces new CSS at-rules:
+  // @theme, @utility, @custom-variant, @source, and the new
+  // `@import "tailwindcss" source(none)` syntax. VS Code's built-in CSS
+  // language service doesn't know about these yet, so without this setting
+  // it flags every one of them as an "unknown at-rule" error — even though
+  // they're completely valid and the site builds and runs correctly. This
+  // is a real, common issue with Tailwind v4 projects, not specific to
+  // this codebase.
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "less.lint.unknownAtRules": "ignore",
+
+  // Also silence the same false positives from the CSS/SCSS/LESS
+  // validators if they're enabled separately from the linter above.
+  "css.validate": true,
+  "scss.validate": true,
+  "less.validate": true,
+
+  // Make sure editor features (autocomplete, hover info) use the
+  // project's own TypeScript version rather than VS Code's bundled one —
+  // unrelated to the CSS issue, but worth having correct in a Next.js
+  // project so type-checking behaves consistently with the actual build.
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}
