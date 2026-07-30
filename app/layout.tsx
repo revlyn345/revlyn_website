@@ -26,9 +26,8 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-// Central SEO config. Each route can override via its own `export const metadata`
-// (App Router merges child metadata over these defaults automatically).
-const siteUrl = "https://revlyn.io"; // TODO: replace with the real production domain
+
+const siteUrl = "https://revlyn.io"; 
 const siteName = "Revlyn";
 const defaultDescription =
   "Revlyn is a revenue operations partner for B2B startups and mid-market companies - CRM, RevOps, GTM, and AI consulting, plus a dedicated HubSpot practice.";
@@ -82,7 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* HubSpot chat widget + tracking loader — site-wide, every page */}
         <Script
           id="hs-script-loader"
-          src="https://js-na2.hs-scripts.com/50496423.js"
+          src="https://js.hs-scripts.com/50824762.js"
           strategy="afterInteractive"
         />
       </body>
