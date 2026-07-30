@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { MotionRuntime } from "@/components/MotionRuntime";
@@ -78,6 +79,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MotionRuntime />
         <Nav />
         <main>{children}</main>
+        {/* HubSpot chat widget + tracking loader — site-wide, every page */}
+        <Script
+          id="hs-script-loader"
+          src="https://js-na2.hs-scripts.com/50496423.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
