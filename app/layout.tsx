@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { MotionRuntime } from "@/components/MotionRuntime";
+import { HubSpotWidgetCap } from "@/components/HubSpotWidgetCap";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,8 +27,9 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-
-const siteUrl = "https://revlyn.io"; 
+// Central SEO config. Each route can override via its own `export const metadata`
+// (App Router merges child metadata over these defaults automatically).
+const siteUrl = "https://revlyn.io"; // TODO: replace with the real production domain
 const siteName = "Revlyn";
 const defaultDescription =
   "Revlyn is a revenue operations partner for B2B startups and mid-market companies - CRM, RevOps, GTM, and AI consulting, plus a dedicated HubSpot practice.";
@@ -84,6 +86,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           src="https://js.hs-scripts.com/50824762.js"
           strategy="afterInteractive"
         />
+        {/* Actively re-caps the HubSpot widget's height, including when
+            the visitor clicks HubSpot's built-in expand toggle. */}
+        <HubSpotWidgetCap />
       </body>
     </html>
   );
