@@ -19,7 +19,7 @@ function Dot({ tone = "fire" }: { tone?: "fire" | "volt" | "ink" | "mute" }) {
 }
 function Row({ k, v, note }: { k: string; v: React.ReactNode; note?: string }) {
   return (
-    <div className="grid grid-cols-[90px_1fr] sm:grid-cols-[110px_1fr] gap-3 sm:gap-4 py-2.5 border-t border-ink/10 first:border-t-0 text-[13px] sm:text-[13.5px] leading-snug">
+    <div className="grid grid-cols-[110px_1fr] gap-4 py-2.5 border-t border-ink/10 first:border-t-0 text-[13.5px] leading-snug">
       <div className="mono text-ink/50 pt-0.5">{k}</div>
       <div>
         <div className="text-ink">{v}</div>
@@ -39,22 +39,24 @@ function SectionHead({
   eyebrow, title, sub, count,
 }: { eyebrow: string; title: string; sub: string; count?: string }) {
   return (
-    <div className="mb-10 sm:mb-14 max-w-3xl">
-      <div className="flex items-center gap-3 mb-4 sm:mb-5">
-        <span className="mono text-ink/40 text-[11px] sm:text-[12px]">{eyebrow}</span>
+    <div className="mb-14 max-w-3xl">
+      <div className="flex items-center gap-3 mb-5">
+        <span className="mono text-ink/40">{eyebrow}</span>
         <span className="h-px flex-1 bg-ink/10" />
-        {count && <span className="mono text-ink/40 text-[11px] sm:text-[12px]">{count}</span>}
+        {count && <span className="mono text-ink/40">{count}</span>}
       </div>
-      <h2 className="display text-[32px] sm:text-[44px] md:text-[56px] leading-[0.95] tracking-[-0.03em] text-ink">
+      <h2 className="display text-[44px] md:text-[56px] leading-[0.95] tracking-[-0.03em] text-ink">
         {title}
       </h2>
-      <p className="mt-3 sm:mt-4 text-[15px] sm:text-[16px] text-ink/60 max-w-xl leading-relaxed">{sub}</p>
+      <p className="mt-4 text-[16px] text-ink/60 max-w-xl leading-relaxed">{sub}</p>
     </div>
   );
 }
 
 /* ═══════════════════════════════════════════════════════════════
    1 · SERVICES SPEC SHEETS
+   Four disciplines, each with: what it is, who it's for, what
+   we deliver, tools, weekly rhythm, sample artifact, price band.
    ═══════════════════════════════════════════════════════════════ */
 
 type Spec = {
@@ -178,8 +180,8 @@ const SERVICES: Spec[] = [
 
 export function ServicesSpec() {
   return (
-    <section className="bg-paper text-ink border-t border-ink/10">
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 md:px-10 py-16 sm:py-24 md:py-32">
+    <section id="services" className="bg-paper text-ink border-t border-ink/10">
+      <div className="max-w-[1240px] mx-auto px-6 md:px-10 py-24 md:py-32">
         <SectionHead
           eyebrow="§ 03 · Services"
           count="4 disciplines"
@@ -188,7 +190,7 @@ export function ServicesSpec() {
         />
 
         {/* index rail */}
-        <div className="mb-8 sm:mb-10 flex flex-wrap gap-2">
+        <div className="mb-10 flex flex-wrap gap-2">
           {SERVICES.map((s) => (
             <a
               key={s.id}
@@ -209,7 +211,7 @@ export function ServicesSpec() {
         </div>
 
         {/* footnotes */}
-        <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-[11.5px] text-ink/50 leading-relaxed">
+        <div className="mt-8 grid md:grid-cols-3 gap-6 text-[11.5px] text-ink/50 leading-relaxed">
           <div><span className="mono text-ink/70">¹</span> All engagements include a named Principal + Operator. No pods rotating monthly.</div>
           <div><span className="mono text-ink/70">²</span> Prices are floors. Complex portals, multi-region rollouts and PE portfolios are quoted separately.</div>
           <div><span className="mono text-ink/70">³</span> Every artifact is yours. No lock-in, no seat licences, no "Revlyn-flavoured" tooling.</div>
@@ -225,36 +227,37 @@ function ServiceCard({ spec, idx }: { spec: Spec; idx: number }) {
     <article
       id={`svc-${spec.id}`}
       data-reveal
-      className="bg-paper p-5 sm:p-8 md:p-12 grid grid-cols-1 md:grid-cols-[280px_1fr] gap-8 md:gap-10 scroll-mt-24 group"
+      className="bg-paper p-8 md:p-12 grid md:grid-cols-[280px_1fr] gap-10 scroll-mt-24 group"
+      data-pin
     >
       {/* LEFT — identity */}
-      <header className="md:sticky md:top-24 self-start">
-        <div className="flex items-center gap-2 mb-4 sm:mb-6">
+      <header className="self-start" data-pin-inner>
+        <div className="flex items-center gap-2 mb-6">
           <span className={`w-2 h-2 rounded-full ${accent}`} />
           <span className="mono text-[10.5px] text-ink/50">{spec.code} / {String(idx + 1).padStart(2, "0")}</span>
         </div>
-        <h3 className="display text-[28px] sm:text-[34px] md:text-[38px] leading-[0.95] mb-3">{spec.name}</h3>
-        <p className="text-[14px] sm:text-[14.5px] text-ink/70 leading-snug mb-5 sm:mb-6">{spec.tagline}</p>
+        <h3 className="display text-[38px] leading-[0.95] mb-3">{spec.name}</h3>
+        <p className="text-[14.5px] text-ink/70 leading-snug mb-6">{spec.tagline}</p>
 
         <div className="mono text-[10.5px] text-ink/40 mb-2">FOR</div>
-        <p className="text-[13px] text-ink/80 leading-relaxed mb-5 sm:mb-6">{spec.who}</p>
+        <p className="text-[13px] text-ink/80 leading-relaxed mb-6">{spec.who}</p>
 
         <div className="mono text-[10.5px] text-ink/40 mb-2">PROBLEM</div>
         <p className="text-[13px] text-ink/80 leading-relaxed">{spec.problem}</p>
       </header>
 
       {/* RIGHT — spec */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 md:gap-x-10 gap-y-6 md:gap-y-8">
+      <div className="grid md:grid-cols-2 gap-x-10 gap-y-8">
         {/* outcomes */}
         <div className="md:col-span-2">
           <div className="flex items-baseline justify-between mb-3">
             <div className="mono text-[10.5px] text-ink/40">OUTCOMES</div>
             <div className="mono text-[10.5px] text-ink/40">{spec.outcomes.length} shipped</div>
           </div>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 sm:gap-x-8 gap-y-2.5">
+          <ul className="grid md:grid-cols-2 gap-x-8 gap-y-2.5">
             {spec.outcomes.map((o, i) => (
-              <li key={i} className="flex gap-3 text-[13px] sm:text-[13.5px] leading-snug text-ink/85">
-                <span className="mono text-[10.5px] text-ink/35 pt-1 tabular-nums shrink-0">0{i + 1}</span>
+              <li key={i} className="flex gap-3 text-[13.5px] leading-snug text-ink/85">
+                <span className="mono text-[10.5px] text-ink/35 pt-1 tabular-nums">0{i + 1}</span>
                 <span>{o}</span>
               </li>
             ))}
@@ -278,7 +281,7 @@ function ServiceCard({ spec, idx }: { spec: Spec; idx: number }) {
         {/* spec rows */}
         <div>
           <div className="mono text-[10.5px] text-ink/40 mb-3">SPEC</div>
-          <div className="border border-ink/10 overflow-hidden">
+          <div className="border border-ink/10">
             <Row k="Artifact" v={spec.artifact} />
             <Row k="Cadence" v={spec.cadence} />
             <Row k="Investment" v={<span className="font-medium">{spec.price}</span>} />
@@ -291,7 +294,7 @@ function ServiceCard({ spec, idx }: { spec: Spec; idx: number }) {
               }
             />
           </div>
-          <div className="mt-4 flex flex-wrap items-center gap-2 text-[11.5px] text-ink/45">
+          <div className="mt-4 flex items-center gap-2 text-[11.5px] text-ink/45">
             <Dot tone="mute" /> Press <Kbd>⇧</Kbd> <Kbd>?</Kbd> for the full scope PDF.
           </div>
         </div>
@@ -329,8 +332,8 @@ const QUARTER = [
 
 export function MethodRhythm() {
   return (
-    <section className="bg-bone/40 border-t border-ink/10">
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 md:px-10 py-16 sm:py-24 md:py-32">
+    <section id="method" className="bg-bone/40 border-t border-ink/10">
+      <div className="max-w-[1240px] mx-auto px-6 md:px-10 py-24 md:py-32">
         <SectionHead
           eyebrow="§ 04 · Method"
           count="Cadence"
@@ -338,65 +341,61 @@ export function MethodRhythm() {
           sub="We don't run 'workshops'. We run your revenue meetings, own the doc, and leave a paper trail your board can read."
         />
 
-        {/* WEEKLY TABLE — horizontal scroll on mobile */}
+        {/* WEEKLY TABLE */}
         <div className="border border-ink/15 bg-paper overflow-hidden">
-          <div className="overflow-x-auto -mx-px">
-            <div className="min-w-[640px]">
-              <header className="grid grid-cols-[70px_60px_1.2fr_1.3fr_1.2fr] border-b border-ink/15 bg-bone/50">
-                {["Day", "Time", "Ritual", "Room", "Output"].map((h) => (
-                  <div key={h} className="mono text-[10.5px] text-ink/50 px-3 sm:px-4 py-3">{h}</div>
-                ))}
-              </header>
-              {WEEK.map((r, i) => (
-                <div
-                  key={i}
-                  className="grid grid-cols-[70px_60px_1.2fr_1.3fr_1.2fr] border-b border-ink/8 last:border-b-0 items-center text-[13px] hover:bg-bone/40 transition-colors"
-                >
-                  <div className="mono text-[11px] text-ink px-3 sm:px-4 py-3.5 tabular-nums">{r.d}</div>
-                  <div className="mono text-[11px] text-ink/50 py-3.5 tabular-nums">{r.h}</div>
-                  <div className="px-3 sm:px-4 py-3.5 font-medium text-ink">{r.t}</div>
-                  <div className="px-3 sm:px-4 py-3.5 text-ink/65">{r.who}</div>
-                  <div className="px-3 sm:px-4 py-3.5 text-ink/65 flex items-center gap-2">
-                    <Dot tone={i % 2 === 0 ? "fire" : "volt"} />
-                    {r.out}
-                  </div>
-                </div>
-              ))}
+          <header className="grid grid-cols-[70px_60px_1fr_1fr_1fr] border-b border-ink/15 bg-bone/50">
+            {["Day", "Time", "Ritual", "Room", "Output"].map((h) => (
+              <div key={h} className="mono text-[10.5px] text-ink/50 px-4 py-3">{h}</div>
+            ))}
+          </header>
+          {WEEK.map((r, i) => (
+            <div
+              key={i}
+              className="grid grid-cols-[70px_60px_1fr_1fr_1fr] border-b border-ink/8 last:border-b-0 items-center text-[13px] hover:bg-bone/40 transition-colors"
+            >
+              <div className="mono text-[11px] text-ink px-4 py-3.5 tabular-nums">{r.d}</div>
+              <div className="mono text-[11px] text-ink/50 py-3.5 tabular-nums">{r.h}</div>
+              <div className="px-4 py-3.5 font-medium text-ink">{r.t}</div>
+              <div className="px-4 py-3.5 text-ink/65">{r.who}</div>
+              <div className="px-4 py-3.5 text-ink/65 flex items-center gap-2">
+                <Dot tone={i % 2 === 0 ? "fire" : "volt"} />
+                {r.out}
+              </div>
             </div>
-          </div>
+          ))}
         </div>
 
         {/* MONTHLY / QUARTERLY */}
-        <div className="mt-8 sm:mt-10 grid grid-cols-1 md:grid-cols-2 gap-px bg-ink/10 border border-ink/15">
-          <div className="bg-paper p-5 sm:p-8">
+        <div className="mt-10 grid md:grid-cols-2 gap-px bg-ink/10 border border-ink/15">
+          <div className="bg-paper p-8">
             <div className="flex items-baseline justify-between mb-5">
               <div>
                 <div className="mono text-[10.5px] text-ink/40">EVERY MONTH</div>
-                <h4 className="display text-[22px] sm:text-[26px] mt-1">Reconcile.</h4>
+                <h4 className="display text-[26px] mt-1">Reconcile.</h4>
               </div>
               <span className="mono text-[10.5px] text-ink/40 tabular-nums">04 items</span>
             </div>
             <ul className="space-y-2.5">
               {MONTH.map((m, i) => (
-                <li key={i} className="flex gap-3 text-[13px] sm:text-[13.5px] leading-snug text-ink/85">
-                  <span className="mono text-[10.5px] text-ink/35 pt-1 tabular-nums shrink-0">M.{String(i + 1).padStart(2, "0")}</span>
+                <li key={i} className="flex gap-3 text-[13.5px] leading-snug text-ink/85">
+                  <span className="mono text-[10.5px] text-ink/35 pt-1 tabular-nums">M.{String(i + 1).padStart(2, "0")}</span>
                   <span>{m}</span>
                 </li>
               ))}
             </ul>
           </div>
-          <div className="bg-paper p-5 sm:p-8">
+          <div className="bg-paper p-8">
             <div className="flex items-baseline justify-between mb-5">
               <div>
                 <div className="mono text-[10.5px] text-ink/40">EVERY QUARTER</div>
-                <h4 className="display text-[22px] sm:text-[26px] mt-1">Re-plan.</h4>
+                <h4 className="display text-[26px] mt-1">Re-plan.</h4>
               </div>
               <span className="mono text-[10.5px] text-ink/40 tabular-nums">04 items</span>
             </div>
             <ul className="space-y-2.5">
               {QUARTER.map((m, i) => (
-                <li key={i} className="flex gap-3 text-[13px] sm:text-[13.5px] leading-snug text-ink/85">
-                  <span className="mono text-[10.5px] text-ink/35 pt-1 tabular-nums shrink-0">Q.{String(i + 1).padStart(2, "0")}</span>
+                <li key={i} className="flex gap-3 text-[13.5px] leading-snug text-ink/85">
+                  <span className="mono text-[10.5px] text-ink/35 pt-1 tabular-nums">Q.{String(i + 1).padStart(2, "0")}</span>
                   <span>{m}</span>
                 </li>
               ))}
@@ -405,7 +404,7 @@ export function MethodRhythm() {
         </div>
 
         {/* comms + tooling contract */}
-        <div className="mt-8 sm:mt-10 grid grid-cols-1 sm:grid-cols-3 gap-px bg-ink/10 border border-ink/15">
+        <div className="mt-10 grid md:grid-cols-3 gap-px bg-ink/10 border border-ink/15">
           {[
             {
               k: "COMMS",
@@ -423,7 +422,7 @@ export function MethodRhythm() {
               foot: "30-day handover included. Retainer clients: month-to-month after month 3.",
             },
           ].map((c) => (
-            <div key={c.k} className="bg-paper p-5 sm:p-7">
+            <div key={c.k} className="bg-paper p-7">
               <div className="mono text-[10.5px] text-ink/40 mb-3">{c.k}</div>
               <p className="text-[14px] text-ink/90 leading-snug">{c.t}</p>
               <p className="mt-3 text-[11.5px] text-ink/50 leading-snug">{c.foot}</p>
@@ -502,7 +501,7 @@ const CASES: Case[] = [
 export function ProofLedger() {
   return (
     <section className="bg-paper border-t border-ink/10">
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 md:px-10 py-16 sm:py-24 md:py-32">
+      <div className="max-w-[1240px] mx-auto px-6 md:px-10 py-24 md:py-32">
         <SectionHead
           eyebrow="§ 05 · Proof"
           count={`${CASES.length} case studies`}
@@ -512,152 +511,88 @@ export function ProofLedger() {
 
         <div className="grid gap-px bg-ink/10 border border-ink/15">
           {CASES.map((c, i) => (
-            <article
-              key={i}
-              data-reveal
-              className="bg-paper p-5 sm:p-8 md:p-10 grid grid-cols-1 md:grid-cols-[280px_1fr] gap-8 md:gap-10"
-            >
-              {/* Meta */}
+            <article key={i} data-reveal className="bg-paper p-8 md:p-10 grid md:grid-cols-[280px_1fr] gap-10">
+              {/* meta */}
               <header>
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="mono text-[10.5px] text-ink/40 tabular-nums">
-                    CASE.{String(i + 1).padStart(2, "0")}
-                  </span>
-
+                  <span className="mono text-[10.5px] text-ink/40 tabular-nums">CASE.{String(i + 1).padStart(2, "0")}</span>
                   <span className="h-px flex-1 bg-ink/10" />
-
-                  <span className="mono text-[10.5px] text-ink/40">
-                    {c.scope}
-                  </span>
+                  <span className="mono text-[10.5px] text-ink/40">{c.scope}</span>
                 </div>
-
-                <div className="mono text-[10.5px] text-ink/50 mb-2">
-                  {c.co}
-                </div>
-
-                <h3 className="display text-[20px] sm:text-[24px] leading-tight mb-3">
-                  {c.stage}
-                </h3>
-
+                <div className="mono text-[10.5px] text-ink/50 mb-2">{c.co}</div>
+                <h3 className="display text-[24px] leading-tight mb-3">{c.stage}</h3>
                 <div className="flex items-center gap-2 text-[11.5px] text-ink/50">
                   <Dot tone="fire" /> {c.duration}
                 </div>
 
                 <figure className="mt-6 border-l-2 border-ink pl-4">
-                  <blockquote className="text-[14px] sm:text-[14.5px] text-ink leading-snug italic">
+                  <blockquote className="text-[14.5px] text-ink leading-snug italic">
                     &ldquo;{c.quote.t}&rdquo;
                   </blockquote>
-
-                  <figcaption className="mt-2 mono text-[10.5px] text-ink/50">
-                    — {c.quote.a}
-                  </figcaption>
+                  <figcaption className="mt-2 mono text-[10.5px] text-ink/50">— {c.quote.a}</figcaption>
                 </figure>
               </header>
 
-              {/* Responsive Metrics Table */}
-              <div className="overflow-x-auto md:overflow-visible w-full">
-                <div className="min-w-[620px] md:min-w-0">
-
-                  {/* Desktop Header */}
-                  <div className="hidden md:grid grid-cols-[1.4fr_1fr_1fr_0.9fr] border-b border-ink/15 pb-2 mb-1 mono text-[10.5px] text-ink/40">
-                    <div>Metric</div>
-                    <div className="text-right">Before</div>
-                    <div className="text-right">After</div>
-                    <div className="text-right">Δ</div>
-                  </div>
-
-                  {c.metrics.map((m, j) => (
-                    <div
-                      key={j}
-                      className="grid grid-cols-[240px_120px_120px_100px] md:grid-cols-[1.4fr_1fr_1fr_0.9fr] gap-4 items-baseline py-3 border-b border-ink/8 last:border-b-0 text-[13px] sm:text-[13.5px]"
-                    >
-                      <div className="text-ink/85">
-                        {m.k}
+              {/* metrics table */}
+              <div>
+                <div className="hidden md:grid grid-cols-[1.4fr_1fr_1fr_0.9fr] border-b border-ink/15 pb-2 mb-1 mono text-[10.5px] text-ink/40">
+                  <div>Metric</div>
+                  <div className="text-right tabular-nums">Before</div>
+                  <div className="text-right tabular-nums">After</div>
+                  <div className="text-right tabular-nums">Δ</div>
+                </div>
+                {c.metrics.map((m, j) => (
+                  <div
+                    key={j}
+                    className="py-3 border-b border-ink/8 last:border-b-0 text-[13.5px] md:grid md:grid-cols-[1.4fr_1fr_1fr_0.9fr] md:items-baseline"
+                  >
+                    <div className="text-ink/85 mb-2 md:mb-0">{m.k}</div>
+                    <div className="grid grid-cols-3 gap-3 md:contents">
+                      <div className="md:text-right">
+                        <span className="mono text-[9.5px] text-ink/40 md:hidden block mb-0.5">Before</span>
+                        <span className="tabular-nums text-ink/45 line-through decoration-ink/30">{m.before}</span>
                       </div>
-
-                      <div className="text-right">
-                        <span className="mono text-[9.5px] text-ink/40 md:hidden block mb-0.5">
-                          Before
-                        </span>
-
-                        <span className="tabular-nums text-ink/45 line-through decoration-ink/30">
-                          {m.before}
-                        </span>
+                      <div className="md:text-right">
+                        <span className="mono text-[9.5px] text-ink/40 md:hidden block mb-0.5">After</span>
+                        <span className="tabular-nums font-medium text-ink">{m.after}</span>
                       </div>
-
-                      <div className="text-right">
-                        <span className="mono text-[9.5px] text-ink/40 md:hidden block mb-0.5">
-                          After
-                        </span>
-
-                        <span className="tabular-nums font-medium text-ink">
-                          {m.after}
-                        </span>
-                      </div>
-
-                      <div className="text-right">
-                        <span className="mono text-[9.5px] text-ink/40 md:hidden block mb-0.5">
-                          Δ
-                        </span>
-
-                        <span className="inline-block px-1.5 py-0.5 bg-volt/60 text-ink text-[12px]">
-                          {m.delta}
-                        </span>
+                      <div className="md:text-right">
+                        <span className="mono text-[9.5px] text-ink/40 md:hidden block mb-0.5">Δ</span>
+                        <span className="inline-block px-1.5 py-0.5 bg-volt/60 text-ink text-[12px]">{m.delta}</span>
                       </div>
                     </div>
-                  ))}
-
-                  {/* Trajectory */}
-                  <div className="mt-5 flex items-center gap-3">
-                    <span className="mono text-[10px] text-ink/40 shrink-0">
-                      TRAJECTORY
-                    </span>
-
-                    <svg
-                      viewBox="0 0 200 24"
-                      className="flex-1 h-6 min-w-0"
-                      preserveAspectRatio="none"
-                    >
-                      <polyline
-                        points={c.metrics
-                          .map(
-                            (_, k) =>
-                              `${(k / (c.metrics.length - 1)) * 200},${20 -
-                              k * (16 / (c.metrics.length - 1))
-                              }`
-                          )
-                          .join(" ")}
-                        fill="none"
-                        stroke="var(--color-fire)"
-                        strokeWidth="1.5"
-                      />
-
-                      {c.metrics.map((_, k) => (
-                        <circle
-                          key={k}
-                          cx={(k / (c.metrics.length - 1)) * 200}
-                          cy={20 - k * (16 / (c.metrics.length - 1))}
-                          r="2.5"
-                          fill="var(--color-ink)"
-                        />
-                      ))}
-                    </svg>
-
-                    <span className="mono text-[10px] text-ink/40 tabular-nums shrink-0">
-                      {c.duration}
-                    </span>
                   </div>
+                ))}
 
+                {/* sparkline-ish rail */}
+                <div className="mt-5 flex items-center gap-3">
+                  <span className="mono text-[10px] text-ink/40">TRAJECTORY</span>
+                  <svg viewBox="0 0 200 24" className="flex-1 h-6" preserveAspectRatio="none">
+                    <polyline
+                      points={c.metrics.map((_, k) => `${(k / (c.metrics.length - 1)) * 200},${20 - k * (16 / (c.metrics.length - 1))}`).join(" ")}
+                      fill="none"
+                      stroke="var(--color-fire)"
+                      strokeWidth="1.5"
+                    />
+                    {c.metrics.map((_, k) => (
+                      <circle
+                        key={k}
+                        cx={(k / (c.metrics.length - 1)) * 200}
+                        cy={20 - k * (16 / (c.metrics.length - 1))}
+                        r="2.5"
+                        fill="var(--color-ink)"
+                      />
+                    ))}
+                  </svg>
+                  <span className="mono text-[10px] text-ink/40 tabular-nums">{c.duration}</span>
                 </div>
               </div>
             </article>
           ))}
         </div>
 
-        <p className="mt-6 sm:mt-8 text-[11.5px] text-ink/45 leading-relaxed max-w-2xl">
-          <span className="mono text-ink/70">†</span> Company names withheld
-          under NDA on this page. Full case studies and references shared
-          under mutual NDA on the intro call.
+        <p className="mt-8 text-[11.5px] text-ink/45 leading-relaxed max-w-2xl">
+          <span className="mono text-ink/70">†</span> Company names withheld under NDA on this page. Full case studies and references shared under mutual NDA on the intro call.
         </p>
       </div>
     </section>
