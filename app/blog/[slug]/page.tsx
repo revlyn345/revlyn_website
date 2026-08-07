@@ -247,6 +247,9 @@ export default async function BlogPostPage({
               [&_.rv-h2-number]:text-fire
               [&>h2]:after:content-[''] [&>h2]:after:block [&>h2]:after:w-14 [&>h2]:after:h-0.5
               [&>h2]:after:bg-ink [&>h2]:after:mt-2 [&>h2]:after:mb-6
+              [&>h2.rv-faq-heading]:after:hidden
+              [&>h2.rv-faq-heading]:pb-5 [&>h2.rv-faq-heading]:mb-0
+              [&>h2.rv-faq-heading]:border-b [&>h2.rv-faq-heading]:border-ink/10
               [&>h3]:font-display [&>h3]:font-bold [&>h3]:text-xl [&>h3]:tracking-[-0.01em]
               [&>h3]:mt-9 [&>h3]:mb-0 [&>h3]:pt-6 [&>h3]:border-t [&>h3]:border-ink/10
               [&>h3+p]:mt-3.5 [&>h3+p]:text-[18px] [&>h3+p]:text-[#3D3A34]
@@ -265,14 +268,14 @@ export default async function BlogPostPage({
               [&>table_th]:uppercase [&>table_th]:tracking-[0.14em] [&>table_th]:text-left [&>table_th]:p-3.5
               [&>table_td]:text-[17px] [&>table_td]:p-3.5 [&>table_td]:border-t [&>table_td]:border-ink/10
               [&>table_tr:nth-child(even)_td]:bg-[#FAF9F7]
-              [&>details]:border-b [&>details]:border-ink/10 [&>details]:py-5 [&>details:first-of-type]:border-t
+              [&>details]:border-b [&>details]:border-ink/10 [&>details]:py-6
               [&>details_summary]:cursor-pointer [&>details_summary]:font-display [&>details_summary]:font-semibold
-              [&>details_summary]:text-xl [&>details_summary]:tracking-[-0.01em] [&>details_summary]:list-none
+              [&>details_summary]:text-[20px] [&>details_summary]:tracking-[-0.01em] [&>details_summary]:list-none
               [&>details_summary]:flex [&>details_summary]:items-center [&>details_summary]:justify-between [&>details_summary]:gap-4
               [&>details_summary::-webkit-details-marker]:hidden
-              [&_.faq-plus]:shrink-0 [&_.faq-plus]:text-fire [&_.faq-plus]:font-normal [&_.faq-plus]:transition-transform [&_.faq-plus]:duration-200
-              [&_details[open]_.faq-plus]:rotate-45
-              [&>details_p]:mt-3.5 [&>details_p]:text-[18px] [&>details_p]:leading-[1.7] [&>details_p]:text-[#3D3A34] [&>details_p]:mb-3.5 [&>details_p:last-child]:mb-0
+              [&_.faq-plus]:shrink-0 [&_.faq-plus]:text-ink/35 [&_.faq-plus]:font-normal [&_.faq-plus]:text-2xl [&_.faq-plus]:leading-none [&_.faq-plus]:transition-transform [&_.faq-plus]:duration-200
+              [&_details[open]_.faq-plus]:rotate-45 [&_details[open]_summary]:text-ink
+              [&>details_p]:mt-3.5 [&>details_p]:text-[17px] [&>details_p]:leading-[1.7] [&>details_p]:text-[#3D3A34] [&>details_p]:mb-3.5 [&>details_p:last-child]:mb-0
             "
             dangerouslySetInnerHTML={{ __html: post.contentHtml }}
           />

@@ -116,6 +116,12 @@ function slugifyHeading(text: string, usedSlugs: Set<string>): string {
  */
 const FAQ_HEADING_TEXT_RE = /^(frequently asked( questions)?|faq)$/i;
 
+// The one fixed, on-brand label the FAQ heading always renders as, no
+// matter what text the CMS post actually used ("FAQ", "Frequently Asked
+// Questions", etc.) — matching is still done against the original text via
+// FAQ_HEADING_TEXT_RE above, but display is normalized here.
+const FAQ_DISPLAY_HEADING = "Frequently asked";
+
 function restructureFaqSection(html: string): string {
   const headingRe = /<h([23])([^>]*)>([\s\S]*?)<\/h\1>/gi;
   const found: { start: number; end: number; level: "2" | "3"; text: string }[] = [];
@@ -136,24 +142,56 @@ function restructureFaqSection(html: string): string {
   const sectionStart = faqHeading.end;
   const sectionEnd = nextH2 ? nextH2.start : html.length;
 
-  const before = html.slice(0, sectionStart);
+  const before = html.slice(0, faqHeading.start);
   const after = html.slice(sectionEnd);
   let section = html.slice(sectionStart, sectionEnd);
 
-  // Each question (<h3>) plus everything up to the next <h3> (its
-  // answer — usually one <p>, sometimes more) becomes one accordion item.
-  // A plain "faq-plus" class is used here (not a Tailwind utility) since
-  // this file isn't scanned by Tailwind's class detector — the actual
-  // open/closed icon styling lives in the arbitrary-selector CSS on the
-  // article page instead, keyed off this class name and the native
-  // [open] attribute.
-  section = section.replace(
-    /<h3[^>]*>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3[^>]*>|$)/gi,
-    (_full, question: string, answerHtml: string) =>
-      `<details><summary>${question}<span class="faq-plus">+</span></summary>${answerHtml}</details>`,
-  );
+  // Normalized heading, styled distinctly from regular H2s by the
+  // "rv-faq-heading" class (no numbered marker, plain full-width rule
+  // instead of the short underline every other H2 gets).
+  const headingHtml = `<h2 class="rv-faq-heading">${FAQ_DISPLAY_HEADING}</h2>`;
 
-  return before + section + after;
+  // Each question plus everything up to the next question (its answer —
+  // usually one <p>, sometimes more) becomes one accordion item, collapsed
+  // by default via native <details>. A plain "faq-plus" class is used here
+  // (not a Tailwind utility) since this file isn't scanned by Tailwind's
+  // class detector — the open/closed icon styling lives in the
+  // arbitrary-selector CSS on the article page instead, keyed off this
+  // class name and the native [open] attribute.
+  //
+  // The content pipeline's prompt asks for "an FAQ section" but doesn't
+  // pin down markup, so questions show up different ways in practice:
+  //   1. A real <h3> per question (writing prompt followed literally).
+  //   2. One <p> per Q&A: a bold question, then a <br>, then the answer —
+  //      all inside the SAME paragraph. Confirmed against the live site's
+  //      actual rendered output — this is the pattern the CMS is really
+  //      producing, not two separate <p> tags.
+  //   3. Two separate paragraphs: <p><strong>Question?</strong></p> then
+  //      an answer <p> — kept as a last-resort fallback in case some
+  //      future post uses this shape instead.
+  // Whichever pattern a given post's FAQ section actually uses is
+  // detected and converted the same way.
+  const toAccordion = (question: string, answerHtml: string) =>
+    `<details><summary>${question}<span class="faq-plus" aria-hidden="true">+</span></summary><p>${answerHtml}</p></details>`;
+
+  if (/<h3[^>]*>/i.test(section)) {
+    section = section.replace(
+      /<h3[^>]*>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3[^>]*>|$)/gi,
+      (_full, question: string, answerHtml: string) => toAccordion(question, answerHtml),
+    );
+  } else if (/<p[^>]*>\s*<strong[^>]*>[\s\S]*?<\/strong>\s*<br/i.test(section)) {
+    section = section.replace(
+      /<p[^>]*>\s*<strong[^>]*>([\s\S]*?)<\/strong>\s*<br\s*\/?>\s*([\s\S]*?)<\/p>/gi,
+      (_full, question: string, answerHtml: string) => toAccordion(question, answerHtml),
+    );
+  } else {
+    section = section.replace(
+      /<p[^>]*>\s*<strong[^>]*>([\s\S]*?)<\/strong>\s*<\/p>([\s\S]*?)(?=<p[^>]*>\s*<strong[^>]*>[\s\S]*?<\/strong>\s*<\/p>|$)/gi,
+      (_full, question: string, answerHtml: string) => toAccordion(question, answerHtml),
+    );
+  }
+
+  return before + headingHtml + section + after;
 }
 
 /**
