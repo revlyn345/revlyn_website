@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { getPosts } from "@/lib/wordpress";
-import { NewsletterForm } from "@/components/blog/NewsletterForm";
 import { BookCallButton } from "@/components/BookCallButton";
 
 // TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
@@ -15,11 +14,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/blog" },
 };
 
-// The prototype's topic pills are decorative-only ("filtering not
-// implemented" — confirmed in the design handoff), since post categories
-// aren't wired to real filtering logic yet. Keeping them as static UI
-// matches the approved design; wiring real filtering later just needs an
-// onClick that re-fetches getPosts() by category.
+// Topic pills filter the post list by category (case-insensitive match
+// against each post's WordPress categories) via the ?topic= URL param —
+// plain links, so filtering works with JS disabled and each topic is a
+// shareable/bookmarkable URL.
 const TOPICS = ["HubSpot", "RevOps", "Forecasting", "AI", "GTM"];
 
 function formatDate(iso: string) {
@@ -30,44 +28,74 @@ function formatDate(iso: string) {
   });
 }
 
-export default async function BlogIndexPage() {
-  const posts = await getPosts(1, 13);
+export default async function BlogIndexPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ topic?: string }>;
+}) {
+  const { topic } = await searchParams;
+  const selectedTopic = topic?.toLowerCase();
+
+  // Fetched once at a size generous enough to cover the whole archive so
+  // topic filtering (below) has the full set to filter against — this is
+  // a small blog; revisit with real pagination if the post count grows
+  // well past this.
+  const allPosts = await getPosts(1, 100);
+
+  const posts = selectedTopic
+    ? allPosts.filter((p) => p.categories.some((c) => c.toLowerCase() === selectedTopic))
+    : allPosts;
+
   const [featured, ...rest] = posts;
 
   return (
     <div className="min-h-screen bg-paper text-ink">
       {/* ══════════════════════ MASTHEAD ══════════════════════ */}
       <section className="border-b-2 border-ink">
-        <div className="max-w-[1360px] mx-auto px-6 md:px-10 pt-14 md:pt-20 pb-12 md:pb-14 grid md:grid-cols-[minmax(0,1fr)_320px] gap-10 md:gap-16 md:items-end">
-          <div>
-            <div className="mono text-[11px] text-ink/50 mb-5">
-              Field notes · Monthly · 2 min
-            </div>
-            <h1 className="display leading-[0.97] tracking-[-0.04em] text-[clamp(2.6rem,6.6vw,5.75rem)]">
-              The operator&rsquo;s notebook.
-            </h1>
-            <p className="mt-5 max-w-[56ch] text-lg md:text-xl leading-[1.55] text-ink/70">
-              Short essays on revenue systems, HubSpot, RevOps and AI — written by the same
-              operators who run the portals.
-            </p>
+        <div className="max-w-[1360px] mx-auto px-6 md:px-10 pt-14 md:pt-20 pb-12 md:pb-14">
+          <div className="mono text-[11px] text-ink/50 mb-5">
+            Field notes · Monthly · 2 min
           </div>
-          <NewsletterForm />
+          <h1 className="display leading-[0.97] tracking-[-0.04em] text-[clamp(2.6rem,6.6vw,5.75rem)]">
+            The operator&rsquo;s notebook.
+          </h1>
+          <p className="mt-5 max-w-[56ch] text-lg md:text-xl leading-[1.55] text-ink/70">
+            Short essays on revenue systems, HubSpot, RevOps and AI — written by the same
+            operators who run the portals.
+          </p>
         </div>
       </section>
 
-      {/* ══════════════════════ TOPIC FILTER (decorative — see note above) ══════════════════════ */}
+      {/* ══════════════════════ TOPIC FILTER ══════════════════════ */}
       <section className="border-b border-ink/10 bg-[#FAF9F7]">
         <div className="max-w-[1360px] mx-auto px-6 md:px-10 py-4 flex flex-wrap items-center gap-2">
           <span className="mono text-[10px] text-ink/50 mr-2">Topics</span>
-          <span className="bg-ink text-paper rounded-full px-3.5 py-[7px] text-sm">All</span>
-          {TOPICS.map((t) => (
-            <span
-              key={t}
-              className="border border-ink/15 bg-paper rounded-full px-3.5 py-[7px] text-sm text-ink/75"
-            >
-              {t}
-            </span>
-          ))}
+          <Link
+            href="/blog"
+            className={`rounded-full px-3.5 py-[7px] text-sm transition-colors ${
+              !selectedTopic
+                ? "bg-ink text-paper"
+                : "border border-ink/15 bg-paper text-ink/75 hover:border-ink/40"
+            }`}
+          >
+            All
+          </Link>
+          {TOPICS.map((t) => {
+            const active = selectedTopic === t.toLowerCase();
+            return (
+              <Link
+                key={t}
+                href={`/blog?topic=${encodeURIComponent(t.toLowerCase())}`}
+                className={`rounded-full px-3.5 py-[7px] text-sm transition-colors ${
+                  active
+                    ? "bg-ink text-paper"
+                    : "border border-ink/15 bg-paper text-ink/75 hover:border-ink/40"
+                }`}
+              >
+                {t}
+              </Link>
+            );
+          })}
         </div>
       </section>
 
@@ -75,9 +103,21 @@ export default async function BlogIndexPage() {
         <section className="border-b-2 border-ink">
           <div className="max-w-[1360px] mx-auto px-6 md:px-10 py-16">
             <div className="brutal-border bg-bone p-10 text-center">
-              <p className="mono text-[11px] text-ink/60 mb-2">No posts yet</p>
+              <p className="mono text-[11px] text-ink/60 mb-2">
+                {selectedTopic ? `No posts filed under "${topic}" yet` : "No posts yet"}
+              </p>
               <p className="text-ink/70">
-                Once posts are published in WordPress, they will appear here automatically.
+                {selectedTopic ? (
+                  <>
+                    Try another topic, or{" "}
+                    <Link href="/blog" className="text-fire underline">
+                      view all field notes
+                    </Link>
+                    .
+                  </>
+                ) : (
+                  "Once posts are published in WordPress, they will appear here automatically."
+                )}
               </p>
             </div>
           </div>
@@ -160,7 +200,7 @@ export default async function BlogIndexPage() {
                 <div className="bg-ink text-[#A8A39A] p-7 md:p-8 flex flex-col gap-3.5 min-h-[260px]">
                   <div className="mono text-[10px] text-fire">Archive</div>
                   <div className="display text-2xl leading-[1.15] tracking-[-0.02em] text-paper">
-                    {posts.length} notes and counting.
+                    {allPosts.length} notes and counting.
                   </div>
                   <p className="text-[15px] leading-[1.6]">
                     Every essay we&rsquo;ve published, sorted by topic.
