@@ -100,7 +100,7 @@
      without touching the nav's position:sticky, which giving html/body any
      explicit overflow value is known to break in several browsers. */
   main {
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100vw;
   }
   ::selection { background: var(--color-volt); color: var(--color-ink); }
