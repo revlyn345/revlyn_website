@@ -34,6 +34,44 @@ export type WPAuthor = {
   bio: string | null;
 };
 
+// ─────────────────────────────────────────────────────────────────────
+// AUTHOR DISPLAY OVERRIDES
+//
+// The WordPress user account that publishes posts often has its display
+// name left as the raw login email (e.g. "rishhsoni@gmail.com") since
+// nobody bothered filling in a "nice" display name for what's really a
+// shared/internal publishing account — and there's no bio or a real
+// photo (Gravatar just shows the default mystery-man silhouette for an
+// address with no Gravatar profile).
+//
+// Rather than editing that inside WordPress, this map lets the team
+// decide what actually shows up on the site: key it by whatever
+// WordPress currently sends as the author's raw display `name` (check
+// the byline on a live post, or hit
+// {WORDPRESS_API_URL}/wp-json/wp/v2/users to see it directly), and give
+// it the name / bio / avatar image the team wants shown instead.
+//
+// To add or change a team member's byline, just add/edit an entry here —
+// no WordPress changes needed, and it applies to every past and future
+// post published under that WP account.
+const AUTHOR_OVERRIDES: Record<string, { name: string; bio?: string; avatar?: string }> = {
+  "rishhsoni@gmail.com": {
+    name: "Rishabh",
+    bio: "CEO & Founder at Revlyn. Part of the team that builds and operates HubSpot portals day to day.",
+    // avatar: "/team/rishabh.jpg", // uncomment + point at a real photo to replace the Gravatar placeholder
+  },
+};
+
+function applyAuthorOverride(author: WPAuthor): WPAuthor {
+  const override = AUTHOR_OVERRIDES[author.name.trim().toLowerCase()];
+  if (!override) return author;
+  return {
+    name: override.name,
+    bio: override.bio ?? author.bio,
+    avatar: override.avatar ?? author.avatar,
+  };
+}
+
 export type WPPostSummary = {
   id: number;
   slug: string;
@@ -76,8 +114,43 @@ type RawWPPost = {
   };
 };
 
+// A handful of named entities cover the overwhelming majority of what
+// WordPress actually emits (curly quotes, dashes, ampersands, nbsp) —
+// this isn't a full HTML5 entity table, but there's no DOM available
+// server-side to lean on for a complete one, and anything exotic enough
+// to fall outside this list is vanishingly rare in blog copy.
+const NAMED_ENTITIES: Record<string, string> = {
+  amp: "&",
+  lt: "<",
+  gt: ">",
+  quot: '"',
+  apos: "'",
+  nbsp: " ",
+  hellip: "…",
+  mdash: "—",
+  ndash: "–",
+  lsquo: "\u2018",
+  rsquo: "\u2019",
+  ldquo: "\u201C",
+  rdquo: "\u201D",
+};
+
+/** Decodes numeric (&#8217; / &#x2019;) and named (&amp;) HTML entities.
+ *  Only needed for strings that get rendered as plain React text (title,
+ *  excerpt, heading labels, category/tag names) — WordPress sends these
+ *  HTML-encoded even though they're plain text, and React (correctly)
+ *  won't re-interpret escape sequences the way a browser parsing real
+ *  HTML would. Content rendered via dangerouslySetInnerHTML doesn't need
+ *  this, since the browser decodes entities itself when parsing HTML. */
+function decodeHtmlEntities(text: string): string {
+  return text
+    .replace(/&#(\d+);/g, (_, dec: string) => String.fromCharCode(Number(dec)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex: string) => String.fromCharCode(parseInt(hex, 16)))
+    .replace(/&([a-z]+);/gi, (full: string, name: string) => NAMED_ENTITIES[name.toLowerCase()] ?? full);
+}
+
 function stripTags(html: string): string {
-  return html.replace(/<[^>]*>/g, "").trim();
+  return decodeHtmlEntities(html.replace(/<[^>]*>/g, "")).trim();
 }
 
 /** "1. Importing Dirty Data" -> "importing-dirty-data" (id-safe slug). */
@@ -260,14 +333,16 @@ function toAuthor(raw?: RawWPAuthor): WPAuthor {
   const sizes = Object.keys(avatarUrls);
   const largest = sizes.sort((a, b) => Number(b) - Number(a))[0];
 
-  return {
-    name: raw?.name?.trim() || "The Revlyn team",
+  const author: WPAuthor = {
+    name: decodeHtmlEntities(raw?.name?.trim() || "The Revlyn team"),
     avatar: largest ? avatarUrls[largest] : null,
     // Most WordPress installs never fill in the author "biographical
     // info" field, so this is commonly null — callers should fall back
     // to a generic line rather than rendering an empty bio block.
-    bio: raw?.description?.trim() || null,
+    bio: raw?.description?.trim() ? decodeHtmlEntities(raw.description.trim()) : null,
   };
+
+  return applyAuthorOverride(author);
 }
 
 function toCategories(termGroups?: RawWPTerm[][]): string[] {
@@ -275,12 +350,15 @@ function toCategories(termGroups?: RawWPTerm[][]): string[] {
   return termGroups
     .flat()
     .filter((t) => t.taxonomy === "category" && t.name.toLowerCase() !== "uncategorized")
-    .map((t) => t.name);
+    .map((t) => decodeHtmlEntities(t.name));
 }
 
 function toTags(termGroups?: RawWPTerm[][]): string[] {
   if (!termGroups) return [];
-  return termGroups.flat().filter((t) => t.taxonomy === "post_tag").map((t) => t.name);
+  return termGroups
+    .flat()
+    .filter((t) => t.taxonomy === "post_tag")
+    .map((t) => decodeHtmlEntities(t.name));
 }
 
 function toSummary(raw: RawWPPost): WPPostSummary {
