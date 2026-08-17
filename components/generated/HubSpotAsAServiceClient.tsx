@@ -1,986 +1,1314 @@
 "use client";
 
-import { HaaSMoment, HaaSRhythm, HaaSArtifacts } from "@/components/HaaSJourney";
-import Link from "next/link";
-import Image from "next/image";
+import { useState, type ReactNode } from "react";
 import { BookCallButton } from "@/components/BookCallButton";
-const hubspotHero = "/hubspot-hero.jpg";
-const dashboardMockup = "/dashboard-mockup.jpg";
-const whiteboard = "/whiteboard.jpg";
-const playbookDesk = "/playbook-desk.jpg";
-const deskOperator = "/desk-operator.jpg";
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
-const revlynWordmark = "/logos/revlyn-wordmark.png";
 
+/* Primary CTAs use BookCallButton (opens the HubSpot meetings scheduler);
+   secondary CTAs default to the in-page #pricing anchor. *//* ── shared bits ─────────────────────────────────────────────────── */
+
+function SectionCta({ label }: { label: string }) {
+  return (
+    <BookCallButton className="group brutal-border bg-ink text-paper px-7 py-4 display text-lg inline-flex items-center gap-3 brutal-shadow-fire hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[5px_5px_0_0_var(--color-fire)] transition-all">
+      {label}
+      <span className="inline-block group-hover:translate-x-1 transition-transform" aria-hidden="true">
+        →
+      </span>
+    </BookCallButton>
+  );
+}
+
+function SecondaryLink({ label, href = "#pricing" }: { label: string; href?: string }) {
+  return (
+    <a
+      href={href}
+      className="brutal-border bg-volt text-ink px-7 py-4 display text-lg hover:bg-paper transition-colors inline-flex items-center gap-3"
+    >
+      {label}
+    </a>
+  );
+}
+
+function Section({
+  eyebrow,
+  title,
+  children,
+  id,
+  accent = "fire",
+}: {
+  eyebrow?: string;
+  title?: string;
+  children: ReactNode;
+  id?: string;
+  accent?: "fire" | "ink" | "volt";
+}) {
+  const accentText = accent === "ink" ? "text-ink" : "text-fire";
+  return (
+    <section id={id} className="border-b-2 border-ink bg-paper">
+      <div className="max-w-[1200px] mx-auto px-6 py-20 md:py-28">
+        {eyebrow ? (
+          <p className={`mono text-[11px] uppercase tracking-[0.16em] mb-4 flex items-center gap-2 ${accentText}`}>
+            <span aria-hidden="true">◆</span>
+            {eyebrow}
+          </p>
+        ) : null}
+        {title ? (
+          <h2 className="display max-w-3xl text-3xl md:text-5xl leading-[1.05]">{title}</h2>
+        ) : null}
+        <div className="mt-8">{children}</div>
+      </div>
+    </section>
+  );
+}
+
+function Lead({ children }: { children: ReactNode }) {
+  return <p className="max-w-3xl text-lg leading-relaxed text-muted-foreground">{children}</p>;
+}
+
+function TickList({
+  items,
+  columns = 2,
+  dot = "bg-fire",
+}: {
+  items: string[];
+  columns?: 2 | 3;
+  dot?: string;
+}) {
+  return (
+    <div
+      data-stagger
+      className={`grid gap-x-8 gap-y-3 ${columns === 3 ? "md:grid-cols-3" : "md:grid-cols-2"}`}
+    >
+      {items.map((item) => (
+        <div key={item} className="flex items-center gap-3 border-b border-ink/10 pb-3 text-sm">
+          <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${dot}`} aria-hidden="true" />
+          <span className="text-muted-foreground">{item}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Figure({
+  src,
+  alt,
+  caption,
+}: {
+  src: string;
+  alt: string;
+  caption: string;
+}) {
+  return (
+    <figure className="brutal-border bg-paper">
+      <img src={src} alt={alt} className="h-auto w-full object-cover block" loading="lazy" />
+      <figcaption className="border-t-2 border-ink px-4 py-3 mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+        {caption}
+      </figcaption>
+    </figure>
+  );
+}
+
+function Capability({
+  index,
+  title,
+  intro,
+  items,
+  outro,
+  accent = "text-fire",
+  visual,
+}: {
+  index: string;
+  title: string;
+  intro: string[];
+  items: string[];
+  outro?: string;
+  accent?: string;
+  visual: ReactNode;
+}) {
+  return (
+    <article className="grid gap-10 border-t-2 border-ink py-14 lg:grid-cols-[1.1fr_1fr]">
+      <div>
+        <p className={`mono text-[11px] uppercase tracking-[0.16em] ${accent}`}>{index}</p>
+        <h3 className="display mt-3 text-2xl md:text-3xl leading-tight">{title}</h3>
+        <div className="mt-4 space-y-3 text-sm leading-relaxed text-muted-foreground">
+          {intro.map((p) => (
+            <p key={p}>{p}</p>
+          ))}
+        </div>
+        <div className="mt-8">
+          <TickList items={items} dot={accent.replace("text-", "bg-")} />
+        </div>
+        {outro ? <p className="mt-6 text-sm leading-relaxed text-muted-foreground">{outro}</p> : null}
+      </div>
+      <div className="lg:pt-14">{visual}</div>
+    </article>
+  );
+}
+
+/* ── diagrams (static — no framer-motion) ────────────────────────── */
+
+function FlowDiagram({ steps, accent = "fire" }: { steps: string[]; accent?: "fire" | "ink" | "volt" }) {
+  const dot = accent === "ink" ? "bg-ink" : accent === "volt" ? "bg-ink" : "bg-fire";
+  return (
+    <ol className="flex flex-wrap items-center gap-y-2">
+      {steps.map((step, i) => (
+        <li key={step} className="flex items-center">
+          <span className="flex items-center gap-2 border-2 border-ink bg-paper px-3 py-2 mono text-[11px] uppercase leading-none tracking-[0.1em] text-ink">
+            <span className={`h-1.5 w-1.5 shrink-0 ${dot}`} />
+            {step}
+          </span>
+          {i < steps.length - 1 ? (
+            <span aria-hidden="true" className="mx-2 hidden items-center sm:flex">
+              <span className="h-px w-5 bg-ink/20" />
+              <svg width="7" height="7" viewBox="0 0 7 7" className="-ml-px">
+                <path d="M0 0.5 L5.5 3.5 L0 6.5 Z" className="fill-ink/20" />
+              </svg>
+            </span>
+          ) : null}
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+function BarChartDiagram({
+  data,
+  color = "fire",
+}: {
+  data: { label: string; value: number }[];
+  color?: "fire" | "ink";
+}) {
+  const bar = color === "ink" ? "bg-ink" : "bg-fire";
+  const max = Math.max(...data.map((d) => d.value));
+  return (
+    <div>
+      <div className="relative h-40 border-b-2 border-ink">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+          {[0, 1, 2].map((g) => (
+            <span
+              key={g}
+              className="absolute left-0 right-0 border-t border-dashed border-ink/15"
+              style={{ top: `${g * 33.33}%` }}
+            />
+          ))}
+        </div>
+        <div className="relative flex h-full items-end gap-3">
+          {data.map((d) => (
+            <div key={d.label} className="flex h-full flex-1 flex-col justify-end">
+              <span className="mb-1 text-center mono text-[10px] leading-none text-ink">{d.value}</span>
+              <div
+                className={`w-full ${bar} transition-[height] duration-700 ease-out`}
+                style={{ height: `${(d.value / max) * 82}%`, minHeight: 4 }}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex gap-3 pt-2">
+        {data.map((d) => (
+          <span
+            key={d.label}
+            className="flex-1 text-center mono text-[10px] uppercase tracking-[0.1em] text-muted-foreground"
+          >
+            {d.label}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FunnelDiagram({ stages }: { stages: { label: string; value: string; width: number }[] }) {
+  return (
+    <div className="space-y-px">
+      {stages.map((s, i) => (
+        <div key={s.label} className="flex items-center gap-4">
+          <div className="min-w-0 flex-1">
+            <div
+              className="flex h-10 min-w-[9rem] items-center overflow-hidden whitespace-nowrap px-3 mono text-[11px] uppercase tracking-[0.1em] text-paper transition-[width] duration-700 ease-out"
+              style={{ background: i === 0 ? "var(--color-ink)" : "var(--color-fire)", width: `${s.width}%` }}
+            >
+              {s.label}
+            </div>
+          </div>
+          <span className="w-20 shrink-0 text-right mono text-[11px] tabular-nums text-ink">{s.value}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function HubDiagram({ nodes }: { nodes: string[] }) {
+  const cx = 200;
+  const cy = 160;
+  const rx = 140;
+  const ry = 112;
+  const hub = 38;
+
+  return (
+    <svg viewBox="0 0 400 320" className="w-full" role="img" aria-label="HubSpot connected to surrounding systems">
+      <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill="none" stroke="var(--color-ink)" strokeOpacity={0.15} strokeWidth={1} strokeDasharray="3 5" />
+      {nodes.map((n, i) => {
+        const angle = (i / nodes.length) * Math.PI * 2 - Math.PI / 2;
+        const cos = Math.cos(angle);
+        const sin = Math.sin(angle);
+        const x = cx + cos * rx;
+        const y = cy + sin * ry;
+        const x1 = cx + cos * (hub + 4);
+        const y1 = cy + sin * (hub + 4);
+        const x2 = cx + cos * (rx - 10);
+        const y2 = cy + sin * (ry - 10);
+        const onTop = sin < -0.25;
+        const onSide = Math.abs(sin) <= 0.25;
+        const labelY = onTop ? y - 13 : onSide ? y + 4 : y + 19;
+        const labelX = onSide ? x + (cos > 0 ? 12 : -12) : x;
+        const anchor = onSide ? (cos > 0 ? "start" : "end") : "middle";
+
+        return (
+          <g key={n}>
+            <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="var(--color-ink)" strokeOpacity={0.15} strokeWidth={1} />
+            <circle cx={x} cy={y} r={5} fill={i % 2 === 0 ? "var(--color-fire)" : "var(--color-ink)"} />
+            <text x={labelX} y={labelY} textAnchor={anchor} className="fill-ink" fontFamily="var(--font-mono)" fontSize="9.5" letterSpacing="0.08em">
+              {n.toUpperCase()}
+            </text>
+          </g>
+        );
+      })}
+      <circle cx={cx} cy={cy} r={hub} fill="var(--color-ink)" />
+      <text x={cx} y={cy + 3.5} textAnchor="middle" fontSize="10" letterSpacing="0.12em" fontFamily="var(--font-mono)" className="fill-paper">
+        HUBSPOT
+      </text>
+    </svg>
+  );
+}
+
+/* ── hero console (static tabs, no framer-motion) ────────────────── */
+
+type TabKey = "pipeline" | "automation" | "reporting";
+const TABS: { key: TabKey; label: string }[] = [
+  { key: "pipeline", label: "Pipeline" },
+  { key: "automation", label: "Automation" },
+  { key: "reporting", label: "Reporting" },
+];
+const STAGES = [
+  { label: "Prospecting", deals: 128, value: "$2.4M", width: 100 },
+  { label: "Qualified", deals: 74, value: "$1.6M", width: 82 },
+  { label: "Proposal", deals: 38, value: "$980K", width: 58 },
+  { label: "Negotiation", deals: 19, value: "$540K", width: 38 },
+  { label: "Closed won", deals: 11, value: "$310K", width: 22 },
+];
+const WORKFLOW = ["Form submitted", "Lead scored", "Owner assigned", "Sequence enrolled", "Deal created"];
+const MONTHS = [
+  { label: "Jan", value: 42 },
+  { label: "Feb", value: 55 },
+  { label: "Mar", value: 48 },
+  { label: "Apr", value: 71 },
+  { label: "May", value: 66 },
+  { label: "Jun", value: 88 },
+  { label: "Jul", value: 79 },
+  { label: "Aug", value: 96 },
+];
+
+function HeroPortal() {
+  const [tab, setTab] = useState<TabKey>("pipeline");
+  const [active, setActive] = useState(0);
+  const [running, setRunning] = useState(false);
+  const [step, setStep] = useState(-1);
+  const [month, setMonth] = useState(MONTHS.length - 1);
+  const stage = STAGES[active]!;
+  const mth = MONTHS[month]!;
+
+  function runWorkflow() {
+    if (running) return;
+    setRunning(true);
+    setStep(0);
+    WORKFLOW.forEach((_, i) => {
+      setTimeout(() => {
+        setStep(i);
+        if (i === WORKFLOW.length - 1) setTimeout(() => setRunning(false), 500);
+      }, i * 520);
+    });
+  }
+
+  return (
+    <div className="brutal-border brutal-shadow-fire bg-paper">
+      <div className="flex items-center justify-between border-b-2 border-ink px-4 py-3">
+        <div className="flex items-center gap-2 mono text-[11px] uppercase tracking-[0.16em]">
+          <span className="h-1.5 w-1.5 bg-fire animate-blink" />
+          Revlyn console
+        </div>
+        <span className="mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Live demo</span>
+      </div>
+
+      <div role="tablist" aria-label="Portal views" className="grid grid-cols-3 border-b-2 border-ink">
+        {TABS.map((t) => {
+          const selected = tab === t.key;
+          return (
+            <button
+              key={t.key}
+              role="tab"
+              type="button"
+              aria-selected={selected}
+              onClick={() => setTab(t.key)}
+              className={`relative px-4 py-3 mono text-[11px] uppercase tracking-[0.14em] transition-colors ${
+                selected ? "text-ink" : "text-muted-foreground hover:text-ink"
+              }`}
+            >
+              {t.label}
+              {selected ? <span className="absolute inset-x-0 bottom-0 h-0.5 bg-fire" /> : null}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="min-h-[360px] p-5">
+        {tab === "pipeline" ? (
+          <div>
+            <p className="mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+              Deal pipeline · hover a stage
+            </p>
+            <div className="mt-4 space-y-2">
+              {STAGES.map((s, i) => (
+                <button
+                  key={s.label}
+                  type="button"
+                  onMouseEnter={() => setActive(i)}
+                  onFocus={() => setActive(i)}
+                  onClick={() => setActive(i)}
+                  className="flex w-full items-center gap-3 text-left"
+                >
+                  <span
+                    className={`flex h-9 items-center px-3 mono text-[11px] uppercase tracking-[0.1em] transition-all duration-500 ${
+                      active === i ? "bg-fire text-paper" : "bg-ink text-paper"
+                    }`}
+                    style={{ width: `${s.width}%` }}
+                  >
+                    {s.label}
+                  </span>
+                  <span className="mono text-[11px] text-muted-foreground">{s.deals}</span>
+                </button>
+              ))}
+            </div>
+            <div className="mt-5 flex items-end justify-between border-t-2 border-ink pt-4">
+              <div>
+                <p className="mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{stage.label}</p>
+                <p className="mt-1 display text-3xl">{stage.value}</p>
+              </div>
+              <p className="mono text-[11px] text-muted-foreground">{stage.deals} deals</p>
+            </div>
+          </div>
+        ) : null}
+
+        {tab === "automation" ? (
+          <div>
+            <div className="flex items-center justify-between">
+              <p className="mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                Workflow · lead routing
+              </p>
+              <button
+                type="button"
+                onClick={runWorkflow}
+                className="border-2 border-ink px-3 py-1.5 mono text-[10px] uppercase tracking-[0.14em] transition-colors hover:bg-ink hover:text-paper"
+              >
+                {running ? "Running…" : "Run workflow"}
+              </button>
+            </div>
+            <ol className="mt-5 space-y-3">
+              {WORKFLOW.map((w, i) => {
+                const done = step >= i;
+                return (
+                  <li key={w} className="flex items-center gap-3">
+                    <span
+                      className={`h-8 w-8 shrink-0 border-2 transition-colors duration-300 ${
+                        done ? "border-fire bg-fire" : "border-ink/20 bg-paper"
+                      }`}
+                    />
+                    <span
+                      className={`flex-1 border-b border-ink/10 pb-2 mono text-[11px] uppercase tracking-[0.1em] ${
+                        done ? "text-ink" : "text-muted-foreground"
+                      }`}
+                    >
+                      {w}
+                    </span>
+                    {done ? <span className="mono text-[10px] uppercase tracking-[0.14em] text-fire">done</span> : null}
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        ) : null}
+
+        {tab === "reporting" ? (
+          <div>
+            <p className="mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+              Pipeline created · click a bar
+            </p>
+            <div className="mt-6 flex h-44 items-end gap-2">
+              {MONTHS.map((m, i) => (
+                <button
+                  key={m.label}
+                  type="button"
+                  onClick={() => setMonth(i)}
+                  onMouseEnter={() => setMonth(i)}
+                  className="flex h-full flex-1 flex-col justify-end gap-2"
+                  aria-label={`${m.label} pipeline`}
+                >
+                  <span
+                    className={`w-full transition-[height] duration-500 ${month === i ? "bg-fire" : "bg-ink"}`}
+                    style={{ height: `${m.value}%` }}
+                  />
+                  <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted-foreground">{m.label}</span>
+                </button>
+              ))}
+            </div>
+            <div className="mt-4 flex items-center justify-between border-t-2 border-ink pt-4">
+              <p className="mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{mth.label} · pipeline</p>
+              <p className="display text-2xl">${(mth.value * 12).toLocaleString()}K</p>
+            </div>
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+/* ── scope builder + FAQ (static, CSS-transition accordion) ──────── */
+
+const WORKSTREAMS = [
+  "CRM administration",
+  "Sales operations",
+  "Marketing automation",
+  "Reporting & dashboards",
+  "Integrations",
+  "Data management",
+  "Lead generation",
+  "RevOps strategy",
+];
+
+function ScopeBuilder() {
+  const [picked, setPicked] = useState<string[]>(["CRM administration", "Reporting & dashboards"]);
+  const [hours, setHours] = useState(10);
+
+  const score = picked.length * 2 + hours / 5;
+  const tier = score >= 14 ? "Full RevOps Partnership" : score >= 8 ? "Managed HubSpot" : "HubSpot Support";
+  const summary =
+    tier === "Full RevOps Partnership"
+      ? "A complete outsourced HubSpot and RevOps team running strategy plus execution."
+      : tier === "Managed HubSpot"
+        ? "Ongoing management across marketing and sales with continuous build work."
+        : "Ongoing administration, maintenance and support for your existing portal.";
+
+  function toggle(w: string) {
+    setPicked((p) => (p.includes(w) ? p.filter((x) => x !== w) : [...p, w]));
+  }
+
+  return (
+    <div className="grid gap-px border-2 border-ink bg-ink lg:grid-cols-[1.2fr_1fr]">
+      <div className="bg-paper p-8">
+        <p className="mono text-[11px] uppercase tracking-[0.16em] text-fire">Build your scope</p>
+        <h3 className="display mt-3 text-2xl">Select the work you need us to own.</h3>
+        <div className="mt-6 flex flex-wrap gap-2">
+          {WORKSTREAMS.map((w) => {
+            const on = picked.includes(w);
+            return (
+              <button
+                key={w}
+                type="button"
+                aria-pressed={on}
+                onClick={() => toggle(w)}
+                className={`border-2 px-4 py-2 mono text-[11px] uppercase tracking-[0.12em] transition-colors ${
+                  on ? "border-fire bg-fire text-paper" : "border-ink/20 text-muted-foreground hover:border-ink hover:text-ink"
+                }`}
+              >
+                {w}
+              </button>
+            );
+          })}
+        </div>
+        <div className="mt-8">
+          <div className="flex items-baseline justify-between">
+            <label htmlFor="hours" className="mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+              Execution hours per week
+            </label>
+            <span className="display text-2xl">{hours}h</span>
+          </div>
+          <input
+            id="hours"
+            type="range"
+            min={2}
+            max={40}
+            step={2}
+            value={hours}
+            onChange={(e) => setHours(Number(e.target.value))}
+            className="mt-3 w-full accent-fire"
+          />
+        </div>
+      </div>
+
+      <div className="flex flex-col justify-between bg-paper p-8">
+        <div>
+          <p className="mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Recommended engagement</p>
+          <h4 key={tier} className="mt-3 text-3xl leading-tight display">
+            {tier}
+          </h4>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{summary}</p>
+          <ul className="mt-6 space-y-2">
+            {picked.length === 0 ? (
+              <li className="mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+                Select at least one workstream
+              </li>
+            ) : (
+              picked.map((p) => (
+                <li key={p} className="flex items-center gap-3 border-b border-ink/10 pb-2 mono text-[11px] uppercase tracking-[0.12em]">
+                  <span className="h-1.5 w-1.5 bg-fire" />
+                  {p}
+                </li>
+              ))
+            )}
+          </ul>
+        </div>
+        <BookCallButton className="mt-8 inline-flex items-center gap-3 bg-ink px-6 py-4 mono text-[11px] uppercase tracking-[0.16em] text-paper transition-colors hover:bg-fire w-fit">
+          Send this scope to us
+          <span aria-hidden="true">→</span>
+        </BookCallButton>
+      </div>
+    </div>
+  );
+}
+
+function FaqAccordion({ items }: { items: string[][] }) {
+  const [open, setOpen] = useState<number | null>(0);
+  return (
+    <div className="max-w-4xl">
+      {items.map(([q, a], i) => {
+        const isOpen = open === i;
+        return (
+          <div key={q} className="border-t border-ink/15 last:border-b">
+            <button
+              type="button"
+              aria-expanded={isOpen}
+              onClick={() => setOpen(isOpen ? null : i)}
+              className="flex w-full items-center justify-between gap-6 py-6 text-left transition-colors hover:text-fire"
+            >
+              <span className="text-lg">{q}</span>
+              <span
+                className={`mono text-xl leading-none transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
+                aria-hidden="true"
+              >
+                +
+              </span>
+            </button>
+            <div
+              className={`grid overflow-hidden transition-all duration-300 ease-out ${
+                isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+              }`}
+            >
+              <div className="overflow-hidden">
+                <p className="max-w-3xl border-l-2 border-volt pb-6 pl-4 text-sm leading-relaxed text-muted-foreground">
+                  {a}
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   PAGE DATA
+   ══════════════════════════════════════════════════════════════════ */
+
+const messyPortal = [
+  "Hundreds of workflows",
+  "Duplicate properties",
+  "Inconsistent data",
+  "Poorly defined lifecycle stages",
+  "Broken automations",
+  "Unused features",
+  "Incomplete reporting",
+  "Manual processes",
+  "Multiple integrations",
+  "Campaigns that aren't properly tracked",
+  "Sales teams that aren't following the CRM process",
+];
+
+const automations: { title: string; steps: string[]; accent: "fire" | "ink" | "volt" }[] = [
+  { title: "Lead routing", steps: ["New lead", "Identify owner", "Assign", "Create task", "Notify rep"], accent: "fire" },
+  { title: "Lead nurturing", steps: ["Downloads content", "Nurture workflow", "Relevant emails", "Engages", "Sales-ready"], accent: "fire" },
+  { title: "Deal automation", steps: ["Stage change", "Update properties", "Create tasks", "Notify", "Trigger process"], accent: "ink" },
+  { title: "Customer handoff", steps: ["Deal closes", "Update record", "Notify team", "Onboarding tasks"], accent: "volt" },
+];
+
+const leadGenSteps: [string, string][] = [
+  ["Targeting", "Define the companies and people you want to reach."],
+  ["Data", "Build and enrich your prospect database."],
+  ["Outreach", "Create and execute targeted outbound campaigns."],
+  ["Capture", "Bring responses and inbound leads into HubSpot."],
+  ["Qualification", "Use properties, scoring and automation to identify qualified leads."],
+  ["Routing", "Automatically assign leads to the right salesperson."],
+  ["Nurturing", "Continue engaging prospects who aren't ready to buy."],
+  ["Reporting", "Track the journey from prospect to lead to meeting to opportunity to customer."],
+];
+
+const audience: [string, string, string][] = [
+  ["Growing companies", "You have invested in HubSpot but don't yet need — or can't justify — a full internal HubSpot team.", "bg-fire"],
+  ["Marketing teams", "Your marketing team needs HubSpot expertise to execute campaigns and automation.", "bg-fire"],
+  ["Sales teams", "Your sales team needs better CRM processes, automation and reporting.", "bg-ink"],
+  ["RevOps teams", "You have a RevOps leader but need additional execution capacity.", "bg-ink"],
+  ["Complex portals", "Your HubSpot portal has grown organically and needs ongoing management.", "bg-ink"],
+  ["No administrator", "Nobody internally owns HubSpot. That's where we come in.", "bg-fire"],
+];
+
+const process: [string, string, string][] = [
+  ["Step 1", "We understand your HubSpot", "We review your portal, processes, users, data, automation and reporting."],
+  ["Step 2", "We identify the priorities", "We separate what's broken, what's inefficient, what's missing and what's worth improving."],
+  ["Step 3", "We create your execution plan", "We agree on the highest-priority work."],
+  ["Step 4", "We execute", "Our team builds, configures and manages the work inside HubSpot."],
+  ["Step 5", "We continuously improve", "As your business changes, your HubSpot setup changes with it."],
+];
+
+const pricing: { name: string; blurb: string; label: string; accent: string; items: string[] }[] = [
+  {
+    name: "Starter",
+    blurb: "For companies that need ongoing HubSpot administration and support.",
+    label: "Includes:",
+    accent: "border-t-ink",
+    items: ["CRM administration", "Basic automation", "Data management", "User support", "Reporting", "Ongoing maintenance"],
+  },
+  {
+    name: "Growth",
+    blurb: "For companies using HubSpot actively across marketing and sales.",
+    label: "Everything in Starter, plus:",
+    accent: "border-t-fire",
+    items: ["Marketing campaigns", "Advanced workflows", "Sales automation", "Lead management", "Advanced reporting", "Integrations", "Data enrichment"],
+  },
+  {
+    name: "RevOps",
+    blurb: "For companies looking for a complete outsourced HubSpot/RevOps team.",
+    label: "Includes:",
+    accent: "border-t-fire",
+    items: ["CRM architecture", "Sales Hub", "Marketing Hub", "Automation", "Reporting", "Integrations", "Data", "Lead generation", "RevOps support", "Continuous optimization"],
+  },
+];
+
+const faqs: string[][] = [
+  ["What is HubSpot as a Service?", "HubSpot as a Service is an ongoing managed service where a team of HubSpot experts manages, builds and optimizes your HubSpot portal."],
+  ["Is HubSpot as a Service the same as HubSpot consulting?", "No. Consulting generally focuses on recommendations and strategy. HubSpot as a Service focuses on ongoing execution and management."],
+  ["Is HubSpot as a Service the same as HubSpot support?", "Not exactly. Support typically focuses on solving problems. HubSpot as a Service provides proactive, ongoing management and development of your HubSpot environment."],
+  ["Can you manage our existing HubSpot portal?", "Yes. You don't need a new HubSpot account. We can audit your existing portal, clean it up and continue managing it."],
+  ["Can you help with lead generation?", "Yes. We can support the complete process from prospect data and targeting through campaigns, HubSpot automation, lead capture, qualification and reporting."],
+  ["Do you work with companies that already have a RevOps team?", "Yes. In that case, we can act as an execution layer for your RevOps team, helping them get more done without increasing internal headcount."],
+  ["Do we need to hire a HubSpot administrator?", "Not necessarily. HubSpot as a Service can provide the ongoing expertise and execution capacity you need without hiring a full-time specialist."],
+  ["Can you help us implement HubSpot first?", "Yes. We can start with HubSpot implementation and then continue as your ongoing HubSpot team."],
+];
+
+/* ══════════════════════════════════════════════════════════════════
+   PAGE
+   ══════════════════════════════════════════════════════════════════ */
 
 export default function HubSpotAsAServiceClient() {
   return (
-    <div className="min-h-screen bg-paper text-ink">
-      <Hero />
-      <TrustBand />
-      <HaaSMoment />
-      <WhyBand />
-      <HaaSRhythm />
-      <HaaSArtifacts />
-      <WhatYouGet />
-      <StackDiagram />
-      <Modules />
-      <OperatingRhythm />
-      <BeforeAfter />
-      <Deliverables />
-      <PricingTiers />
-      <Migration />
-      <FAQ />
-      <CTA />
-      <Footer />
-    </div>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   HERO
-   ══════════════════════════════════════════════════════════════════ */
-function Hero() {
-  return (
-    <section className="relative border-b-2 border-ink overflow-hidden">
-      <div className="absolute inset-0 stripes opacity-[0.04] pointer-events-none" />
-      <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24 grid md:grid-cols-12 gap-10 relative">
-        <div className="md:col-span-7">
-          <div className="mono text-fire text-sm mb-6 flex items-center gap-3">
-            <span className="brutal-border bg-volt text-ink px-2 py-0.5 text-[10px]">FLAGSHIP</span>
-            <span>/ Our founders started here, in a Hubspot portal at 2am</span>
-          </div>
-          <h1 className="display text-[clamp(2.75rem,8vw,7.5rem)] leading-[0.92] tracking-tight">
-            HubSpot,
-            <br />
-            run like an{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10">operating system.</span>
-              <span
-                className="absolute -bottom-1 left-0 right-0 h-3 bg-fire/80 -z-0"
-                aria-hidden
-              />
+    <main className="bg-paper text-ink">
+      {/* Ticker */}
+      <div className="overflow-hidden bg-ink">
+        <div className="mx-auto flex max-w-[1200px] items-center gap-6 overflow-hidden px-6 py-2.5 mono text-[10px] uppercase tracking-[0.18em] text-paper">
+          <span className="flex shrink-0 items-center gap-2 text-fire">
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-fire animate-blink" />
+            Live
+          </span>
+          {["HubSpot Solutions Partner", "Onboarding new teams", "Senior operators only", "hello@revlyn.io"].map((t) => (
+            <span key={t} className="hidden shrink-0 items-center gap-6 md:flex">
+              <span aria-hidden="true" className="text-fire">◆</span>
+              {t}
             </span>
-          </h1>
-          <p className="mt-8 max-w-2xl text-lg md:text-xl leading-snug">
-            A HubSpot portal is a living system. It's shaped by every launch, every new hire, every "just this once" workflow. After two or three years, most portals carry the fingerprints of five or six different owners, and that's normal. Our job is to read what's there, keep what's working, and quietly rebuild the parts that decide whether a deal closes.
-          </p>
-          <p className="mt-4 max-w-2xl text-base text-muted-foreground leading-snug">
-            You work with the operators directly. The people on your Slack are the same people writing the workflows, senior end to end, since HubSpot was still called Sidekick.
-          </p>
-
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <BookCallButton className="group brutal-border bg-ink text-paper px-6 py-4 display text-xl brutal-shadow-fire hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[5px_5px_0_0_var(--color-fire)] transition-all">
-              BOOK A 30-MIN CALL
-              <span className="ml-2 inline-block group-hover:translate-x-1 transition-transform">→</span>
-            </BookCallButton>
-            <a
-              href="#what-you-get"
-              className="brutal-border bg-volt text-ink px-6 py-4 display text-xl hover:bg-paper transition-colors"
-            >
-              SEE WHAT WE RUN ↓
-            </a>
-          </div>
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mono text-xs">
-            <Stat label="HUBSPOT BUILDS SHIPPED" value="50+" />
-            <Stat label="AVG. OPERATOR TENURE" value="8 YRS" hi />
-            <Stat label="FIRST SLACK REPLY" value="< 14m" />
-            <Stat label="STAYED PAST YEAR 1" value="92%" />
-          </div>
-        </div>
-
-        <div className="md:col-span-5 relative">
-          <div className="brutal-border brutal-shadow-fire overflow-hidden bg-ink">
-            <img
-              src={hubspotHero}
-              alt="HubSpot dashboard on operator's desk"
-              className="w-full h-auto block"
-              width={1600}
-              height={1100}
-            />
-          </div>
-          <div className="absolute -top-4 -left-4 brutal-border bg-volt text-ink px-3 py-2 mono text-[10px] brutal-shadow rotate-[-3deg]">
-            LIVE · WEEK 12 · WIN RATE ↑ 34%
-          </div>
-          <div className="absolute -bottom-6 -right-4 brutal-border bg-paper text-ink px-3 py-2 mono text-[10px] brutal-shadow rotate-[3deg]">
-            ONE TEAM · FOUR FUNCTIONS
-          </div>
+          ))}
         </div>
       </div>
-    </section>
-  );
-}
 
-function Stat({ label, value, hi }: { label: string; value: string; hi?: boolean }) {
-  return (
-    <div className={`brutal-border p-3 ${hi ? "bg-volt" : ""}`}>
-      <div className={`text-[10px] ${hi ? "" : "text-muted-foreground"}`}>{label}</div>
-      <div className="display text-2xl mt-1">{value}</div>
-    </div>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   TRUST BAND / MARQUEE
-   ══════════════════════════════════════════════════════════════════ */
-function TrustBand() {
-  const items = [
-    "HUBSPOT SALES HUB · ENTERPRISE",
-    "MARKETING HUB · OPS HUB",
-    "SERVICE HUB · CMS",
-    "CUSTOM OBJECTS · WORKFLOWS",
-    "AI AGENTS · BREEZE",
-    "REV REPORTING · ATTRIBUTION",
-  ];
-  return (
-    <div className="bg-fire text-paper border-b-2 border-ink overflow-hidden">
-      <div className="flex animate-marquee whitespace-nowrap py-4 display text-2xl md:text-3xl">
-        {Array.from({ length: 2 }).map((_, i) => (
-          <div key={i} className="flex shrink-0 items-center gap-8 pr-8">
-            {items.map((t, j) => (
-              <span key={j} className="flex items-center gap-8">
-                <span>{t}</span>
-                <span className="text-volt">✦</span>
+      {/* Hero */}
+      <section className="relative overflow-hidden border-b-2 border-ink">
+        <div className="absolute inset-0 stripes opacity-[0.04] pointer-events-none" aria-hidden="true" />
+        <div className="relative mx-auto grid max-w-[1200px] gap-12 px-6 pt-20 pb-20 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:pt-28 lg:pb-28">
+          <div>
+            <p className="flex flex-wrap items-center gap-4">
+              <span className="brutal-border bg-volt text-ink px-2 py-0.5 mono text-[10px]">Flagship</span>
+              <span className="mono text-[11px] uppercase tracking-[0.16em] text-fire">/ Revlyn · HubSpot Practice</span>
+            </p>
+            <h1 className="mt-7 display text-5xl leading-[0.92] md:text-7xl">
+              HubSpot as a{" "}
+              <span className="relative inline-block">
+                <span className="relative z-10">Service</span>
+                <span aria-hidden="true" className="absolute inset-x-0 bottom-1 z-0 h-3 bg-volt" />
               </span>
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   WHY (The problem this replaces)
-   ══════════════════════════════════════════════════════════════════ */
-function WhyBand() {
-  const rows = [
-    {
-      k: "The internal build",
-      body: "1 HubSpot admin · 1 RevOps hire · 1 marketing ops · 1 AI/analytics resource. 9–14 months to hire, ramp, and align. Attrition risk on every seat.",
-      tag: "$550K+ / year, loaded",
-      bad: true,
-    },
-    {
-      k: "The typical agency",
-      body: "Project-priced. Juniors doing the work. Handoffs, tickets, weekly status decks. No accountability once the SOW ends.",
-      tag: "Short attention span",
-      bad: true,
-    },
-    {
-      k: "HubSpot as a Service",
-      body: "The same three operators, in your Slack every day, for the whole year. They wrote the workflows, they debug the workflows, they train your reps on the workflows. No account manager translating between you and someone in a different time zone.",
-      tag: "Same faces, all year.",
-      good: true,
-    },
-  ];
-  return (
-    <section className="border-b-2 border-ink bg-bone">
-      <div className="max-w-[1400px] mx-auto px-6 py-20">
-        <SectionHeader
-          n="01"
-          label="Why we exist"
-          title="You shouldn't need to hire four people to run HubSpot well."
-        />
-        <div className="mt-12 grid md:grid-cols-3 gap-6">
-          {rows.map((r) => (
-            <div
-              key={r.k}
-              className={`brutal-border p-6 ${
-                r.good ? "bg-ink text-paper brutal-shadow-fire" : "bg-paper"
-              }`}
-            >
-              <div
-                className={`mono text-[10px] uppercase tracking-widest ${
-                  r.good ? "text-fire" : "text-muted-foreground"
-                }`}
-              >
-                {r.bad ? "One of two familiar paths" : "A third option"}
-              </div>
-              <div className="display text-2xl mt-2">{r.k}</div>
-              <p className="mt-4 text-sm leading-relaxed opacity-90">{r.body}</p>
-              <div
-                className={`mt-6 inline-block brutal-border px-3 py-1.5 mono text-[11px] ${
-                  r.good ? "bg-volt text-ink" : "bg-ink text-paper"
-                }`}
-              >
-                {r.tag}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   WHAT YOU GET (module grid)
-   ══════════════════════════════════════════════════════════════════ */
-function WhatYouGet() {
-  const items = [
-    {
-      n: "01",
-      t: "HubSpot Architecture",
-      b: "Object model, lifecycle stages, pipelines, permission sets, portal hygiene. Built to scale from Seed to Series C.",
-    },
-    {
-      n: "02",
-      t: "Data & Integrations",
-      b: "Segment, Rudderstack, warehouse sync, product signals, enrichment, dedupe. HubSpot as the single source of truth.",
-    },
-    {
-      n: "03",
-      t: "GTM Workflows",
-      b: "Inbound routing, lead scoring, SLA enforcement, deal automation, forecast rollups, renewal & churn alerts.",
-    },
-    {
-      n: "04",
-      t: "Marketing Ops",
-      b: "Campaigns, nurtures, attribution, list hygiene, deliverability, form and CTA architecture, A/B rigor.",
-    },
-    {
-      n: "05",
-      t: "Reporting & Forecasting",
-      b: "Board-ready dashboards. Funnel math, cohort ARR, sales velocity, rep scorecards, weekly ops review.",
-    },
-    {
-      n: "06",
-      t: "AI Layer (Breeze + custom)",
-      b: "Lead qualification agents, meeting summarizers, follow-up drafts, deal risk scoring, content ops copilots.",
-    },
-    {
-      n: "07",
-      t: "Enablement & Adoption",
-      b: "Rep playbooks, Loom libraries, in-portal guidance, monthly office hours. Your team actually uses HubSpot.",
-    },
-    {
-      n: "08",
-      t: "Portal Governance",
-      b: "Change requests, release notes, deprecation policy, audit log. Your HubSpot stops drifting.",
-    },
-  ];
-  return (
-    <section id="what-you-get" className="border-b-2 border-ink bg-paper">
-      <div className="max-w-[1400px] mx-auto px-6 py-20">
-        <SectionHeader
-          n="02"
-          label="What we look after"
-          title="Eight things we quietly take off your plate."
-        />
-        <div className="mt-12 grid md:grid-cols-4 gap-0 brutal-border">
-          {items.map((it, i) => (
-            <div
-              key={it.n}
-              className={`p-6 relative min-h-[220px] ${
-                i % 4 !== 3 ? "md:border-r-2 md:border-ink" : ""
-              } ${i < 4 ? "md:border-b-2 md:border-ink" : ""} border-b-2 border-ink last:border-b-0 ${
-                i === 5 ? "bg-fire text-paper" : i === 2 ? "bg-volt" : "bg-paper"
-              }`}
-            >
-              <div className="mono text-[11px] opacity-70">{it.n}</div>
-              <div className="display text-2xl mt-2">{it.t}</div>
-              <p className="mt-3 text-sm leading-snug opacity-90">{it.b}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   STACK DIAGRAM
-   ══════════════════════════════════════════════════════════════════ */
-function StackDiagram() {
-  return (
-    <section className="border-b-2 border-ink bg-bone">
-      <div className="max-w-[1400px] mx-auto px-6 py-20 grid md:grid-cols-12 gap-10 items-center">
-        <div className="md:col-span-5">
-          <div className="mono text-fire text-sm">How it fits together</div>
-          <h2 className="display text-[clamp(2rem,4.5vw,3.75rem)] mt-3 leading-[0.95]">
-            HubSpot in the middle. Everything else feeding into it.
-          </h2>
-          <p className="mt-6 text-lg leading-snug text-muted-foreground">
-            Your CRM is only as useful as what flows into it. We wire the rest
-            of your stack — data, product signals, GTM tools, AI — into HubSpot
-            so your pipeline reflects what's actually happening.
-          </p>
-          <ul className="mt-8 space-y-2 mono text-sm">
-            <li>▸ Warehouse sync (Snowflake · BigQuery · Redshift)</li>
-            <li>▸ CDP (Segment · Rudderstack)</li>
-            <li>▸ Enrichment (Clearbit · Apollo · Clay)</li>
-            <li>▸ Signals (Common Room · G2 · product events)</li>
-            <li>▸ AI (Breeze · OpenAI · Anthropic · custom agents)</li>
-          </ul>
-        </div>
-        <div className="md:col-span-7">
-          <StackSVG />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function StackSVG() {
-  return (
-    <div className="brutal-border bg-paper p-6 md:p-10 brutal-shadow-fire">
-      <svg viewBox="0 0 520 380" className="w-full h-auto">
-        <defs>
-          <marker
-            id="arr"
-            viewBox="0 0 10 10"
-            refX="8"
-            refY="5"
-            markerWidth="6"
-            markerHeight="6"
-            orient="auto"
-          >
-            <path d="M0,0 L10,5 L0,10 z" fill="#0a0a0a" />
-          </marker>
-        </defs>
-        {/* Center hub */}
-        <g>
-          <rect
-            x="200"
-            y="150"
-            width="120"
-            height="80"
-            fill="#ff5722"
-            stroke="#0a0a0a"
-            strokeWidth="2"
-          />
-          <text
-            x="260"
-            y="185"
-            textAnchor="middle"
-            fontFamily="Inter Tight, Inter, sans-serif"
-            fontWeight="800"
-            fontSize="22"
-            fill="#fff"
-          >
-            HUBSPOT
-          </text>
-          <text
-            x="260"
-            y="207"
-            textAnchor="middle"
-            fontFamily="JetBrains Mono, monospace"
-            fontSize="10"
-            fill="#fff"
-          >
-            single source of truth
-          </text>
-        </g>
-        {/* Nodes */}
-        {[
-          { x: 30, y: 40, w: 130, h: 46, l: "WAREHOUSE" },
-          { x: 190, y: 30, w: 140, h: 46, l: "PRODUCT SIGNALS" },
-          { x: 360, y: 40, w: 130, h: 46, l: "CDP" },
-          { x: 30, y: 310, w: 130, h: 46, l: "AI AGENTS" },
-          { x: 190, y: 320, w: 140, h: 46, l: "ENRICHMENT" },
-          { x: 360, y: 310, w: 130, h: 46, l: "GTM TOOLS" },
-        ].map((n) => (
-          <g key={n.l}>
-            <rect
-              x={n.x}
-              y={n.y}
-              width={n.w}
-              height={n.h}
-              fill="#fffdf6"
-              stroke="#0a0a0a"
-              strokeWidth="2"
-            />
-            <text
-              x={n.x + n.w / 2}
-              y={n.y + n.h / 2 + 5}
-              textAnchor="middle"
-              fontFamily="JetBrains Mono, monospace"
-              fontSize="12"
-              fill="#0a0a0a"
-            >
-              {n.l}
-            </text>
-          </g>
-        ))}
-        {/* Connections */}
-        {[
-          [95, 86, 220, 150],
-          [260, 76, 260, 150],
-          [425, 86, 300, 150],
-          [95, 310, 220, 230],
-          [260, 320, 260, 230],
-          [425, 310, 300, 230],
-        ].map(([x1, y1, x2, y2], i) => (
-          <line
-            key={i}
-            x1={x1}
-            y1={y1}
-            x2={x2}
-            y2={y2}
-            stroke="#0a0a0a"
-            strokeWidth="2"
-            markerEnd="url(#arr)"
-          >
-            <animate
-              attributeName="stroke-dasharray"
-              values="0 200; 200 0"
-              dur="3s"
-              repeatCount="indefinite"
-              begin={`${i * 0.4}s`}
-            />
-          </line>
-        ))}
-      </svg>
-    </div>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   MODULES (detailed cards with photo)
-   ══════════════════════════════════════════════════════════════════ */
-function Modules() {
-  return (
-    <section className="border-b-2 border-ink bg-paper">
-      <div className="max-w-[1400px] mx-auto px-6 py-20">
-        <SectionHeader
-          n="03"
-          label="A closer look"
-          title="The things your team stops worrying about."
-        />
-        <div className="mt-12 grid md:grid-cols-2 gap-10">
-          <div>
-            <div className="brutal-border overflow-hidden bg-ink">
-              <img
-                src={dashboardMockup}
-                alt="HubSpot dashboard rebuilt for a Series B SaaS"
-                className="w-full h-auto block"
-                loading="lazy"
-                width={1400}
-                height={900}
-              />
-            </div>
-            <div className="mono text-xs text-fire">Reporting</div>
-            <div className="display text-3xl mt-1">Reports your board will actually read</div>
-            <p className="mt-3 text-muted-foreground">
-              Funnel, cohort ARR, sales velocity, forecast confidence, rep
-              scorecards, campaign attribution. We rebuild them as your
-              business changes shape — usually every quarter.
+            </h1>
+            <div aria-hidden="true" className="mt-4 h-1.5 max-w-xl bg-fire" />
+            <p className="mt-6 max-w-xl text-xl text-ink md:text-2xl">Your HubSpot team, without hiring one.</p>
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
+              Get ongoing HubSpot management, implementation, automation, CRM administration, marketing, sales
+              operations, reporting, integrations and lead generation — all from one team.
             </p>
+            <p className="mt-3 max-w-xl text-base leading-relaxed text-muted-foreground">
+              Tell us what you need. We build it, manage it and keep improving it.
+            </p>
+            <div className="mt-9 flex flex-wrap gap-5">
+              <SectionCta label="Talk to a HubSpot Expert" />
+              <SecondaryLink label="See pricing ↓" />
+            </div>
           </div>
           <div>
-            <div className="brutal-border overflow-hidden bg-ink">
-              <img
-                src={whiteboard}
-                alt="Workflow architecture sketch for a HubSpot rebuild"
-                className="w-full h-auto block"
-                loading="lazy"
-                width={1400}
-                height={900}
-              />
-            </div>
-            <div className="mono text-xs text-fire">Automation</div>
-            <div className="display text-3xl mt-1">
-              Workflows that keep working
-            </div>
-            <p className="mt-3 text-muted-foreground">
-              Every workflow is documented and owned by someone. When your
-              product ships something new, the workflow moves with it. When a
-              rep leaves, the handoff just happens.
-            </p>
+            <HeroPortal />
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   OPERATING RHYTHM (weekly cadence)
-   ══════════════════════════════════════════════════════════════════ */
-function OperatingRhythm() {
-  const cadence = [
-    { d: "MON", t: "Standup", b: "15 min. Priorities for the week. Blockers surfaced." },
-    { d: "TUE–THU", t: "Build & Operate", b: "Automation, reports, campaigns, AI agents, portal hygiene." },
-    { d: "FRI", t: "Ops Review", b: "Pipeline health, workflow errors, data quality, changes shipped." },
-    { d: "MONTHLY", t: "Scorecard", b: "Written monthly review. What moved. What didn't. What's next." },
-    { d: "QUARTERLY", t: "Roadmap", b: "Rescope. New surfaces added. Deprecations. Board-facing summary." },
-  ];
-  return (
-    <section className="border-b-2 border-ink bg-ink text-paper relative overflow-hidden">
-      <div className="absolute inset-0 grid-paper opacity-[0.08] pointer-events-none" />
-      <div className="max-w-[1400px] mx-auto px-6 py-20 relative">
-        <SectionHeader
-          n="04"
-          label="How we work with you"
-          title="A calm, weekly rhythm."
-          light
-        />
-        <div className="mt-12 grid md:grid-cols-5 gap-4">
-          {cadence.map((c) => (
-            <div
-              key={c.d}
-              className="brutal-border border-paper bg-ink p-5 hover:bg-fire transition-colors"
-            >
-              <div className="mono text-[10px] text-fire group-hover:text-paper">
-                {c.d}
-              </div>
-              <div className="display text-2xl mt-2">{c.t}</div>
-              <p className="mt-3 text-sm text-paper/80 leading-snug">{c.b}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-12 grid md:grid-cols-3 gap-4 mono text-sm">
-          <div className="brutal-border border-paper p-4">
-            <div className="text-fire text-[11px]">CHANNEL</div>
-            <div className="display text-xl mt-1">Shared Slack</div>
-          </div>
-          <div className="brutal-border border-paper p-4 bg-volt text-ink">
-            <div className="text-[11px]">RESPONSE</div>
-            <div className="display text-xl mt-1">Same-day, business hours</div>
-          </div>
-          <div className="brutal-border border-paper p-4">
-            <div className="text-fire text-[11px]">DOCS</div>
-            <div className="display text-xl mt-1">Notion + Loom library</div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   BEFORE / AFTER
-   ══════════════════════════════════════════════════════════════════ */
-function BeforeAfter() {
-  const rows = [
-    ["Owner of HubSpot", "A confused Slack channel", "Revlyn (documented)"],
-    ["Lead routing", "Round robin, no SLAs", "Signal-scored, SLA-enforced"],
-    ["Reporting", "Screenshots in decks", "Live dashboards + monthly scorecard"],
-    ["Forecast accuracy", "Vibes-based", "Weighted, calibrated weekly"],
-    ["Marketing attribution", "First-touch only", "Multi-touch + product signals"],
-    ["AI in HubSpot", "One-off Breeze prompts", "Agents wired to workflows & data"],
-    ["Enablement", "Onboarding doc from 2023", "In-portal guidance + Loom library"],
-    ["Change control", "Anyone can edit anything", "Versioned, reviewed, released"],
-  ];
-  return (
-    <section className="border-b-2 border-ink bg-bone">
-      <div className="max-w-[1400px] mx-auto px-6 py-20">
-        <SectionHeader
-          n="05"
-          label="Before and after"
-          title="Same portal. A very different feeling."
-        />
-        <div className="mt-12 brutal-border bg-paper overflow-x-auto">
-          <table className="w-full text-sm md:text-base">
-            <thead>
-              <tr className="bg-ink text-paper display">
-                <th className="text-left p-4 md:p-5 border-r-2 border-paper/20">Surface</th>
-                <th className="text-left p-4 md:p-5 border-r-2 border-paper/20">
-                  <span className="mono text-[11px] text-fire">BEFORE</span>
-                  <div>Typical mess</div>
-                </th>
-                <th className="text-left p-4 md:p-5">
-                  <span className="mono text-[11px] text-volt">AFTER</span>
-                  <div>With Revlyn</div>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((r, i) => (
-                <tr key={r[0]} className={i % 2 ? "bg-bone" : "bg-paper"}>
-                  <td className="p-4 md:p-5 border-t-2 border-ink display text-lg">
-                    {r[0]}
-                  </td>
-                  <td className="p-4 md:p-5 border-t-2 border-ink text-muted-foreground">
-                    {r[1]}
-                  </td>
-                  <td className="p-4 md:p-5 border-t-2 border-ink">
-                    <span className="brutal-border bg-volt px-2 py-0.5 mr-2 mono text-[10px]">
-                      NOW
-                    </span>
-                    {r[2]}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   DELIVERABLES (photo + list)
-   ══════════════════════════════════════════════════════════════════ */
-function Deliverables() {
-  const bundles = [
-    {
-      h: "Architecture bundle",
-      items: [
-        "Portal audit + gap analysis",
-        "Object model & lifecycle map",
-        "Permission sets & team topology",
-        "Data dictionary + naming conventions",
-      ],
-    },
-    {
-      h: "Ops bundle",
-      items: [
-        "Lead routing + SLAs",
-        "Deal & renewal automation",
-        "Workflow library, versioned",
-        "Error monitoring + weekly hygiene",
-      ],
-    },
-    {
-      h: "Reporting bundle",
-      items: [
-        "Board dashboard v1",
-        "Rep & manager scorecards",
-        "Attribution model + weekly report",
-        "Forecast calibration cadence",
-      ],
-    },
-    {
-      h: "AI bundle",
-      items: [
-        "Breeze agent configuration",
-        "Meeting summarizer → CRM",
-        "Deal risk & health scoring",
-        "Custom agents (LangChain / OpenAI)",
-      ],
-    },
-  ];
-  return (
-    <section className="border-b-2 border-ink bg-paper">
-      <div className="max-w-[1400px] mx-auto px-6 py-20 grid md:grid-cols-12 gap-10">
-        <div className="md:col-span-5 relative">
-          <div className="brutal-border overflow-hidden bg-ink brutal-shadow-fire">
-            <img
-              src={playbookDesk}
-              alt="Playbook and portal audit documents on desk"
-              className="w-full h-auto block"
-              loading="lazy"
-              width={1400}
-              height={1400}
-            />
-          </div>
-          <div className="absolute -bottom-6 -left-6 brutal-border bg-volt text-ink px-4 py-3 mono text-xs brutal-shadow rotate-[-4deg]">
-            30+ ARTIFACTS · YOURS TO KEEP
-          </div>
-        </div>
-        <div className="md:col-span-7">
-          <div className="mono text-fire text-sm">What you'll have</div>
-          <h2 className="display text-[clamp(2rem,4.5vw,3.5rem)] mt-3 leading-[0.95]">
-            Everything written down. Everything yours.
-          </h2>
-          <p className="mt-5 text-muted-foreground text-lg">
-            If we ever part ways, you keep the portal, the playbooks, the
-            dashboards, and the docs. No lock-in, no black box, no drama.
-          </p>
-          <div className="mt-10 grid sm:grid-cols-2 gap-4">
-            {bundles.map((b) => (
-              <div key={b.h} className="brutal-border p-5 bg-bone">
-                <div className="display text-xl">{b.h}</div>
-                <ul className="mt-3 space-y-1.5 text-sm">
-                  {b.items.map((i) => (
-                    <li key={i} className="flex gap-2">
-                      <span className="text-fire">▸</span>
-                      <span>{i}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   PRICING TIERS
-   ══════════════════════════════════════════════════════════════════ */
-function PricingTiers() {
-  const tiers = [
-    {
-      name: "Foundation",
-      for: "Seed / Series A. One HubSpot Hub. A small GTM team getting its house in order.",
-      price: "from $1.5K",
-      period: "/month",
-      cta: "Let's talk",
-      features: [
-        "A senior operator, part-time",
-        "Sales or Marketing Hub focus",
-        "Weekly standup + monthly review",
-        "Standard reporting suite",
-        "Up to 2 workflow releases per week",
-      ],
-    },
-    {
-      name: "Growth",
-      for: "Series A/B. Multiple Hubs. RevOps and Marketing Ops on the same page.",
-      price: "from $3K",
-      period: "/month",
-      cta: "Book an intro call",
-      features: [
-        "Two senior operators + tech lead",
-        "Sales + Marketing + Ops Hubs",
-        "AI layer: Breeze + custom agents",
-        "Board-ready dashboards",
-        "Unlimited workflow releases",
-        "Quarterly roadmap",
-      ],
-      featured: true,
-    },
-    {
-      name: "Scale",
-      for: "Series B+. Multi-region. Complex data and governance.",
-      price: "Custom",
-      period: "",
-      cta: "Let's scope it together",
-      features: [
-        "A dedicated pod of 3–4 operators",
-        "All Hubs + CMS + custom objects",
-        "Warehouse-first architecture",
-        "Attribution + forecasting",
-        "Change control + audit",
-        "Executive review cadence",
-      ],
-    },
-  ];
-  return (
-    <section id="pricing" className="border-b-2 border-ink bg-bone">
-      <div className="max-w-[1400px] mx-auto px-6 py-20">
-        <SectionHeader
-          n="06"
-          label="Pricing"
-          title="Simple monthly pricing. No surprise invoices."
-        />
-        <div className="mt-12 grid md:grid-cols-3 gap-6">
-          {tiers.map((t) => (
-            <div
-              key={t.name}
-              className={`brutal-border p-7 flex flex-col ${
-                t.featured
-                  ? "bg-ink text-paper brutal-shadow-fire md:-translate-y-3"
-                  : "bg-paper"
-              }`}
-            >
-              {t.featured && (
-                <div className="inline-block self-start brutal-border bg-volt text-ink px-2 py-1 mono text-[10px] mb-4">
-                  Most teams start here
+        <div className="relative mx-auto max-w-[1200px] px-6 pb-20">
+          <div data-stagger className="grid gap-px border-2 border-ink bg-ink sm:grid-cols-3">
+            {[
+              ["CRM", "Architecture, data & governance", "bg-fire"],
+              ["Automation", "Workflows built on your process", "bg-fire"],
+              ["RevOps", "Reporting, integrations, pipeline", "bg-ink"],
+            ].map(([k, v, c]) => (
+              <div key={k} className="bg-paper">
+                <div className="h-full p-6">
+                  <span className={`mb-4 block h-1 w-10 ${c}`} />
+                  <p className="mono text-[11px] uppercase tracking-[0.16em]">{k}</p>
+                  <p className="mt-2 text-sm text-muted-foreground">{v}</p>
                 </div>
-              )}
-              <div className="display text-3xl">{t.name}</div>
-              <div
-                className={`mt-2 text-sm ${
-                  t.featured ? "text-paper/70" : "text-muted-foreground"
-                }`}
-              >
-                {t.for}
               </div>
-              <div className="mt-6 flex items-baseline gap-1">
-                <span className="display text-4xl">{t.price}</span>
-                <span
-                  className={`mono text-xs ${
-                    t.featured ? "text-paper/60" : "text-muted-foreground"
-                  }`}
-                >
-                  {t.period}
-                </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Section eyebrow="Definition" title="What is HubSpot as a Service?">
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+          <div className="space-y-5">
+            <Lead>
+              HubSpot as a Service is an ongoing managed service where a team of HubSpot specialists manages and
+              improves your HubSpot portal for you.
+            </Lead>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              Instead of hiring a full-time HubSpot administrator, RevOps manager, marketing automation specialist
+              and CRM consultant, you get access to a team that can handle the day-to-day work required to make
+              HubSpot work for your business.
+            </p>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              This can include everything from HubSpot CRM administration and data management to workflows,
+              marketing automation, sales processes, reporting, integrations and lead generation.
+            </p>
+            <p className="border-l-2 border-fire pl-4 text-sm leading-relaxed text-ink">
+              It is designed for companies that already use HubSpot but don't have enough internal resources to
+              manage it effectively.
+            </p>
+          </div>
+          <Figure src="/hubspot-dashboard.jpg" alt="A managed HubSpot / CRM dashboard in daily use" caption="Inside a managed HubSpot portal" />
+        </div>
+      </Section>
+
+      <Section eyebrow="The problem" title="Why companies choose HubSpot as a Service" accent="volt">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
+          <div className="space-y-4">
+            <p className="text-2xl leading-snug">Buying HubSpot is easy.</p>
+            <p className="mt-2 text-lg text-muted-foreground">Getting your team to actually use it properly is harder.</p>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              Over time, HubSpot portals become complicated. And eventually someone inside the company becomes
+              responsible for fixing everything. Usually, that person already has a full-time job.
+            </p>
+            <p className="bg-volt p-4 text-sm leading-relaxed text-ink">
+              HubSpot as a Service gives you a team whose job is to make HubSpot work.
+            </p>
+          </div>
+          <div>
+            <p className="mono text-[11px] uppercase tracking-[0.16em] mb-4 text-muted-foreground">You may have</p>
+            <TickList items={messyPortal} />
+          </div>
+        </div>
+      </Section>
+
+      <Section eyebrow="Capabilities" title="What does a HubSpot as a Service provider do?">
+        <Lead>
+          Think of us as your outsourced HubSpot team. You can use us for individual projects or ongoing support.
+        </Lead>
+        <div className="mt-4">
+          <Capability
+            index="01"
+            title="HubSpot CRM Management"
+            accent="text-fire"
+            intro={["We manage the foundation of your CRM so your sales and marketing teams can work from reliable data."]}
+            items={[
+              "Contact and company properties",
+              "Custom objects",
+              "Lifecycle stages",
+              "Lead statuses",
+              "Data cleanup",
+              "Duplicate management",
+              "Importing and exporting data",
+              "Record management",
+              "CRM architecture",
+              "User permissions",
+              "Teams and access",
+              "Data governance",
+              "CRM documentation",
+            ]}
+            visual={
+              <div className="brutal-border p-6">
+                <p className="mono text-[11px] uppercase tracking-[0.16em] mb-5 text-muted-foreground">Lifecycle architecture</p>
+                <FlowDiagram steps={["Subscriber", "Lead", "MQL", "SQL", "Opportunity", "Customer"]} />
+                <div className="mt-8 grid grid-cols-3 gap-px bg-ink/10">
+                  {[["Properties", "Standardised"], ["Duplicates", "Merged"], ["Owners", "Assigned"]].map(([k, v]) => (
+                    <div key={k} className="bg-paper p-4">
+                      <p className="mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">{k}</p>
+                      <p className="mt-1 text-sm text-ink">{v}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <ul className="mt-6 space-y-2 text-sm flex-1">
-                {t.features.map((f) => (
-                  <li key={f} className="flex gap-2">
-                    <span className={t.featured ? "text-fire" : "text-fire"}>
-                      ▸
-                    </span>
-                    <span>{f}</span>
-                  </li>
+            }
+          />
+          <Capability
+            index="02"
+            title="HubSpot Sales Hub Management"
+            accent="text-ink"
+            intro={["Your sales team should spend time selling — not figuring out how HubSpot works."]}
+            items={[
+              "Sales pipelines",
+              "Deal stages",
+              "Lead management",
+              "Lead routing",
+              "Sales automation",
+              "Task automation",
+              "Sequences",
+              "Templates",
+              "Meeting scheduling",
+              "Sales notifications",
+              "Follow-up processes",
+              "Forecasting",
+              "Sales dashboards",
+              "Rep productivity reporting",
+            ]}
+            outro="We can also help align your HubSpot setup with the way your sales team actually works."
+            visual={
+              <div className="brutal-border p-6">
+                <p className="mono text-[11px] uppercase tracking-[0.16em] mb-5 text-muted-foreground">Pipeline by stage</p>
+                <FunnelDiagram
+                  stages={[
+                    { label: "Prospecting", value: "$2.45M", width: 100 },
+                    { label: "Qualification", value: "$1.35M", width: 82 },
+                    { label: "Proposal", value: "$780K", width: 62 },
+                    { label: "Negotiation", value: "$420K", width: 44 },
+                    { label: "Won", value: "$210K", width: 28 },
+                  ]}
+                />
+              </div>
+            }
+          />
+          <Capability
+            index="03"
+            title="HubSpot Marketing Hub Management"
+            accent="text-fire"
+            intro={["HubSpot can become your marketing team's execution engine."]}
+            items={[
+              "Marketing emails",
+              "Email campaigns",
+              "Landing pages",
+              "Forms",
+              "Lists",
+              "Segmentation",
+              "Lead nurturing",
+              "Marketing automation",
+              "Workflows",
+              "Lead scoring",
+              "Campaign tracking",
+              "UTM tracking",
+              "Marketing reporting",
+              "Contact segmentation",
+            ]}
+            outro="Instead of your marketing team waiting for a HubSpot expert every time they need something built, you have a team available to execute it."
+            visual={
+              <div className="brutal-border p-6">
+                <p className="mono text-[11px] uppercase tracking-[0.16em] mb-5 text-muted-foreground">Campaign performance</p>
+                <BarChartDiagram
+                  color="fire"
+                  data={[
+                    { label: "Jan", value: 42 },
+                    { label: "Feb", value: 58 },
+                    { label: "Mar", value: 51 },
+                    { label: "Apr", value: 74 },
+                    { label: "May", value: 88 },
+                    { label: "Jun", value: 96 },
+                  ]}
+                />
+                <div className="mt-6 flex flex-wrap gap-2 mono text-[10px] uppercase tracking-[0.12em]">
+                  {["Emails", "Landing pages", "Forms", "Lead scoring", "UTM"].map((t) => (
+                    <span key={t} className="border border-ink/15 px-2 py-1 text-muted-foreground">{t}</span>
+                  ))}
+                </div>
+              </div>
+            }
+          />
+        </div>
+      </Section>
+
+      <Section eyebrow="Automation" title="HubSpot Automation" accent="ink">
+        <div className="max-w-3xl space-y-3 text-muted-foreground">
+          <p>Automation is one of the biggest reasons companies invest in HubSpot.</p>
+          <p>But poorly designed automation can make your CRM harder to manage.</p>
+          <p>We help you build automation around your actual business processes.</p>
+        </div>
+        <div data-stagger className="mt-10 grid gap-px bg-ink/10 md:grid-cols-2">
+          {automations.map((a) => (
+            <div key={a.title} className="bg-paper">
+              <div className="h-full p-8">
+                <h3 className="text-xl display">{a.title}</h3>
+                <div className="mt-5">
+                  <FlowDiagram steps={a.steps} accent={a.accent} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section eyebrow="Visibility" title="HubSpot Reporting & Dashboards">
+        <Lead>
+          Your CRM should answer important business questions — not just show you a collection of charts. We build
+          dashboards around the metrics your team actually needs.
+        </Lead>
+        <div className="mt-10 grid gap-8 md:grid-cols-3">
+          {[
+            ["Sales reporting", "border-t-fire", ["Pipeline value", "Pipeline by stage", "Deal velocity", "Win rate", "Sales activity", "Rep performance", "Forecast", "Revenue by source"]],
+            ["Marketing reporting", "border-t-fire", ["Leads generated", "MQLs", "Campaign performance", "Email engagement", "Conversion rates", "Lead sources", "Marketing contribution"]],
+            ["Management reporting", "border-t-ink", ["Leads → opportunities → customers", "Revenue pipeline", "Sales performance", "Marketing performance", "Funnel conversion", "Source attribution"]],
+          ].map(([title, border, items]) => (
+            <div key={title as string} className={`h-full border-t-2 ${border as string} pt-5`}>
+              <h3 className="text-lg display">{title as string}</h3>
+              <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                {(items as string[]).map((it) => (
+                  <li key={it}>{it}</li>
                 ))}
               </ul>
-              <a
-                href="mailto:info@revlyn.io?subject=HubSpot%20as%20a%20Service%20-%20intro%20call"
-                className={`mt-8 brutal-border display text-lg px-5 py-3 text-center transition-transform hover:-translate-y-0.5 ${
-                  t.featured ? "bg-fire text-paper" : "bg-ink text-paper"
-                }`}
-              >
-                {t.cta} →
-              </a>
             </div>
           ))}
         </div>
-        <p className="mt-8 mono text-xs text-muted-foreground">
-          * Every plan includes a 30-day exit. Senior work only, no
-          sub-contracting. We run dedicated pods so every client gets consistent attention.
-        </p>
-      </div>
-    </section>
-  );
-}
+        <div className="mt-12 grid gap-px border-2 border-ink bg-ink md:grid-cols-3">
+          <div className="bg-paper p-6">
+            <p className="mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Revenue by month</p>
+            <div className="mt-5">
+              <BarChartDiagram data={[{ label: "Q1", value: 48 }, { label: "Q2", value: 62 }, { label: "Q3", value: 81 }, { label: "Q4", value: 97 }]} />
+            </div>
+          </div>
+          <div className="bg-paper p-6">
+            <p className="mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Funnel conversion</p>
+            <div className="mt-5">
+              <FunnelDiagram
+                stages={[
+                  { label: "Leads", value: "3,240", width: 100 },
+                  { label: "MQL", value: "1,180", width: 74 },
+                  { label: "SQL", value: "460", width: 52 },
+                  { label: "Customers", value: "96", width: 30 },
+                ]}
+              />
+            </div>
+          </div>
+          <div className="bg-paper p-6">
+            <p className="mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Activity by team</p>
+            <div className="mt-5">
+              <BarChartDiagram color="ink" data={[{ label: "SDR", value: 72 }, { label: "AE", value: 88 }, { label: "CS", value: 54 }, { label: "Mktg", value: 66 }]} />
+            </div>
+          </div>
+        </div>
+      </Section>
 
-/* ══════════════════════════════════════════════════════════════════
-   MIGRATION / ONBOARDING
-   ══════════════════════════════════════════════════════════════════ */
-function Migration() {
-  const steps = [
-    { d: "DAY 0–3", t: "Portal audit", b: "Read your portal. Data quality, workflows, permissions, technical debt inventory." },
-    { d: "DAY 4–7", t: "Priority map", b: "Written diagnosis + first 30 days scoped. What we fix now, what we fix later." },
-    { d: "DAY 8–14", t: "First release", b: "Data hygiene pass + top-3 workflow fixes + board dashboard v0. Live." },
-    { d: "DAY 15–30", t: "Operating", b: "Weekly standups begin. Backlog moves. First monthly scorecard scheduled." },
-  ];
-  return (
-    <section className="border-b-2 border-ink bg-paper relative">
-      <div className="max-w-[1400px] mx-auto px-6 py-20">
-        <SectionHeader
-          n="07"
-          label="Getting started"
-          title="From kickoff to your first release, in about two weeks."
-        />
-        <div className="mt-12 relative">
-          <div className="hidden md:block absolute left-0 right-0 top-14 border-t-2 border-dashed border-ink/30" />
-          <div className="grid md:grid-cols-4 gap-6 relative">
-            {steps.map((s, i) => (
-              <div key={s.d} className="brutal-border bg-bone p-5 relative">
-                <div className="absolute -top-4 left-5 brutal-border bg-fire text-paper mono text-[10px] px-2 py-1">
-                  {String(i + 1).padStart(2, "0")} / {s.d}
-                </div>
-                <div className="display text-2xl mt-4">{s.t}</div>
-                <p className="mt-3 text-sm text-muted-foreground leading-snug">
-                  {s.b}
-                </p>
+      <Section eyebrow="Connected systems" title="HubSpot Integrations" accent="ink">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
+          <div>
+            <Lead>Your CRM doesn't exist in isolation. We can connect HubSpot with the other systems your business uses.</Lead>
+            <div className="mt-8">
+              <TickList
+                dot="bg-ink"
+                items={[
+                  "Sales platforms",
+                  "Marketing platforms",
+                  "Data enrichment tools",
+                  "Lead generation tools",
+                  "Customer support platforms",
+                  "Finance systems",
+                  "Project management tools",
+                  "Communication platforms",
+                  "Custom applications",
+                ]}
+              />
+            </div>
+            <p className="mt-8 max-w-xl border-l-2 border-ink pl-4 text-sm leading-relaxed">
+              The goal is simple: your systems should share data without your team manually moving it between platforms.
+            </p>
+          </div>
+          <div className="space-y-8">
+            <div className="brutal-border p-6">
+              <HubDiagram nodes={["Sales", "Enrichment", "Support", "Finance", "PM", "Comms", "Custom", "Data"]} />
+            </div>
+            <Figure src="/integrations-network.jpg" alt="Systems connected to a central hub" caption="One connected data layer" />
+          </div>
+        </div>
+      </Section>
+
+      <Section eyebrow="Foundations" title="HubSpot Data Management" accent="fire">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+          <Figure src="/data-cleanup.jpg" alt="Messy tangled data being sorted into clean organised blocks" caption="From messy portal to structured database" />
+          <div>
+            <Lead>Bad data creates bad decisions. We help companies improve the quality and structure of your HubSpot database.</Lead>
+            <div className="mt-8">
+              <TickList
+                dot="bg-fire"
+                items={[
+                  "Data cleansing",
+                  "Deduplication",
+                  "Standardizing properties",
+                  "Data enrichment",
+                  "Contact segmentation",
+                  "Company matching",
+                  "Lifecycle management",
+                  "Lead source management",
+                  "Data migration",
+                  "Import management",
+                  "Data governance",
+                ]}
+              />
+            </div>
+            <p className="mt-8 text-sm leading-relaxed text-muted-foreground">
+              We can also help establish processes that prevent your CRM from becoming messy again.
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      <Section eyebrow="Pipeline" title="HubSpot Lead Generation">
+        <Lead>
+          For many companies, HubSpot isn't just a CRM. It's the engine behind their lead generation process — and we
+          can help build the system around it.
+        </Lead>
+        <div className="mt-8">
+          <FlowDiagram steps={["Prospect", "Lead", "Meeting", "Opportunity", "Customer"]} />
+        </div>
+        <div data-stagger className="mt-10 grid gap-px bg-ink/10 md:grid-cols-4">
+          {leadGenSteps.map(([title, body], i) => (
+            <div key={title} className="bg-paper">
+              <div className="h-full p-6">
+                <p className="mono text-[11px] uppercase tracking-[0.16em] text-fire">{String(i + 1).padStart(2, "0")}</p>
+                <h3 className="mt-2 text-lg display">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="mt-8 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+          This connects your lead generation activity directly to your CRM and revenue pipeline.
+        </p>
+      </Section>
+
+      <Section eyebrow="Comparison" title="HubSpot as a Service vs. HubSpot Implementation">
+        <p className="text-muted-foreground">These are not the same thing.</p>
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          <div className="h-full brutal-border p-8">
+            <h3 className="text-2xl display">HubSpot Implementation</h3>
+            <p className="mt-3 text-sm text-muted-foreground">An implementation is typically a defined project. You hire a partner to:</p>
+            <ul className="mt-5 space-y-2 text-sm text-muted-foreground">
+              {["Configure HubSpot", "Migrate data", "Build workflows", "Configure pipelines", "Set up reporting", "Train your team", "Launch the system"].map((i) => (
+                <li key={i} className="flex gap-3">
+                  <span className="h-1.5 w-1.5 shrink-0 translate-y-2 rounded-full bg-ink" />
+                  {i}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">Then the project ends.</p>
+          </div>
+          <div className="h-full bg-fire p-8 text-paper">
+            <h3 className="text-2xl display">HubSpot as a Service</h3>
+            <p className="mt-3 text-sm opacity-90">HubSpot as a Service is ongoing. After your implementation, your business continues to change.</p>
+            <ul className="mt-5 space-y-2 text-sm opacity-95">
+              {["You launch campaigns", "Your sales process changes", "You add new employees", "You need new integrations", "Your reporting requirements change", "New HubSpot features become available"].map((i) => (
+                <li key={i} className="flex gap-3">
+                  <span className="h-1.5 w-1.5 shrink-0 translate-y-2 rounded-full bg-volt" />
+                  {i}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 mono text-[12px] uppercase tracking-[0.16em] opacity-80">Your HubSpot changes with you.</p>
+          </div>
+        </div>
+      </Section>
+
+      <Section eyebrow="Comparison" title="HubSpot Support vs. HubSpot as a Service" accent="volt">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
+          <div>
+            <p className="text-sm text-muted-foreground">Traditional HubSpot support usually means:</p>
+            <p className="mt-4 border-l-2 border-ink/20 pl-4 text-xl leading-snug">&ldquo;Something is broken. Can you fix it?&rdquo;</p>
+          </div>
+          <div>
+            <p className="text-sm text-muted-foreground">HubSpot as a Service is broader. Instead of only fixing problems, your team can proactively:</p>
+            <div className="mt-5">
+              <TickList
+                items={[
+                  "Build new functionality",
+                  "Improve existing workflows",
+                  "Clean your database",
+                  "Create campaigns",
+                  "Improve reporting",
+                  "Optimize sales processes",
+                  "Build integrations",
+                  "Improve automation",
+                  "Support lead generation",
+                ]}
+              />
+            </div>
+            <p className="mt-6 text-sm">It's not just support. It's ongoing execution.</p>
+          </div>
+        </div>
+      </Section>
+
+      <Section eyebrow="Fit" title="Who is HubSpot as a Service for?" accent="fire">
+        <div data-stagger className="grid gap-px bg-ink/10 md:grid-cols-3">
+          {audience.map(([title, body, color]) => (
+            <div key={title} className="bg-paper">
+              <div className="h-full p-7">
+                <span className={`mb-4 block h-1 w-10 ${color}`} />
+                <h3 className="text-lg display">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section eyebrow="The team" title="What you get with Revlyn">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
+          <div>
+            <div className="space-y-4 text-muted-foreground">
+              <p>You don't get just one person who knows how to build workflows.</p>
+              <p>You get access to a broader team covering:</p>
+            </div>
+            <div data-stagger className="mt-8 flex flex-wrap gap-3">
+              {["HubSpot", "CRM", "RevOps", "Marketing", "Sales", "Automation", "Data", "Integrations"].map((t) => (
+                <span key={t} className="block border border-ink/15 px-3 py-2 mono text-sm uppercase tracking-[0.1em] text-ink">
+                  {t}
+                </span>
+              ))}
+            </div>
+            <p className="mt-8 max-w-xl text-sm leading-relaxed text-muted-foreground">
+              So when you have a problem, you don't have to figure out who to hire. You bring the problem to us.
+            </p>
+          </div>
+          <div className="brutal-border p-6">
+            <p className="mono text-[11px] uppercase tracking-[0.16em] mb-5 text-muted-foreground">One team, one system</p>
+            <HubDiagram nodes={["CRM", "Marketing", "Sales", "Automation", "Data", "Reporting", "Integrations", "RevOps"]} />
+          </div>
+        </div>
+      </Section>
+
+      <Section eyebrow="Process" title="How our HubSpot as a Service works" accent="ink">
+        <div data-stagger className="grid gap-px bg-ink/10 md:grid-cols-5">
+          {process.map(([step, title, body]) => (
+            <div key={step} className="bg-paper">
+              <div className="h-full p-6">
+                <p className="mono text-[11px] uppercase tracking-[0.16em] text-fire">{step}</p>
+                <h3 className="mt-3 text-base leading-snug display">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section eyebrow="One partner" title="One team. Everything HubSpot.">
+        <div className="grid gap-12 lg:grid-cols-2">
+          <div>
+            <p className="text-sm text-muted-foreground">You shouldn't need separate vendors for:</p>
+            <div className="mt-5">
+              <TickList items={["CRM management", "Marketing automation", "Sales automation", "Data", "Reporting", "Integrations", "Lead generation", "RevOps"]} />
+            </div>
+            <p className="mt-6 text-sm leading-relaxed">You can have one team responsible for the system that connects them all.</p>
+          </div>
+          <div className="space-y-6 border-l border-ink/15 pl-8">
+            <h3 className="text-2xl display">Why Revlyn?</h3>
+            {[
+              ["We focus on execution.", "We don't just tell you what you should do. We do it."],
+              ["We understand HubSpot beyond the basics.", "Our work covers CRM architecture, Sales Hub, Marketing Hub, automation, reporting, integrations and RevOps."],
+              ["We work with your existing team.", "We don't replace your marketing or sales team. We give them more execution capacity."],
+              ["We grow with you.", "Your requirements change. Your HubSpot environment should change with them."],
+            ].map(([t, b]) => (
+              <div key={t}>
+                <p className="text-base">{t}</p>
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{b}</p>
               </div>
             ))}
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
+      </Section>
 
-/* ══════════════════════════════════════════════════════════════════
-   FAQ
-   ══════════════════════════════════════════════════════════════════ */
-function FAQ() {
-  const qa = [
-    {
-      q: "Are you a HubSpot partner?",
-      a: "Yes. We work with HubSpot as an implementation and services partner and cover Sales, Marketing, Service, Ops and CMS Hubs, including custom objects and Breeze AI. We also work with adjacent stacks (Salesforce, Segment, warehouses, LangChain) so HubSpot is the source of truth, not an island.",
-    },
-    {
-      q: "How is this different from hiring a HubSpot admin?",
-      a: "An admin owns clicks. We own outcomes. HubSpot as a Service replaces the combination of admin + RevOps + marketing ops + AI/analytics with one senior team, priced monthly, accountable to a scorecard.",
-    },
-    {
-      q: "Do you work with our existing HubSpot partner or agency?",
-      a: "Yes. We often replace them, but if you have a working relationship we're happy to co-run or take over on a schedule.",
-    },
-    {
-      q: "What if we're not on HubSpot yet?",
-      a: "We run the migration. Salesforce, Pipedrive, Attio, spreadsheets — we've done all of them. Migration is scoped as a fixed-fee project and rolls into the monthly subscription.",
-    },
-    {
-      q: "Who owns the work?",
-      a: "You do. Portal, workflows, dashboards, playbooks, agents, docs. Everything is documented in your Notion and your HubSpot. Exit any time on 30 days' notice.",
-    },
-    {
-      q: "How fast can we start?",
-      a: "Portal audit inside 72 hours of signing. First release live in ≤14 days. We accept two new engagements per quarter.",
-    },
-  ];
-  return (
-    <section id="faq" className="border-b-2 border-ink bg-bone">
-      <div className="max-w-[1400px] mx-auto px-6 py-20">
-        <SectionHeader n="08" label="FAQ" title="Questions people usually ask us." />
-        <div className="mt-12 grid md:grid-cols-2 gap-6">
-          {qa.map((f) => (
-            <div key={f.q} className="brutal-border bg-paper p-6">
-              <div className="mono text-[11px] text-fire">Q</div>
-              <div className="display text-xl mt-1">{f.q}</div>
-              <p className="mt-3 text-muted-foreground text-sm leading-relaxed">
-                {f.a}
-              </p>
+      <Section eyebrow="Scope" title="Build your HubSpot scope">
+        <Lead>
+          Select the workstreams you want us to own and the execution capacity you need. We'll shape the engagement
+          around it.
+        </Lead>
+        <div className="mt-10">
+          <ScopeBuilder />
+        </div>
+      </Section>
+
+      <Section eyebrow="Pricing" title="HubSpot as a Service Pricing" id="pricing">
+        <Lead>
+          Every company uses HubSpot differently, so the amount of support required varies. We typically structure
+          our service around the amount and complexity of work your team needs.
+        </Lead>
+        <div data-stagger className="mt-10 grid gap-6 md:grid-cols-3">
+          {pricing.map((tier) => (
+            <div key={tier.name} className={`flex h-full flex-col brutal-border border-t-4 ${tier.accent} p-8 transition-transform hover:-translate-y-1.5`}>
+              <h3 className="text-2xl display">{tier.name}</h3>
+              <p className="mt-3 text-sm text-muted-foreground">{tier.blurb}</p>
+              <p className="mono text-[11px] uppercase tracking-[0.16em] mt-6 text-fire">{tier.label}</p>
+              <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                {tier.items.map((i) => (
+                  <li key={i} className="border-b border-ink/10 pb-2">{i}</li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
+        <div className="mt-10">
+          <SectionCta label="Talk to us about pricing" />
+        </div>
+      </Section>
 
-/* ══════════════════════════════════════════════════════════════════
-   CTA
-   ══════════════════════════════════════════════════════════════════ */
-function CTA() {
-  return (
-    <section id="book" className="border-b-2 border-ink bg-ink text-paper relative overflow-hidden">
-      <div className="absolute inset-0 stripes opacity-[0.05] pointer-events-none" />
-      <div className="max-w-[1400px] mx-auto px-6 py-24 grid md:grid-cols-12 gap-10 relative">
-        <div className="md:col-span-8">
-          <div className="mono text-fire text-sm">Say hello</div>
-          <h2 className="display text-[clamp(2.5rem,7vw,6rem)] leading-[0.9] mt-3">
-            Let's take a look at
-            <br />
-            your HubSpot together.
+      <Section eyebrow="FAQ" title="Frequently Asked Questions" accent="volt">
+        <FaqAccordion items={faqs} />
+      </Section>
+
+      <section className="relative overflow-hidden border-b-2 border-ink">
+        <div className="relative mx-auto max-w-[1200px] px-6 py-24 md:py-32">
+          <h2 className="max-w-3xl display text-4xl leading-[1.02] md:text-6xl">
+            Your HubSpot team is one conversation away.
           </h2>
-          <p className="mt-6 max-w-2xl text-lg text-paper/80">
-            A 30-minute working call with a senior operator. We'll open your
-            portal, walk through the top three things worth fixing, and be
-            honest about whether we're the right team to help. No pitch deck.
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground">
+            You shouldn't have to hire a HubSpot administrator, marketing automation specialist, CRM consultant and
+            RevOps team just to get your HubSpot working properly.
           </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <BookCallButton className="brutal-border bg-fire text-paper display text-xl px-6 py-4 brutal-shadow hover:-translate-y-0.5 transition-transform">
-              BOOK A CALL →
-            </BookCallButton>
-            <Link
-              href="/contact"
-              className="brutal-border bg-volt text-ink display text-xl px-6 py-4 hover:-translate-y-0.5 transition-transform"
-            >
-              CONTACT US
-            </Link>
-          </div>
-          <div className="mt-8 mono text-xs text-paper/60">
-            info@revlyn.io · +91 7503 044 000 · Gurugram, IN
+          <p className="mt-4 max-w-2xl text-base text-ink">Tell us what you need. We'll figure out how to build it.</p>
+          <div className="mt-10">
+            <SectionCta label="Talk to a HubSpot Expert" />
           </div>
         </div>
-        <div className="md:col-span-4">
-          <div className="brutal-border bg-paper text-ink p-6 brutal-shadow-fire">
-            <div className="mono text-[11px] text-fire">A quick note</div>
-            <div className="display text-2xl mt-2">We have room for you.</div>
-            <p className="mt-3 text-sm text-muted-foreground">
-              We keep onboarding pods free so we can start fast. Most teams are live in HubSpot within two weeks.
-            </p>
-            <div className="mt-6 flex items-center gap-3">
-              <span className="relative flex w-2 h-2">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-fire opacity-60 animate-ping" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-fire" />
-              </span>
-              <span className="mono text-xs">New teams start every month</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+
+      <Footer />
+    </main>
   );
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   FOOTER (mirrors site footer)
+   FOOTER
+   Same footer used across every page on the site — carried over
+   verbatim from the previous version of this page, not simplified.
    ══════════════════════════════════════════════════════════════════ */
 function Footer() {
-  const services = [
-    ["HubSpot as a Service", "/hubspot-as-a-service", "Ongoing operator"],
-    ["HubSpot Implementation", "/hubspot-implementation", "6-week build"],
-    ["HubSpot Optimization", "/hubspot-optimization", "Portal reset"],
-    ["RevOps", "/#services", "Pipeline, forecast, comp"],
-    ["GTM Engineering", "/#services", "Outbound, ABM, lifecycle"],
-    ["AI Workflows", "/#services", "Agents on the CRM"],
-  ] as const;
-
   return (
     <footer className="relative bg-ink text-paper overflow-hidden">
       {/* Giant wordmark backdrop */}
@@ -1093,7 +1421,6 @@ function Footer() {
 
         {/* Link grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-8 py-14 border-b border-paper/10">
-          {/* 6-column link grid */}
           {[
             {
               h: "Get started",
@@ -1195,8 +1522,6 @@ function Footer() {
 
         {/* Social */}
         <div className="flex items-center justify-end gap-3 py-12 border-b border-paper/10">
-
-
           <div className="flex items-center gap-3 md:justify-end">
             {[
               { n: "LinkedIn", h: "https://www.linkedin.com/company/revlynhq/", d: "M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.56v14H.22V8zm7.62 0h4.37v1.92h.06c.61-1.15 2.1-2.36 4.32-2.36 4.62 0 5.47 3.04 5.47 6.99V22h-4.55v-6.2c0-1.48-.03-3.38-2.06-3.38-2.07 0-2.39 1.62-2.39 3.28V22H7.84V8z" },
@@ -1218,12 +1543,11 @@ function Footer() {
           </div>
         </div>
 
-
         {/* Brand row */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pt-12">
           <div className="flex items-center gap-4">
             <img
-              src={revlynWordmark}
+              src="/logos/revlyn-wordmark.png"
               alt="Revlyn"
               className="h-10 md:h-12 w-auto object-contain"
               style={{ filter: "invert(1) hue-rotate(180deg)" }}
@@ -1251,41 +1575,5 @@ function Footer() {
         </div>
       </div>
     </footer>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════════
-   SHARED
-   ══════════════════════════════════════════════════════════════════ */
-function SectionHeader({
-  n,
-  label,
-  title,
-  light,
-}: {
-  n: string;
-  label: string;
-  title: string;
-  light?: boolean;
-}) {
-  return (
-    <div className="grid md:grid-cols-12 gap-6 items-end">
-      <div className="md:col-span-3">
-        <div
-          className={`mono text-xs ${light ? "text-fire" : "text-fire"} tracking-widest`}
-        >
-          {n} · {label}
-        </div>
-      </div>
-      <div className="md:col-span-9">
-        <h2
-          className={`display text-[clamp(2rem,5vw,4rem)] leading-[0.95] tracking-tight ${
-            light ? "text-paper" : ""
-          }`}
-        >
-          {title}
-        </h2>
-      </div>
-    </div>
   );
 }
