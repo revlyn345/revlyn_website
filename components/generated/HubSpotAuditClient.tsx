@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { BookCallButton } from "@/components/BookCallButton";
+import { BookAuditButton } from "@/components/BookAuditButton";
 
 // TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
 const revlynWordmark = "/logos/revlyn-wordmark.png";
@@ -75,13 +76,13 @@ function Hero() {
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
-            <BookCallButton data-magnetic="14"
+            <BookAuditButton data-magnetic="14"
               className="group inline-flex items-center gap-2 rounded-full bg-ink text-paper pl-6 pr-1.5 py-2 text-[15px] font-medium hover:bg-fire transition-colors">
               Book the audit
               <span className="inline-flex items-center justify-center h-9 w-9 rounded-full bg-paper text-ink transition-transform group-hover:translate-x-0.5">
                 →
               </span>
-            </BookCallButton>
+            </BookAuditButton>
             <a
               href="#how"
               className="text-[15px] text-ink/70 hover:text-ink border-b border-ink/20 hover:border-ink pb-0.5 transition-colors"
@@ -900,7 +901,7 @@ function FinalCTA() {
           </div>
 
           <div className="lg:col-span-4 space-y-3" data-reveal data-reveal-delay="0.15">
-            <BookCallButton data-magnetic="16"
+            <BookAuditButton data-magnetic="16"
               className="group flex items-center justify-between gap-3 rounded-2xl bg-fire text-paper px-6 py-5 hover:bg-volt hover:text-ink transition-colors"
             >
               <span>
@@ -910,7 +911,7 @@ function FinalCTA() {
               <span className="inline-flex items-center justify-center h-11 w-11 rounded-full bg-paper text-ink group-hover:translate-x-1 transition-transform">
                 →
               </span>
-            </BookCallButton>
+            </BookAuditButton>
             <a
               href="mailto:info@revlyn.io?subject=HubSpot%20Audit"
               className="group flex items-center justify-between gap-3 rounded-2xl border border-paper/25 px-6 py-5 hover:border-fire hover:bg-paper/5 transition-colors"
