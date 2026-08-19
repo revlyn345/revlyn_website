@@ -3,6 +3,26 @@
 import { useState, type ReactNode } from "react";
 import { BookCallButton } from "@/components/BookCallButton";
 
+/* ══════════════════════════════════════════════════════════════════
+   NOTE ON THIS FILE
+   Ported from a Lovable-generated draft of this page. The draft used
+   framer-motion ("motion/react") for scroll-in animation; this project
+   already runs a global GSAP + Lenis scroll system (see
+   components/MotionRuntime.tsx) that auto-animates every `main >
+   section` on scroll, and mixing a second animation library in risks
+   conflicts (Lenis's smooth-scroll doesn't play well with
+   framer-motion's viewport-based triggers). So every motion.* / Reveal /
+   SlideIn / Stagger usage below has been replaced with plain markup —
+   the automatic section-level reveal handles the scroll-in effect, and
+   `data-stagger` is used directly on a couple of card grids for a
+   staggered-children effect, same as the runtime already supports.
+
+   Asset TODOs: the draft referenced three images that were never
+   migrated into /public (team-execution.jpg, integrations-network.jpg,
+   data-cleanup.jpg). Reused the closest existing real assets below as
+   placeholders — swap these for real photos when available.
+   ══════════════════════════════════════════════════════════════════ */
+
 /* Primary CTAs use BookCallButton (opens the HubSpot meetings scheduler);
    secondary CTAs default to the in-page #pricing anchor. *//* ── shared bits ─────────────────────────────────────────────────── */
 
@@ -1566,7 +1586,7 @@ function Footer() {
             <span>Built by operators, in Gurugram</span>
           </span>
           <span className="flex items-center gap-5">
-            <a href="#" className="hover:text-paper transition-colors">Privacy</a>
+            <a href="/privacy" className="hover:text-paper transition-colors">Privacy</a>
             <a href="#" className="hover:text-paper transition-colors">Terms</a>
             <a href="#" className="hover:text-paper transition-colors">Security</a>
             <a href="#" className="hover:text-paper transition-colors">Cookies</a>

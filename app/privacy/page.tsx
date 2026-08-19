@@ -1,238 +1,204 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
-import { getPosts } from "@/lib/wordpress";
+import { TableOfContents, MobileToc } from "@/components/blog/ArticleScrollUI";
+import type { WPHeading } from "@/lib/wordpress";
 import { BookCallButton } from "@/components/BookCallButton";
 
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
-const revlynWordmark = "/logos/revlyn-wordmark.png";
-
 export const metadata: Metadata = {
-  title: "Field notes",
+  title: "Privacy Policy",
   description:
-    "Short essays on revenue systems, HubSpot, RevOps and AI — written by the operators who run the portals.",
-  alternates: { canonical: "/blog" },
+    "How Revlyn collects, uses, and protects information when you use our website and services.",
+  alternates: { canonical: "/privacy" },
 };
 
-// Topic pills filter the post list by category (case-insensitive match
-// against each post's WordPress categories) via the ?topic= URL param —
-// plain links, so filtering works with JS disabled and each topic is a
-// shareable/bookmarkable URL.
-const TOPICS = ["HubSpot", "RevOps", "Forecasting", "AI", "GTM"];
+const LAST_UPDATED = "August 19, 2026";
 
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
+// Static equivalent of the blog's post.headings — same shape (WPHeading),
+// same TableOfContents/MobileToc components, just hand-written instead of
+// parsed out of WordPress content, since this page has no CMS source.
+const headings: WPHeading[] = [
+  { id: "overview", text: "Overview" },
+  { id: "information-we-collect", text: "Information we collect" },
+  { id: "how-we-use-your-information", text: "How we use your information" },
+  { id: "cookies-and-tracking", text: "Cookies & tracking" },
+  { id: "third-party-services", text: "Third-party services" },
+  { id: "data-retention", text: "Data retention" },
+  { id: "your-rights", text: "Your rights" },
+  { id: "data-security", text: "Data security" },
+  { id: "childrens-privacy", text: "Children's privacy" },
+  { id: "changes-to-this-policy", text: "Changes to this policy" },
+  { id: "contact-us", text: "Contact us" },
+];
 
-export default async function BlogIndexPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ topic?: string }>;
-}) {
-  const { topic } = await searchParams;
-  const selectedTopic = topic?.toLowerCase();
-
-  // Fetched once at a size generous enough to cover the whole archive so
-  // topic filtering (below) has the full set to filter against — this is
-  // a small blog; revisit with real pagination if the post count grows
-  // well past this.
-  const allPosts = await getPosts(1, 100);
-
-  const posts = selectedTopic
-    ? allPosts.filter((p) => p.categories.some((c) => c.toLowerCase() === selectedTopic))
-    : allPosts;
-
-  const [featured, ...rest] = posts;
-
+export default function PrivacyPolicyPage() {
   return (
     <div className="min-h-screen bg-paper text-ink">
       {/* ══════════════════════ MASTHEAD ══════════════════════ */}
       <section className="border-b-2 border-ink">
         <div className="max-w-[1360px] mx-auto px-6 md:px-10 pt-14 md:pt-20 pb-12 md:pb-14">
           <div className="mono text-[11px] text-ink/50 mb-5">
-            Field notes · Monthly · 2 min
+            Legal · Last updated {LAST_UPDATED}
           </div>
-          <h1 className="display leading-[0.97] tracking-[-0.04em] text-[clamp(2.6rem,6.6vw,5.75rem)]">
-            The operator&rsquo;s notebook.
+          <h1 className="display leading-[0.97] tracking-[-0.04em] text-[clamp(2.4rem,6vw,4.75rem)]">
+            Privacy Policy.
           </h1>
-          <p className="mt-5 max-w-[56ch] text-lg md:text-xl leading-[1.55] text-ink/70">
-            Short essays on revenue systems, HubSpot, RevOps and AI — written by the same
-            operators who run the portals.
+          <p className="mt-5 max-w-[62ch] text-lg md:text-xl leading-[1.55] text-ink/70">
+            This page explains what information Revlyn collects when you visit our website or use
+            our services, why we collect it, and the choices you have.
           </p>
         </div>
       </section>
 
-      {/* ══════════════════════ TOPIC FILTER ══════════════════════ */}
-      <section className="border-b border-ink/10 bg-[#FAF9F7]">
-        <div className="max-w-[1360px] mx-auto px-6 md:px-10 py-4 flex flex-wrap items-center gap-2">
-          <span className="mono text-[10px] text-ink/50 mr-2">Topics</span>
-          <Link
-            href="/blog"
-            className={`rounded-full px-3.5 py-[7px] text-sm transition-colors ${
-              !selectedTopic
-                ? "bg-ink text-paper"
-                : "border border-ink/15 bg-paper text-ink/75 hover:border-ink/40"
-            }`}
+      {/* ══════════════════════ BODY REGION ══════════════════════ */}
+      <div className="max-w-[1360px] mx-auto px-6 md:px-10 flex flex-col lg:flex-row lg:items-start lg:gap-14">
+        {/* Desktop TOC rail — identical component/behavior to the blog article page */}
+        <aside className="hidden lg:block lg:w-[220px] lg:shrink-0 sticky top-24 self-start pt-14 pb-10">
+          <TableOfContents headings={headings} />
+        </aside>
+
+        {/* Content */}
+        <article className="lg:flex-1 lg:min-w-0 pt-10 lg:pt-14 pb-24 max-w-[720px] w-full mx-auto lg:mx-0">
+          <MobileToc headings={headings} />
+
+          <div
+            className="
+              text-[18px] leading-[1.75] text-[#1A1814]
+              [&>p]:mb-6
+              [&>h2]:font-display [&>h2]:font-extrabold [&>h2]:text-[clamp(1.5rem,2.4vw,2rem)]
+              [&>h2]:leading-[1.18] [&>h2]:tracking-[-0.025em] [&>h2]:mt-14 [&>h2]:mb-2
+              [&>h2]:scroll-mt-28
+              [&>h2]:after:content-[''] [&>h2]:after:block [&>h2]:after:w-14 [&>h2]:after:h-0.5
+              [&>h2]:after:bg-ink [&>h2]:after:mt-2 [&>h2]:after:mb-6
+              [&>ul]:mb-6 [&>ul]:pl-5 [&>ul]:list-disc [&>ul>li]:mb-2.5
+              [&_strong]:font-semibold [&_strong]:text-ink
+              [&_a]:text-fire [&_a]:underline [&_a]:underline-offset-2
+            "
           >
-            All
-          </Link>
-          {TOPICS.map((t) => {
-            const active = selectedTopic === t.toLowerCase();
-            return (
-              <Link
-                key={t}
-                href={`/blog?topic=${encodeURIComponent(t.toLowerCase())}`}
-                className={`rounded-full px-3.5 py-[7px] text-sm transition-colors ${
-                  active
-                    ? "bg-ink text-paper"
-                    : "border border-ink/15 bg-paper text-ink/75 hover:border-ink/40"
-                }`}
-              >
-                {t}
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+            <h2 id="overview">Overview</h2>
+            <p>
+              Revlyn (&ldquo;Revlyn,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) provides CRM,
+              RevOps, GTM, and HubSpot services to businesses. This policy applies to visitors of
+              our website and to individuals whose data we process while delivering our services
+              to our clients.
+            </p>
+            <p>
+              By using our website or engaging our services, you agree to the collection and use
+              of information as described here. If you do not agree, please do not use the site
+              or provide us with information.
+            </p>
 
-      {posts.length === 0 ? (
-        <section className="border-b-2 border-ink">
-          <div className="max-w-[1360px] mx-auto px-6 md:px-10 py-16">
-            <div className="brutal-border bg-bone p-10 text-center">
-              <p className="mono text-[11px] text-ink/60 mb-2">
-                {selectedTopic ? `No posts filed under "${topic}" yet` : "No posts yet"}
-              </p>
-              <p className="text-ink/70">
-                {selectedTopic ? (
-                  <>
-                    Try another topic, or{" "}
-                    <Link href="/blog" className="text-fire underline">
-                      view all field notes
-                    </Link>
-                    .
-                  </>
-                ) : (
-                  "Once posts are published in WordPress, they will appear here automatically."
-                )}
-              </p>
-            </div>
+            <h2 id="information-we-collect">Information we collect</h2>
+            <p>We collect a few different categories of information:</p>
+            <ul>
+              <li>
+                <strong>Information you provide directly</strong> — your name, email address,
+                phone number, company name, and any details you share through a contact form,
+                a booked call, or email correspondence.
+              </li>
+              <li>
+                <strong>Information collected automatically</strong> — IP address, browser type,
+                device information, pages visited, and referring URLs, collected through cookies
+                and similar technologies when you browse our site.
+              </li>
+              <li>
+                <strong>Information from our clients</strong> — when we&rsquo;re engaged to manage
+                or build a client&rsquo;s HubSpot portal or CRM, we may process data on that
+                client&rsquo;s behalf (for example, their contacts&rsquo; records). In that
+                context, our client is the data controller and we act as a processor under their
+                instructions.
+              </li>
+            </ul>
+
+            <h2 id="how-we-use-your-information">How we use your information</h2>
+            <p>We use the information we collect to:</p>
+            <ul>
+              <li>Respond to inquiries, book calls, and provide requested information</li>
+              <li>Deliver, maintain, and improve our services</li>
+              <li>Send updates, such as our monthly &ldquo;field notes&rdquo; newsletter, if you&rsquo;ve subscribed</li>
+              <li>Understand how visitors use our site so we can improve it</li>
+              <li>Meet legal, security, and contractual obligations</li>
+            </ul>
+            <p>We do not sell your personal information.</p>
+
+            <h2 id="cookies-and-tracking">Cookies &amp; tracking</h2>
+            <p>
+              Our website uses cookies and similar technologies to remember preferences, measure
+              site performance, and understand how visitors interact with our content. You can
+              control or disable cookies through your browser settings; doing so may affect some
+              site functionality.
+            </p>
+
+            <h2 id="third-party-services">Third-party services</h2>
+            <p>
+              We rely on a small set of third-party services to run our website and business, and
+              those providers may process information on our behalf, including:
+            </p>
+            <ul>
+              <li><strong>HubSpot</strong> — CRM, forms, live chat, and marketing automation</li>
+              <li><strong>Vercel</strong> — website hosting and infrastructure</li>
+              <li>Analytics providers, used to understand site traffic and usage patterns</li>
+            </ul>
+            <p>
+              Each of these providers has its own privacy policy governing how it handles data.
+              We select providers that maintain appropriate security and data-handling standards.
+            </p>
+
+            <h2 id="data-retention">Data retention</h2>
+            <p>
+              We retain personal information for as long as needed to provide our services,
+              comply with legal obligations, resolve disputes, and enforce our agreements. When
+              information is no longer needed for these purposes, we take reasonable steps to
+              delete or anonymize it.
+            </p>
+
+            <h2 id="your-rights">Your rights</h2>
+            <p>
+              Depending on where you&rsquo;re located, you may have rights to access, correct,
+              delete, or export your personal information, or to object to or restrict certain
+              processing. To exercise any of these rights, contact us using the details below and
+              we&rsquo;ll respond within a reasonable timeframe.
+            </p>
+
+            <h2 id="data-security">Data security</h2>
+            <p>
+              We use reasonable technical and organizational measures to protect the information
+              we hold. No method of transmission or storage is completely secure, so while we
+              work to protect your information, we can&rsquo;t guarantee its absolute security.
+            </p>
+
+            <h2 id="childrens-privacy">Children&rsquo;s privacy</h2>
+            <p>
+              Our website and services are directed at businesses and are not intended for
+              individuals under 18. We do not knowingly collect personal information from
+              children.
+            </p>
+
+            <h2 id="changes-to-this-policy">Changes to this policy</h2>
+            <p>
+              We may update this policy from time to time to reflect changes in our practices or
+              for legal, operational, or regulatory reasons. The &ldquo;last updated&rdquo; date at
+              the top of this page reflects the most recent revision.
+            </p>
+
+            <h2 id="contact-us">Contact us</h2>
+            <p>
+              If you have questions about this policy or how we handle your information, reach
+              out at{" "}
+              <a href="mailto:info@revlyn.io">info@revlyn.io</a> or{" "}
+              <a href="tel:+917503044000">+91 75030 44000</a>.
+            </p>
           </div>
-        </section>
-      ) : (
-        <>
-          {/* ══════════════════════ FEATURED POST ══════════════════════ */}
-          {featured && (
-            <section className="border-b-2 border-ink">
-              <Link
-                href={`/blog/${featured.slug}`}
-                className="max-w-[1360px] mx-auto grid md:grid-cols-[1.05fr_1fr] group"
-              >
-                <div className="p-8 md:pl-10 md:pr-14 py-10 md:py-14 flex flex-col justify-center order-2 md:order-1">
-                  <div className="flex flex-wrap items-center gap-3 md:gap-4 mono text-[10px] text-ink/50 mb-5">
-                    <span className="bg-fire text-paper px-2.5 py-1">Latest</span>
-                    <span>{formatDate(featured.date)}</span>
-                    <span>{featured.readingTime} min</span>
-                    {featured.categories[0] && <span>{featured.categories[0]}</span>}
-                  </div>
-                  <h2 className="display leading-[1.05] tracking-[-0.03em] text-[clamp(1.9rem,3.6vw,3.25rem)] text-balance">
-                    {featured.title}
-                  </h2>
-                  <p className="mt-4 max-w-[50ch] text-lg leading-[1.65] text-ink/70">
-                    {featured.excerpt}
-                  </p>
-                  <span className="mt-6 inline-flex items-center gap-2 mono text-[11px]">
-                    Read
-                    <span className="text-fire group-hover:translate-x-1 transition-transform inline-block">
-                      →
-                    </span>
-                  </span>
-                </div>
-                <div className="relative min-h-[280px] md:min-h-[420px] border-t md:border-t-0 md:border-l border-ink/10 bg-bone order-1 md:order-2 overflow-hidden">
-                  {featured.featuredImage ? (
-                    <Image
-                      src={featured.featuredImage}
-                      alt={featured.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover"
-                      priority
-                    />
-                  ) : (
-                    <div className="absolute inset-0 stripes opacity-[0.06]" />
-                  )}
-                </div>
-              </Link>
-            </section>
-          )}
-
-          {/* ══════════════════════ CARD GRID + ARCHIVE TILE ══════════════════════ */}
-          <section>
-            <div className="max-w-[1360px] mx-auto px-6 md:px-10 pb-16 md:pb-20">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-ink/10 border border-ink/10">
-                {rest.map((post) => (
-                  <Link
-                    key={post.id}
-                    href={`/blog/${post.slug}`}
-                    className="group bg-paper p-7 md:p-8 flex flex-col gap-3.5 min-h-[260px] hover:bg-[#FAF9F7] transition-colors"
-                  >
-                    <div className="flex gap-3.5 mono text-[10px] text-ink/50">
-                      <span>{formatDate(post.date)}</span>
-                      <span>{post.readingTime} min</span>
-                    </div>
-                    <div className="display text-2xl leading-[1.15] tracking-[-0.02em]">
-                      {post.title}
-                    </div>
-                    <p className="text-[15px] leading-[1.6] text-ink/60 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                    <div className="mt-auto flex items-center justify-between mono text-[10px] text-ink/50">
-                      <span>{post.categories[0] ?? "Field notes"}</span>
-                      <span className="text-fire">→</span>
-                    </div>
-                  </Link>
-                ))}
-
-                {/* Archive tile — always the last cell */}
-                <div className="bg-ink text-[#A8A39A] p-7 md:p-8 flex flex-col gap-3.5 min-h-[260px]">
-                  <div className="mono text-[10px] text-fire">Archive</div>
-                  <div className="display text-2xl leading-[1.15] tracking-[-0.02em] text-paper">
-                    {allPosts.length} notes and counting.
-                  </div>
-                  <p className="text-[15px] leading-[1.6]">
-                    Every essay we&rsquo;ve published, sorted by topic.
-                  </p>
-                  <Link
-                    href="/blog"
-                    className="mt-auto self-start inline-flex items-center gap-2 bg-fire text-paper rounded-full px-4 py-2.5 text-sm font-medium"
-                  >
-                    Browse archive →
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </section>
-        </>
-      )}
+        </article>
+      </div>
 
       <Footer />
     </div>
   );
 }
 
+/* ══════════════════════════════════════════════════════════════════
+   FOOTER — same footer used across every page on the site.
+   ══════════════════════════════════════════════════════════════════ */
 function Footer() {
-  const services = [
-    ["HubSpot as a Service", "/hubspot-as-a-service", "Ongoing operator"],
-    ["HubSpot Implementation", "/hubspot-implementation", "6-week build"],
-    ["HubSpot Optimization", "/hubspot-optimization", "Portal reset"],
-    ["RevOps", "/#services", "Pipeline, forecast, comp"],
-    ["GTM Engineering", "/#services", "Outbound, ABM, lifecycle"],
-    ["AI Workflows", "/#services", "Agents on the CRM"],
-  ] as const;
-
   return (
     <footer className="relative bg-ink text-paper overflow-hidden">
       {/* Giant wordmark backdrop */}
@@ -345,7 +311,6 @@ function Footer() {
 
         {/* Link grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-8 py-14 border-b border-paper/10">
-          {/* 6-column link grid */}
           {[
             {
               h: "Get started",
@@ -447,8 +412,6 @@ function Footer() {
 
         {/* Social */}
         <div className="flex items-center justify-end gap-3 py-12 border-b border-paper/10">
-
-
           <div className="flex items-center gap-3 md:justify-end">
             {[
               { n: "LinkedIn", h: "https://www.linkedin.com/company/revlynhq/", d: "M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.56v14H.22V8zm7.62 0h4.37v1.92h.06c.61-1.15 2.1-2.36 4.32-2.36 4.62 0 5.47 3.04 5.47 6.99V22h-4.55v-6.2c0-1.48-.03-3.38-2.06-3.38-2.07 0-2.39 1.62-2.39 3.28V22H7.84V8z" },
@@ -470,12 +433,11 @@ function Footer() {
           </div>
         </div>
 
-
         {/* Brand row */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pt-12">
           <div className="flex items-center gap-4">
             <img
-              src={revlynWordmark}
+              src="/logos/revlyn-wordmark.png"
               alt="Revlyn"
               className="h-10 md:h-12 w-auto object-contain"
               style={{ filter: "invert(1) hue-rotate(180deg)" }}

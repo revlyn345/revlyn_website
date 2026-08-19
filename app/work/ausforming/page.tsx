@@ -1073,7 +1073,7 @@ function Footer() {
             <span>Built by operators, in Gurugram</span>
           </span>
           <span className="flex items-center gap-5">
-            <a href="#" className="hover:text-paper transition-colors">Privacy</a>
+            <a href="/privacy" className="hover:text-paper transition-colors">Privacy</a>
             <a href="#" className="hover:text-paper transition-colors">Terms</a>
             <a href="#" className="hover:text-paper transition-colors">Security</a>
             <a href="#" className="hover:text-paper transition-colors">Cookies</a>
