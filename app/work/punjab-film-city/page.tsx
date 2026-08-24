@@ -599,12 +599,6 @@ export default function PunjabFilmCityCase() {
               <Panel label="One connected environment">
                 <HubDiagram nodes={["Website", "Creator", "Campaigns", "Knowlarity", "Sales team", "Reports"]} />
               </Panel>
-              <Figure
-                src="/pfc-system.jpg"
-                alt="Abstract diagram of scattered data being organized into structured, connected blocks"
-                caption="Five processes, becoming one system"
-                aspect="aspect-[16/9]"
-              />
               <Panel label="Where enquiries come from">
                 <BarChartDiagram
                   data={[
