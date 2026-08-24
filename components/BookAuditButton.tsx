@@ -10,18 +10,39 @@ import { createPortal } from "react-dom";
    widget for the portal audit request instead of the meetings
    scheduler iframe.
 
-   HubSpot's forms-embed script (js.hsforms.net/forms/embed/{portalId}.js)
-   scans the page for elements matching `.hs-form-frame` and renders
-   each into an iframe. It's injected fresh each time this modal opens
-   (guarded so the <script> tag only ever gets added to the page once)
-   rather than living in the global <head>, since this specific form
-   is only needed on the audit page.
+   Uses the classic hbspt.forms.create() API (js.hsforms.net/forms/embed/v2.js)
+   rather than the newer ".hs-form-frame" auto-scan embed script.
+   The auto-scan version is known (per multiple HubSpot community
+   threads) to silently fail — stuck loading, no console error —
+   particularly for forms not built in HubSpot's newest form editor,
+   or when the target element is added to the page dynamically rather
+   than present in the initial HTML, which is exactly the situation
+   here (the div only exists once this modal opens). The classic API
+   is far more battle-tested and gives a real onFormReady callback
+   instead of having to guess readiness via a MutationObserver.
    ═══════════════════════════════════════════════════════════════ */
 
-const FORM_SCRIPT_SRC = "https://js.hsforms.net/forms/embed/50824762.js";
+const FORM_SCRIPT_SRC = "https://js.hsforms.net/forms/embed/v2.js";
 const FORM_PORTAL_ID = "50824762";
 const FORM_ID = "d3ccd2ef-3ef9-493c-824d-4da4a87bd5a1";
 const FORM_REGION = "na1";
+const FORM_TARGET_ID = "pfc-audit-hubspot-form-target";
+
+declare global {
+  interface Window {
+    hbspt?: {
+      forms: {
+        create: (options: {
+          region: string;
+          portalId: string;
+          formId: string;
+          target: string;
+          onFormReady?: () => void;
+        }) => void;
+      };
+    };
+  }
+}
 
 export function BookAuditButton({
   children,
@@ -45,7 +66,9 @@ export function BookAuditButton({
 function BookAuditModal({ onClose }: { onClose: () => void }) {
   const [mounted, setMounted] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const frameRef = useRef<HTMLDivElement>(null);
+  const [failed, setFailed] = useState(false);
+  const createdRef = useRef(false);
+  const targetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -57,29 +80,64 @@ function BookAuditModal({ onClose }: { onClose: () => void }) {
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    if (!document.querySelector(`script[src="${FORM_SCRIPT_SRC}"]`)) {
-      const script = document.createElement("script");
-      script.src = FORM_SCRIPT_SRC;
-      script.defer = true;
-      document.body.appendChild(script);
+    // HubSpot's onFormReady callback isn't firing reliably with the
+    // current embed internals (confirmed via network trace: the form
+    // itself renders successfully — HubSpot's own telemetry reports
+    // "form-frame-load-success" — but our onFormReady handler below
+    // never gets invoked, which would otherwise leave the loading
+    // overlay stuck on top of a form that's actually there and
+    // working). This observer is the reliable signal instead: the
+    // moment HubSpot injects anything into the target div, the form
+    // has rendered, full stop — no dependency on any callback firing.
+    const targetNode = targetRef.current;
+    let observer: MutationObserver | undefined;
+    if (targetNode) {
+      observer = new MutationObserver(() => {
+        if (targetNode.childNodes.length > 0) setLoaded(true);
+      });
+      observer.observe(targetNode, { childList: true, subtree: true });
     }
 
-    // The embed script replaces the .hs-form-frame div's contents with
-    // an iframe once the form is ready — watch for that so the
-    // "Loading form…" placeholder can be swapped out at the right
-    // moment, same as the meetings iframe's onLoad in BookCallButton.
-    const node = frameRef.current;
-    let observer: MutationObserver | undefined;
-    if (node) {
-      observer = new MutationObserver(() => {
-        if (node.querySelector("iframe")) setLoaded(true);
+    function createForm() {
+      if (createdRef.current) return;
+      createdRef.current = true;
+      window.hbspt?.forms.create({
+        region: FORM_REGION,
+        portalId: FORM_PORTAL_ID,
+        formId: FORM_ID,
+        target: `#${FORM_TARGET_ID}`,
+        onFormReady: () => setLoaded(true),
       });
-      observer.observe(node, { childList: true, subtree: true });
+    }
+
+    // A visible timeout, rather than failing silently forever, in
+    // case the form still doesn't render for some reason (e.g. the
+    // form/portal ID pairing itself is wrong or inactive on
+    // HubSpot's side) — better to surface that than show an
+    // infinite spinner.
+    const timeout = setTimeout(() => {
+      if (!createdRef.current || !window.hbspt) setFailed(true);
+    }, 8000);
+
+    if (window.hbspt) {
+      createForm();
+    } else {
+      const existing = document.querySelector<HTMLScriptElement>(`script[src="${FORM_SCRIPT_SRC}"]`);
+      if (existing) {
+        existing.addEventListener("load", createForm);
+      } else {
+        const script = document.createElement("script");
+        script.src = FORM_SCRIPT_SRC;
+        script.addEventListener("load", createForm);
+        script.addEventListener("error", () => setFailed(true));
+        document.body.appendChild(script);
+      }
     }
 
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = prevOverflow;
+      clearTimeout(timeout);
       observer?.disconnect();
     };
   }, [onClose]);
@@ -113,18 +171,27 @@ function BookAuditModal({ onClose }: { onClose: () => void }) {
         </div>
 
         <div className="relative flex-1 min-h-[420px] overflow-y-auto p-6">
-          {!loaded && (
+          {!loaded && !failed && (
             <div className="absolute inset-0 flex items-center justify-center bg-paper">
               <span className="mono text-[11px] uppercase tracking-[0.18em] text-ink/50">Loading form…</span>
             </div>
           )}
-          <div
-            ref={frameRef}
-            className="hs-form-frame"
-            data-region={FORM_REGION}
-            data-form-id={FORM_ID}
-            data-portal-id={FORM_PORTAL_ID}
-          />
+          {failed && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-paper px-6 text-center">
+              <span className="mono text-[11px] uppercase tracking-[0.18em] text-ink/60">
+                The form didn&rsquo;t load
+              </span>
+              <p className="text-sm text-ink/60 max-w-xs">
+                Something's blocking it, or the form ID may need checking in HubSpot. In the
+                meantime, email{" "}
+                <a href="mailto:info@revlyn.io" className="text-fire underline underline-offset-2">
+                  info@revlyn.io
+                </a>{" "}
+                to book your audit directly.
+              </p>
+            </div>
+          )}
+          <div id={FORM_TARGET_ID} ref={targetRef} />
         </div>
       </div>
     </div>,

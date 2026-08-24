@@ -191,6 +191,7 @@ export function Nav() {
     { label: "Detrack", to: "/work/detrack", note: "SaaS stack simplification" },
     { label: "Datapel", to: "/work/datapel", note: "Warehouse software · 19% → 68%" },
     { label: "Integrity Fire", to: "/work/integrity-fire", note: "Field service · people, process, technology" },
+    { label: "Punjab Film City", to: "/work/punjab-film-city", note: "Zoho booking, CRM & tele-sales system" },
   ];
 
   const whatLinks = [
