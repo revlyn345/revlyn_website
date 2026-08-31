@@ -1598,22 +1598,84 @@ function TeamStrip() {
     <section className="border-b-2 border-ink bg-bone">
       <div className="max-w-[1400px] mx-auto px-6 py-20 grid md:grid-cols-12 gap-10 items-center">
         <div className="md:col-span-5">
-          <SectionHeader n="09" label="The people" title="Our RevOps and GTM Teams — now on your side." />
+          <SectionHeader n="09" label="The people" title="Our RevOps and GTM Teams now on your side." />
           <p className="mt-6 text-lg leading-relaxed">
             Four senior operators. Every engagement gets two of us embedded, one on the CRM and data side, one on GTM and AI. No juniors, no offshore, no sub-contracting.
           </p>
           </div>
         <div className="md:col-span-7">
           <div className="brutal-border brutal-shadow overflow-hidden bg-ink">
-            <img
-              src={teamGrid}
-              alt="Four senior revenue operators, black-and-white portraits"
-              className="w-full h-auto block grayscale"
-              loading="lazy"
-              width={1408}
-              height={1008}
-            />
-          </div>
+  <div className="relative">
+    <img
+      src={teamGrid}
+      alt="Four senior revenue operators, black-and-white portraits"
+      className="w-full h-auto block grayscale"
+      loading="lazy"
+      width={1408}
+      height={1008}
+    />
+
+    {/* Rishabh */}
+    <a
+      href="https://www.linkedin.com/in/rish-soni/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Rishabh LinkedIn"
+      className="absolute left-0 top-0 w-1/2 h-1/2 group"
+    >
+      <span className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/50 transition-all duration-200">
+        <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-white text-black px-4 py-2 font-bold text-sm">
+          LINKEDIN ↗
+        </span>
+      </span>
+    </a>
+
+    {/* Kartik */}
+    <a
+      href="https://www.linkedin.com/in/kartik-m-715b42233/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Kartik LinkedIn"
+      className="absolute right-0 top-0 w-1/2 h-1/2 group"
+    >
+      <span className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/50 transition-all duration-200">
+        <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-white text-black px-4 py-2 font-bold text-sm">
+          LINKEDIN ↗
+        </span>
+      </span>
+    </a>
+
+    {/* Krishnanshu */}
+    <a
+      href="https://www.linkedin.com/in/krishnanshu-jaiswal-70467424b/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Krishnanshu LinkedIn"
+      className="absolute left-0 bottom-0 w-1/2 h-1/2 group"
+    >
+      <span className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/50 transition-all duration-200">
+        <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-white text-black px-4 py-2 font-bold text-sm">
+          LINKEDIN ↗
+        </span>
+      </span>
+    </a>
+
+    {/* Shantanu */}
+    <a
+      href="https://www.linkedin.com/in/shantanu-sharma80/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Shantanu LinkedIn"
+      className="absolute right-0 bottom-0 w-1/2 h-1/2 group"
+    >
+      <span className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/50 transition-all duration-200">
+        <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black text-white px-4 py-2 font-bold text-sm">
+          LINKEDIN ↗
+        </span>
+      </span>
+    </a>
+  </div>
+</div>
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mono text-xs">
             {[
               ["Rishabh", "CEO & Founder"],
