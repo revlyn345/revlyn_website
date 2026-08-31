@@ -1055,10 +1055,7 @@ function Footer() {
         {/* Editorial lead */}
         <div className="grid md:grid-cols-12 gap-10 pb-14 border-b border-paper/10">
           <div className="md:col-span-7 min-w-0">
-            <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-6 flex items-center gap-3">
-              <span className="h-px w-8 bg-fire" />
-              End of the page. Start of the conversation.
-            </div>
+            
             <h3 className="display text-5xl md:text-7xl leading-[0.9] tracking-[-0.035em]">
               Revenue systems,
               <br />
@@ -1092,11 +1089,7 @@ function Footer() {
           </div>
 
           <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10 min-w-0">
-            <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-6 flex items-center gap-3">
-              <span>Field notes</span>
-              <span className="h-px flex-1 bg-paper/10" />
-              <span className="text-paper/60">Monthly · 2 min</span>
-            </div>
+            
             <h4 className="display text-3xl md:text-4xl leading-[0.95] tracking-[-0.02em]">
               The <span className="text-fire">operator&rsquo;s notebook</span>.
             </h4>

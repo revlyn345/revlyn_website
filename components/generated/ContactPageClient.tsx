@@ -31,10 +31,7 @@ function Hero() {
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-end">
           {/* Left: dossier headline */}
           <div className="lg:col-span-8">
-            <p className="mono text-[11px] uppercase tracking-[0.22em] text-ink/60 mb-6 flex items-center gap-3">
-              <span className="inline-block h-px w-8 bg-ink" />
-              Signal Intake · File 002 · Direct line to a senior operator
-            </p>
+            
             <h1 className="display leading-[0.9] tracking-[-0.045em] text-[clamp(3rem,9vw,7.5rem)]">
               START A<br />
               <span className="text-fire">CONVERSATION<span className="text-ink">.</span></span>
@@ -44,15 +41,7 @@ function Hero() {
               workflow that keeps breaking. A senior operator, not an SDR, reads it and
               replies within one business day.
             </p>
-            <div className="mt-8 inline-flex flex-wrap items-center gap-3 border-2 border-ink bg-paper px-4 py-2 max-w-full">
-              <span className="relative flex h-2.5 w-2.5 shrink-0">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-fire opacity-60" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-fire" />
-              </span>
-              <span className="mono text-xs uppercase tracking-[0.22em] min-w-0">
-                Inbox open · Avg. reply &lt; 14m during business hours
-              </span>
-            </div>
+            
           </div>
 
           {/* Right: dossier plaque */}
@@ -210,8 +199,8 @@ function ContactForm() {
                 <ol className="space-y-5">
                   {[
                     ["01", "Read", "A senior operator reads your note within one business day. Not routed, not queued."],
-                    ["02", "Probe", "Two or three targeted questions to understand where the system is actually leaking."],
-                    ["03", "Map", "If it is a fit, we propose a HubSpot-as-a-Service plan or a fixed 90-day build. If not, we say so."],
+                    ["02", "Ask", "Two or three targeted questions to understand where the system is actually leaking."],
+                    ["03", "Map", "If it is a fit, we propose a HubSpot-as-a-Service plan or a fixed 90-day build. If not, we tell you straight."],
                   ].map(([n, t, d]) => (
                     <li key={n} className="grid grid-cols-[auto_1fr] gap-4">
                       <span className="mono text-[11px] font-bold tracking-[0.22em] text-fire pt-0.5">{n}</span>
@@ -447,10 +436,7 @@ function Footer() {
         {/* Editorial lead */}
         <div className="grid md:grid-cols-12 gap-10 pb-14 border-b border-paper/10">
           <div className="md:col-span-7 min-w-0">
-            <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-6 flex items-center gap-3">
-              <span className="h-px w-8 bg-fire" />
-              End of the page. Start of the conversation.
-            </div>
+            
             <h3 className="display text-5xl md:text-7xl leading-[0.9] tracking-[-0.035em]">
               Revenue systems,
               <br />
@@ -484,11 +470,7 @@ function Footer() {
           </div>
 
           <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10 min-w-0">
-            <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-6 flex items-center gap-3">
-              <span>Field notes</span>
-              <span className="h-px flex-1 bg-paper/10" />
-              <span className="text-paper/60">Monthly · 2 min</span>
-            </div>
+            
             <h4 className="display text-3xl md:text-4xl leading-[0.95] tracking-[-0.02em]">
               The <span className="text-fire">operator&rsquo;s notebook</span>.
             </h4>
