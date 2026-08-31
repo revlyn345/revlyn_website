@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://revlyn.io/sitemap.xml", // TODO: replace with real production domain
+    sitemap: "https://revlyn.io/sitemap.xml",
   };
 }
