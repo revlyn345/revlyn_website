@@ -130,14 +130,22 @@ export default function RootLayout({
         {/* ─────────────────────────────────────────────────────
             GOOGLE ANALYTICS 4
             Loads on every page of the website
+
+            strategy="lazyOnload" (not "afterInteractive"): GA doesn't
+            need to run before the page is interactive, and loading it
+            that early puts it in direct competition with the page's
+            own hydration for main-thread time - showing up as Total
+            Blocking Time in Lighthouse/PageSpeed. lazyOnload defers
+            this until the browser is idle, after everything the user
+            can actually see or click has already loaded.
         ───────────────────────────────────────────────────── */}
 
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
 
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){window.dataLayer.push(arguments);}
@@ -146,25 +154,6 @@ export default function RootLayout({
             gtag('config', '${GA_MEASUREMENT_ID}', {
               page_path: window.location.pathname,
             });
-          `}
-        </Script>
-
-        {/* ─────────────────────────────────────────────────────
-            RB2B TRACKING
-            IMPORTANT: Replace "ENxxxxxxxxxx" with your actual RB2B key.
-        ───────────────────────────────────────────────────── */}
-
-        <Script id="rb2b" strategy="afterInteractive">
-          {`
-            !function (key) {
-              if (window.reb2b) return;
-              window.reb2b = { loaded: true };
-              var s = document.createElement("script");
-              s.async = true;
-              s.src = "https://ddwl4m2hdecbv.cloudfront.net/b/" + key + "/" + key + ".js.gz";
-              var first = document.getElementsByTagName("script")[0];
-              first.parentNode.insertBefore(s, first);
-            }("EN4M0HJJWROM");
           `}
         </Script>
 
@@ -184,7 +173,29 @@ export default function RootLayout({
 
         {/* ─────────────────────────────────────────────────────
             HUBSPOT WIDGET
+            Loads HubSpot's Conversations chat widget (the round
+            avatar bubble + "Got any questions?" popup). This was
+            missing entirely - HubSpotWidgetCap below only manages a
+            widget's height after HubSpot itself has injected it, it
+            never loaded the widget. That's why the chat bubble
+            disappeared: this site was migrated from Lovable, and the
+            actual HubSpot tracking script (normally set in Lovable's
+            site settings) never got carried over into this codebase.
+
+            Portal ID reused from BookAuditButton.tsx's forms embed,
+            since that's the same HubSpot portal this site is on.
+
+            strategy="lazyOnload" for the same reason as GA above: the
+            chat widget doesn't need to block first interaction, so it
+            loads once the browser is idle instead of competing with
+            page hydration for main-thread time.
         ───────────────────────────────────────────────────── */}
+
+        <Script
+          id="hs-script-loader"
+          src="https://js.hs-scripts.com/50824762.js"
+          strategy="lazyOnload"
+        />
 
         <HubSpotWidgetCap />
       </body>

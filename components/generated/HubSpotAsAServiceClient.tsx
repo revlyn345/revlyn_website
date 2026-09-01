@@ -1,7 +1,19 @@
-"use client";
+/* ═══════════════════════════════════════════════════════════════
+   This file is deliberately NOT "use client" anymore. Everything
+   below is static markup (no useState/useEffect) except for three
+   widgets, which now live in ./HubSpotAsAServiceWidgets and are
+   imported as Client Components. A Server Component is allowed to
+   render Client Components as children, so this still works exactly
+   as before - the difference is that all the presentational JSX in
+   this file (Section, Capability, the diagrams, page copy, Footer)
+   is now rendered to HTML on the server instead of being shipped as
+   JavaScript and hydrated in the browser on every page load.
+   ═══════════════════════════════════════════════════════════════ */
 
-import { useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { BookCallButton } from "@/components/BookCallButton";
+import { Footer } from "@/components/Footer";
+import { HeroPortal, ScopeBuilder, FaqAccordion } from "./HubSpotAsAServiceWidgets";
 
 
 function SectionCta({ label }: { label: string }) {
@@ -142,7 +154,7 @@ function Capability({
   );
 }
 
-/* ── diagrams (static — no framer-motion) ────────────────────────── */
+/* ── diagrams (static - no framer-motion) ────────────────────────── */
 
 function FlowDiagram({ steps, accent = "fire" }: { steps: string[]; accent?: "fire" | "ink" | "volt" }) {
   const dot = accent === "ink" ? "bg-ink" : accent === "volt" ? "bg-ink" : "bg-fire";
@@ -279,339 +291,6 @@ function HubDiagram({ nodes }: { nodes: string[] }) {
   );
 }
 
-/* ── hero console (static tabs, no framer-motion) ────────────────── */
-
-type TabKey = "pipeline" | "automation" | "reporting";
-const TABS: { key: TabKey; label: string }[] = [
-  { key: "pipeline", label: "Pipeline" },
-  { key: "automation", label: "Automation" },
-  { key: "reporting", label: "Reporting" },
-];
-const STAGES = [
-  { label: "Prospecting", deals: 128, value: "$2.4M", width: 100 },
-  { label: "Qualified", deals: 74, value: "$1.6M", width: 82 },
-  { label: "Proposal", deals: 38, value: "$980K", width: 58 },
-  { label: "Negotiation", deals: 19, value: "$540K", width: 38 },
-  { label: "Closed won", deals: 11, value: "$310K", width: 22 },
-];
-const WORKFLOW = ["Form submitted", "Lead scored", "Owner assigned", "Sequence enrolled", "Deal created"];
-const MONTHS = [
-  { label: "Jan", value: 42 },
-  { label: "Feb", value: 55 },
-  { label: "Mar", value: 48 },
-  { label: "Apr", value: 71 },
-  { label: "May", value: 66 },
-  { label: "Jun", value: 88 },
-  { label: "Jul", value: 79 },
-  { label: "Aug", value: 96 },
-];
-
-function HeroPortal() {
-  const [tab, setTab] = useState<TabKey>("pipeline");
-  const [active, setActive] = useState(0);
-  const [running, setRunning] = useState(false);
-  const [step, setStep] = useState(-1);
-  const [month, setMonth] = useState(MONTHS.length - 1);
-  const stage = STAGES[active]!;
-  const mth = MONTHS[month]!;
-
-  function runWorkflow() {
-    if (running) return;
-    setRunning(true);
-    setStep(0);
-    WORKFLOW.forEach((_, i) => {
-      setTimeout(() => {
-        setStep(i);
-        if (i === WORKFLOW.length - 1) setTimeout(() => setRunning(false), 500);
-      }, i * 520);
-    });
-  }
-
-  return (
-    <div className="brutal-border brutal-shadow-fire bg-paper">
-      <div className="flex items-center justify-between border-b-2 border-ink px-4 py-3">
-        <div className="flex items-center gap-2 mono text-[11px] uppercase tracking-[0.16em]">
-          <span className="h-1.5 w-1.5 bg-fire animate-blink" />
-          Revlyn console
-        </div>
-        <span className="mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Live demo</span>
-      </div>
-
-      <div role="tablist" aria-label="Portal views" className="grid grid-cols-3 border-b-2 border-ink">
-        {TABS.map((t) => {
-          const selected = tab === t.key;
-          return (
-            <button
-              key={t.key}
-              role="tab"
-              type="button"
-              aria-selected={selected}
-              onClick={() => setTab(t.key)}
-              className={`relative px-4 py-3 mono text-[11px] uppercase tracking-[0.14em] transition-colors ${
-                selected ? "text-ink" : "text-muted-foreground hover:text-ink"
-              }`}
-            >
-              {t.label}
-              {selected ? <span className="absolute inset-x-0 bottom-0 h-0.5 bg-fire" /> : null}
-            </button>
-          );
-        })}
-      </div>
-
-      <div className="min-h-[360px] p-5">
-        {tab === "pipeline" ? (
-          <div>
-            <p className="mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-              Deal pipeline · hover a stage
-            </p>
-            <div className="mt-4 space-y-2">
-              {STAGES.map((s, i) => (
-                <button
-                  key={s.label}
-                  type="button"
-                  onMouseEnter={() => setActive(i)}
-                  onFocus={() => setActive(i)}
-                  onClick={() => setActive(i)}
-                  className="flex w-full items-center gap-3 text-left"
-                >
-                  <span
-                    className={`flex h-9 items-center px-3 mono text-[11px] uppercase tracking-[0.1em] transition-all duration-500 ${
-                      active === i ? "bg-fire text-paper" : "bg-ink text-paper"
-                    }`}
-                    style={{ width: `${s.width}%` }}
-                  >
-                    {s.label}
-                  </span>
-                  <span className="mono text-[11px] text-muted-foreground">{s.deals}</span>
-                </button>
-              ))}
-            </div>
-            <div className="mt-5 flex items-end justify-between border-t-2 border-ink pt-4">
-              <div>
-                <p className="mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{stage.label}</p>
-                <p className="mt-1 display text-3xl">{stage.value}</p>
-              </div>
-              <p className="mono text-[11px] text-muted-foreground">{stage.deals} deals</p>
-            </div>
-          </div>
-        ) : null}
-
-        {tab === "automation" ? (
-          <div>
-            <div className="flex items-center justify-between">
-              <p className="mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-                Workflow · lead routing
-              </p>
-              <button
-                type="button"
-                onClick={runWorkflow}
-                className="border-2 border-ink px-3 py-1.5 mono text-[10px] uppercase tracking-[0.14em] transition-colors hover:bg-ink hover:text-paper"
-              >
-                {running ? "Running…" : "Run workflow"}
-              </button>
-            </div>
-            <ol className="mt-5 space-y-3">
-              {WORKFLOW.map((w, i) => {
-                const done = step >= i;
-                return (
-                  <li key={w} className="flex items-center gap-3">
-                    <span
-                      className={`h-8 w-8 shrink-0 border-2 transition-colors duration-300 ${
-                        done ? "border-fire bg-fire" : "border-ink/20 bg-paper"
-                      }`}
-                    />
-                    <span
-                      className={`flex-1 border-b border-ink/10 pb-2 mono text-[11px] uppercase tracking-[0.1em] ${
-                        done ? "text-ink" : "text-muted-foreground"
-                      }`}
-                    >
-                      {w}
-                    </span>
-                    {done ? <span className="mono text-[10px] uppercase tracking-[0.14em] text-fire">done</span> : null}
-                  </li>
-                );
-              })}
-            </ol>
-          </div>
-        ) : null}
-
-        {tab === "reporting" ? (
-          <div>
-            <p className="mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-              Pipeline created · click a bar
-            </p>
-            <div className="mt-6 flex h-44 items-end gap-2">
-              {MONTHS.map((m, i) => (
-                <button
-                  key={m.label}
-                  type="button"
-                  onClick={() => setMonth(i)}
-                  onMouseEnter={() => setMonth(i)}
-                  className="flex h-full flex-1 flex-col justify-end gap-2"
-                  aria-label={`${m.label} pipeline`}
-                >
-                  <span
-                    className={`w-full transition-[height] duration-500 ${month === i ? "bg-fire" : "bg-ink"}`}
-                    style={{ height: `${m.value}%` }}
-                  />
-                  <span className="mono text-[9px] uppercase tracking-[0.1em] text-muted-foreground">{m.label}</span>
-                </button>
-              ))}
-            </div>
-            <div className="mt-4 flex items-center justify-between border-t-2 border-ink pt-4">
-              <p className="mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{mth.label} · pipeline</p>
-              <p className="display text-2xl">${(mth.value * 12).toLocaleString()}K</p>
-            </div>
-          </div>
-        ) : null}
-      </div>
-    </div>
-  );
-}
-
-/* ── scope builder + FAQ (static, CSS-transition accordion) ──────── */
-
-const WORKSTREAMS = [
-  "CRM administration",
-  "Sales operations",
-  "Marketing automation",
-  "Reporting & dashboards",
-  "Integrations",
-  "Data management",
-  "Lead generation",
-  "RevOps strategy",
-];
-
-function ScopeBuilder() {
-  const [picked, setPicked] = useState<string[]>(["CRM administration", "Reporting & dashboards"]);
-  const [hours, setHours] = useState(10);
-
-  const score = picked.length * 2 + hours / 5;
-  const tier = score >= 14 ? "Full RevOps Partnership" : score >= 8 ? "Managed HubSpot" : "HubSpot Support";
-  const summary =
-    tier === "Full RevOps Partnership"
-      ? "A complete outsourced HubSpot and RevOps team running strategy plus execution."
-      : tier === "Managed HubSpot"
-        ? "Ongoing management across marketing and sales with continuous build work."
-        : "Ongoing administration, maintenance and support for your existing portal.";
-
-  function toggle(w: string) {
-    setPicked((p) => (p.includes(w) ? p.filter((x) => x !== w) : [...p, w]));
-  }
-
-  return (
-    <div className="grid gap-px border-2 border-ink bg-ink lg:grid-cols-[1.2fr_1fr]">
-      <div className="bg-paper p-8">
-        <p className="mono text-[11px] uppercase tracking-[0.16em] text-fire">Build your scope</p>
-        <h3 className="display mt-3 text-2xl">Select the work you need us to own.</h3>
-        <div className="mt-6 flex flex-wrap gap-2">
-          {WORKSTREAMS.map((w) => {
-            const on = picked.includes(w);
-            return (
-              <button
-                key={w}
-                type="button"
-                aria-pressed={on}
-                onClick={() => toggle(w)}
-                className={`border-2 px-4 py-2 mono text-[11px] uppercase tracking-[0.12em] transition-colors ${
-                  on ? "border-fire bg-fire text-paper" : "border-ink/20 text-muted-foreground hover:border-ink hover:text-ink"
-                }`}
-              >
-                {w}
-              </button>
-            );
-          })}
-        </div>
-        <div className="mt-8">
-          <div className="flex items-baseline justify-between">
-            <label htmlFor="hours" className="mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-              Execution hours per week
-            </label>
-            <span className="display text-2xl">{hours}h</span>
-          </div>
-          <input
-            id="hours"
-            type="range"
-            min={2}
-            max={40}
-            step={2}
-            value={hours}
-            onChange={(e) => setHours(Number(e.target.value))}
-            className="mt-3 w-full accent-fire"
-          />
-        </div>
-      </div>
-
-      <div className="flex flex-col justify-between bg-paper p-8">
-        <div>
-          <p className="mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Recommended engagement</p>
-          <h4 key={tier} className="mt-3 text-3xl leading-tight display">
-            {tier}
-          </h4>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{summary}</p>
-          <ul className="mt-6 space-y-2">
-            {picked.length === 0 ? (
-              <li className="mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-                Select at least one workstream
-              </li>
-            ) : (
-              picked.map((p) => (
-                <li key={p} className="flex items-center gap-3 border-b border-ink/10 pb-2 mono text-[11px] uppercase tracking-[0.12em]">
-                  <span className="h-1.5 w-1.5 bg-fire" />
-                  {p}
-                </li>
-              ))
-            )}
-          </ul>
-        </div>
-        <BookCallButton className="mt-8 inline-flex items-center gap-3 bg-ink px-6 py-4 mono text-[11px] uppercase tracking-[0.16em] text-paper transition-colors hover:bg-fire w-fit">
-          Send this scope to us
-          <span aria-hidden="true">→</span>
-        </BookCallButton>
-      </div>
-    </div>
-  );
-}
-
-function FaqAccordion({ items }: { items: string[][] }) {
-  const [open, setOpen] = useState<number | null>(0);
-  return (
-    <div className="max-w-4xl">
-      {items.map(([q, a], i) => {
-        const isOpen = open === i;
-        return (
-          <div key={q} className="border-t border-ink/15 last:border-b">
-            <button
-              type="button"
-              aria-expanded={isOpen}
-              onClick={() => setOpen(isOpen ? null : i)}
-              className="flex w-full items-center justify-between gap-6 py-6 text-left transition-colors hover:text-fire"
-            >
-              <span className="text-lg">{q}</span>
-              <span
-                className={`mono text-xl leading-none transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
-                aria-hidden="true"
-              >
-                +
-              </span>
-            </button>
-            <div
-              className={`grid overflow-hidden transition-all duration-300 ease-out ${
-                isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-              }`}
-            >
-              <div className="overflow-hidden">
-                <p className="max-w-3xl border-l-2 border-volt pb-6 pl-4 text-sm leading-relaxed text-muted-foreground">
-                  {a}
-                </p>
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
 
 /* ══════════════════════════════════════════════════════════════════
    PAGE DATA
@@ -650,7 +329,7 @@ const leadGenSteps: [string, string][] = [
 ];
 
 const audience: [string, string, string][] = [
-  ["Growing companies", "You have invested in HubSpot but don't yet need — or can't justify — a full internal HubSpot team.", "bg-fire"],
+  ["Growing companies", "You have invested in HubSpot but don't yet need - or can't justify - a full internal HubSpot team.", "bg-fire"],
   ["Marketing teams", "Your marketing team needs HubSpot expertise to execute campaigns and automation.", "bg-fire"],
   ["Sales teams", "Your sales team needs better CRM processes, automation and reporting.", "bg-ink"],
   ["RevOps teams", "You have a RevOps leader but need additional execution capacity.", "bg-ink"],
@@ -744,7 +423,7 @@ export default function HubSpotAsAServiceClient() {
             <p className="mt-6 max-w-xl text-xl text-ink md:text-2xl">Your HubSpot team, without hiring one.</p>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
               Get ongoing HubSpot management, implementation, automation, CRM administration, marketing, sales
-              operations, reporting, integrations and lead generation — all from one team.
+              operations, reporting, integrations and lead generation - all from one team.
             </p>
             <p className="mt-3 max-w-xl text-base leading-relaxed text-muted-foreground">
               Tell us what you need. We build it, manage it and keep improving it.
@@ -866,7 +545,7 @@ export default function HubSpotAsAServiceClient() {
             index="02"
             title="HubSpot Sales Hub Management"
             accent="text-ink"
-            intro={["Your sales team should spend time selling — not figuring out how HubSpot works."]}
+            intro={["Your sales team should spend time selling - not figuring out how HubSpot works."]}
             items={[
               "Sales pipelines",
               "Deal stages",
@@ -968,7 +647,7 @@ export default function HubSpotAsAServiceClient() {
 
       <Section eyebrow="Visibility" title="HubSpot Reporting & Dashboards">
         <Lead>
-          Your CRM should answer important business questions — not just show you a collection of charts. We build
+          Your CRM should answer important business questions - not just show you a collection of charts. We build
           dashboards around the metrics your team actually needs.
         </Lead>
         <div className="mt-10 grid gap-8 md:grid-cols-3">
@@ -1081,7 +760,7 @@ export default function HubSpotAsAServiceClient() {
 
       <Section eyebrow="Pipeline" title="HubSpot Lead Generation">
         <Lead>
-          For many companies, HubSpot isn't just a CRM. It's the engine behind their lead generation process — and we
+          For many companies, HubSpot isn't just a CRM. It's the engine behind their lead generation process - and we
           can help build the system around it.
         </Lead>
         <div className="mt-8">
@@ -1301,270 +980,3 @@ export default function HubSpotAsAServiceClient() {
   );
 }
 
-/* ══════════════════════════════════════════════════════════════════
-   FOOTER
-   Same footer used across every page on the site — carried over
-   verbatim from the previous version of this page, not simplified.
-   ══════════════════════════════════════════════════════════════════ */
-function Footer() {
-  return (
-    <footer className="relative bg-ink text-paper overflow-hidden">
-      {/* Giant wordmark backdrop */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center overflow-hidden">
-        <span
-          className="display leading-none tracking-tighter text-transparent select-none translate-y-[18%]"
-          style={{
-            fontSize: "clamp(9rem, 28vw, 28rem)",
-            WebkitTextStroke: "1px rgba(255,255,255,0.09)",
-          }}
-        >
-          revlyn
-        </span>
-      </div>
-
-      <div className="relative max-w-[1400px] mx-auto px-6 pt-20 pb-14">
-        {/* Editorial lead */}
-        <div className="grid md:grid-cols-12 gap-10 pb-14 border-b border-paper/10">
-          <div className="md:col-span-7 min-w-0">
-           
-            <h3 className="display text-5xl md:text-7xl leading-[0.9] tracking-[-0.035em]">
-              Revenue systems,
-              <br />
-              <span className="text-paper/65">operated by </span>
-              <span className="text-fire">seniors</span>
-              <span className="text-fire">.</span>
-            </h3>
-            <p className="mt-6 max-w-xl text-paper/70 leading-relaxed text-lg">
-              A small team of revenue operators for Founders and Heads of Sales, Marketing, Revenue and GTM. We build the portal, tune the pipeline, wire the AI, and stay on the account.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <BookCallButton className="group inline-flex items-center gap-2 rounded-full bg-fire text-paper pl-5 pr-1.5 py-1.5 text-sm font-medium hover:bg-paper hover:text-ink transition-colors">
-                Book a diagnostic call
-                <span className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-ink text-paper group-hover:translate-x-0.5 transition-transform">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
-                </span>
-              </BookCallButton>
-              <a
-                href="mailto:info@revlyn.io"
-                className="inline-flex items-center gap-2 rounded-full border border-paper/25 px-5 py-2.5 text-sm text-paper hover:bg-paper hover:text-ink transition-colors"
-              >
-                info@revlyn.io
-              </a>
-              <a
-                href="tel:+917503044000"
-                className="inline-flex items-center gap-2 rounded-full border border-paper/25 px-5 py-2.5 text-sm text-paper hover:bg-paper hover:text-ink transition-colors"
-              >
-                +91 75030 44000
-              </a>
-            </div>
-          </div>
-
-          <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10 min-w-0">
-           
-            <h4 className="display text-3xl md:text-4xl leading-[0.95] tracking-[-0.02em]">
-              The <span className="text-fire">operator&rsquo;s notebook</span>.
-            </h4>
-            <p className="mt-3 text-paper/65 text-sm">
-              Short essays on revenue systems, HubSpot, RevOps and AI. Written by the same operators who run the portals.
-            </p>
-            <div className="mt-5">
-              <div className="flex items-stretch rounded-full border border-paper/20 bg-paper/5 pl-5 pr-1 py-1 focus-within:border-fire transition-colors">
-                <input
-                  type="email"
-                  placeholder="you@company.com"
-                  className="flex-1 min-w-0 bg-transparent outline-none py-2 text-paper placeholder:text-paper/40"
-                />
-                <button type="button" className="group inline-flex items-center gap-2 rounded-full bg-paper text-ink pl-4 pr-2 py-1.5 text-sm font-medium hover:bg-fire hover:text-paper transition-colors">
-                  Subscribe
-                  <span className="inline-flex items-center justify-center h-7 w-7 rounded-full bg-ink text-paper group-hover:translate-x-0.5 transition-transform">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
-                  </span>
-                </button>
-              </div>
-              <p className="mt-3 text-[11px] text-paper/60">
-                One email a month. Unsubscribe with one click.
-              </p>
-            </div>
-
-            {/* Studio card */}
-            <div className="mt-8 rounded-2xl border border-paper/12 bg-paper/[0.03] p-5">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-2">Studio</div>
-                  <div className="text-paper leading-snug">
-                    Gurugram, Haryana
-                    <br />
-                    <span className="text-paper/60">India · IST (UTC+5:30)</span>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-2">Hours</div>
-                  <div className="text-paper">Mon, Fri</div>
-                  <div className="text-paper/60 text-sm">09:30 to 19:30 IST</div>
-                </div>
-              </div>
-              <div className="mt-4 pt-4 border-t border-paper/10 flex items-center justify-between text-[12px]">
-                <span className="text-paper/55">Async everywhere. Slack shared channel on request.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Link grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-8 py-14 border-b border-paper/10">
-          {[
-            {
-              h: "Get started",
-              l: [
-                ["Book a call", "/contact"],
-                ["Diagnostic", "/contact"],
-                ["Pricing", "/hubspot-as-a-service#pricing"],
-                ["Request a proposal", "/contact"],
-              ],
-            },
-            {
-              h: "HubSpot",
-              l: [
-                ["HubSpot as a Service", "/hubspot-as-a-service"],
-                ["Implementation", "/hubspot-implementation"],
-                ["Optimization", "/hubspot-optimization"],
-                ["Migration", "/hubspot-implementation"],
-                ["Audit", "/hubspot-audit"],
-              ],
-            },
-            {
-              h: "Work",
-              l: [
-                ["Ausforming", "/work/ausforming"],
-                ["Datapel", "/work/datapel"],
-                ["Detrack", "/work/detrack"],
-                ["Integrity Fire", "/work/integrity-fire"],
-              ],
-            },
-            {
-              h: "Practice",
-              l: [
-                ["CRM Architecture", "/#svc-crm"],
-                ["RevOps", "/#svc-revops"],
-                ["GTM Design", "/#svc-gtm"],
-                ["AI Infrastructure", "/#svc-ai"],
-              ],
-            },
-            {
-              h: "Use cases",
-              l: [
-                ["Overview", "/use-cases"],
-                ["B2B SaaS", "/use-cases/saas"],
-                ["Professional services", "/use-cases"],
-                ["Marketplaces", "/use-cases"],
-                ["Fintech", "/use-cases"],
-              ],
-            },
-            {
-              h: "Partners",
-              l: [
-                ["Overview", "/partners"],
-                ["HubSpot", "/partners/hubspot"],
-                ["Bitscale", "/partners/bitscale"],
-              ],
-            },
-            {
-              h: "Company",
-              l: [
-                ["About", "/about"],
-                ["Contact", "/contact"],
-                ["Case ledger", "/#proof"],
-                ["Method", "/#method"],
-                ["Field notes", "/blog"],
-              ],
-            },
-          ].map((col) => (
-            <div key={col.h}>
-              <div className="text-paper text-[15px] font-medium mb-5">{col.h}</div>
-              <ul className="space-y-3">
-                {col.l.map(([label, href]) =>
-                  label === "Book a call" ? (
-                    <li key={label}>
-                      <BookCallButton className="group inline-flex items-center gap-1 text-[13.5px] text-paper/60 hover:text-fire transition-colors">
-                        <span>{label}</span>
-                        <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">
-                          →
-                        </span>
-                      </BookCallButton>
-                    </li>
-                  ) : (
-                    <li key={label}>
-                      <a
-                        href={href}
-                        className="group inline-flex items-center gap-1 text-[13.5px] text-paper/60 hover:text-fire transition-colors"
-                      >
-                        <span>{label}</span>
-                        <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">
-                          →
-                        </span>
-                      </a>
-                    </li>
-                  )
-                )}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        {/* Social */}
-        <div className="flex items-center justify-end gap-3 py-12 border-b border-paper/10">
-          <div className="flex items-center gap-3 md:justify-end">
-            {[
-              { n: "LinkedIn", h: "https://www.linkedin.com/company/revlynhq/", d: "M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.56v14H.22V8zm7.62 0h4.37v1.92h.06c.61-1.15 2.1-2.36 4.32-2.36 4.62 0 5.47 3.04 5.47 6.99V22h-4.55v-6.2c0-1.48-.03-3.38-2.06-3.38-2.07 0-2.39 1.62-2.39 3.28V22H7.84V8z" },
-              { n: "X", h: "#", d: "M18.244 2H21.5l-7.51 8.583L23 22h-6.797l-5.324-6.53L4.8 22H1.542l8.036-9.19L1 2h6.914l4.813 5.93L18.244 2zm-1.192 18h1.826L7.033 4H5.07l11.982 16z" },
-              { n: "Substack", h: "#", d: "M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24l10.54-5.9L22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z" },
-              { n: "YouTube", h: "#", d: "M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z" },
-            ].map((s) => (
-              <a
-                key={s.n}
-                href={s.h}
-                aria-label={s.n}
-                className="grid place-items-center h-10 w-10 rounded-full border border-paper/15 text-paper/70 hover:text-fire hover:border-fire/60 hover:bg-fire/[0.06] transition-colors"
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                  <path d={s.d} />
-                </svg>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Brand row */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pt-12">
-          <div className="flex items-center gap-4">
-            <img
-              src="/logos/revlyn-wordmark.png"
-              alt="Revlyn"
-              className="h-10 md:h-12 w-auto object-contain"
-              style={{ filter: "invert(1) hue-rotate(180deg)" }}
-            />
-          </div>
-          <p className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 max-w-md md:text-right">
-            Revenue, built like an engine. Operated like a team you already trust.
-          </p>
-        </div>
-
-        {/* Base line */}
-        <div className="mt-10 pt-6 border-t border-paper/10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-[12px] text-paper/65">
-          <span className="flex items-center gap-3">
-            <span className="mono">© 2026 Revlyn</span>
-            <span className="text-paper/25">·</span>
-            <span>Built by operators, in Gurugram</span>
-          </span>
-          <span className="flex items-center gap-5">
-            <a href="/privacy" className="hover:text-paper transition-colors">Privacy</a>
-            <a href="#" className="hover:text-paper transition-colors">Terms</a>
-            <a href="#" className="hover:text-paper transition-colors">Security</a>
-            <a href="#" className="hover:text-paper transition-colors">Cookies</a>
-            <a href="#" className="hover:text-paper transition-colors">FAQs</a>
-          </span>
-        </div>
-      </div>
-    </footer>
-  );
-}

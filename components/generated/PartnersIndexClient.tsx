@@ -1,9 +1,7 @@
-"use client";
-
 import type React from "react";
 import Link from "next/link";
 import Image from "next/image";
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
+// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset - not migrated.
 const revlynWordmark = "/logos/revlyn-wordmark.svg";
 
 
@@ -336,14 +334,14 @@ function PartnersLedger() {
         <div className="grid md:grid-cols-2 gap-6">
           {partners.map((p, idx) => {
             const isFire = p.accent === "fire";
-            const glow = isFire ? "var(--color-fire)" : "var(--color-volt)";
             return (
               <Link key={p.code} href={p.slug} className="block group" data-reveal data-reveal-delay={0.1 + idx * 0.08}>
                 <article
-                  className="relative brutal-border bg-paper p-6 md:p-8 h-full flex flex-col transition-all duration-300 will-change-transform hover:-translate-x-1 hover:-translate-y-1"
-                  style={{ boxShadow: "6px 6px 0 0 var(--color-ink)" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.boxShadow = `14px 14px 0 0 ${glow}`)}
-                  onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "6px 6px 0 0 var(--color-ink)")}
+                  className={`relative brutal-border bg-paper p-6 md:p-8 h-full flex flex-col transition-all duration-300 will-change-transform hover:-translate-x-1 hover:-translate-y-1 shadow-[6px_6px_0_0_var(--color-ink)] ${
+                    isFire
+                      ? "hover:shadow-[14px_14px_0_0_var(--color-fire)]"
+                      : "hover:shadow-[14px_14px_0_0_var(--color-volt)]"
+                  }`}
                 >
                   {/* corner ticks */}
                   <span aria-hidden className="pointer-events-none absolute -top-[3px] -left-[3px] w-3 h-3 border-t-2 border-l-2 border-fire opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
