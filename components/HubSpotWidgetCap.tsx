@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 /* ─────────────────────────────────────────────────────────────────
-   HUBSPOT CHAT WIDGET — HEIGHT ENFORCER
+   HUBSPOT CHAT WIDGET - HEIGHT ENFORCER
 
    HubSpot's chat widget has a built-in "expand" toggle (the diagonal
    arrows icon next to the close button). Clicking it grows the widget
@@ -13,7 +13,7 @@ import { useEffect } from "react";
    A plain CSS rule with !important can lose this fight: HubSpot's own
    script sets inline width/height on the widget's container and iframe
    via JavaScript, and it can re-apply those styles *after* our
-   stylesheet has already loaded — including every time the expand
+   stylesheet has already loaded - including every time the expand
    toggle is clicked. Since inline styles set via JS can out-rank an
    external stylesheet rule, a static CSS max-height isn't reliable
    here.
@@ -21,7 +21,7 @@ import { useEffect } from "react";
    Instead, this watches the whole page for DOM changes with a
    MutationObserver, and every time something changes (the widget
    appearing, being opened, being expanded, etc.), it immediately
-   re-applies our own height cap directly as an inline style — so
+   re-applies our own height cap directly as an inline style - so
    whatever HubSpot's script just set gets overridden a moment later,
    every single time, regardless of the internal state HubSpot toggles
    into.
@@ -43,10 +43,17 @@ function capElement(el: HTMLElement) {
 
   el.style.setProperty("max-height", maxHeight, "important");
   if (isMobile) {
+    // Only anchor to the right + bottom, with a max-width cap - not
+    // left+right+width:auto together. That combination was stretching
+    // the widget edge-to-edge across the viewport (visible as a large
+    // gap of empty space on the left side of the popup) instead of
+    // keeping it as a compact bubble anchored to the bottom-right,
+    // which is the correct default HubSpot mobile appearance.
     el.style.setProperty("bottom", "10px", "important");
     el.style.setProperty("right", "10px", "important");
-    el.style.setProperty("left", "10px", "important");
+    el.style.removeProperty("left");
     el.style.setProperty("width", "auto", "important");
+    el.style.setProperty("max-width", "calc(100vw - 20px)", "important");
   } else {
     el.style.setProperty("bottom", "20px", "important");
   }
