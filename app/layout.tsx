@@ -150,6 +150,25 @@ export default function RootLayout({
         </Script>
 
         {/* ─────────────────────────────────────────────────────
+            RB2B TRACKING
+            IMPORTANT: Replace "ENxxxxxxxxxx" with your actual RB2B key.
+        ───────────────────────────────────────────────────── */}
+
+        <Script id="rb2b" strategy="afterInteractive">
+          {`
+            !function (key) {
+              if (window.reb2b) return;
+              window.reb2b = { loaded: true };
+              var s = document.createElement("script");
+              s.async = true;
+              s.src = "https://ddwl4m2hdecbv.cloudfront.net/b/" + key + "/" + key + ".js.gz";
+              var first = document.getElementsByTagName("script")[0];
+              first.parentNode.insertBefore(s, first);
+            }("EN4M0HJJWROM");
+          `}
+        </Script>
+
+        {/* ─────────────────────────────────────────────────────
             WEBSITE NAVIGATION
         ───────────────────────────────────────────────────── */}
 
