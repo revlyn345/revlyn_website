@@ -82,7 +82,7 @@ function Hero() {
             <h1
               data-reveal
               data-reveal-delay="0.05"
-              className="display leading-[0.9] tracking-[-0.045em] text-[clamp(3rem,9vw,7.5rem)]"
+              className="display leading-[0.95] tracking-[-0.045em] text-[clamp(3rem,9vw,7.5rem)]"
             >
               Revlyn
               <span className="text-fire">×</span>
