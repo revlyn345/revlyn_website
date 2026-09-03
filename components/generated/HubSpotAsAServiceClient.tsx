@@ -408,10 +408,7 @@ export default function HubSpotAsAServiceClient() {
         <div className="absolute inset-0 stripes opacity-[0.04] pointer-events-none" aria-hidden="true" />
         <div className="relative mx-auto grid max-w-[1200px] gap-12 px-6 pt-20 pb-20 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:pt-28 lg:pb-28">
           <div>
-            <p className="flex flex-wrap items-center gap-4">
-              <span className="brutal-border bg-volt text-ink px-2 py-0.5 mono text-[10px]">Flagship</span>
-              <span className="mono text-[11px] uppercase tracking-[0.16em] text-fire">/ Revlyn · HubSpot Practice</span>
-            </p>
+           
             <h1 className="mt-7 display text-5xl leading-[0.92] md:text-7xl">
               HubSpot as a{" "}
               <span className="relative inline-block">

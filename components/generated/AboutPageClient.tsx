@@ -31,10 +31,7 @@ function Dossier() {
     <header className="border-b-2 border-ink p-8 md:p-16 flex flex-col md:flex-row gap-12 items-end relative">
       <div className="absolute inset-0 stripes opacity-[0.03] pointer-events-none" />
       <div className="flex-1 relative">
-        <p className="mono text-xs uppercase tracking-[0.28em] mb-6 flex items-center gap-3">
-          <span className="w-6 h-px bg-ink" />
-          Provenance &amp; Practice · File 001
-        </p>
+       
         <h1 className="display text-[clamp(3rem,9vw,8rem)] font-extrabold tracking-[-0.045em] leading-[0.85] uppercase mb-10">
           Who is
           <br />
@@ -44,13 +41,7 @@ function Dossier() {
           A senior CRM, RevOps, GTM and AI practice for founders and revenue leaders who need systems that run,
           not slide decks about systems that might.
         </p>
-        <div className="mt-10 flex flex-wrap items-center gap-4 mono text-xs uppercase tracking-widest">
-          <span className="inline-flex items-center gap-2 bg-ink text-paper px-3 py-1.5 rounded-full">
-            <span className="w-1.5 h-1.5 rounded-full bg-volt animate-pulse" />
-            Practice active · Gurugram &amp; remote
-          </span>
-          <span className="text-ink/60">Est. 2018 · 127 builds shipped</span>
-        </div>
+        
       </div>
 
       <aside className="w-full md:w-[280px] shrink-0 border-t-2 md:border-t-0 md:border-l-2 border-ink pt-8 md:pt-0 md:pl-8">

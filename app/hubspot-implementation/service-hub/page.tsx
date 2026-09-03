@@ -906,19 +906,11 @@ export default function ServiceHub() {
         <div aria-hidden className="absolute -bottom-32 -right-40 w-[520px] h-[520px] rounded-full bg-fire/15 blur-3xl pointer-events-none" />
 
         <div className="max-w-[1300px] mx-auto px-6 pt-28 pb-24 md:pt-36 md:pb-32 relative">
-          <div className="flex items-center gap-2 text-[11px] mb-8" data-reveal>
-            <Link href="/hubspot-implementation" className="mono uppercase tracking-[0.14em] text-ink/50 hover:text-ink">
-              HubSpot Implementation
-            </Link>
-            <span className="text-ink/20">/</span>
-            <span className="mono uppercase tracking-[0.14em] px-2 py-1 rounded bg-volt text-ink">Svc-Hub</span>
-          </div>
+          
 
           <div className="grid lg:grid-cols-[1.25fr_1fr] gap-12 items-end">
             <div>
-              <div className="mono text-[11px] uppercase tracking-[0.18em] text-ink/50 mb-6" data-reveal>
-                HubSpot · Service Hub · Implementation
-              </div>
+              
               <h1
                 className="font-display text-[54px] md:text-[84px] leading-[0.94] tracking-[-0.045em] hero-hl"
                 data-split

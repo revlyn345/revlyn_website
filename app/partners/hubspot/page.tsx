@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { BookCallButton } from "@/components/BookCallButton";
 
 // ============================================================
@@ -63,44 +64,21 @@ export default function HubSpotPartnerPage() {
 function Hero() {
   return (
     <section className="relative overflow-hidden border-b-2 border-ink">
-      {/* Background glow */}
       <div
         aria-hidden
         className="pointer-events-none absolute -top-40 -right-20 w-[560px] h-[560px] rounded-full blur-3xl opacity-40"
-        style={{
-          background:
-            "radial-gradient(closest-side, rgba(255,87,34,0.4), transparent 70%)",
-        }}
+        style={{ background: "radial-gradient(closest-side, rgba(255,87,34,0.4), transparent 70%)" }}
       />
-
       <div
         aria-hidden
         className="pointer-events-none absolute -bottom-52 -left-24 w-[520px] h-[520px] rounded-full blur-3xl opacity-40"
-        style={{
-          background:
-            "radial-gradient(closest-side, rgba(255,235,59,0.55), transparent 70%)",
-        }}
+        style={{ background: "radial-gradient(closest-side, rgba(255,235,59,0.55), transparent 70%)" }}
       />
 
       <div className="relative max-w-[1400px] mx-auto px-6 pt-8 pb-20">
-        {/* Breadcrumb */}
-        <div className="mono text-[10px] uppercase tracking-[0.2em] text-ink/50 mb-14">
-          <span>Partners</span>
-          <span className="mx-2">/</span>
-          <span className="text-ink">HubSpot</span>
-        </div>
-
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-end">
           {/* Hero copy */}
           <div className="lg:col-span-8">
-            <p
-              data-reveal
-              className="mono text-[11px] uppercase tracking-[0.22em] text-ink/60 mb-6 flex items-center gap-3"
-            >
-              <span className="inline-block h-px w-8 bg-fire" />
-              HubSpot Solutions Partner
-            </p>
-
             <h1
               data-reveal
               data-reveal-delay="0.05"
@@ -109,16 +87,11 @@ function Hero() {
               Revlyn
               <span className="text-fire">×</span>
               <br />
-
               <span className="relative inline-block">
                 <span className="text-fire">
                   HubSpot<span className="text-ink">.</span>
                 </span>
-
-                <span
-                  aria-hidden
-                  className="absolute left-0 -bottom-1 h-[6px] w-[62%] bg-volt"
-                />
+                <span aria-hidden className="absolute left-0 -bottom-1 h-[6px] w-[62%] bg-volt" />
               </span>
             </h1>
 
@@ -134,29 +107,46 @@ function Hero() {
             </p>
           </div>
 
-          {/* ========================================================
-              HUBSPOT BADGE
-              ======================================================== */}
-          <div
-            data-reveal
-            data-reveal-delay="0.25"
-            className="lg:col-span-4"
-          >
-            <div className="brutal-border bg-fire text-paper p-5 shadow-[10px_10px_0_0_var(--color-ink)] transition-transform duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[14px_14px_0_0_var(--color-ink)]">
-              <div className="relative border-2 border-paper bg-paper p-5 flex items-center justify-center min-h-[260px]">
-                <img
+          {/* HUBSPOT BADGE */}
+          <div data-reveal data-reveal-delay="0.25" className="lg:col-span-4">
+            <div className="brutal-border bg-ink text-paper p-6 shadow-[10px_10px_0_0_var(--color-fire)] transition-transform duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[14px_14px_0_0_var(--color-fire)]">
+              <div className="flex items-center justify-between mono text-[10px] uppercase tracking-[0.22em] text-paper/50 mb-6">
+                <span>Solutions Partner</span>
+                <span className="text-volt">Tier · Gold</span>
+              </div>
+
+              <div className="flex justify-center mb-6">
+                <Image
                   src={hubspotBadge}
-                  alt="HubSpot Solutions Partner badge"
-                  className="max-h-[230px] max-w-full w-auto object-contain"
+                  alt="HubSpot Solutions Partner — Gold Tier"
+                  width={160}
+                  height={160}
+                  className="w-32 h-32 md:w-36 md:h-36"
                 />
               </div>
 
-              <div className="mt-4 flex items-center justify-center gap-1.5 bg-volt text-ink border-2 border-paper py-2">
-                <span className="text-base leading-none">★★★★★</span>
+              <div className="text-center">
+                <div className="display text-3xl md:text-4xl leading-none tracking-[-0.03em]">
+                  Gold Partner
+                </div>
+                <div className="mono text-[10px] uppercase tracking-[0.22em] text-paper/50 mt-3">
+                  Verified · Since 2025
+                </div>
+              </div>
 
-                <span className="mono text-[11px] uppercase tracking-[0.18em]">
-                  5.0 · Directory
-                </span>
+              <div className="grid grid-cols-3 gap-px bg-paper/15 mt-6 border-t border-b border-paper/15 py-4">
+                <div className="text-center">
+                  <div className="display text-xl">5.0</div>
+                  <div className="mono text-[9px] uppercase tracking-[0.18em] text-paper/50 mt-1">Directory</div>
+                </div>
+                <div className="text-center">
+                  <div className="display text-xl">50+</div>
+                  <div className="mono text-[9px] uppercase tracking-[0.18em] text-paper/50 mt-1">Portals</div>
+                </div>
+                <div className="text-center">
+                  <div className="display text-xl">5</div>
+                  <div className="mono text-[9px] uppercase tracking-[0.18em] text-paper/50 mt-1">Hubs Live</div>
+                </div>
               </div>
 
               <a
@@ -164,22 +154,16 @@ function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-magnetic="14"
-                className="group mt-3 inline-flex items-center justify-center w-full gap-2 bg-ink text-paper border-2 border-paper px-4 py-2.5 mono text-[11px] uppercase tracking-[0.22em] hover:bg-paper hover:text-ink transition-colors"
+                className="group mt-5 inline-flex items-center justify-center w-full gap-2 bg-volt text-ink px-4 py-3 mono text-[11px] uppercase tracking-[0.22em] hover:bg-paper transition-colors"
               >
                 Verify on hubspot.com
-
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-                  ↗
-                </span>
+                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
               </a>
             </div>
           </div>
         </div>
 
-        {/* ============================================================
-            TRUST BAND
-            ============================================================ */}
-
+        {/* TRUST BAND */}
         <div
           data-reveal
           data-reveal-delay="0.35"
@@ -192,25 +176,17 @@ function Hero() {
             className="group p-6 md:p-7 bg-volt flex items-center gap-5 hover:bg-fire hover:text-paper transition-colors duration-200"
           >
             <div>
-              <div className="display text-5xl leading-none tracking-[-0.04em] tabular-nums">
-                5.0
-              </div>
-
+              <div className="display text-5xl leading-none tracking-[-0.04em] tabular-nums">5.0</div>
               <div className="text-base leading-none mt-1">★★★★★</div>
             </div>
-
             <div className="mono text-[10px] uppercase tracking-[0.2em] leading-relaxed text-ink/70 group-hover:text-paper/80">
               HubSpot Directory
               <br />
               verified reviews
               <br />
-
               <span className="inline-flex items-center gap-1 mt-1 text-ink group-hover:text-paper">
                 View profile
-
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-                  ↗
-                </span>
+                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">↗</span>
               </span>
             </div>
           </a>
@@ -219,15 +195,8 @@ function Hero() {
             <div className="mono text-[10px] uppercase tracking-[0.22em] text-ink/50 mb-4">
               Hubs we operate in production
             </div>
-
             <div className="flex flex-wrap gap-2">
-              {[
-                "Marketing Hub",
-                "Sales Hub",
-                "Service Hub",
-                "Content Hub",
-                "Operations Hub",
-              ].map((h) => (
+              {["Marketing Hub", "Sales Hub", "Service Hub", "Content Hub", "Operations Hub"].map((h) => (
                 <span
                   key={h}
                   className="group inline-flex items-center gap-2 border-2 border-ink px-3 py-1.5 mono text-[11px] uppercase tracking-[0.16em] bg-paper hover:bg-fire hover:text-paper transition-colors duration-200"
@@ -237,7 +206,6 @@ function Hero() {
                 </span>
               ))}
             </div>
-
             <div className="mt-5 pt-5 border-t-2 border-ink/10 flex flex-wrap gap-x-8 gap-y-2 mono text-[10px] uppercase tracking-[0.2em] text-ink/60">
               <span>Partnership since 2025</span>
               <span>Starter to Enterprise portals</span>

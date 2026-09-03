@@ -177,16 +177,7 @@ function Hero() {
       <div className="max-w-[1400px] mx-auto px-6 pt-16 md:pt-24 pb-16 md:pb-20 relative">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-end">
           <div className="lg:col-span-8">
-            <p data-reveal className="mono text-[11px] uppercase tracking-[0.22em] text-ink/60 mb-6 flex items-center gap-3">
-              <span className="inline-block h-px w-8 bg-ink" />
-              <span className="relative flex items-center gap-2">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inset-0 rounded-full bg-fire opacity-60" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-fire" />
-                </span>
-                Partners · Two of them · By choice
-              </span>
-            </p>
+            
             <h1 data-reveal data-reveal-delay="0.05" className="display leading-[0.9] tracking-[-0.045em] text-[clamp(3rem,9vw,7.5rem)]">
               TWO PLATFORMS<span className="text-ink">.</span><br />
               <span className="relative inline-block">

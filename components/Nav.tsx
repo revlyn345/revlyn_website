@@ -278,9 +278,7 @@ export function Nav() {
                     onMouseLeave={() => setActiveMenu(null)}
                     className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[280px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden"
                   >
-                    <div className="mono text-[10px] text-ink/45 px-3 py-2 border-b border-ink/5 mb-1">
-                      The system · 5 chapters
-                    </div>
+                    
                     {whatLinks.map(([label, id, note]) => (
                       <a
                         key={id}
@@ -323,93 +321,88 @@ export function Nav() {
                 {hubspotOpen && (
                   <div
                     onMouseLeave={() => setActiveMenu(null)}
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 flex items-start gap-2"
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[300px]"
                   >
-                    <div ref={hubspotPanelRef} className="w-[300px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden">
-                      <div className="mono text-[10px] text-ink/45 px-3 py-2 border-b border-ink/5 mb-1 flex items-center justify-between">
-                        <span>HubSpot practice</span>
-                        <span className="text-fire">Solutions Partner</span>
-                      </div>
-                      {hubspotLinks.map((link) => {
-                        const active = link.to === pathname || pathname?.startsWith(link.to);
-                        const isImplementation = link.to === "/hubspot-implementation";
-                        return (
-                          <Link
-                            key={link.to}
-                            href={link.to}
-                            ref={isImplementation ? implRowRef : undefined}
-                            onMouseEnter={() => setImplOpen(isImplementation)}
-                            onClick={() => {
-                              setActiveMenu(null);
-                              setImplOpen(false);
-                            }}
-                            className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
-                              active || (isImplementation && implOpen)
-                                ? "bg-ink text-paper"
-                                : "text-ink/80 hover:text-ink hover:bg-bone"
-                            }`}
-                          >
-                            <span>
-                              <span className="block font-medium">{link.label}</span>
-                              <span
-                                className={`block text-[11px] ${
-                                  active || (isImplementation && implOpen) ? "text-paper/60" : "text-ink/50"
-                                }`}
-                              >
-                                {link.note}
-                              </span>
-                            </span>
-                            {isImplementation ? (
-                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-fire shrink-0">
-                                <path d="M9 6l6 6-6 6" />
-                              </svg>
-                            ) : (
-                              <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">→</span>
-                            )}
-                          </Link>
-                        );
-                      })}
-                    </div>
-
-                    {implOpen && (
-                      <div
-                        style={{ marginTop: implOffset }}
-                        className="w-[300px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden"
-                      >
-                        <div className="mono text-[10px] text-ink/45 px-3 py-2 border-b border-ink/5 mb-1 flex items-center justify-between">
-                          <span>Implementation</span>
-                          <span className="text-fire">4 hubs</span>
-                        </div>
-                        {implementationLinks.map((link) => {
+                    <div ref={hubspotPanelRef} className="relative w-[300px]">
+                      <div className="rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden">
+                        
+                        {hubspotLinks.map((link) => {
                           const active = link.to === pathname || pathname?.startsWith(link.to);
+                          const isImplementation = link.to === "/hubspot-implementation";
                           return (
                             <Link
                               key={link.to}
                               href={link.to}
+                              ref={isImplementation ? implRowRef : undefined}
+                              onMouseEnter={() => setImplOpen(isImplementation)}
                               onClick={() => {
                                 setActiveMenu(null);
                                 setImplOpen(false);
                               }}
                               className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
-                                active ? "bg-ink text-paper" : "text-ink/80 hover:text-ink hover:bg-bone"
+                                active || (isImplementation && implOpen)
+                                  ? "bg-ink text-paper"
+                                  : "text-ink/80 hover:text-ink hover:bg-bone"
                               }`}
                             >
                               <span>
                                 <span className="block font-medium">{link.label}</span>
-                                <span className={`block text-[11px] ${active ? "text-paper/60" : "text-ink/50"}`}>
+                                <span
+                                  className={`block text-[11px] ${
+                                    active || (isImplementation && implOpen) ? "text-paper/60" : "text-ink/50"
+                                  }`}
+                                >
                                   {link.note}
                                 </span>
                               </span>
-                              <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">→</span>
+                              {isImplementation ? (
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-fire shrink-0">
+                                  <path d="M9 6l6 6-6 6" />
+                                </svg>
+                              ) : (
+                                <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">→</span>
+                              )}
                             </Link>
                           );
                         })}
                       </div>
-                    )}
+
+                      {implOpen && (
+                        <div
+                          style={{ marginTop: implOffset }}
+                          className="absolute top-0 left-full ml-2 w-[300px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden"
+                        >
+                         
+                          {implementationLinks.map((link) => {
+                            const active = link.to === pathname || pathname?.startsWith(link.to);
+                            return (
+                              <Link
+                                key={link.to}
+                                href={link.to}
+                                onClick={() => {
+                                  setActiveMenu(null);
+                                  setImplOpen(false);
+                                }}
+                                className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
+                                  active ? "bg-ink text-paper" : "text-ink/80 hover:text-ink hover:bg-bone"
+                                }`}
+                              >
+                                <span>
+                                  <span className="block font-medium">{link.label}</span>
+                                  <span className={`block text-[11px] ${active ? "text-paper/60" : "text-ink/50"}`}>
+                                    {link.note}
+                                  </span>
+                                </span>
+                                <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">→</span>
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
-
               {/* Partners */}
               <div ref={partnersRef} className="relative shrink-0">
                 <button
@@ -436,10 +429,7 @@ export function Nav() {
                     onMouseLeave={() => setActiveMenu(null)}
                     className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[280px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden"
                   >
-                    <div className="mono text-[10px] text-ink/45 px-3 py-2 border-b border-ink/5 mb-1 flex items-center justify-between">
-                      <span>Partner platforms</span>
-                      <span className="text-fire">02 · On purpose</span>
-                    </div>
+                    
                     {partnersLinks.map((link) => {
                       const active = link.to === pathname || pathname?.startsWith(link.to);
                       return (
@@ -491,9 +481,7 @@ export function Nav() {
                     onMouseLeave={() => setActiveMenu(null)}
                     className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[300px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden"
                   >
-                    <div className="mono text-[10px] text-ink/45 px-3 py-2 border-b border-ink/5 mb-1">
-                      Case studies
-                    </div>
+                    
                     {workLinks.map((link) => {
                       const active = link.to === pathname || pathname?.startsWith(link.to);
                       return (

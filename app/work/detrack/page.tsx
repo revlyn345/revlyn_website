@@ -373,20 +373,11 @@ export default function DetrackCase() {
         <div className="absolute -left-32 bottom-0 w-[420px] h-[420px] bg-fire rounded-full blur-[140px] opacity-25 pointer-events-none" />
 
         <div className="relative max-w-[1400px] mx-auto px-6 pt-12 pb-16 md:pt-16 md:pb-20">
-          <div className="flex items-center gap-3 mono text-[11px] tracking-[0.16em] text-ink/60 mb-8">
-            <Link href="/" className="hover:text-fire">REVLYN</Link>
-            <span>/</span>
-            <Link href="/work" className="hover:text-fire">WORK</Link>
-            <span>/</span>
-            <span className="text-ink">DETRACK</span>
-          </div>
+          
 
           <div className="grid lg:grid-cols-12 gap-10 items-start">
             <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 mono text-[11px] tracking-[0.2em] mb-6">
-                <span className="w-2 h-2 rounded-full bg-fire animate-pulse" />
-                <span className="text-fire">PUBLISHED · SAAS STACK SIMPLIFICATION</span>
-              </div>
+              
 
               <h1
                 data-reveal

@@ -439,19 +439,11 @@ export default function IntegrityFireCase() {
         <div className="absolute -left-32 bottom-0 w-[420px] h-[420px] bg-volt rounded-full blur-[140px] opacity-35 pointer-events-none" />
 
         <div className="relative max-w-[1400px] mx-auto px-6 pt-12 pb-16 md:pt-16 md:pb-20">
-          <div className="flex items-center gap-3 mono text-[11px] tracking-[0.16em] text-ink/60 mb-8">
-            <Link href="/" className="hover:text-fire">REVLYN</Link>
-            <span>/</span>
-            <Link href="/work" className="hover:text-fire">WORK</Link>
-            <span>/</span>
-            <span className="text-ink">INTEGRITY FIRE</span>
-          </div>
+          
 
           <div className="grid lg:grid-cols-12 gap-10 items-start">
             <div className="lg:col-span-7">
-              <div className="mono text-[11px] tracking-[0.2em] text-fire mb-6">
-                HubSpot as a Service, ongoing
-              </div>
+              
 
               <h1
                 data-reveal

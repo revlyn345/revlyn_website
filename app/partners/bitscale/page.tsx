@@ -61,30 +61,11 @@ function Hero() {
       />
 
       <div className="max-w-[1400px] mx-auto px-6 pt-14 md:pt-20 pb-16 md:pb-24 relative">
-        <div
-          data-reveal
-          className="flex items-center gap-2 mono text-[11px] uppercase tracking-[0.22em] text-ink/60 mb-8"
-        >
-          <Link href="/" className="hover:text-fire transition-colors">
-            Revlyn
-          </Link>
-          <span>/</span>
-          <Link href="/partners" className="hover:text-fire transition-colors">
-            Partners
-          </Link>
-          <span>/</span>
-          <span className="text-ink">Bitscale in Action</span>
-        </div>
+        
 
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-end">
           <div className="lg:col-span-8">
-            <p
-              data-reveal
-              className="mono text-[11px] uppercase tracking-[0.22em] text-ink/60 mb-6 flex items-center gap-3"
-            >
-              <span className="inline-block h-px w-8 bg-ink" />
-              Live plays · Bitscale on top of HubSpot
-            </p>
+            
 
             <h1
               data-reveal

@@ -59,17 +59,7 @@ function Hero() {
       />
       <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/30" />
       <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 py-24 md:py-32">
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="brutal-border border-fire bg-fire px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-paper">
-            Marketing Hub
-          </span>
-          <span className="border border-paper/30 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-paper/70">
-            Implementation
-          </span>
-          <span className="border border-paper/30 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-paper/70">
-            4-6 weeks
-          </span>
-        </div>
+        
 
         <h1 className="max-w-4xl text-[clamp(2.6rem,7vw,5.2rem)] font-bold leading-[0.95] tracking-[-0.04em]">
           A Marketing Hub built to produce{" "}

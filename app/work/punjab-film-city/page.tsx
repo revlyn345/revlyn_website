@@ -289,18 +289,9 @@ export default function PunjabFilmCityCase() {
         <div className="relative max-w-[1400px] mx-auto px-6 pt-12 pb-16 md:pt-16 md:pb-20">
           <div className="grid lg:grid-cols-12 gap-10 items-start">
             <div className="lg:col-span-6">
-              <div className="flex items-center gap-3 mono text-[11px] tracking-[0.16em] text-ink/60 mb-8">
-                <Link href="/" className="hover:text-fire">REVLYN</Link>
-                <span>/</span>
-                <Link href="/work" className="hover:text-fire">WORK</Link>
-                <span>/</span>
-                <span className="text-ink">PUNJAB FILM CITY</span>
-              </div>
+              
 
-              <div className="inline-flex items-center gap-2 mono text-[11px] tracking-[0.2em] mb-6">
-                <span className="w-2 h-2 rounded-full bg-fire animate-pulse" />
-                <span className="text-fire">CASE STUDY · ZOHO</span>
-              </div>
+              
 
               <h1 data-reveal className="display text-[clamp(2.2rem,5.6vw,4.8rem)] leading-[0.92] tracking-[-0.045em]">
                 How Revlyn built a complete booking and sales system for{" "}

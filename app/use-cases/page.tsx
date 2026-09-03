@@ -98,10 +98,7 @@ function Hero() {
       <div className="max-w-[1400px] mx-auto px-6 pt-16 md:pt-24 pb-16 md:pb-20 relative">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-end">
           <div className="lg:col-span-8">
-            <p className="mono text-[11px] uppercase tracking-[0.22em] text-ink/60 mb-6 flex items-center gap-3">
-              <span className="inline-block h-px w-8 bg-ink" />
-              Field Files · Vol. 01 · How the rhythm shows up on the ground
-            </p>
+            
             <h1 className="display leading-[0.9] tracking-[-0.045em] text-[clamp(3rem,9vw,7.5rem)]">
               DIFFERENT<br />
               TERRAIN<span className="text-ink">.</span><br />

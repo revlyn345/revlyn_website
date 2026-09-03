@@ -4,7 +4,7 @@ import Image from "next/image";
 import { getPosts } from "@/lib/wordpress";
 import { BookCallButton } from "@/components/BookCallButton";
 
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
+
 const revlynWordmark = "/logos/revlyn-wordmark.png";
 
 export const metadata: Metadata = {
@@ -14,10 +14,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/blog" },
 };
 
-// Topic pills filter the post list by category (case-insensitive match
-// against each post's WordPress categories) via the ?topic= URL param —
-// plain links, so filtering works with JS disabled and each topic is a
-// shareable/bookmarkable URL.
+
 const TOPICS = ["HubSpot", "RevOps", "Forecasting", "AI", "GTM"];
 
 function formatDate(iso: string) {
@@ -36,10 +33,6 @@ export default async function BlogIndexPage({
   const { topic } = await searchParams;
   const selectedTopic = topic?.toLowerCase();
 
-  // Fetched once at a size generous enough to cover the whole archive so
-  // topic filtering (below) has the full set to filter against — this is
-  // a small blog; revisit with real pagination if the post count grows
-  // well past this.
   const allPosts = await getPosts(1, 100);
 
   const posts = selectedTopic
@@ -53,14 +46,12 @@ export default async function BlogIndexPage({
       {/* ══════════════════════ MASTHEAD ══════════════════════ */}
       <section className="border-b-2 border-ink">
         <div className="max-w-[1360px] mx-auto px-6 md:px-10 pt-14 md:pt-20 pb-12 md:pb-14">
-          <div className="mono text-[11px] text-ink/50 mb-5">
-            Field notes · Monthly · 2 min
-          </div>
+          
           <h1 className="display leading-[0.97] tracking-[-0.04em] text-[clamp(2.6rem,6.6vw,5.75rem)]">
             The operator&rsquo;s notebook.
           </h1>
           <p className="mt-5 max-w-[56ch] text-lg md:text-xl leading-[1.55] text-ink/70">
-            Short essays on revenue systems, HubSpot, RevOps and AI — written by the same
+            Short essays on revenue systems, HubSpot, RevOps and AI written by the same
             operators who run the portals.
           </p>
         </div>
