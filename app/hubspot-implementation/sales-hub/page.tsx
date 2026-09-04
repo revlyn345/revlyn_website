@@ -857,7 +857,7 @@ export default function SalesHub() {
             <div>
               
               <h1
-                className="font-display text-[54px] md:text-[84px] leading-[0.94] tracking-[-0.045em] hero-hl"
+                className="font-display text-[54px] md:text-[84px] leading-[1] tracking-[-0.045em] hero-hl"
                 data-split
               >
                 A CRM your reps will actually update.

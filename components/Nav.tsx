@@ -35,48 +35,7 @@ function formatIst() {
 }
 
 /* ── Top signal strip (thin ticker above main nav) ───────────────── */
-function SignalStrip() {
-  const time = useIstClock();
-  const items = [
-    "Onboarding new teams for Q1",
-    "HubSpot Solutions Partner",
-    "Bitscale certified",
-    "Avg. Slack response 14 min",
-    "50 portals shipped",
-    "Operators, not account managers",
-  ];
-  return (
-    <div className="hidden md:block bg-ink text-paper/80 border-b border-paper/10">
-      <div className="max-w-[1400px] mx-auto px-6 h-8 flex items-center gap-6 text-[11px] font-mono tracking-[0.14em] uppercase">
-        <span className="flex items-center gap-2">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="animate-ping absolute inset-0 rounded-full bg-fire opacity-70" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-fire" />
-          </span>
-          Live
-        </span>
-        <span className="text-paper/40">·</span>
-        <span>Gurugram · IST {time ?? "--:--"}</span>
-        <span className="text-paper/40">·</span>
-        <div className="flex-1 overflow-hidden relative">
-          <div className="flex gap-8 animate-marquee whitespace-nowrap">
-            {[...items, ...items].map((t, i) => (
-              <span key={i} className="text-paper/70">
-                {t} <span className="text-fire mx-3">◆</span>
-              </span>
-            ))}
-          </div>
-        </div>
-        <a
-          href="mailto:info@revlyn.io"
-          className="text-paper/70 hover:text-fire transition-colors shrink-0"
-        >
-          info@revlyn.io
-        </a>
-      </div>
-    </div>
-  );
-}
+
 
 type MenuKey = "what" | "hubspot" | "partners" | "work";
 
@@ -230,7 +189,7 @@ export function Nav() {
 
   return (
     <header className="sticky top-0 z-50">
-      <SignalStrip />
+  
       <div
         className={`transition-all ${
           scrolled

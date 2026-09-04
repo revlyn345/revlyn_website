@@ -242,28 +242,23 @@ function Hero() {
           {/* ================= Left ================= */}
           <div className="md:col-span-7">
 
-            <div className="uppercase tracking-[0.3em] text-[11px] text-white/70 mb-5">
-              HUBSPOT • REVOPS • GTM SYSTEMS
-            </div>
+            
 
             <h1 className="display font-black text-white leading-[0.9] tracking-[-0.05em] text-[clamp(3.2rem,9vw,8.5rem)]">
-              Revenue,
+              Build a Better,
               <br />
-              built like an
+              Revenue Operation
               <br />
 
-              <span className="relative inline-block pb-4">
-                <span className="leading-[1.05]">engine</span>
-                <span className="text-fire">.</span>
+              
+                
 
-                <span className="absolute left-0 right-[0.35em] bottom-0 h-[7px] rounded-full bg-fire"></span>
-              </span>
+                
+             
             </h1>
 
             <p className="mt-8 max-w-2xl text-lg md:text-xl text-white/90 leading-relaxed">
-              We build and run the CRM, reporting and automation behind B2B
-              revenue teams. HubSpot implementation, RevOps and GTM systems,
-              handled by the same two people from month one onward.
+              Revlyn helps growing B2B companies get more from HubSpot with better processes, reliable reporting and automation built around how your team works.
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
