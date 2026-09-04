@@ -1,44 +1,17 @@
-/* ═══════════════════════════════════════════════════════════════
-   SHARED FOOTER
+"use client";
 
-   Extracted from the generated page components (it was previously
-   copy-pasted, verbatim, into HubSpotAsAServiceClient, HomePageClient,
-   AboutPageClient, ContactPageClient, HubSpotAuditClient, MarketingHubClient
-   and PartnersIndexClient - each shipping its own ~260-line copy of the
-   same markup to the client, all counted separately toward every one of
-   those pages' JS bundle. Import this instead of redefining it.
-
-   Deliberately NOT "use client". Nothing in this file uses state or
-   effects - it renders <BookCallButton>, which already has its own
-   "use client" boundary internally, so this component can stay a
-   Server Component. That means the ~260 lines of footer markup below
-   (link grid, social icons, newsletter form) are rendered to HTML on
-   the server and sent down as plain markup, instead of being shipped
-   as JavaScript and hydrated on every page that uses it.
-   ═══════════════════════════════════════════════════════════════ */
+import Link from "next/link";
 import { BookCallButton } from "@/components/BookCallButton";
+
+const revlynWordmark = "/logos/revlyn-wordmark.png";
 
 export function Footer() {
   return (
     <footer className="relative bg-ink text-paper overflow-hidden">
-      {/* Giant wordmark backdrop */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center overflow-hidden">
-        <span
-          className="display leading-none tracking-tighter text-transparent select-none translate-y-[18%]"
-          style={{
-            fontSize: "clamp(9rem, 28vw, 28rem)",
-            WebkitTextStroke: "1px rgba(255,255,255,0.09)",
-          }}
-        >
-          revlyn
-        </span>
-      </div>
-
-      <div className="relative max-w-[1400px] mx-auto px-6 pt-20 pb-14">
+      <div className="relative max-w-[1400px] mx-auto px-6 pt-16 pb-10">
         {/* Editorial lead */}
-        <div className="grid md:grid-cols-12 gap-10 pb-14 border-b border-paper/10">
+        <div className="grid md:grid-cols-12 gap-10 pb-10 border-b border-paper/10">
           <div className="md:col-span-7 min-w-0">
-           
             <h3 className="display text-5xl md:text-7xl leading-[0.9] tracking-[-0.035em]">
               Revenue systems,
               <br />
@@ -72,7 +45,6 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10 min-w-0">
-           
             <h4 className="display text-3xl md:text-4xl leading-[0.95] tracking-[-0.02em]">
               The <span className="text-fire">operator&rsquo;s notebook</span>.
             </h4>
@@ -123,7 +95,7 @@ export function Footer() {
         </div>
 
         {/* Link grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-8 py-14 border-b border-paper/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-8 py-10 border-b border-paper/10">
           {[
             {
               h: "Get started",
@@ -206,7 +178,7 @@ export function Footer() {
                     </li>
                   ) : (
                     <li key={label}>
-                      <a
+                      <Link
                         href={href}
                         className="group inline-flex items-center gap-1 text-[13.5px] text-paper/60 hover:text-fire transition-colors"
                       >
@@ -214,7 +186,7 @@ export function Footer() {
                         <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">
                           →
                         </span>
-                      </a>
+                      </Link>
                     </li>
                   )
                 )}
@@ -223,9 +195,16 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Social */}
-        <div className="flex items-center justify-end gap-3 py-12 border-b border-paper/10">
-          <div className="flex items-center gap-3 md:justify-end">
+        {/* Brand row + Social, same line */}
+        <div className="flex items-center justify-between gap-6 py-6 border-b border-paper/10">
+          <img
+            src={revlynWordmark}
+            alt="Revlyn"
+            className="h-10 md:h-12 w-auto object-contain"
+            style={{ filter: "invert(1) hue-rotate(180deg)" }}
+          />
+
+          <div className="flex items-center gap-3">
             {[
               { n: "LinkedIn", h: "https://www.linkedin.com/company/revlynhq/", d: "M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.56v14H.22V8zm7.62 0h4.37v1.92h.06c.61-1.15 2.1-2.36 4.32-2.36 4.62 0 5.47 3.04 5.47 6.99V22h-4.55v-6.2c0-1.48-.03-3.38-2.06-3.38-2.07 0-2.39 1.62-2.39 3.28V22H7.84V8z" },
               { n: "X", h: "#", d: "M18.244 2H21.5l-7.51 8.583L23 22h-6.797l-5.324-6.53L4.8 22H1.542l8.036-9.19L1 2h6.914l4.813 5.93L18.244 2zm-1.192 18h1.826L7.033 4H5.07l11.982 16z" },
@@ -246,34 +225,19 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Brand row */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pt-12">
-          <div className="flex items-center gap-4">
-            <img
-              src="/logos/revlyn-wordmark.png"
-              alt="Revlyn"
-              className="h-10 md:h-12 w-auto object-contain"
-              style={{ filter: "invert(1) hue-rotate(180deg)" }}
-            />
-          </div>
-          <p className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 max-w-md md:text-right">
-            Revenue, built like an engine. Operated like a team you already trust.
-          </p>
-        </div>
-
         {/* Base line */}
-        <div className="mt-10 pt-6 border-t border-paper/10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-[12px] text-paper/65">
+        <div className="pt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-[12px] text-paper/65">
           <span className="flex items-center gap-3">
             <span className="mono">© 2026 Revlyn</span>
             <span className="text-paper/25">·</span>
             <span>Built by operators, in Gurugram</span>
           </span>
           <span className="flex items-center gap-5">
-            <a href="/privacy" className="hover:text-paper transition-colors">Privacy</a>
-            <a href="#" className="hover:text-paper transition-colors">Terms</a>
-            <a href="#" className="hover:text-paper transition-colors">Security</a>
-            <a href="#" className="hover:text-paper transition-colors">Cookies</a>
-            <a href="#" className="hover:text-paper transition-colors">FAQs</a>
+            <Link href="/privacy" className="hover:text-paper transition-colors">Privacy</Link>
+            <Link href="/terms" className="hover:text-paper transition-colors">Terms</Link>
+            <Link href="/security" className="hover:text-paper transition-colors">Security</Link>
+            <Link href="/cookies" className="hover:text-paper transition-colors">Cookies</Link>
+            <Link href="/faqs" className="hover:text-paper transition-colors">FAQs</Link>
           </span>
         </div>
       </div>

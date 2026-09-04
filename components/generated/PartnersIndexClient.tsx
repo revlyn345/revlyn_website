@@ -1,6 +1,7 @@
 import type React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Footer } from "@/components/Footer";
 // TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset - not migrated.
 const revlynWordmark = "/logos/revlyn-wordmark.svg";
 
@@ -455,53 +456,3 @@ function NotOnListPlaque() {
 }
 
 /* ── FOOTER ───────────────────────────────────────────────────────── */
-function Footer() {
-  return (
-    <footer className="relative bg-ink text-paper overflow-hidden">
-      <div className="pointer-events-none absolute inset-x-0 -bottom-6 md:-bottom-16 flex justify-center">
-        <span
-          className="display leading-none tracking-tighter text-transparent select-none"
-          style={{
-            fontSize: "clamp(8rem, 26vw, 24rem)",
-            WebkitTextStroke: "1px rgba(255,255,255,0.08)",
-          }}
-        >
-          revlyn
-        </span>
-      </div>
-      <div className="relative max-w-[1400px] mx-auto px-6 py-14 grid md:grid-cols-3 gap-10">
-        <div>
-          <img
-            src={revlynWordmark}
-            alt="Revlyn"
-            className="h-8 w-auto"
-            style={{ filter: "invert(1) hue-rotate(180deg)" }}
-          />
-          <p className="mt-4 text-paper/60 max-w-xs">
-            An extended CRM, RevOps, GTM and AI team for B2B founders and revenue leaders.
-          </p>
-        </div>
-        <div>
-          <div className="mono text-[11px] uppercase tracking-[0.22em] text-paper/50">Explore</div>
-          <ul className="mt-4 space-y-2.5 text-paper/85">
-            <li><Link href="/hubspot-as-a-service" className="hover:text-fire">HubSpot as a Service</Link></li>
-            <li><Link href="/partners" className="hover:text-fire">Partners</Link></li>
-            <li><Link href="/use-cases" className="hover:text-fire">Use cases</Link></li>
-            <li><Link href="/about" className="hover:text-fire">About</Link></li>
-            <li><Link href="/contact" className="hover:text-fire">Contact</Link></li>
-          </ul>
-        </div>
-        <div>
-          <div className="mono text-[11px] uppercase tracking-[0.22em] text-paper/50">Say hello</div>
-          <ul className="mt-4 space-y-2.5 text-paper/85">
-            <li><a href="mailto:info@revlyn.io" className="hover:text-fire">info@revlyn.io</a></li>
-            <li>+91 75030 44000</li>
-          </ul>
-        </div>
-      </div>
-      <div className="relative border-t border-paper/10 py-6 text-center text-paper/50 mono text-[11px] uppercase tracking-[0.22em]">
-        © {new Date().getFullYear()} Revlyn. All rights reserved.
-      </div>
-    </footer>
-  );
-}
