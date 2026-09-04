@@ -244,17 +244,10 @@ function Hero() {
 
             
 
-            <h1 className="display font-black text-white leading-[0.9] tracking-[-0.05em] text-[clamp(3.2rem,9vw,8.5rem)]">
-              Build a Better,
+            <h1 className="display font-black text-white leading-[1] tracking-[-0.05em] text-[clamp(1.6rem,8vw,2.75rem)] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+              <span className="whitespace-nowrap">Build a Better,</span>
               <br />
-              Revenue Operation
-              <br />
-
-              
-                
-
-                
-             
+              <span className="whitespace-nowrap">Revenue Operation</span>
             </h1>
 
             <p className="mt-8 max-w-2xl text-lg md:text-xl text-white/90 leading-relaxed">
@@ -267,17 +260,7 @@ function Hero() {
                 BOOK A 30-MIN CALL
               </BookCallButton>
 
-              <a
-                href="#services"
-                className="group rounded-full border-2 border-white/70 px-8 py-4 text-lg font-semibold text-white flex items-center justify-center gap-3 hover:bg-white hover:text-black transition"
-              >
-                SEE WHAT WE RUN
-
-                <span className="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center group-hover:bg-black group-hover:text-white transition">
-                  →
-                </span>
-
-              </a>
+              
 
             </div>
 
@@ -2359,114 +2342,68 @@ function CaseStories() {
 function WhoItsFor() {
   const roles = [
     {
-      role: "Founders",
-      note: "Series A to C. Selling into mid-market or enterprise.",
+      role: "HubSpot",
+      note: "Built around how your business works.",
     },
     {
-      role: "Heads of Sales",
-      note: "Pipeline, forecast accuracy, rep enablement.",
+      role: "Processes",
+      note: "Designed around how your team sales.",
     },
     {
-      role: "Heads of Marketing",
-      note: "Attribution, MQL to SQL, lifecycle.",
+      role: "Reporting",
+      note: "Clear visibility into pipeline and performance.",
     },
     {
-      role: "Heads of Revenue",
-      note: "Full-funnel systems and reporting.",
-    },
-    {
-      role: "Heads of GTM",
-      note: "ICP, segmentation, motion design.",
+      role: "Automation",
+      note: "Less manual works across your revenue operations.",
     },
   ];
 
   return (
     <section className="relative bg-[#faf9f7] py-24">
       <div className="max-w-[1400px] mx-auto px-6">
-
         {/* Heading */}
         <div className="grid lg:grid-cols-12 gap-10 items-end mb-16">
-
           <div className="lg:col-span-7">
-
-            <span className="mono uppercase tracking-[0.25em] text-fire text-xs">
-              WHO WE WORK WITH
-            </span>
-
             <h2 className="display mt-4 text-[clamp(2.6rem,5vw,4.5rem)] leading-[0.95]">
-              Built for the people
+              Built for
               <br />
-              who own the number.
+              what comes next.
             </h2>
-
           </div>
 
           <div className="lg:col-span-5">
-
             <p className="text-lg leading-relaxed text-neutral-600">
-              If you're the one accountable for revenue this quarter,
-              this is the team you hire before adding another internal
-              operations head.
+              As your business grows, the way you run revenue needs to keep pace.
+              <br />
+              Revlyn brings HubSpot, processes, reporting and automation together so your team can operate with greater clarity and control.
             </p>
-
           </div>
-
         </div>
 
         {/* Cards */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {roles.map((item, index) => (
             <div
               key={item.role}
-              className={`group rounded-3xl p-7 transition-all duration-300
-
-              ${index === 0
-                  ? "bg-fire text-white shadow-xl shadow-orange-500/20"
-                  : "bg-white border border-neutral-200 hover:border-fire/40 hover:-translate-y-2 hover:shadow-2xl"
-                }`}
+              className="group rounded-3xl p-7 bg-white border border-neutral-200 transition-all duration-300 hover:bg-fire hover:border-fire hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20"
             >
-
-              <div
-                className={`text-sm font-semibold tracking-widest uppercase
-
-                ${index === 0
-                    ? "text-white/70"
-                    : "text-fire"
-                  }`}
-              >
+              <div className="text-sm font-semibold tracking-widest uppercase text-fire transition-colors duration-300 group-hover:text-white/70">
                 0{index + 1}
               </div>
 
-              <h3 className="display mt-6 text-2xl leading-tight">
+              <h3 className="display mt-6 text-2xl leading-tight text-ink transition-colors duration-300 group-hover:text-white">
                 {item.role}
               </h3>
 
-              <p
-                className={`mt-4 leading-relaxed text-sm
-
-                ${index === 0
-                    ? "text-white/80"
-                    : "text-neutral-600"
-                  }`}
-              >
+              <p className="mt-4 leading-relaxed text-sm text-neutral-600 transition-colors duration-300 group-hover:text-white/80">
                 {item.note}
               </p>
 
-              <div
-                className={`mt-8 h-[2px] w-12 transition-all duration-300 group-hover:w-20
-
-                ${index === 0
-                    ? "bg-white/60"
-                    : "bg-fire"
-                  }`}
-              />
-
+              <div className="mt-8 h-[2px] w-12 bg-fire transition-all duration-300 group-hover:w-20 group-hover:bg-white/60" />
             </div>
           ))}
-
         </div>
-
       </div>
     </section>
   );
