@@ -74,12 +74,7 @@ export default function HomePageClient() {
 
       {/* ══ ACT II · THE DIAGNOSIS ════════════════════════════ */}
       <section id="act-1" data-act>
-        <ChapterDivider
-          num="I"
-          title="What's leaking, and where."
-          sub="The truth about the revenue org, on one page."
-          bg="bg-paper"
-        />
+       
         <Problem />
         <StoryVisual />
       </section>
@@ -132,12 +127,7 @@ export default function HomePageClient() {
 
       {/* ══ ACT VI · THE TEAM ════════════════════════════ */}
       <section id="act-5" data-act>
-        <ChapterDivider
-          num="V"
-          title="The people who show up."
-          sub="Former VPs of RevOps and GTM. Two embedded per engagement."
-          bg="bg-paper"
-        />
+        
         <TeamStrip />
         <Manifesto />
       </section>
@@ -325,12 +315,161 @@ function Marquee() {
 
 /* ─────────────────────────────  PROBLEM SECTION  ───────────────────────────── */
 function Problem() {
+  const nodes = [
+    {
+      label: "HubSpot",
+      note: "CRM, data and integrations",
+      noteDisconnected: "CRM without full adoption",
+      icon: (
+        <path d="M12 2a1 1 0 011 1v2.06a5.5 5.5 0 013.94 3.94H19a1 1 0 010 2h-2.06a5.5 5.5 0 01-3.94 3.94V17a1 1 0 01-2 0v-2.06a5.5 5.5 0 01-3.94-3.94H5a1 1 0 010-2h2.06A5.5 5.5 0 0111 5.06V3a1 1 0 011-1zm0 5.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5z" />
+      ),
+    },
+    {
+      label: "Processes",
+      note: "Pipeline, lifecycle and handoffs",
+      noteDisconnected: "Inconsistent and manual",
+      icon: (
+        <path d="M6 2a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6H6zm7 1.5L18.5 9H13V3.5zM7 13h10v1.5H7V13zm0 3.5h10V18H7v-1.5zm0-7h5v1.5H7V9.5z" />
+      ),
+    },
+    {
+      label: "Reporting",
+      note: "Forecasting, attribution and performance",
+      noteDisconnected: "Limited visibility into performance",
+      icon: (
+        <path d="M4 20V10h3v10H4zm6.5 0V4h3v16h-3zM17 20V13h3v7h-3z" />
+      ),
+    },
+    {
+      label: "Automation",
+      note: "Workflows, routing and enrichment",
+      noteDisconnected: "Manual work and workarounds",
+      icon: (
+        <path d="M19.14 12.94a7.14 7.14 0 000-1.88l2.03-1.58a.5.5 0 00.12-.64l-1.92-3.32a.5.5 0 00-.6-.22l-2.39.96a7.3 7.3 0 00-1.63-.94l-.36-2.54a.5.5 0 00-.5-.42h-3.84a.5.5 0 00-.5.42l-.36 2.54c-.59.24-1.14.56-1.63.94l-2.39-.96a.5.5 0 00-.6.22L2.7 8.84a.5.5 0 00.12.64l2.03 1.58a7.14 7.14 0 000 1.88l-2.03 1.58a.5.5 0 00-.12.64l1.92 3.32c.14.24.42.32.6.22l2.39-.96c.49.38 1.04.7 1.63.94l.36 2.54a.5.5 0 00.5.42h3.84a.5.5 0 00.5-.42l.36-2.54c.59-.24 1.14-.56 1.63-.94l2.39.96c.24.1.5 0 .6-.22l1.92-3.32a.5.5 0 00-.12-.64l-2.03-1.58zM12 15.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7z" />
+      ),
+    },
+  ];
+
+  const disconnectedList = [
+    "Tools and data don't connect",
+    "Different processes across teams",
+    "Limited visibility into performance",
+    "Manual work and constant handoffs",
+    "Hard to scale",
+  ];
+
+  const connectedList = [
+    "One connected system",
+    "Aligned processes across your revenue team",
+    "Clear, reliable reporting",
+    "Less manual work through automation",
+    "Built to scale with you",
+  ];
+
   return (
-    <section className="border-b-2 border-ink bg-paper">
-      <div className="max-w-[1400px] mx-auto px-6 py-20">
-        <SectionHeader n="02" label="What we see" title="Most revenue teams are quietly held together with tape." />
-        <div className="mt-12">
-          <LeakVsSealVisual />
+    <section className="border-b-2 border-ink bg-gradient-to-b from-[#fff4ee] to-paper">
+      <div className="max-w-[1400px] mx-auto px-6 py-20 md:py-28">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-14">
+          <div className="lg:col-span-6">
+            
+            <h2 className="display text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] tracking-[-0.03em]">
+              Bring your revenue
+              <br />
+              operation together.
+            </h2>
+          </div>
+          <div className="lg:col-span-6 flex items-end">
+            <p className="text-lg leading-relaxed text-ink/70">
+              As your business grows, HubSpot, processes and reporting can
+              develop in different directions. Revlyn brings them together
+              into one connected way of working.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-6">
+          {/* TODAY — disconnected */}
+          <div className="rounded-2xl border-2 border-ink/10 bg-white/60 p-6 md:p-8">
+            <div className="flex items-center justify-between mono text-[10px] uppercase tracking-[0.2em] text-ink/40 mb-10">
+              
+              <span>Disconnected</span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-x-8 gap-y-10 relative">
+              {nodes.map((n) => (
+                <div key={n.label} className="flex flex-col items-center text-center gap-3">
+                  <div className="w-16 h-16 rounded-full border-2 border-ink/25 flex items-center justify-center bg-white">
+                    <svg viewBox="0 0 24 24" className="w-7 h-7 fill-ink/50">
+                      {n.icon}
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="font-medium text-ink">{n.label}</div>
+                    <div className="text-xs text-ink/50 mt-0.5 max-w-[140px]">{n.noteDisconnected}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <ul className="mt-10 pt-6 border-t border-ink/10 space-y-2.5">
+              {disconnectedList.map((item) => (
+                <li key={item} className="flex items-center gap-2 text-sm text-ink/70">
+                  <span className="text-fire shrink-0">✕</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* WITH REVLYN — connected */}
+          <div className="rounded-2xl bg-ink text-paper p-6 md:p-8">
+            <div className="flex items-center justify-between mono text-[10px] uppercase tracking-[0.2em] text-paper/40 mb-6">
+             
+              <span>Connected</span>
+            </div>
+
+            <div className="text-center mono text-[11px] uppercase tracking-[0.25em] text-fire mb-8">
+              One team. One system.
+            </div>
+
+            <div className="grid grid-cols-4 gap-2 relative">
+              <div className="absolute top-8 left-[12.5%] right-[12.5%] h-px bg-fire/50 hidden sm:block" />
+              {nodes.map((n) => (
+                <div key={n.label} className="flex flex-col items-center text-center gap-3 relative">
+                  <div className="w-16 h-16 rounded-full border-2 border-fire/60 flex items-center justify-center bg-ink relative z-10">
+                    <svg viewBox="0 0 24 24" className="w-7 h-7 fill-paper">
+                      {n.icon}
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="font-medium text-paper text-sm">{n.label}</div>
+                    <div className="text-[11px] text-paper/50 mt-0.5">{n.note}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-10 pt-6 border-t border-paper/15 grid sm:grid-cols-[1fr_auto] gap-6 items-center">
+              <ul className="space-y-2.5">
+                {connectedList.map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-sm text-paper/85">
+                    <span className="text-fire shrink-0">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <div className="sm:pl-6 sm:border-l border-paper/15">
+                <div className="mono text-[10px] uppercase tracking-[0.2em] text-paper/40 mb-2">
+                  The result
+                </div>
+                <div className="display text-2xl leading-tight text-paper">
+                  A stronger
+                  <br />
+                  revenue operation.
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -763,38 +902,6 @@ function Manifesto() {
   return (
     <section className="bg-paper py-28">
       <div className="max-w-7xl mx-auto px-6">
-
-        <SectionHeader
-          n="08"
-          label="OUR PRINCIPLES"
-          title="The way we work."
-        />
-
-        <div className="mt-24 grid lg:grid-cols-3 gap-x-16 gap-y-20">
-
-          {rules.map((item, index) => (
-            <div
-              key={item.title}
-              className="group cursor-default"
-            >
-              <span className="text-xs tracking-[0.3em] uppercase text-black/30">
-                {(index + 1).toString().padStart(2, "0")}
-              </span>
-
-              <h3 className="mt-4 text-3xl font-display tracking-tight transition-all duration-300 group-hover:translate-x-2">
-                {item.title}
-              </h3>
-
-              <div className="mt-6 w-10 h-px bg-black/15 group-hover:w-20 transition-all duration-300" />
-
-              <p className="mt-6 text-[17px] leading-8 text-black/65 max-w-sm">
-                {item.text}
-              </p>
-            </div>
-          ))}
-
-        </div>
-
       </div>
     </section>
   );
@@ -914,27 +1021,13 @@ function Footer() {
     ["GTM Engineering", "/#services", "Outbound, ABM, lifecycle"],
     ["AI Workflows", "/#services", "Agents on the CRM"],
   ] as const;
-
+ 
   return (
     <footer className="relative bg-ink text-paper overflow-hidden">
-      {/* Giant wordmark backdrop */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center overflow-hidden">
-        <span
-          className="display leading-none tracking-tighter text-transparent select-none translate-y-[18%]"
-          style={{
-            fontSize: "clamp(9rem, 28vw, 28rem)",
-            WebkitTextStroke: "1px rgba(255,255,255,0.09)",
-          }}
-        >
-          revlyn
-        </span>
-      </div>
-
-      <div className="relative max-w-[1400px] mx-auto px-6 pt-20 pb-14">
+      <div className="relative max-w-[1400px] mx-auto px-6 pt-16 pb-10">
         {/* Editorial lead */}
-        <div className="grid md:grid-cols-12 gap-10 pb-14 border-b border-paper/10">
+        <div className="grid md:grid-cols-12 gap-10 pb-10 border-b border-paper/10">
           <div className="md:col-span-7 min-w-0">
-            
             <h3 className="display text-5xl md:text-7xl leading-[0.9] tracking-[-0.035em]">
               Revenue systems,
               <br />
@@ -966,9 +1059,8 @@ function Footer() {
               </a>
             </div>
           </div>
-
+ 
           <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10 min-w-0">
-            
             <h4 className="display text-3xl md:text-4xl leading-[0.95] tracking-[-0.02em]">
               The <span className="text-fire">operator&rsquo;s notebook</span>.
             </h4>
@@ -993,7 +1085,7 @@ function Footer() {
                 One email a month. Unsubscribe with one click.
               </p>
             </div>
-
+ 
             {/* Studio card */}
             <div className="mt-8 rounded-2xl border border-paper/12 bg-paper/[0.03] p-5">
               <div className="flex items-start justify-between gap-4">
@@ -1017,10 +1109,9 @@ function Footer() {
             </div>
           </div>
         </div>
-
+ 
         {/* Link grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-8 py-14 border-b border-paper/10">
-          {/* 7-column link grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-8 py-10 border-b border-paper/10">
           {[
             {
               h: "Get started",
@@ -1119,11 +1210,9 @@ function Footer() {
             </div>
           ))}
         </div>
-
+ 
         {/* Social */}
-        <div className="flex items-center justify-end gap-3 py-12 border-b border-paper/10">
-
-
+        <div className="flex items-center justify-end gap-3 py-6 border-b border-paper/10">
           <div className="flex items-center gap-3 md:justify-end">
             {[
               { n: "LinkedIn", h: "https://www.linkedin.com/company/revlynhq/", d: "M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8h4.56v14H.22V8zm7.62 0h4.37v1.92h.06c.61-1.15 2.1-2.36 4.32-2.36 4.62 0 5.47 3.04 5.47 6.99V22h-4.55v-6.2c0-1.48-.03-3.38-2.06-3.38-2.07 0-2.39 1.62-2.39 3.28V22H7.84V8z" },
@@ -1144,10 +1233,9 @@ function Footer() {
             ))}
           </div>
         </div>
-
-
+ 
         {/* Brand row */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pt-12">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pt-6">
           <div className="flex items-center gap-4">
             <img
               src={revlynWordmark}
@@ -1156,13 +1244,10 @@ function Footer() {
               style={{ filter: "invert(1) hue-rotate(180deg)" }}
             />
           </div>
-          <p className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 max-w-md md:text-right">
-            Revenue, built like an engine. Operated like a team you already trust.
-          </p>
         </div>
-
+ 
         {/* Base line */}
-        <div className="mt-10 pt-6 border-t border-paper/10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-[12px] text-paper/65">
+        <div className="mt-6 pt-6 border-t border-paper/10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-[12px] text-paper/65">
           <span className="flex items-center gap-3">
             <span className="mono">© 2026 Revlyn</span>
             <span className="text-paper/25">·</span>
@@ -1180,8 +1265,6 @@ function Footer() {
     </footer>
   );
 }
-
-
 /* ─────────────────────────────  STORY (with photo)  ───────────────────────────── */
 function StoryVisual() {
   const milestones = [
@@ -1576,9 +1659,9 @@ function TeamStrip() {
     <section className="border-b-2 border-ink bg-bone">
       <div className="max-w-[1400px] mx-auto px-6 py-20 grid md:grid-cols-12 gap-10 items-center">
         <div className="md:col-span-5">
-          <SectionHeader n="09" label="The people" title="Our RevOps and GTM Teams now on your side." />
+          <SectionHeader n="09" label="The people" title="Senior operators. On your team" />
           <p className="mt-6 text-lg leading-relaxed">
-            Four senior operators. Every engagement gets two of us embedded, one on the CRM and data side, one on GTM and AI. No juniors, no offshore, no sub-contracting.
+            Work directly with experienced HubSpot and RevOps operators who know your business and stay close to the work.
           </p>
           </div>
         <div className="md:col-span-7">
@@ -2411,76 +2494,119 @@ function WhoItsFor() {
 
 /* ─────────────────────────────  ENGAGEMENT MODELS  ───────────────────────────── */
 function Engagements() {
-  const tiers = [
+  const services = [
     {
-      name: "Diagnostic",
-      window: "2 weeks",
-      price: "Fixed fee",
-      for: "Founders who suspect the system is leaking but don't know where.",
-      deliverables: ["Revenue system audit", "One-page leak map", "Prioritised 90-day plan"],
-      cta: "Start with a diagnostic",
-      bg: "bg-paper",
-      accent: "bg-volt",
+      label: "HUBSPOT",
+      title: "Implementation",
+      desc: "Build HubSpot around your business from the start.",
+      bullets: ["CRM setup and architecture", "Data and integrations", "Pipelines and lifecycle stages", "Reporting and automation"],
+      cta: "Explore HubSpot implementation",
+      href: "/hubspot-implementation",
+      icon: (
+        <path d="M12 2a1 1 0 011 1v2.06a5.5 5.5 0 013.94 3.94H19a1 1 0 010 2h-2.06a5.5 5.5 0 01-3.94 3.94V17a1 1 0 01-2 0v-2.06a5.5 5.5 0 01-3.94-3.94H5a1 1 0 010-2h2.06A5.5 5.5 0 0111 5.06V3a1 1 0 011-1zm0 5.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5z" />
+      ),
+      featured: false,
     },
     {
-      name: "HubSpot as a Service",
-      window: "Monthly",
-      price: "Subscription",
-      for: "Teams that want a senior HubSpot, RevOps, GTM and AI function without the internal hire.",
-      deliverables: ["One embedded senior team", "Weekly operating cadence", "Monthly scorecard + quarterly roadmap"],
-      cta: "Get your team",
-      bg: "bg-ink text-paper",
-      accent: "bg-fire text-paper",
+      label: "ONGOING SUPPORT · FLAGSHIP",
+      title: "HubSpot as a Service",
+      desc: "Your HubSpot team, without building one internally.",
+      bullets: ["Ongoing HubSpot ownership", "Processes and reporting", "Automation and improvements", "Senior RevOps support"],
+      cta: "Explore HubSpot as a Service",
+      href: "/hubspot-as-a-service",
+      icon: (
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+      ),
       featured: true,
     },
     {
-      name: "90-Day Build",
-      window: "90 days",
-      price: "Fixed scope",
-      for: "Heads of Sales, Marketing, Revenue and GTM ready to ship one full subsystem.",
-      deliverables: ["CRM or RevOps or GTM or AI build", "Documentation and dashboards", "Ongoing partnership after launch"],
-      cta: "Scope a build",
-      bg: "bg-paper",
-      accent: "bg-volt",
+      label: "REVOPS",
+      title: "Optimisation",
+      desc: "Improve the HubSpot system you already have.",
+      bullets: ["CRM and data improvements", "Better sales processes", "Clearer reporting", "Smarter automation"],
+      cta: "Explore HubSpot optimisation",
+      href: "/hubspot-optimization",
+      icon: (
+        <path d="M4 20V10h3v10H4zm6.5 0V4h3v16h-3zM17 20V13h3v7h-3z" />
+      ),
+      featured: false,
     },
   ];
 
   return (
-    <section className="bg-bone">
+    <section className="bg-gradient-to-b from-[#fff4ee] to-paper">
       <div className="max-w-[1400px] mx-auto px-6 py-20 md:py-28">
-        <div className="grid md:grid-cols-12 gap-6 items-end mb-12">
-          <h2 className="md:col-span-7 display text-5xl md:text-6xl leading-[0.95]">Three ways to work with us.</h2>
-          <p className="md:col-span-4 md:col-start-9 text-base leading-snug text-ink/70">
-            HubSpot as a Service is the flagship. Diagnostic and 90-day builds are also available.
-          </p>
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-14">
+          <div className="lg:col-span-6">
+        
+            <h2 className="display text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.05] tracking-[-0.03em]">
+              Everything you need to
+              <br />
+              run HubSpot better.
+            </h2>
+          </div>
+          <div className="lg:col-span-6 flex items-end">
+            <p className="text-lg leading-relaxed text-ink/70">
+              From getting the foundations right to improving how your team
+              works every day, Revlyn brings the people, processes and
+              expertise to get more from HubSpot.
+            </p>
+          </div>
         </div>
-        <div className="grid md:grid-cols-3 gap-4">
-          {tiers.map((t) => (
+
+        <div className="grid md:grid-cols-3 gap-5">
+          {services.map((s) => (
             <div
-              key={t.name}
-              className={`${t.bg} p-6 md:p-8 flex flex-col ${t.featured ? "brutal-shadow-fire md:-translate-y-3" : "shadow-sm"}`}
+              key={s.title}
+              className={`rounded-2xl p-7 md:p-8 flex flex-col ${
+                s.featured
+                  ? "bg-ink text-paper md:-translate-y-3 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.35)]"
+                  : "bg-white border border-ink/10"
+              }`}
             >
-              <div className={`inline-block self-start mono text-[10px] px-2 py-1 ${t.accent}`}>
-                {t.window} · {t.price}
+              <div
+                className={`flex items-center gap-3 mono text-[10px] uppercase tracking-[0.2em] mb-8 ${
+                  s.featured ? "text-fire" : "text-fire"
+                }`}
+              >
+                {s.label}
+                <span className={`flex-1 h-px ${s.featured ? "bg-paper/20" : "bg-ink/10"}`} />
               </div>
-              <div className="display text-4xl md:text-5xl mt-4">{t.name}</div>
-              <div className={`mt-3 text-sm leading-snug ${t.featured ? "text-paper/80" : "text-ink/70"}`}>
-                {t.for}
+
+              <div
+                className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 ${
+                  s.featured ? "bg-paper/10" : "bg-fire/10"
+                }`}
+              >
+                <svg viewBox="0 0 24 24" className="w-7 h-7 fill-fire">
+                  {s.icon}
+                </svg>
               </div>
-              <ul className="mt-6 space-y-2 text-sm">
-                {t.deliverables.map((d) => (
-                  <li key={d} className="flex gap-2">
+
+              <h3 className="display text-3xl leading-tight">{s.title}</h3>
+              <p className={`mt-3 text-[15px] leading-relaxed ${s.featured ? "text-paper/70" : "text-ink/65"}`}>
+                {s.desc}
+              </p>
+
+              <ul className="mt-6 space-y-3 flex-1">
+                {s.bullets.map((b) => (
+                  <li key={b} className="flex items-center gap-2 text-sm">
                     <span className="text-fire">→</span>
-                    <span>{d}</span>
+                    <span className={s.featured ? "text-paper/90" : "text-ink/80"}>{b}</span>
                   </li>
                 ))}
               </ul>
+
               <a
-                href="#book"
-                className={`mt-8 px-4 py-3 mono text-xs text-center hover:translate-x-[2px] hover:translate-y-[2px] transition-transform ${t.featured ? "bg-fire text-paper border-2 border-paper" : "bg-ink text-paper border-2 border-transparent"
-                  }`}
+                href={s.href}
+                className={`group mt-8 inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm font-medium transition-colors ${
+                  s.featured
+                    ? "bg-fire text-paper hover:bg-orange-600"
+                    : "border border-ink/15 text-ink hover:bg-ink hover:text-paper"
+                }`}
               >
-                {t.cta} →
+                {s.cta}
+                <span className="transition-transform group-hover:translate-x-1">→</span>
               </a>
             </div>
           ))}
