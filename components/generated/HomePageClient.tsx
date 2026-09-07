@@ -82,13 +82,7 @@ export default function HomePageClient() {
 
       {/* ══ ACT III · THE ENGINE ══════════════════════════════ */}
       <section id="act-2" data-act>
-        <ChapterDivider
-          num="II"
-          title="One machine, not a stack of tools."
-          sub="Four subsystems. One schema. One source of truth."
-          bg="bg-volt"
-          dark
-        />
+        
         <EngineDiagram />
         <MacroShot />
         <LiveDashboard />
@@ -99,12 +93,7 @@ export default function HomePageClient() {
 
       {/* ══ ACT IV · THE METHOD ═══════════════════════════════ */}
       <section id="act-3" data-act>
-        <ChapterDivider
-          num="III"
-          title="We show up on Monday, and the Monday after that."
-          sub="Not a retainer that goes quiet by week three. A team that sits inside your standups, your pipeline reviews, and your Slack until the number moves."
-          bg="bg-paper"
-        />
+        
         <ServicesSpec />
         <MethodRhythm />
         <Engagements />
@@ -113,13 +102,7 @@ export default function HomePageClient() {
 
       {/* ══ ACT V · THE PROOF ═════════════════════════════════ */}
       <section id="act-4" data-act>
-        <ChapterDivider
-          num="IV"
-          title="Partners for the long run."
-          sub="Three stories. Real names. References you can call."
-          bg="bg-fire"
-          dark
-        />
+        
         <ProofLedger />
         <CaseStories />
         <Proof />
