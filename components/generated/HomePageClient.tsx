@@ -182,8 +182,7 @@ function ChapterDivider({
 function Hero() {
   return (
     <section className="relative overflow-hidden bg-black border-b border-white/10">
-
-      {/* Background image — shown on every screen size now, not just desktop */}
+      {/* Background image */}
       <div className="absolute inset-0">
         <Image
           src="/hero-revenue-engine.png"
@@ -196,56 +195,100 @@ function Hero() {
           }}
         />
 
-        {/* Desktop: left-heavy gradient — text sits in the left 7 columns,
-            so the right side stays clear to show the image detail. */}
-        <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-transparent" />
+        {/* Desktop overlay */}
+        <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
 
-        {/* Mobile: text spans the full width instead of just a column,
-            so a flat, stronger overlay keeps it readable everywhere
-            instead of only on one side. */}
+        {/* Mobile overlay */}
         <div className="md:hidden absolute inset-0 bg-black/70" />
 
+        {/* Orange glow */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_45%,rgba(255,87,34,.14),transparent_55%)]" />
       </div>
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
+        <div className="grid md:grid-cols-12 items-center min-h-screen py-20 md:py-24 lg:py-0">
 
-        <div className="grid md:grid-cols-12 items-center min-h-screen py-20 md:py-0">
+          {/* ================= LEFT ================= */}
+          <div className="md:col-span-10 min-w-0">
 
-          {/* ================= Left ================= */}
-          <div className="md:col-span-7">
+            <h1
+              className="
+                display
+                font-black
+                text-white
+                leading-[0.94]
+                tracking-[-0.045em]
+                max-w-full
+              "
+            >
+              {/* ROW 1 */}
+              <span
+                className="
+                  block
+                  whitespace-nowrap
+                  text-[clamp(2.15rem,8vw,6rem)]
+                "
+              >
+                Build a Better,
+              </span>
 
-            
-
-            <h1 className="display font-black text-white leading-[1] tracking-[-0.05em] text-[clamp(1.6rem,8vw,2.75rem)] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
-              <span className="whitespace-nowrap">Build a Better,</span>
-              <br />
-              <span className="whitespace-nowrap break-words">Revenue Operation</span>
+              {/* ROW 2 */}
+              <span
+                className="
+                  block
+                  whitespace-nowrap
+                  text-[clamp(1.9rem,7.5vw,6rem)]
+                "
+              >
+                Revenue Operation
+              </span>
             </h1>
 
-            <p className="mt-8 max-w-2xl text-lg md:text-xl text-white/90 leading-relaxed">
-              Revlyn helps growing B2B companies get more from HubSpot with better processes, reliable reporting and automation built around how your team works.
+            <p
+              className="
+                mt-7
+                md:mt-8
+                max-w-2xl
+                text-base
+                sm:text-lg
+                md:text-xl
+                text-white/90
+                leading-relaxed
+              "
+            >
+              Revlyn helps growing B2B companies get more from HubSpot with
+              better processes, reliable reporting and automation built around
+              how your team works.
             </p>
 
-            <div className="mt-10 flex flex-col sm:flex-row gap-4">
-
-              <BookCallButton className="rounded-full bg-fire px-8 py-4 text-lg font-semibold text-white text-center hover:bg-orange-600 transition">
+            <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4">
+              <BookCallButton
+                className="
+                  w-full
+                  sm:w-auto
+                  rounded-full
+                  bg-fire
+                  px-8
+                  py-4
+                  text-base
+                  sm:text-lg
+                  font-semibold
+                  text-white
+                  text-center
+                  hover:bg-orange-600
+                  transition
+                "
+              >
                 BOOK A 30-MIN CALL
               </BookCallButton>
-
-              
-
             </div>
-
           </div>
 
-          {/* Desktop Right Empty */}
-          <div className="hidden md:block md:col-span-5" />
+          {/* ================= RIGHT ================= */}
+          <div className="hidden md:block md:col-span-2" />
 
         </div>
-
       </div>
-
     </section>
   );
 }
