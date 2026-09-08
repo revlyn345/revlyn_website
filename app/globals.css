@@ -117,7 +117,9 @@
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: -0.03em;
-  line-height: 0.9;
+  line-height: 1.1;
+  padding-bottom: 0.08em;
+  overflow: visible;
 }
 
 @utility brutal-border {

@@ -220,7 +220,7 @@ function Hero() {
             <h1 className="display font-black text-white leading-[1] tracking-[-0.05em] text-[clamp(1.6rem,8vw,2.75rem)] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
               <span className="whitespace-nowrap">Build a Better,</span>
               <br />
-              <span className="whitespace-nowrap">Revenue Operation</span>
+              <span className="whitespace-nowrap break-words">Revenue Operation</span>
             </h1>
 
             <p className="mt-8 max-w-2xl text-lg md:text-xl text-white/90 leading-relaxed">
@@ -353,14 +353,14 @@ function Problem() {
     <section className="border-b-2 border-ink bg-gradient-to-b from-[#fff4ee] to-paper">
       <div className="max-w-[1400px] mx-auto px-6 py-20 md:py-28">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-14">
-          <div className="lg:col-span-6">
-            
-            <h2 className="display text-[clamp(2.25rem,5vw,4rem)] leading-[1.05] tracking-[-0.03em]">
-              Bring your revenue
-              <br />
-              operation together.
-            </h2>
-          </div>
+        <div className="lg:col-span-6">
+  <h2 className="display text-[clamp(2.25rem,5vw,4rem)] leading-[1.15] tracking-[-0.03em] overflow-visible [clip-path:none!important]">
+    Bring your revenue
+    <br />
+    operation together.
+  </h2>
+</div>
+
           <div className="lg:col-span-6 flex items-end">
             <p className="text-lg leading-relaxed text-ink/70">
               As your business grows, HubSpot, processes and reporting can
@@ -1068,7 +1068,7 @@ function StoryVisual() {
               From the Field
             </p>
 
-            <h2 className="display mt-4 text-[clamp(2.2rem,4vw,3.9rem)] leading-[1] text-ink">
+            <h2 className="display mt-4 text-[clamp(2.2rem,4vw,3.9rem)] leading-[1.1] text-ink">
 
               A system that
 
@@ -1530,7 +1530,7 @@ function LogoWall() {
               <span className="inline-block h-px w-8 bg-ink/25" />
               SELECTED CLIENTS
             </div>
-            <h2 className="display mt-6 text-[clamp(2rem,4.4vw,3.25rem)] leading-[1.04] tracking-[-0.025em] text-ink">
+            <h2 className="display mt-6 text-[clamp(2rem,4.4vw,3.25rem)] leading-[1.1] tracking-[-0.025em] text-ink">
               A quiet list of teams we build<br className="hidden md:block" /> revenue engines with.
             </h2>
           </div>
