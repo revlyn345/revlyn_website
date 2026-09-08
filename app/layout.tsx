@@ -5,7 +5,7 @@ import "./globals.css";
 
 import { Nav } from "@/components/Nav";
 import { MotionRuntime } from "@/components/MotionRuntime";
-import { HubSpotWidgetCap } from "@/components/HubSpotWidgetCap";
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -197,7 +197,7 @@ export default function RootLayout({
           strategy="lazyOnload"
         />
 
-        <HubSpotWidgetCap />
+        
       </body>
     </html>
   );
