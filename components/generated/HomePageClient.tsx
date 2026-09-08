@@ -88,12 +88,11 @@ export default function HomePageClient() {
         <LiveDashboard />
         <FunnelVisual />
         <AIAgentTerminal />
-        <StackGrid />
       </section>
 
       {/* ══ ACT IV · THE METHOD ═══════════════════════════════ */}
       <section id="act-3" data-act>
-        
+        <div id="stack" />
         <ServicesSpec />
         <MethodRhythm />
         <Engagements />
@@ -132,12 +131,14 @@ function ChapterDivider({
   sub,
   bg,
   dark = false,
+  id,
 }: {
   num: string;
   title: string;
   sub: string;
   bg: string;
   dark?: boolean;
+  id?: string;
 }) {
   return (
     <section className={`border-b-2 border-ink ${bg} relative overflow-hidden`}>
