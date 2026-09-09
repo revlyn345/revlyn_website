@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const baseUrl = "https://revlyn.io";
+const baseUrl = "https://www.revlyn.io";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [

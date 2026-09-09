@@ -37,7 +37,7 @@ function formatIst() {
 /* ── Top signal strip (thin ticker above main nav) ───────────────── */
 
 
-type MenuKey = "what" | "hubspot" | "partners" | "work";
+type MenuKey = "what" | "hubspot" | "revops" | "partners" | "work";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -51,6 +51,7 @@ export function Nav() {
   const [implOpen, setImplOpen] = useState(false);
   const whatRef = useRef<HTMLDivElement>(null);
   const hubspotRef = useRef<HTMLDivElement>(null);
+  const revopsRef = useRef<HTMLDivElement>(null);
   const workRef = useRef<HTMLDivElement>(null);
   const partnersRef = useRef<HTMLDivElement>(null);
   // Used to position the Implementation flyout so it starts level with the
@@ -63,6 +64,7 @@ export function Nav() {
 
   const whatOpen = activeMenu === "what";
   const hubspotOpen = activeMenu === "hubspot";
+  const revopsOpen = activeMenu === "revops";
   const partnersOpen = activeMenu === "partners";
   const workOpen = activeMenu === "work";
 
@@ -87,6 +89,7 @@ export function Nav() {
       const insideAny =
         whatRef.current?.contains(target) ||
         hubspotRef.current?.contains(target) ||
+        revopsRef.current?.contains(target) ||
         workRef.current?.contains(target) ||
         partnersRef.current?.contains(target);
       if (!insideAny) {
@@ -178,7 +181,14 @@ export function Nav() {
   const hubspotActive = hubspotLinks.some(
     (l) => l.to === pathname || pathname?.startsWith(l.to),
   );
+  const revopsLinks = [
+    { label: "AI Agents", to: "/ai-agents", note: "Agents built on your CRM" },
+    { label: "SEO Agent", to: "/auto-seo-agent", note: "Automated blog publishing" },
+  ];
 
+  const revopsActive = revopsLinks.some(
+    (l) => l.to === pathname || pathname?.startsWith(l.to),
+  );
   const workActive = workLinks.some(
     (l) => l.to === pathname || pathname?.startsWith(l.to),
   );
@@ -359,6 +369,56 @@ export function Nav() {
                         </div>
                       )}
                     </div>
+                  </div>
+                )}
+              </div>
+              {/* RevOps */}
+              <div ref={revopsRef} className="relative shrink-0">
+                <button
+                  onClick={() => setActiveMenu((v) => (v === "revops" ? null : "revops"))}
+                  onMouseEnter={() => setActiveMenu("revops")}
+                  className={`relative px-4 py-1.5 text-sm rounded-full whitespace-nowrap transition-colors ${
+                    revopsOpen || revopsActive ? "text-paper" : "text-ink/75 hover:text-ink"
+                  }`}
+                  aria-expanded={revopsOpen}
+                >
+                  {(revopsOpen || revopsActive) && (
+                    <span className="absolute inset-0 rounded-full bg-ink -z-0" />
+                  )}
+                  <span className="relative z-10 flex items-center gap-1">
+                    RevOps
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className={`transition-transform ${revopsOpen ? "rotate-180" : ""}`}>
+                      <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </button>
+
+                {revopsOpen && (
+                  <div
+                    onMouseLeave={() => setActiveMenu(null)}
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[280px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden"
+                  >
+                    {revopsLinks.map((link) => {
+                      const active = link.to === pathname || pathname?.startsWith(link.to);
+                      return (
+                        <Link
+                          key={link.to}
+                          href={link.to}
+                          onClick={() => setActiveMenu(null)}
+                          className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
+                            active ? "bg-ink text-paper" : "text-ink/80 hover:text-ink hover:bg-bone"
+                          }`}
+                        >
+                          <span>
+                            <span className="block font-medium">{link.label}</span>
+                            <span className={`block text-[11px] ${active ? "text-paper/60" : "text-ink/50"}`}>
+                              {link.note}
+                            </span>
+                          </span>
+                          <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">→</span>
+                        </Link>
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -604,6 +664,25 @@ export function Nav() {
                     </div>
                   );
                 })}
+              </div>
+            )}
+            {/* RevOps — accordion */}
+            <button
+              type="button"
+              onClick={() => setMobileSection((v) => (v === "revops" ? null : "revops"))}
+              className="flex items-center justify-between py-3 border-b border-ink/10 text-left"
+            >
+              <span className="text-base font-medium">RevOps</span>
+              <span className={`transition-transform ${mobileSection === "revops" ? "rotate-180" : ""}`}>⌄</span>
+            </button>
+            {mobileSection === "revops" && (
+              <div className="pl-4 pb-2">
+                {revopsLinks.map((link) => (
+                  <Link key={link.to} href={link.to} className="block py-2.5 border-b border-ink/5">
+                    <span className="block text-sm font-medium">{link.label}</span>
+                    <span className="block text-xs text-ink/50">{link.note}</span>
+                  </Link>
+                ))}
               </div>
             )}
 

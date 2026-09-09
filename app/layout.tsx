@@ -32,7 +32,7 @@ const jetbrainsMono = JetBrains_Mono({
 // SITE / SEO CONFIG
 // ─────────────────────────────────────────────────────────────
 
-const siteUrl = "https://revlyn.io";
+const siteUrl = "https://www.revlyn.io";
 const siteName = "Revlyn";
 
 const defaultDescription =
