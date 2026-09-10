@@ -49,6 +49,7 @@ export function Nav() {
   // also un-setting it from "what".
   const [activeMenu, setActiveMenu] = useState<MenuKey | null>(null);
   const [implOpen, setImplOpen] = useState(false);
+  const [aiAgentsOpen, setAiAgentsOpen] = useState(false);
   const whatRef = useRef<HTMLDivElement>(null);
   const hubspotRef = useRef<HTMLDivElement>(null);
   const revopsRef = useRef<HTMLDivElement>(null);
@@ -181,14 +182,14 @@ export function Nav() {
   const hubspotActive = hubspotLinks.some(
     (l) => l.to === pathname || pathname?.startsWith(l.to),
   );
-  const revopsLinks = [
-    { label: "AI Agents", to: "/ai-agents", note: "Agents built on your CRM" },
+  const seoAgentLinks = [
     { label: "SEO Agent", to: "/auto-seo-agent", note: "Automated blog publishing" },
   ];
 
-  const revopsActive = revopsLinks.some(
-    (l) => l.to === pathname || pathname?.startsWith(l.to),
-  );
+  const revopsActive =
+    pathname === "/ai-agents" ||
+    pathname?.startsWith("/ai-agents") ||
+    seoAgentLinks.some((l) => l.to === pathname || pathname?.startsWith(l.to));
   const workActive = workLinks.some(
     (l) => l.to === pathname || pathname?.startsWith(l.to),
   );
@@ -395,30 +396,64 @@ export function Nav() {
 
                 {revopsOpen && (
                   <div
-                    onMouseLeave={() => setActiveMenu(null)}
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[280px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden"
+                    onMouseLeave={() => { setActiveMenu(null); setAiAgentsOpen(false); }}
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[280px]"
                   >
-                    {revopsLinks.map((link) => {
-                      const active = link.to === pathname || pathname?.startsWith(link.to);
-                      return (
+                    <div className="relative w-[280px]">
+                      <div className="rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden">
                         <Link
-                          key={link.to}
-                          href={link.to}
-                          onClick={() => setActiveMenu(null)}
+                          href="/ai-agents"
+                          onMouseEnter={() => setAiAgentsOpen(true)}
+                          onClick={() => { setActiveMenu(null); setAiAgentsOpen(false); }}
                           className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
-                            active ? "bg-ink text-paper" : "text-ink/80 hover:text-ink hover:bg-bone"
+                            (pathname === "/ai-agents" || pathname?.startsWith("/ai-agents") || aiAgentsOpen)
+                              ? "bg-ink text-paper"
+                              : "text-ink/80 hover:text-ink hover:bg-bone"
                           }`}
                         >
                           <span>
-                            <span className="block font-medium">{link.label}</span>
-                            <span className={`block text-[11px] ${active ? "text-paper/60" : "text-ink/50"}`}>
-                              {link.note}
+                            <span className="block font-medium">AI Agents</span>
+                            <span className={`block text-[11px] ${
+                              (pathname === "/ai-agents" || pathname?.startsWith("/ai-agents") || aiAgentsOpen) ? "text-paper/60" : "text-ink/50"
+                            }`}>
+                              Agents built on your CRM
                             </span>
                           </span>
-                          <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">→</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-fire shrink-0">
+                            <path d="M9 6l6 6-6 6" />
+                          </svg>
                         </Link>
-                      );
-                    })}
+                      </div>
+
+                      {aiAgentsOpen && (
+                        <div className="absolute top-0 left-full ml-2 w-[260px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden">
+                          <div className="mono text-[10px] text-ink/45 px-3 py-2 border-b border-ink/5 mb-1 flex items-center justify-between">
+                            
+                          </div>
+                          {seoAgentLinks.map((link) => {
+                            const active = link.to === pathname || pathname?.startsWith(link.to);
+                            return (
+                              <Link
+                                key={link.to}
+                                href={link.to}
+                                onClick={() => { setActiveMenu(null); setAiAgentsOpen(false); }}
+                                className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
+                                  active ? "bg-ink text-paper" : "text-ink/80 hover:text-ink hover:bg-bone"
+                                }`}
+                              >
+                                <span>
+                                  <span className="block font-medium">{link.label}</span>
+                                  <span className={`block text-[11px] ${active ? "text-paper/60" : "text-ink/50"}`}>
+                                    {link.note}
+                                  </span>
+                                </span>
+                                <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">→</span>
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
@@ -677,12 +712,18 @@ export function Nav() {
             </button>
             {mobileSection === "revops" && (
               <div className="pl-4 pb-2">
-                {revopsLinks.map((link) => (
-                  <Link key={link.to} href={link.to} className="block py-2.5 border-b border-ink/5">
-                    <span className="block text-sm font-medium">{link.label}</span>
-                    <span className="block text-xs text-ink/50">{link.note}</span>
-                  </Link>
-                ))}
+                <Link href="/ai-agents" className="block py-2.5 border-b border-ink/5">
+                  <span className="block text-sm font-medium">AI Agents</span>
+                  <span className="block text-xs text-ink/50">Agents built on your CRM</span>
+                </Link>
+                <div className="pl-4">
+                  {seoAgentLinks.map((link) => (
+                    <Link key={link.to} href={link.to} className="block py-2.5 border-b border-ink/5">
+                      <span className="block text-sm font-medium">{link.label}</span>
+                      <span className="block text-xs text-ink/50">{link.note}</span>
+                    </Link>
+                  ))}
+                </div>
               </div>
             )}
 
