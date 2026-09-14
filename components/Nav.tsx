@@ -8,11 +8,7 @@ import { BookCallButton } from "@/components/BookCallButton";
 
 /* ── Live clock (Gurugram / IST) ─────────────────────────────────── */
 function useIstClock() {
-  // Start as null (not a real time) so the server-rendered HTML and the
-  // client's first render match exactly. The real time is only ever
-  // calculated inside useEffect, which runs after hydration — so a clock
-  // tick landing between server render and client hydration can no longer
-  // cause a mismatch.
+ 
   const [time, setTime] = useState<string | null>(null);
   useEffect(() => {
     setTime(formatIst());
@@ -37,43 +33,32 @@ function formatIst() {
 /* ── Top signal strip (thin ticker above main nav) ───────────────── */
 
 
-type MenuKey = "what" | "hubspot" | "revops" | "partners" | "work";
+type MenuKey = "hubspot" | "revops" | "partners" | "work" | "resources";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  // Only one top-level dropdown can be open at a time. Using a single
-  // "which menu" value instead of four separate booleans means opening
-  // one menu automatically closes whichever other one was open — hovering
-  // from "What we do" straight into "HubSpot" no longer leaves both panels
-  // stacked open, since setting activeMenu to "hubspot" is by definition
-  // also un-setting it from "what".
+ 
   const [activeMenu, setActiveMenu] = useState<MenuKey | null>(null);
   const [implOpen, setImplOpen] = useState(false);
   const [aiAgentsOpen, setAiAgentsOpen] = useState(false);
-  const whatRef = useRef<HTMLDivElement>(null);
+  const [workFlyoutOpen, setWorkFlyoutOpen] = useState(false);
   const hubspotRef = useRef<HTMLDivElement>(null);
   const revopsRef = useRef<HTMLDivElement>(null);
-  const workRef = useRef<HTMLDivElement>(null);
   const partnersRef = useRef<HTMLDivElement>(null);
-  // Used to position the Implementation flyout so it starts level with the
-  // "Implementation" row instead of the top of the HubSpot panel.
+  const resourcesRef = useRef<HTMLDivElement>(null);
+  
   const hubspotPanelRef = useRef<HTMLDivElement>(null);
   const implRowRef = useRef<HTMLAnchorElement>(null);
   const [implOffset, setImplOffset] = useState(0);
   const pathname = usePathname();
   const isHome = pathname === "/";
 
-  const whatOpen = activeMenu === "what";
   const hubspotOpen = activeMenu === "hubspot";
   const revopsOpen = activeMenu === "revops";
   const partnersOpen = activeMenu === "partners";
-  const workOpen = activeMenu === "work";
+  const resourcesOpen = activeMenu === "resources";
 
-  // Mobile menu — the desktop pill nav (<nav className="hidden md:flex">)
-  // has no mobile equivalent, so below md there was previously no way to
-  // reach any page except the ones linked from the homepage body. This adds
-  // a hamburger button + slide-down panel with the same links, grouped the
-  // same way, as an accordion.
+ 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSection, setMobileSection] = useState<MenuKey | null>(null);
   const [mobileImplOpen, setMobileImplOpen] = useState(false);
@@ -88,11 +73,10 @@ export function Nav() {
     const handle = (e: MouseEvent) => {
       const target = e.target as Node;
       const insideAny =
-        whatRef.current?.contains(target) ||
         hubspotRef.current?.contains(target) ||
         revopsRef.current?.contains(target) ||
-        workRef.current?.contains(target) ||
-        partnersRef.current?.contains(target);
+        partnersRef.current?.contains(target) ||
+        resourcesRef.current?.contains(target);
       if (!insideAny) {
         setActiveMenu(null);
         setImplOpen(false);
@@ -102,20 +86,19 @@ export function Nav() {
     return () => document.removeEventListener("mousedown", handle);
   }, []);
 
-  // Closing the HubSpot menu (or switching to a different top-level menu)
-  // should always take the Implementation flyout with it.
+ 
   useEffect(() => {
     if (activeMenu !== "hubspot") setImplOpen(false);
   }, [activeMenu]);
 
-  // Close the mobile menu whenever the route changes (e.g. tapping a link).
+  
   useEffect(() => {
     setMobileOpen(false);
     setMobileSection(null);
     setMobileImplOpen(false);
   }, [pathname]);
 
-  // Prevent the page from scrolling behind the mobile menu while it's open.
+  
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => {
@@ -123,9 +106,6 @@ export function Nav() {
     };
   }, [mobileOpen]);
 
-  // Measure where the "Implementation" row sits inside the HubSpot panel so
-  // the flyout can be positioned to start right next to it, rather than
-  // defaulting to the top of the panel.
   useEffect(() => {
     if (hubspotOpen && hubspotPanelRef.current && implRowRef.current) {
       const panelTop = hubspotPanelRef.current.getBoundingClientRect().top;
@@ -137,10 +117,13 @@ export function Nav() {
   const anchor = (id: string) => (isHome ? `#${id}` : `/#${id}`);
 
   const mainLinks = [
-    { label: "Use cases", to: "/use-cases" },
-    { label: "Blog", to: "/blog" },
     { label: "About", to: "/about" },
     { label: "Contact", to: "/contact" },
+  ];
+
+  const resourcesLinks = [
+    { label: "Industries", to: "/use-cases", note: "Built for your business type" },
+    { label: "Blog", to: "/blog", note: "Field notes from the team" },
   ];
 
   const partnersLinks = [
@@ -198,6 +181,10 @@ export function Nav() {
     (l) => l.to === pathname || pathname?.startsWith(l.to),
   );
 
+  const resourcesActive =
+    workActive ||
+    resourcesLinks.some((l) => l.to === pathname || pathname?.startsWith(l.to));
+
   return (
     <header className="sticky top-0 z-50">
   
@@ -224,49 +211,7 @@ export function Nav() {
           {/* Pill nav */}
           <nav className="hidden md:flex justify-center">
             <div className="inline-flex items-center gap-0.5 rounded-full border border-ink/15 bg-paper/80 backdrop-blur px-1.5 py-1.5 shadow-[0_2px_20px_-6px_rgba(10,10,10,0.08)] shrink-0">
-              {/* What we do */}
-              <div ref={whatRef} className="relative shrink-0">
-                <button
-                  onClick={() => setActiveMenu((v) => (v === "what" ? null : "what"))}
-                  onMouseEnter={() => setActiveMenu("what")}
-                  className={`relative px-4 py-1.5 text-sm rounded-full whitespace-nowrap transition-colors ${
-                    whatOpen ? "text-paper" : "text-ink/75 hover:text-ink"
-                  }`}
-                  aria-expanded={whatOpen}
-                >
-                  {whatOpen && <span className="absolute inset-0 rounded-full bg-ink -z-0" />}
-                  <span className="relative z-10 flex items-center gap-1">
-                    What we do
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className={`transition-transform ${whatOpen ? "rotate-180" : ""}`}>
-                      <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-                </button>
-
-                {whatOpen && (
-                  <div
-                    onMouseLeave={() => setActiveMenu(null)}
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[280px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden"
-                  >
-                    
-                    {whatLinks.map(([label, id, note]) => (
-                      <a
-                        key={id}
-                        href={anchor(id)}
-                        onClick={() => setActiveMenu(null)}
-                        className="group flex items-center justify-between px-3 py-2 rounded-xl text-sm text-ink/80 hover:text-ink hover:bg-bone transition-colors"
-                      >
-                        <span>
-                          <span className="block font-medium">{label}</span>
-                          <span className="block text-[11px] text-ink/50">{note}</span>
-                        </span>
-                        <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">→</span>
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-
+              
               {/* HubSpot */}
               <div ref={hubspotRef} className="relative shrink-0">
                 <button
@@ -509,54 +454,103 @@ export function Nav() {
                 )}
               </div>
 
-              {/* Work */}
-              <div ref={workRef} className="relative shrink-0">
+              {/* Resources */}
+              <div ref={resourcesRef} className="relative shrink-0">
                 <button
-                  onClick={() => setActiveMenu((v) => (v === "work" ? null : "work"))}
-                  onMouseEnter={() => setActiveMenu("work")}
+                  onClick={() => setActiveMenu((v) => (v === "resources" ? null : "resources"))}
+                  onMouseEnter={() => setActiveMenu("resources")}
                   className={`relative px-4 py-1.5 text-sm rounded-full whitespace-nowrap transition-colors ${
-                    workOpen || workActive ? "text-paper" : "text-ink/75 hover:text-ink"
+                    resourcesOpen || resourcesActive ? "text-paper" : "text-ink/75 hover:text-ink"
                   }`}
-                  aria-expanded={workOpen}
+                  aria-expanded={resourcesOpen}
                 >
-                  {(workOpen || workActive) && (
+                  {(resourcesOpen || resourcesActive) && (
                     <span className="absolute inset-0 rounded-full bg-ink -z-0" />
                   )}
                   <span className="relative z-10 flex items-center gap-1">
-                    Work
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className={`transition-transform ${workOpen ? "rotate-180" : ""}`}>
+                    Resources
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className={`transition-transform ${resourcesOpen ? "rotate-180" : ""}`}>
                       <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </span>
                 </button>
 
-                {workOpen && (
+                {resourcesOpen && (
                   <div
-                    onMouseLeave={() => setActiveMenu(null)}
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[300px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden"
+                    onMouseLeave={() => { setActiveMenu(null); setWorkFlyoutOpen(false); }}
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[280px]"
                   >
-                    
-                    {workLinks.map((link) => {
-                      const active = link.to === pathname || pathname?.startsWith(link.to);
-                      return (
+                    <div className="relative w-[280px]">
+                      <div className="rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden">
                         <Link
-                          key={link.to}
-                          href={link.to}
-                          onClick={() => setActiveMenu(null)}
+                          href="/#proof"
+                          onMouseEnter={() => setWorkFlyoutOpen(true)}
+                          onClick={() => { setActiveMenu(null); setWorkFlyoutOpen(false); }}
                           className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
-                            active ? "bg-ink text-paper" : "text-ink/80 hover:text-ink hover:bg-bone"
+                            workActive || workFlyoutOpen ? "bg-ink text-paper" : "text-ink/80 hover:text-ink hover:bg-bone"
                           }`}
                         >
                           <span>
-                            <span className="block font-medium">{link.label}</span>
-                            <span className={`block text-[11px] ${active ? "text-paper/60" : "text-ink/50"}`}>
-                              {link.note}
+                            <span className="block font-medium">Work</span>
+                            <span className={`block text-[11px] ${workActive || workFlyoutOpen ? "text-paper/60" : "text-ink/50"}`}>
+                              Case studies and results
                             </span>
                           </span>
-                          <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">→</span>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-fire shrink-0">
+                            <path d="M9 6l6 6-6 6" />
+                          </svg>
                         </Link>
-                      );
-                    })}
+
+                        {resourcesLinks.map((link) => {
+                          const active = link.to === pathname || pathname?.startsWith(link.to);
+                          return (
+                            <Link
+                              key={link.to}
+                              href={link.to}
+                              onClick={() => { setActiveMenu(null); setWorkFlyoutOpen(false); }}
+                              className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
+                                active ? "bg-ink text-paper" : "text-ink/80 hover:text-ink hover:bg-bone"
+                              }`}
+                            >
+                              <span>
+                                <span className="block font-medium">{link.label}</span>
+                                <span className={`block text-[11px] ${active ? "text-paper/60" : "text-ink/50"}`}>
+                                  {link.note}
+                                </span>
+                              </span>
+                              <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">→</span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+
+                      {workFlyoutOpen && (
+                        <div className="absolute top-0 left-full ml-2 w-[320px] rounded-2xl border border-ink/10 bg-paper shadow-2xl p-2 overflow-hidden">
+                          
+                          {workLinks.map((link) => {
+                            const active = link.to === pathname || pathname?.startsWith(link.to);
+                            return (
+                              <Link
+                                key={link.to}
+                                href={link.to}
+                                onClick={() => { setActiveMenu(null); setWorkFlyoutOpen(false); }}
+                                className={`group flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-colors ${
+                                  active ? "bg-ink text-paper" : "text-ink/80 hover:text-ink hover:bg-bone"
+                                }`}
+                              >
+                                <span>
+                                  <span className="block font-medium">{link.label}</span>
+                                  <span className={`block text-[11px] ${active ? "text-paper/60" : "text-ink/50"}`}>
+                                    {link.note}
+                                  </span>
+                                </span>
+                                <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-fire">→</span>
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>
@@ -631,29 +625,7 @@ export function Nav() {
           />
           <div className="md:hidden absolute inset-x-0 top-full z-40 bg-paper max-h-[75vh] overflow-y-auto border-t border-ink/10 shadow-xl">
           <div className="px-6 py-6 flex flex-col gap-1">
-            {/* What we do — accordion */}
-            <button
-              type="button"
-              onClick={() => setMobileSection((v) => (v === "what" ? null : "what"))}
-              className="flex items-center justify-between py-3 border-b border-ink/10 text-left"
-            >
-              <span className="text-base font-medium">What we do</span>
-              <span className={`transition-transform ${mobileSection === "what" ? "rotate-180" : ""}`}>⌄</span>
-            </button>
-            {mobileSection === "what" && (
-              <div className="pl-4 pb-2">
-                {whatLinks.map(([label, id, note]) => (
-                  <a
-                    key={id}
-                    href={anchor(id)}
-                    className="block py-2.5 border-b border-ink/5"
-                  >
-                    <span className="block text-sm font-medium">{label}</span>
-                    <span className="block text-xs text-ink/50">{note}</span>
-                  </a>
-                ))}
-              </div>
-            )}
+            
 
             {/* HubSpot — accordion, with nested Implementation */}
             <button
@@ -747,18 +719,27 @@ export function Nav() {
               </div>
             )}
 
-            {/* Work — accordion */}
+            {/* Resources — accordion */}
             <button
               type="button"
-              onClick={() => setMobileSection((v) => (v === "work" ? null : "work"))}
+              onClick={() => setMobileSection((v) => (v === "resources" ? null : "resources"))}
               className="flex items-center justify-between py-3 border-b border-ink/10 text-left"
             >
-              <span className="text-base font-medium">Work</span>
-              <span className={`transition-transform ${mobileSection === "work" ? "rotate-180" : ""}`}>⌄</span>
+              <span className="text-base font-medium">Resources</span>
+              <span className={`transition-transform ${mobileSection === "resources" ? "rotate-180" : ""}`}>⌄</span>
             </button>
-            {mobileSection === "work" && (
+            {mobileSection === "resources" && (
               <div className="pl-4 pb-2">
-                {workLinks.map((link) => (
+                <div className="text-sm font-medium py-2 text-ink/70">Work</div>
+                <div className="pl-4">
+                  {workLinks.map((link) => (
+                    <Link key={link.to} href={link.to} className="block py-2.5 border-b border-ink/5">
+                      <span className="block text-sm font-medium">{link.label}</span>
+                      <span className="block text-xs text-ink/50">{link.note}</span>
+                    </Link>
+                  ))}
+                </div>
+                {resourcesLinks.map((link) => (
                   <Link key={link.to} href={link.to} className="block py-2.5 border-b border-ink/5">
                     <span className="block text-sm font-medium">{link.label}</span>
                     <span className="block text-xs text-ink/50">{link.note}</span>

@@ -132,10 +132,11 @@ export function Footer() {
                 ["RevOps", "/#svc-revops"],
                 ["GTM Design", "/#svc-gtm"],
                 ["AI Infrastructure", "/#svc-ai"],
+                ["Auto SEO Agent", "/auto-seo-agent"],
               ],
             },
             {
-              h: "Use cases",
+              h: "Industries",
               l: [
                 ["Overview", "/use-cases"],
                 ["B2B SaaS", "/use-cases/saas"],
