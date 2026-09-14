@@ -6,6 +6,10 @@ import { BookCallButton } from "@/components/BookCallButton";
 const revlynWordmark = "/logos/revlyn-wordmark.png";
 
 export function Footer() {
+  const openCookieSettings = () => {
+    const _hsp = ((window as any)._hsp = (window as any)._hsp || []);
+    _hsp.push(["showBanner"]);
+  };
   return (
     <footer className="relative bg-ink text-paper overflow-hidden">
       <div className="relative max-w-[1400px] mx-auto px-6 pt-16 pb-10">
@@ -239,6 +243,13 @@ export function Footer() {
             <Link href="/security" className="hover:text-paper transition-colors">Security</Link>
             <Link href="/cookies" className="hover:text-paper transition-colors">Cookies</Link>
             <Link href="/faqs" className="hover:text-paper transition-colors">FAQs</Link>
+            <button
+              type="button"
+              onClick={openCookieSettings}
+              className="hover:text-paper transition-colors"
+            >
+              Cookie Settings
+            </button>
           </span>
         </div>
       </div>
