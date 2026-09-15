@@ -22,11 +22,11 @@ export function SampleFinding() {
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="mb-14 max-w-[820px]" data-reveal>
           <h2 className="display text-4xl md:text-6xl leading-[0.95] tracking-[-0.035em]">
-            Here's a real page from a real report.
+            Here's what a finding in your report looks like.
           </h2>
           <p className="mt-5 text-[16px] text-ink/60 max-w-[560px]">
-            Names redacted, everything else untouched. This is one finding out of eighteen from a
-            Series B fintech we audited in March.
+            An illustrative example, built in the same format your report will use: finding, evidence,
+            consequence, recommendation.
           </p>
         </div>
 
@@ -35,22 +35,23 @@ export function SampleFinding() {
           <div className="grid md:grid-cols-[220px_1fr] border-b-2 border-ink">
             <div className="bg-fire text-paper p-6 flex flex-col justify-between">
               <div>
-                <div className="text-[10px] uppercase tracking-widest opacity-80">Finding 04 of 18</div>
+                <div className="text-[10px] uppercase tracking-widest opacity-80">Finding</div>
                 <div className="display text-3xl leading-none mt-2">Critical</div>
               </div>
               <div className="text-[12px] opacity-90 mt-6">Pipeline · Forecast integrity</div>
             </div>
             <div className="p-6 md:p-8">
+              <div className="text-[10px] uppercase tracking-widest text-fire mb-2">Finding</div>
               <h3 className="display text-3xl md:text-4xl leading-tight tracking-[-0.02em]">
                 Your deal stages describe what your team{" "}
                 <span className="italic">does</span>, not what the buyer{" "}
                 <span className="italic">commits to.</span>
               </h3>
-              <p className="mt-4 text-[15px] text-ink/70 leading-relaxed max-w-[720px]">
-                Five of your seven stages are activity-based ("demo booked", "proposal sent"). Only
-                two are buyer-commitment-based. That means the forecast is measuring your team's
-                effort, not the deal's probability. We ran your last four quarters against it: it's
-                off by 31% on average, and always in the same direction.
+              <div className="text-[10px] uppercase tracking-widest text-ink/40 mt-5 mb-2">Evidence</div>
+              <p className="text-[15px] text-ink/70 leading-relaxed max-w-[720px]">
+                Five of the seven stages are activity-based ("demo booked", "proposal sent"). Only two are
+                buyer-commitment-based. That means the forecast measures your team's effort, not the deal's
+                probability.
               </p>
             </div>
           </div>
@@ -110,9 +111,9 @@ export function SampleFinding() {
 
           <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-ink/10">
             <div className="p-6">
-              <div className="text-[11px] uppercase tracking-widest text-ink/50 mb-2">Impact</div>
+              <div className="text-[11px] uppercase tracking-widest text-ink/50 mb-2">Consequence</div>
               <div className="display text-2xl leading-tight">
-                31% forecast drift, every quarter
+                Forecast drift, every quarter
               </div>
             </div>
             <div className="p-6">
@@ -122,17 +123,17 @@ export function SampleFinding() {
               </div>
             </div>
             <div className="p-6 bg-volt/30">
-              <div className="text-[11px] uppercase tracking-widest text-ink/60 mb-2">Priority</div>
+              <div className="text-[11px] uppercase tracking-widest text-ink/60 mb-2">Recommendation</div>
               <div className="display text-2xl leading-tight">
-                Do this before Q3 board meeting
+                Fix stage criteria before next board meeting
               </div>
             </div>
           </div>
         </div>
 
         <p className="mt-8 text-[14px] text-ink/50 max-w-[720px]">
-          The full report has seventeen more like this, ranked. You get the whole thing whether or
-          not you ever talk to us again.
+          <span className="mono text-[10px] uppercase tracking-widest text-ink/35">Illustrative example.</span>{" "}
+          Your real report is built from your actual portal, ranked by what is costing you the most first.
         </p>
       </div>
     </section>
@@ -147,7 +148,8 @@ export function FAQItem({ i, q, a }: { i: number; q: string; a: string }) {
     <div className="border-b border-ink/15">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full grid grid-cols-[auto_1fr_auto] gap-4 items-center py-5 text-left group"
+        aria-expanded={open}
+        className="w-full grid grid-cols-[auto_1fr_auto] gap-4 items-center py-5 text-left group focus-visible:outline focus-visible:outline-2 focus-visible:outline-fire focus-visible:outline-offset-2"
       >
         <span className="text-[11px] text-fire w-8 font-medium">{String(i + 1).padStart(2, "0")}</span>
         <span className="display text-xl md:text-2xl leading-tight">{q}</span>
@@ -156,7 +158,7 @@ export function FAQItem({ i, q, a }: { i: number; q: string; a: string }) {
             open ? "bg-fire border-fire text-paper rotate-45" : "text-ink/60 group-hover:border-ink"
           }`}
         >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
             <path d="M6 2V10M2 6H10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
         </span>
@@ -195,11 +197,9 @@ export function FinalCTA() {
         aria-hidden
         className="absolute inset-0 pointer-events-none transition-opacity"
         style={{
-          background: `radial-gradient(600px circle at ${mouse.x}% ${mouse.y}%, rgba(255,87,34,0.25), transparent 60%)`,
+          background: `radial-gradient(600px circle at ${mouse.x}% ${mouse.y}%, rgba(255,87,34,0.12), transparent 60%)`,
         }}
       />
-      <div aria-hidden className="absolute -top-10 -left-10 w-[70%] h-24 bg-volt/30 blur-3xl" />
-      <div aria-hidden className="absolute -bottom-10 -right-10 w-[70%] h-24 bg-fire/40 blur-3xl" />
       <div
         aria-hidden
         className="absolute inset-0 opacity-[0.05]"
@@ -231,28 +231,21 @@ export function FinalCTA() {
             >
               <span>
                 <span className="text-[11px] opacity-80 block mb-1">Do the thing</span>
-                <span className="display text-2xl">Book my audit</span>
+                <span className="display text-2xl">Book the audit</span>
               </span>
               <span className="inline-flex items-center justify-center h-11 w-11 rounded-full bg-paper text-ink group-hover:translate-x-1 transition-transform">
                 →
               </span>
             </BookAuditButton>
-            <a
-              href="mailto:info@revlyn.io?subject=HubSpot%20Audit"
+            <Link
+              href="/hubspot-optimization"
               className="group flex items-center justify-between gap-3 rounded-2xl border border-paper/25 px-6 py-5 hover:border-fire hover:bg-paper/5 transition-colors"
             >
               <span>
-                <span className="text-[11px] text-paper/60 block mb-1">Or, quieter</span>
-                <span className="display text-xl text-paper">Email an operator</span>
+                <span className="text-[11px] text-paper/60 block mb-1">Already know what's broken?</span>
+                <span className="display text-xl text-paper">See how the repair works</span>
               </span>
               <span className="text-paper/60 group-hover:text-fire group-hover:translate-x-1 transition-all">→</span>
-            </a>
-            <Link
-              href="/hubspot-as-a-service"
-              className="group flex items-center justify-between gap-3 rounded-2xl border border-paper/15 px-6 py-4 hover:border-paper/50 transition-colors"
-            >
-              <span className="text-sm text-paper/70">Want us there every week?</span>
-              <span className="text-fire text-sm group-hover:translate-x-1 transition-transform">HaaS →</span>
             </Link>
           </div>
         </div>
@@ -261,4 +254,3 @@ export function FinalCTA() {
     </section>
   );
 }
-

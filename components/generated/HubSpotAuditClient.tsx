@@ -12,9 +12,6 @@ import { BookAuditButton } from "@/components/BookAuditButton";
 import { SampleFinding, FAQItem, FinalCTA } from "./HubSpotAuditWidgets";
 import { Footer } from "@/components/Footer";
 
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset - not migrated.
-const revlynWordmark = "/logos/revlyn-wordmark.png";
-
 export default function HubSpotAuditClient() {
   return (
     <div className="min-h-screen bg-paper text-ink overflow-x-hidden">
@@ -38,15 +35,6 @@ export default function HubSpotAuditClient() {
 function Hero() {
   return (
     <section className="relative border-b border-ink/10 overflow-hidden">
-      {/* ambient blooms */}
-      <div
-        className="absolute -top-40 -left-40 w-[620px] h-[620px] rounded-full blur-3xl opacity-40 pointer-events-none animate-[revlyn-float_14s_ease-in-out_infinite]"
-        style={{ background: "radial-gradient(circle, #ffd9cc, transparent 65%)" }}
-      />
-      <div
-        className="absolute top-1/3 -right-40 w-[620px] h-[620px] rounded-full blur-3xl opacity-40 pointer-events-none animate-[revlyn-float_18s_ease-in-out_infinite_reverse]"
-        style={{ background: "radial-gradient(circle, #fff59d, transparent 65%)" }}
-      />
       <div
         aria-hidden
         className="absolute inset-0 opacity-[0.06] pointer-events-none"
@@ -75,7 +63,7 @@ function Hero() {
 
           <p className="mt-8 text-lg md:text-xl text-ink/70 max-w-[620px] leading-relaxed">
             You give us a read-only seat. A senior operator spends about 90 minutes inside your
-            portal. Three days later, you get a written report about what's actually broken, what
+            portal. Four days later, you get a written report about what's actually broken, what
             to fix first, and roughly how long it'll take.
           </p>
           <p className="mt-3 text-[15px] text-ink/55 max-w-[560px]">
@@ -135,8 +123,7 @@ function AuditCard() {
 
   return (
     <div className="relative">
-      <div aria-hidden className="absolute -inset-4 rounded-3xl bg-fire/10 blur-2xl" />
-      <div className="relative rounded-2xl border-2 border-ink bg-paper shadow-[10px_10px_0_0_rgba(10,10,10,1)] overflow-hidden rotate-[-1deg] hover:rotate-0 transition-transform duration-500">
+      <div className="relative rounded-lg border-2 border-ink bg-paper shadow-[10px_10px_0_0_rgba(10,10,10,1)] overflow-hidden rotate-[-1deg] hover:rotate-0 transition-transform duration-500">
         <div className="flex items-center justify-between px-5 py-3 border-b border-ink/15 bg-bone">
           <div className="flex items-center gap-2">
             <div className="flex gap-1">
@@ -150,6 +137,9 @@ function AuditCard() {
         </div>
 
         <div className="p-5 space-y-3">
+          <div className="mono text-[9px] uppercase tracking-[0.14em] text-ink/35">
+            Health → Finding → Evidence → Verdict
+          </div>
           <div className="flex items-baseline justify-between">
             <div>
               <div className="text-[11px] text-ink/50">Overall health</div>
@@ -158,8 +148,8 @@ function AuditCard() {
               </div>
               <div className="text-[12px] text-ink/60 mt-1">Series B fintech · 240 users · $18M ARR</div>
             </div>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-fire text-paper px-3 py-1 text-[11px] font-medium">
-              <span className="h-1.5 w-1.5 rounded-full bg-paper animate-blink" />
+            <span className="inline-flex items-center gap-1.5 border border-fire text-fire px-2.5 py-1 mono text-[10px] uppercase tracking-wider">
+              <span className="h-1.5 w-1.5 rounded-full bg-fire animate-blink" />
               Fixable in 6 weeks
             </span>
           </div>
@@ -172,9 +162,9 @@ function AuditCard() {
                     <span className="text-ink/80">{r.label}</span>
                     <span className="text-[11px] text-ink/50">{r.score}</span>
                   </div>
-                  <div className="h-1.5 rounded-full bg-ink/10 overflow-hidden">
+                  <div className="h-1.5 bg-ink/10 overflow-hidden">
                     <div
-                      className="h-full rounded-full"
+                      className="h-full"
                       style={{
                         width: `${r.score}%`,
                         background:
@@ -188,7 +178,7 @@ function AuditCard() {
                   </div>
                 </div>
                 <span
-                  className={`text-[10px] px-2 py-0.5 rounded-full border whitespace-nowrap ${
+                  className={`mono text-[10px] px-1.5 py-0.5 border whitespace-nowrap ${
                     r.tone === "fire"
                       ? "border-fire text-fire"
                       : r.tone === "amber"
@@ -202,7 +192,7 @@ function AuditCard() {
             ))}
           </div>
 
-          <div className="mt-4 rounded-xl border border-ink/10 bg-bone/60 p-3 flex items-start gap-3">
+          <div className="mt-4 border border-ink/10 bg-bone/60 p-3 flex items-start gap-3">
             <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-ink text-paper text-[10px]">!</span>
             <div className="text-[12px] leading-snug text-ink/75">
               <span className="font-medium text-ink">The one that's costing them money:</span>{" "}
@@ -213,7 +203,7 @@ function AuditCard() {
         </div>
 
         <div className="flex items-center justify-between px-5 py-3 border-t border-ink/15 bg-bone/40">
-          <span className="text-[11px] text-ink/60">18 fixes, ranked · 3 day turnaround</span>
+          <span className="text-[11px] text-ink/60">18 fixes, ranked · 4 day turnaround</span>
           <span className="text-[11px] text-fire font-medium">→ full report</span>
         </div>
       </div>
@@ -258,10 +248,10 @@ function StuffWeSee() {
           {[...stuff, ...stuff].map((s, i) => (
             <div
               key={i}
-              className="inline-flex items-center gap-3 rounded-full border border-paper/15 px-5 py-2.5 hover:border-fire hover:bg-fire/10 transition-colors"
+              className="inline-flex items-center gap-2.5 border border-paper/15 px-4 py-2 hover:border-fire hover:bg-fire/10 transition-colors"
             >
               <span className="text-fire">◆</span>
-              <span className="text-[14px] text-paper/80">{s}</span>
+              <span className="mono text-[13px] text-paper/80">{s}</span>
             </div>
           ))}
         </div>
@@ -333,15 +323,16 @@ function Why() {
           {problems.map((p, i) => (
             <div
               key={p.t}
-              className="group relative rounded-2xl border border-ink/15 bg-paper p-7 hover:border-ink transition-all hover:shadow-[8px_8px_0_0_rgba(10,10,10,1)] hover:-translate-x-1 hover:-translate-y-1 duration-200"
+              className="group relative rounded-md border border-ink/20 bg-paper p-7 transition-colors hover:border-ink"
             >
               <div className="flex items-start justify-between mb-8">
-                <span className="text-4xl leading-none">{p.emoji}</span>
-                <span className="text-[10px] text-ink/40">{String(i + 1).padStart(2, "0")}</span>
+                <span className="display text-3xl leading-none text-fire/70">{String(i + 1).padStart(2, "0")}</span>
+                <span className="text-xl leading-none opacity-40 grayscale">{p.emoji}</span>
               </div>
+              <div className="mono text-[10px] uppercase tracking-widest text-ink/40 mb-2">Finding</div>
               <h3 className="display text-2xl leading-tight mb-3">{p.t}</h3>
               <p className="text-[14px] text-ink/65 leading-relaxed">{p.d}</p>
-              <div className="absolute bottom-0 left-6 right-6 h-0.5 bg-fire scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
+              <div className="absolute bottom-0 left-6 right-6 h-px bg-ink/10 group-hover:bg-fire transition-colors" />
             </div>
           ))}
         </div>
@@ -399,7 +390,7 @@ function HowItWorks() {
           {steps.map((s, i) => (
             <div key={s.t} className="relative">
               <div className="flex flex-col items-start">
-                <div className="relative z-10 h-[84px] w-[84px] rounded-full border-2 border-ink bg-paper flex items-center justify-center shadow-[4px_4px_0_0_#ff5722] group-hover:shadow-[6px_6px_0_0_#ff5722] transition-shadow">
+                <div className="relative z-10 h-[84px] w-[84px] rounded-full border-2 border-ink bg-paper flex items-center justify-center shadow-[4px_4px_0_0_#ff5722]">
                   <span className="display text-3xl">{i + 1}</span>
                 </div>
                 <div className="mt-6">
@@ -446,7 +437,7 @@ function SurfaceMap() {
 
         <div className="grid lg:grid-cols-12 gap-10 items-start" data-pin>
           <div className="lg:col-span-6" data-reveal data-pin-inner>
-            <div className="relative rounded-2xl border-2 border-ink bg-bone p-6 shadow-[10px_10px_0_0_#ff5722]">
+            <div className="relative border-2 border-ink bg-bone p-6 shadow-[10px_10px_0_0_#ff5722]">
               <svg viewBox="0 0 400 480" className="w-full h-auto" data-hero-schematic>
                 <defs>
                   <linearGradient id="lg1" x1="0" x2="1">
@@ -481,7 +472,7 @@ function SurfaceMap() {
             {layers.map((l) => (
               <div
                 key={l.n}
-                className="group grid grid-cols-[auto_1fr_auto] gap-4 items-center border-b border-ink/10 py-4 hover:bg-paper/60 px-3 -mx-3 rounded-lg transition-colors"
+                className="group grid grid-cols-[auto_1fr_auto] gap-4 items-center border-b border-ink/10 py-4"
               >
                 <span className="text-[11px] text-fire w-8 font-medium">{l.n}</span>
                 <div>
@@ -529,21 +520,14 @@ function Deliverable() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4" data-stagger>
+        <div className="border-t border-ink" data-stagger>
           {items.map((it, i) => (
             <div
               key={it.t}
-              className="group relative border border-ink/15 rounded-2xl p-6 hover:border-ink hover:bg-fire/5 transition-all"
+              className="group grid gap-2 border-b border-ink py-6 transition-colors hover:bg-bone/40 md:grid-cols-[4rem_1.2fr_1.8fr] md:items-baseline md:gap-8"
             >
-              <div className="flex items-center justify-between mb-10">
-                <span className="text-[10px] text-ink/40">{String(i + 1).padStart(2, "0")}</span>
-                <span className="h-7 w-7 rounded-full border border-ink/20 group-hover:border-fire group-hover:bg-fire transition-colors flex items-center justify-center">
-                  <svg width="10" height="10" viewBox="0 0 10 10" className="text-ink/40 group-hover:text-paper transition-colors">
-                    <path d="M2 5L4.5 7.5L8 3" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-              </div>
-              <h3 className="font-medium text-[15px] mb-2">{it.t}</h3>
+              <span className="mono text-xs text-fire">{String(i + 1).padStart(2, "0")}</span>
+              <h3 className="font-medium text-[16px]">{it.t}</h3>
               <p className="text-[13px] text-ink/60 leading-relaxed">{it.c}</p>
             </div>
           ))}
@@ -581,7 +565,7 @@ function Who() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-6" data-stagger>
-          <div className="rounded-2xl border-2 border-ink bg-paper p-8 shadow-[8px_8px_0_0_#ffeb3b]">
+          <div className="rounded-md border-2 border-ink bg-paper p-8 border-b-4 border-b-volt">
             <div className="flex items-center gap-3 mb-6">
               <span className="text-2xl">✅</span>
               <h3 className="display text-2xl">Book it</h3>
@@ -596,7 +580,7 @@ function Who() {
             </ul>
           </div>
 
-          <div className="rounded-2xl border-2 border-dashed border-ink/25 bg-paper/50 p-8">
+          <div className="rounded-md border-2 border-dashed border-ink/25 bg-paper/50 p-8">
             <div className="flex items-center gap-3 mb-6">
               <span className="text-2xl grayscale opacity-60">🙅</span>
               <h3 className="display text-2xl text-ink/60">Maybe another time</h3>
@@ -620,7 +604,7 @@ function Who() {
 function Testimonial() {
   return (
     <section className="relative py-24 md:py-32 border-b border-ink/10 overflow-hidden">
-      <div className="absolute top-1/2 -translate-y-1/2 -left-40 w-[520px] h-[520px] rounded-full blur-3xl opacity-30 bg-fire/40 pointer-events-none" />
+      <div className="absolute top-1/2 -translate-y-1/2 -left-40 w-[480px] h-[480px] rounded-full blur-3xl opacity-15 bg-fire/40 pointer-events-none" />
       <div className="relative max-w-[1100px] mx-auto px-6" data-reveal>
         <div className="text-[64px] leading-none text-fire mb-2">"</div>
         <p className="display text-3xl md:text-5xl leading-[1.15] tracking-[-0.02em] max-w-[960px]">

@@ -3,7 +3,7 @@ import HubSpotAsAServiceClient from "@/components/generated/HubSpotAsAServiceCli
 
 export const metadata: Metadata = {
   title: "HubSpot as a Service · Revlyn",
-  description: "HubSpot as a Service by Revlyn. Your extended CRM, RevOps, GTM and AI team running HubSpot end to end — architecture, automation, reporting, enablement. No internal hire required.",
+  description: "HubSpot as a Service by Revlyn. Your extended CRM, RevOps, GTM and AI team running HubSpot end to end: architecture, automation, reporting, enablement. No internal hire required.",
   alternates: { canonical: "/hubspot-as-a-service" },
 };
 

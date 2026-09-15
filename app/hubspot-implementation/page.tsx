@@ -1,13 +1,11 @@
 import { TheMoment, SixWeekAssembly, ArtifactPeek } from "@/components/ImplementationJourney";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { BookCallButton } from "@/components/BookCallButton";
+import { BookAuditButton } from "@/components/BookAuditButton";
 import { Footer } from "@/components/Footer";
 const hero = "/hubspot-impl-hero.jpg";
 const whiteboard = "/whiteboard.jpg";
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
-const revlynWordmark = "/logos/revlyn-wordmark.png";
 
 
 export const metadata: Metadata = {
@@ -40,6 +38,7 @@ export default function HubSpotImplementation() {
   return (
     <div className="min-h-screen bg-paper text-ink overflow-x-hidden">
       <Hero />
+      <Positioning />
       <TheMoment />
       <Promise />
       <Anatomy />
@@ -47,6 +46,7 @@ export default function HubSpotImplementation() {
       <Phases />
       <Blueprint />
       <ArtifactPeek />
+      <ChooseYourBuild />
       <Deliverables />
       <DataFlow />
       <BeforeAfter />
@@ -59,28 +59,94 @@ export default function HubSpotImplementation() {
   );
 }
 
+/* ═══════════════════════════════ POSITIONING ═══════════════════════════════ */
+function Positioning() {
+  const rows = [
+    ["HubSpot Implementation", "Build the foundation.", true],
+    ["Sales Hub Implementation", "Build the sales system.", false],
+    ["Marketing Hub Implementation", "Build the marketing engine.", false],
+    ["Content Hub Implementation", "Build the content system.", false],
+    ["HubSpot Optimization", "Repair an existing portal.", false],
+    ["HubSpot as a Service", "Operate and continuously improve it.", false],
+  ] as const;
+  return (
+    <section className="border-b border-ink/10 bg-bone/40 py-16 md:py-20">
+      <div className="max-w-[1400px] mx-auto px-6">
+        <div className="mono text-xs tracking-widest text-fire mb-6">Where this fits</div>
+        <div className="border-t border-ink">
+          {rows.map(([name, desc, current]) => (
+            <div
+              key={name}
+              className={`grid gap-1 border-b border-ink py-4 md:grid-cols-[1.3fr_1.7fr] md:items-baseline md:gap-8 ${
+                current ? "bg-fire/5" : ""
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                {current && <span className="h-1.5 w-1.5 rounded-full bg-fire shrink-0" />}
+                <span className={`text-[15px] ${current ? "font-medium" : "text-ink/70"}`}>{name}</span>
+                {current && <span className="mono text-[9px] uppercase tracking-widest text-fire ml-1">You are here</span>}
+              </div>
+              <span className="text-sm text-ink/60">{desc}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
-/* ═══════════════════════════════ HERO ═══════════════════════════════ */
+
+/* ═══════════════════════════════ CHOOSE YOUR BUILD ═══════════════════════════════ */
+function ChooseYourBuild() {
+  const builds = [
+    { name: "Sales Hub", desc: "Pipeline, routing, sequences, forecasting, quoting.", href: "/hubspot-implementation/sales-hub" },
+    { name: "Marketing Hub", desc: "Lifecycle, lead capture, scoring, campaign orchestration.", href: "/hubspot-implementation/marketing-hub" },
+    { name: "Content Hub", desc: "Pages, templates, SEO, publishing, content attribution.", href: "/hubspot-implementation/content-hub" },
+  ];
+  return (
+    <section className="py-20 md:py-28 border-b border-ink/10">
+      <div className="max-w-[1400px] mx-auto px-6">
+        <div className="grid md:grid-cols-12 gap-8 items-end mb-12">
+          <div className="md:col-span-4">
+            <div className="mono text-xs tracking-widest text-fire">CHOOSE YOUR BUILD</div>
+          </div>
+          <div className="md:col-span-8">
+            <h2 className="display text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-tight">
+              The foundation is the same.
+              <br />
+              What you build on it depends on the team.
+            </h2>
+          </div>
+        </div>
+        <div className="border-t border-ink">
+          {builds.map((b) => (
+            <Link
+              key={b.name}
+              href={b.href}
+              className="group grid gap-2 border-b border-ink py-7 transition-colors hover:bg-bone/50 md:grid-cols-[1fr_1.6fr_auto] md:items-center md:gap-8"
+            >
+              <h3 className="display text-2xl">{b.name}</h3>
+              <p className="text-sm text-ink/65">{b.desc}</p>
+              <span className="text-fire opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-0.5 justify-self-end hidden md:block">→</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 function Hero() {
   return (
     <section className="relative border-b border-ink/10 overflow-hidden">
-      {/* Colorful blob accents */}
+      {/* One restrained atmospheric accent */}
       <div
-        className="absolute -top-32 -left-32 w-[520px] h-[520px] rounded-full blur-3xl opacity-40 pointer-events-none"
-        style={{ background: `radial-gradient(circle, ${COLORS.sky}, transparent 65%)` }}
-      />
-      <div
-        className="absolute top-1/3 -right-32 w-[520px] h-[520px] rounded-full blur-3xl opacity-40 pointer-events-none"
-        style={{ background: `radial-gradient(circle, ${COLORS.blush}, transparent 65%)` }}
-      />
-      <div
-        className="absolute bottom-0 left-1/3 w-[440px] h-[440px] rounded-full blur-3xl opacity-30 pointer-events-none"
-        style={{ background: `radial-gradient(circle, ${COLORS.volt}, transparent 65%)` }}
+        className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full blur-3xl opacity-25 pointer-events-none"
+        style={{ background: `radial-gradient(circle, ${COLORS.fireWash}, transparent 65%)` }}
       />
 
       <div className="max-w-[1400px] mx-auto px-6 pt-14 md:pt-20 pb-16 md:pb-24 grid md:grid-cols-12 gap-10 items-end relative">
         <div className="md:col-span-7">
-          <div className="inline-flex items-center gap-3 mono text-xs tracking-[0.22em] uppercase bg-paper/70 backdrop-blur border border-ink/10 rounded-full px-3 py-1.5">
+          <div className="inline-flex items-center gap-3 mono text-xs tracking-[0.22em] uppercase border border-ink/15 px-3 py-1.5">
             <span className="w-2 h-2 rounded-full bg-fire animate-pulse" />
             By the time you land here, you've already opened ten of these tabs
           </div>
@@ -89,20 +155,11 @@ function Hero() {
             <br />
             the{" "}
             <span className="relative inline-block">
-              <span
-                className="relative z-10 italic"
-                style={{
-                  backgroundImage: `linear-gradient(90deg, ${COLORS.fire}, ${COLORS.blush}, ${COLORS.lavender})`,
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  color: "transparent",
-                }}
-              >
+              <span className="relative z-10 italic text-fire">
                 sales pitch
               </span>
               <span
-                className="absolute -bottom-1 left-0 right-0 h-3 -z-0"
-                style={{ background: `linear-gradient(90deg, ${COLORS.volt}, ${COLORS.fire})` }}
+                className="absolute -bottom-1 left-0 right-0 h-3 -z-0 bg-volt"
                 aria-hidden
               />
             </span>
@@ -117,12 +174,9 @@ function Hero() {
 
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
-            <a
-              href="mailto:info@revlyn.io?subject=HubSpot Implementation"
-              className="inline-flex items-center gap-2 rounded-full bg-ink text-paper px-6 py-3 text-sm font-medium hover:bg-fire transition-colors"
-            >
+            <BookCallButton className="inline-flex items-center gap-2 rounded-full bg-ink text-paper px-6 py-3 text-sm font-medium hover:bg-fire transition-colors">
               Start your build <span>→</span>
-            </a>
+            </BookCallButton>
             <Link
               href="/hubspot-as-a-service"
               className="inline-flex items-center gap-2 rounded-full border border-ink/20 bg-paper/60 backdrop-blur px-6 py-3 text-sm font-medium hover:bg-ink hover:text-paper transition-colors"
@@ -133,9 +187,9 @@ function Hero() {
 
           <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-lg">
             {[
-              ["127+", "portals we have shipped", COLORS.fire],
-              ["8 yrs", "avg. operator tenure", COLORS.sky],
-              ["0", "junior handoffs", COLORS.emerald],
+              ["6 wks", "fixed-scope build", COLORS.fire],
+              ["6", "named workstreams", COLORS.sky],
+              ["1", "documented handoff", COLORS.emerald],
             ].map(([n, l, c]) => (
               <div key={l} className="pt-3" style={{ borderTop: `3px solid ${c}` }}>
                 <div className="display text-4xl md:text-5xl leading-none">{n}</div>
@@ -148,13 +202,7 @@ function Hero() {
         </div>
 
         <div className="md:col-span-5 relative">
-          <div
-            className="absolute -inset-4 rounded-2xl opacity-70 blur-2xl"
-            style={{
-              background: `linear-gradient(135deg, ${COLORS.sky}, ${COLORS.lavender}, ${COLORS.blush})`,
-            }}
-          />
-          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border-2 border-ink shadow-[8px_8px_0_0_var(--color-ink)]">
+          <div className="relative aspect-[4/5] overflow-hidden border-2 border-ink shadow-[8px_8px_0_0_var(--color-ink)]">
             <img
               src={hero}
               alt="HubSpot implementation blueprint on a desk"
@@ -162,10 +210,10 @@ function Hero() {
               width={1600}
               height={2000}
             />
-            <div className="absolute top-4 left-4 bg-volt border border-ink px-3 py-1.5 rounded-full mono text-[10px] tracking-widest uppercase">
+            <div className="absolute top-4 left-4 bg-volt border border-ink px-3 py-1.5 mono text-[10px] tracking-widest uppercase">
               Blueprint · v1.4
             </div>
-            <div className="absolute bottom-4 right-4 bg-fire text-paper px-3 py-1.5 rounded-full mono text-[10px] tracking-widest uppercase">
+            <div className="absolute bottom-4 right-4 bg-fire text-paper border border-ink px-3 py-1.5 mono text-[10px] tracking-widest uppercase">
               Live in 42 days
             </div>
           </div>
@@ -222,24 +270,15 @@ function Promise() {
             </h2>
           </div>
         </div>
-        <div className="grid md:grid-cols-2 gap-5">
+        <div className="border-t border-ink">
           {items.map((it) => (
             <div
               key={it.k}
-              className="rounded-3xl p-8 md:p-10 border-2 border-ink transition-all hover:-translate-y-1 hover:shadow-[8px_8px_0_0_var(--color-ink)]"
-              style={{ background: it.bg }}
+              className="grid gap-3 border-b border-ink py-8 md:grid-cols-[4rem_1.4fr_1.6fr] md:items-center md:gap-8"
             >
-              <div className="flex items-center gap-3">
-                <span
-                  className="w-3 h-3 rounded-full"
-                  style={{ background: it.dot }}
-                />
-                <div className="mono text-xs tracking-widest">{it.k}</div>
-              </div>
-              <h3 className="mt-4 display text-2xl md:text-3xl leading-tight">
-                {it.h}
-              </h3>
-              <p className="mt-3 text-ink/75 leading-relaxed">{it.p}</p>
+              <span className="mono text-xs text-fire">{it.k}</span>
+              <h3 className="display text-xl md:text-2xl leading-tight">{it.h}</h3>
+              <p className="text-ink/70 leading-relaxed text-sm">{it.p}</p>
             </div>
           ))}
         </div>
@@ -581,34 +620,14 @@ function Deliverables() {
             </h2>
           </div>
         </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {groups.map((g) => (
-            <div
-              key={g.h}
-              className="rounded-2xl border-2 border-ink p-8 bg-paper relative overflow-hidden hover:-translate-y-1 hover:shadow-[8px_8px_0_0_var(--color-ink)] transition-all"
-            >
-              <div
-                className="absolute top-0 left-0 right-0 h-2"
-                style={{ background: g.c }}
-              />
-              <div
-                className="inline-block mono text-[10px] tracking-widest uppercase px-2 py-0.5 rounded border border-ink"
-                style={{ background: g.c }}
-              >
-                Bundle
+        <div className="border-t border-ink">
+          {groups.map((g, i) => (
+            <div key={g.h} className="grid gap-2 border-b border-ink py-7 md:grid-cols-[4rem_1fr] md:items-baseline md:gap-8">
+              <span className="mono text-xs text-fire">{String(i + 1).padStart(2, "0")}</span>
+              <div>
+                <h3 className="display text-xl uppercase tracking-tight">{g.h}</h3>
+                <p className="mt-1.5 text-sm text-ink/65">{g.items.join(" · ")}</p>
               </div>
-              <h3 className="mt-3 display text-2xl">{g.h}</h3>
-              <ul className="mt-5 space-y-2">
-                {g.items.map((i) => (
-                  <li key={i} className="flex items-center gap-3 text-ink/80">
-                    <span
-                      className="w-2 h-2 rounded-full"
-                      style={{ background: g.c }}
-                    />
-                    {i}
-                  </li>
-                ))}
-              </ul>
             </div>
           ))}
         </div>
@@ -864,7 +883,7 @@ function WhoItsFor() {
           </div>
           <div className="md:col-span-8">
             <h2 className="display text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-tight">
-              Right fit, wrong fit , <br />we'd rather say it upfront.
+              Right fit, wrong fit,<br />we'd rather say it upfront.
             </h2>
           </div>
         </div>
@@ -918,105 +937,42 @@ function WhoItsFor() {
 
 /* ═══════════════════════════════ PRICING ═══════════════════════════════ */
 function Pricing() {
-  const tiers = [
-    {
-      h: "Starter",
-      p: "from $8K",
-      d: "Single hub, single pipeline, up to 3 integrations. Ideal for early-stage teams.",
-      b: ["Marketing or Sales Hub", "Up to 3 integrations", "1 pipeline, 1 dashboard set", "2 training sessions"],
-      c: COLORS.sky,
-      bg: "#fff1ec",
-    },
-    {
-      h: "Growth",
-      p: "from $18K",
-      d: "Full multi-hub build with warehouse, AI and attribution. Our most popular.",
-      b: ["Marketing + Sales + Service", "Warehouse + product events", "AI enrichment & routing", "Attribution & forecasting"],
-      feature: true,
-    },
-    {
-      h: "Enterprise",
-      p: "Custom",
-      d: "Multi-region, multi-entity, or Salesforce → HubSpot migrations.",
-      b: ["Multi-brand / multi-region", "Complex migration", "Custom objects at scale", "Change management"],
-      c: COLORS.emerald,
-      bg: "#fff59d",
-    },
+  const factors = [
+    ["Portal complexity", "How many hubs, how much legacy configuration, how much history to migrate."],
+    ["Data condition", "Clean data moves faster than years of duplicates and orphaned records."],
+    ["Integration count", "Every connected system (warehouse, billing, product, support) adds scope."],
+    ["Team readiness", "How much leadership time is available each week during the build."],
   ];
   return (
     <section className="py-20 md:py-28 border-b border-ink/10">
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="grid md:grid-cols-12 gap-8 items-end mb-14">
           <div className="md:col-span-4">
-            <div className="mono text-xs tracking-widest text-fire">09 · INVESTMENT</div>
+            <div className="mono text-xs tracking-widest text-fire">09 · SCOPE</div>
           </div>
           <div className="md:col-span-8">
             <h2 className="display text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-tight">
-              Fixed scope.<br />Fixed price. No surprises.
+              How scope is determined.
             </h2>
+            <p className="mt-4 text-ink/70 leading-relaxed max-w-xl">
+              Every build starts with a scoping conversation, not a price list. What it costs depends on
+              what's actually in your portal today.
+            </p>
           </div>
         </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {tiers.map((t) => (
-            <div
-              key={t.h}
-              className={`rounded-2xl border-2 border-ink p-8 relative overflow-hidden hover:-translate-y-1 hover:shadow-[8px_8px_0_0_var(--color-ink)] transition-all ${
-                t.feature ? "text-paper" : ""
-              }`}
-              style={{
-                background: t.feature
-                  ? `linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 60%, ${COLORS.fire} 200%)`
-                  : t.bg,
-              }}
-            >
-              {t.feature && (
-                <div
-                  className="absolute -top-8 -right-8 w-40 h-40 rounded-full blur-2xl opacity-70"
-                  style={{ background: COLORS.fire }}
-                />
-              )}
-              {t.feature && (
-                <div className="absolute top-4 right-4 bg-volt text-ink px-3 py-1 rounded-full mono text-[10px] tracking-widest uppercase border border-ink">
-                  Most chosen
-                </div>
-              )}
-              <div className="relative">
-                <div className="display text-3xl">{t.h}</div>
-                <div className="mt-4 display text-4xl">{t.p}</div>
-                <p
-                  className={`mt-4 leading-relaxed ${t.feature ? "text-paper/70" : "text-ink/75"}`}
-                >
-                  {t.d}
-                </p>
-                <ul className="mt-6 space-y-2.5">
-                  {t.b.map((b) => (
-                    <li key={b} className="flex items-center gap-3">
-                      <span
-                        className="w-1.5 h-1.5 rounded-full"
-                        style={{ background: t.feature ? COLORS.fire : t.c }}
-                      />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="mailto:info@revlyn.io?subject=HubSpot Implementation"
-                  className={`mt-8 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-colors ${
-                    t.feature
-                      ? "bg-paper text-ink hover:bg-fire hover:text-paper"
-                      : "bg-ink text-paper hover:bg-fire"
-                  }`}
-                >
-                  Get scoped <span>→</span>
-                </a>
-              </div>
+        <div className="border-t border-ink">
+          {factors.map(([h, d]) => (
+            <div key={h} className="grid gap-2 border-b border-ink py-6 md:grid-cols-[1fr_1.6fr] md:items-baseline md:gap-8">
+              <h3 className="display text-xl">{h}</h3>
+              <p className="text-sm text-ink/65">{d}</p>
             </div>
           ))}
         </div>
-        <p className="mt-6 text-sm text-ink/55">
-          Every engagement starts with a $2K discovery. If we build with you, that's
-          credited toward the project.
-        </p>
+        <div className="mt-8">
+          <BookCallButton className="inline-flex items-center gap-2 rounded-full bg-ink text-paper px-6 py-3 text-sm font-medium hover:bg-fire transition-colors">
+            Get scoped <span>→</span>
+          </BookCallButton>
+        </div>
       </div>
     </section>
   );
@@ -1128,12 +1084,9 @@ function CTA() {
           <BookCallButton className="inline-flex items-center gap-2 rounded-full bg-paper text-ink px-6 py-3 text-sm font-medium hover:bg-fire hover:text-paper transition-colors">
             Book a scoping call <span>→</span>
           </BookCallButton>
-          <a
-            href="mailto:info@revlyn.io?subject=HubSpot audit"
-            className="inline-flex items-center gap-2 rounded-full border border-paper/30 px-6 py-3 text-sm font-medium hover:bg-paper hover:text-ink transition-colors"
-          >
+          <BookAuditButton className="inline-flex items-center gap-2 rounded-full border border-paper/30 px-6 py-3 text-sm font-medium hover:bg-paper hover:text-ink transition-colors">
             Or start with an audit
-          </a>
+          </BookAuditButton>
         </div>
       </div>
     </section>

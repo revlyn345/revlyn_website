@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { BookCallButton } from "@/components/BookCallButton";
+import { BookAuditButton } from "@/components/BookAuditButton";
 import { Footer } from "@/components/Footer";
-
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
-const revlynWordmark = "/logos/revlyn-wordmark.png";
 
 export const metadata: Metadata = {
   title: "HubSpot Content Hub Implementation",
@@ -27,12 +24,12 @@ export const metadata: Metadata = {
 
 function Tag({ children, tone = "ink" }: { children: React.ReactNode; tone?: "ink" | "fire" | "volt" | "bone" }) {
   const map: Record<string, string> = {
-    ink: "bg-ink text-paper",
-    fire: "bg-fire text-paper",
-    volt: "bg-volt text-ink",
-    bone: "bg-bone text-ink",
+    ink: "bg-ink text-paper border-ink",
+    fire: "bg-fire text-paper border-fire",
+    volt: "bg-volt text-ink border-ink",
+    bone: "bg-bone text-ink border-ink",
   };
-  return <span className={`mono text-[10px] px-2 py-1 rounded-full ${map[tone]}`}>{children}</span>;
+  return <span className={`mono text-[10px] px-2 py-1 border ${map[tone]}`}>{children}</span>;
 }
 
 function GridPaper() {
@@ -111,10 +108,10 @@ function HeroComposer() {
 
         <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-3">
           {[
-            { k: "3.4x", v: "Publish velocity" },
-            { k: "94", v: "Lighthouse" },
+            { k: "8", v: "Block types" },
+            { k: "SEO", v: "Built into template" },
             { k: "0", v: "Dev tickets" },
-            { k: "1 model", v: "Page → revenue" },
+            { k: "1 model", v: "Page attribution" },
           ].map((x) => (
             <div key={x.v} className="brutal-border bg-bone px-3 py-3">
               <div className="font-display text-2xl leading-none">{x.k}</div>
@@ -347,7 +344,7 @@ function PageAnatomy() {
           <div className="mt-6 brutal-border bg-bone p-4">
             <div className="mono text-[10px] text-ink/50 mb-1">RULE</div>
             <div className="text-sm">
-              A page is not "designed" until every block earns a job — proof, promise, or action. Decoration is
+              A page is not "designed" until every block earns a job: proof, promise, or action. Decoration is
               debt.
             </div>
           </div>
@@ -380,9 +377,8 @@ function SeoStack() {
         {layers.map((l, i) => (
           <div
             key={l.code}
-            data-tilt="5"
             data-reveal
-            className="group brutal-border bg-bone p-5 flex items-start gap-4 hover:brutal-shadow hover:-translate-y-1 transition-all"
+            className="group brutal-border bg-bone p-5 flex items-start gap-4 transition-colors hover:bg-paper"
           >
             <div
               className={`h-14 w-14 shrink-0 grid place-items-center font-display text-xl ${
@@ -429,16 +425,7 @@ function VoiceTuner() {
           {dials.map((d) => {
             const angle = -90 + 180 * d.pct;
             return (
-              <div
-                key={d.k}
-                data-tilt="6"
-                data-spotlight
-                className="brutal-border bg-bone p-4 flex items-center gap-4 hover:brutal-shadow-volt transition-all"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(240px circle at var(--sx,50%) var(--sy,50%), rgba(255,235,59,0.25), transparent 60%)",
-                }}
-              >
+              <div key={d.k} className="brutal-border bg-bone p-4 flex items-center gap-4 transition-colors hover:bg-paper">
                 <svg viewBox="0 0 160 100" className="w-32 shrink-0" aria-hidden>
                   <path d="M10 90 A 70 70 0 0 1 150 90" stroke="var(--color-ink)" strokeOpacity="0.15" strokeWidth="8" fill="none" />
                   <path
@@ -491,6 +478,7 @@ function VoiceTuner() {
           </div>
         </div>
       </div>
+      <p className="mt-4 mono text-[9px] uppercase tracking-[0.1em] text-ink/35">Illustrative example draft and scores</p>
     </div>
   );
 }
@@ -504,7 +492,7 @@ function PublishPipeline() {
     <div className="brutal-border bg-paper p-6 md:p-8">
       <div className="flex items-center justify-between mb-6">
         <div className="mono text-[11px] text-ink/60">PUBLISH.PIPELINE · IDEA → LIVE</div>
-        <Tag tone="volt">median · 4 days</Tag>
+        <Tag tone="volt">target · 4 days</Tag>
       </div>
 
       <svg viewBox="0 0 720 260" className="w-full h-[260px]" aria-hidden>
@@ -635,7 +623,7 @@ function SegmentMatrix() {
             return (
               <div key={s}>
                 <span
-                  className={`mono text-[10px] px-2 py-1 rounded ${
+                  className={`mono text-[10px] px-2 py-1 ${
                     isB ? "bg-volt text-ink" : "bg-ink/8 text-ink"
                   }`}
                 >
@@ -647,7 +635,7 @@ function SegmentMatrix() {
         </div>
       ))}
       <div className="p-6 mono text-[11px] text-ink/60">
-        Every test tied to pipeline, not just clicks. Winners promote to default automatically after 95% confidence.
+        Every test tied to pipeline, not just clicks. Winners are promoted to the default once the agreed confidence threshold is met.
       </div>
     </div>
   );
@@ -669,10 +657,10 @@ function AttributionLedger() {
     <div className="brutal-border bg-paper overflow-hidden">
       <div className="flex items-center justify-between p-6 border-b border-ink/10">
         <div>
-          <div className="mono text-[11px] text-ink/60">CONTENT.LEDGER · LAST 90 DAYS</div>
+          <div className="mono text-[11px] text-ink/60">CONTENT.LEDGER · SAMPLE MODEL</div>
           <div className="font-display text-2xl tracking-[-0.02em] mt-1">Every page has a P&amp;L, or it does not exist.</div>
         </div>
-        <Tag tone="volt">live</Tag>
+        <Tag tone="volt">illustrative · sample data</Tag>
       </div>
       <div className="grid grid-cols-[1.6fr_0.9fr_0.9fr_0.9fr_1fr] mono text-[10px] uppercase tracking-[0.14em] px-6 py-3 border-b border-ink/10 text-ink/50">
         <div>Page</div>
@@ -703,6 +691,9 @@ function AttributionLedger() {
       ))}
       <div className="p-6 mono text-[11px] text-ink/60">
         Same record marketing, sales, and finance see. No dashboard reconciliation before the board deck.
+      </div>
+      <div className="px-6 pb-5 mono text-[9px] uppercase tracking-[0.1em] text-ink/35">
+        Illustrative example, not a specific client's measured result
       </div>
     </div>
   );
@@ -767,46 +758,64 @@ function BuildPlan() {
    ───────────────────────────────────────────────────────────── */
 
 function IntegrationsOrbit() {
-  const items = [
-    "Webflow (migration)", "WordPress (migration)", "Figma", "Google Search Console",
-    "Google Analytics 4", "Ahrefs", "Semrush", "Cloudinary",
-    "OpenAI", "Anthropic", "Segment", "Mutiny",
-    "Cloudflare", "Vercel", "GitHub", "Zapier",
-    "Slack", "Notion",
+  const categories = [
+    { name: "CMS Migration", tools: ["Webflow (migration)", "WordPress (migration)", "Figma"] },
+    { name: "Search", tools: ["Google Search Console", "Ahrefs", "Semrush"] },
+    { name: "Analytics", tools: ["Google Analytics 4", "Segment", "Mutiny"] },
+    { name: "AI", tools: ["OpenAI", "Anthropic"] },
+    { name: "Delivery", tools: ["Cloudflare", "Vercel", "GitHub", "Cloudinary"] },
+    { name: "Ops", tools: ["Zapier", "Slack", "Notion"] },
   ];
   return (
-    <div className="brutal-border bg-paper p-6 md:p-10 relative overflow-hidden">
-      <div className="grid md:grid-cols-[300px_1fr] gap-8 items-center">
-        <div className="relative h-[300px]">
-          <svg viewBox="0 0 300 300" className="w-full h-full animate-spin-slow" aria-hidden>
-            <circle cx="150" cy="150" r="120" stroke="var(--color-ink)" strokeOpacity="0.15" strokeDasharray="4 6" fill="none" />
-            <circle cx="150" cy="150" r="80" stroke="var(--color-ink)" strokeOpacity="0.1" strokeDasharray="2 4" fill="none" />
-          </svg>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="brutal-border bg-volt px-5 py-3 font-display text-2xl">Content Hub</div>
-          </div>
-          {[0, 60, 120, 180, 240, 300].map((deg, i) => {
-            const rad = (deg * Math.PI) / 180;
-            const x = 150 + 120 * Math.cos(rad);
-            const y = 150 + 120 * Math.sin(rad);
-            return (
-              <div
-                key={i}
-                className="absolute h-3 w-3 rounded-full bg-fire brutal-border"
-                style={{ left: `${(x / 300) * 100}%`, top: `${(y / 300) * 100}%`, transform: "translate(-50%,-50%)" }}
-              />
-            );
-          })}
-        </div>
-        <div>
-          <div className="mono text-[11px] text-ink/60 mb-4">CONNECTS TO YOUR STACK · NO DUCT TAPE</div>
-          <div className="flex flex-wrap gap-2">
-            {items.map((x) => (
-              <span key={x} className="brutal-border bg-bone px-3 py-1.5 text-sm hover:bg-volt transition-colors">
-                {x}
-              </span>
-            ))}
-          </div>
+    <div className="brutal-border bg-paper p-6 md:p-10">
+      <div className="mono text-[11px] text-ink/60 mb-6">CONTENT HUB · OPERATING SPINE</div>
+
+      <svg viewBox="0 0 800 260" className="w-full h-auto" aria-hidden>
+        <defs>
+          <marker id="ch-int-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="var(--color-ink)" />
+          </marker>
+        </defs>
+        <path d="M400 130 H90" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#ch-int-arrow)" />
+        <path d="M400 130 H710" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#ch-int-arrow)" />
+        <path d="M370 110 L200 35" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#ch-int-arrow)" />
+        <path d="M430 110 L600 35" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#ch-int-arrow)" />
+        <path d="M370 150 L200 225" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#ch-int-arrow)" />
+        <path d="M430 150 L600 225" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#ch-int-arrow)" />
+
+        <g transform="translate(320, 105)">
+          <rect width="160" height="50" fill="var(--color-volt)" stroke="var(--color-ink)" strokeWidth="1.5" />
+          <text x="80" y="30" textAnchor="middle" fontSize="14" fontWeight="700" fontFamily="var(--font-mono)" fill="var(--color-ink)">Content Hub</text>
+        </g>
+
+        {[
+          { x: 10, y: 106, label: "CMS Migration" },
+          { x: 630, y: 106, label: "Analytics" },
+          { x: 130, y: 12, label: "Search" },
+          { x: 530, y: 12, label: "AI" },
+          { x: 130, y: 200, label: "Delivery" },
+          { x: 530, y: 200, label: "Ops" },
+        ].map((n) => (
+          <g key={n.label} transform={`translate(${n.x}, ${n.y})`}>
+            <rect width="160" height="46" fill="var(--color-bone)" stroke="var(--color-ink)" strokeWidth="1.2" />
+            <text x="10" y="27" fontSize="11" fontFamily="var(--font-mono)" fill="var(--color-ink)">{n.label}</text>
+          </g>
+        ))}
+      </svg>
+
+      <div className="mt-8 border-t border-ink/10 pt-6">
+        <div className="mono text-[10px] uppercase tracking-[0.14em] text-ink/45 mb-4">Full connection list · no duct tape</div>
+        <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+          {categories.map((c) => (
+            <div key={c.name}>
+              <div className="mono text-[10px] uppercase tracking-[0.1em] text-ink/50 mb-1.5">{c.name}</div>
+              <div className="flex flex-wrap gap-1.5">
+                {c.tools.map((t) => (
+                  <span key={t} className="text-xs text-ink/70 border border-ink/12 px-2 py-1">{t}</span>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -821,13 +830,13 @@ const MODULES = [
   {
     code: "C-01",
     title: "Design system + modular blocks",
-    body: "A component library your marketing team composes without breaking brand. Hero, proof, feature, form, pricing, FAQ, CTA — every block a marketer can drop, every variant already approved.",
+    body: "A component library your marketing team composes without breaking brand. Hero, proof, feature, form, pricing, FAQ, CTA: every block a marketer can drop, every variant already approved.",
     tone: "fire",
   },
   {
     code: "C-02",
     title: "IA, migration, and redirects",
-    body: "Information architecture built from real search demand. Clean migration from Webflow, WordPress, or wherever, with a 301 map that does not lose rankings.",
+    body: "Information architecture built from real search demand. Clean migration from Webflow, WordPress, or wherever, with a full URL and redirect map, QA'd in staging before anything goes live.",
     tone: "ink",
   },
   {
@@ -845,7 +854,7 @@ const MODULES = [
   {
     code: "C-05",
     title: "Personalization + A/B",
-    body: "Segment-based blocks by ICP. Statistically valid A/B on hero, form, and pricing. Winners promote to default — no analyst rebuilding the report every Monday.",
+    body: "Segment-based blocks by ICP. Statistically designed A/B on hero, form, and pricing. Winners are promoted to the default once the agreed confidence threshold is met.",
     tone: "ink",
   },
   {
@@ -856,73 +865,21 @@ const MODULES = [
   },
 ] as const;
 
-function ModuleGlyph({ i, stroke }: { i: number; stroke: string }) {
-  const paths = [
-    "M2 26 Q 18 6, 36 18 T 70 10",
-    "M2 22 h 16 v -14 h 12 v 20 h 16 v -10 h 24",
-    "M4 28 l 12 -18 l 12 12 l 12 -8 l 22 14",
-    "M2 20 c 10 -14, 22 -14, 32 0 s 24 14, 34 0",
-    "M2 24 h 10 l 4 -14 l 4 14 l 4 -8 l 4 8 h 42",
-    "M2 6 h 68 M2 16 h 40 M2 26 h 60",
-  ];
-  return (
-    <svg width="80" height="34" viewBox="0 0 72 32" className="mb-4" aria-hidden>
-      <rect x="0" y="20" width="72" height="8" fill="#ffeb3b" opacity="0.55" />
-      <path d={paths[i % paths.length]} stroke={stroke} strokeWidth="2.5" fill="none" strokeLinecap="round" data-draw />
-    </svg>
-  );
-}
-
 function ModulesGrid() {
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4" data-stagger>
+    <div className="border-t border-ink">
       {MODULES.map((m, i) => {
-        const isVolt = m.tone === "volt";
-        const isFire = m.tone === "fire";
-        const cardStroke = isFire ? "#ff5722" : "#0a0a0a";
-        const chip = isFire ? "bg-fire text-paper" : isVolt ? "bg-volt text-ink" : "bg-ink text-paper";
-        const tape = isFire ? "bg-fire" : isVolt ? "bg-volt" : "bg-ink";
-        const shadowHover = isFire
-          ? "hover:brutal-shadow-fire"
-          : isVolt
-            ? "hover:brutal-shadow-volt"
-            : "hover:brutal-shadow";
+        const accent = m.tone === "fire" ? "text-fire" : m.tone === "volt" ? "text-ink" : "text-ink";
         return (
           <div
             key={m.code}
-            data-tilt="5"
-            data-spotlight
             data-reveal
-            className={`group module-card relative overflow-hidden brutal-border bg-paper p-6 transition-all duration-200 hover:-translate-y-1 hover:-translate-x-0.5 ${shadowHover}`}
-            style={{
-              backgroundImage:
-                "radial-gradient(320px circle at var(--sx,50%) var(--sy,50%), rgba(255,235,59,0.20), transparent 60%)",
-            }}
+            className="group grid grid-cols-[4rem_1fr] gap-4 border-b border-ink py-7 transition-colors hover:bg-bone/50 md:grid-cols-[5rem_1.3fr_1.7fr_2rem] md:items-center"
           >
-            <span className={`absolute -top-3 -right-3 h-14 w-14 rotate-45 ${tape} opacity-90`} />
-            <span className="absolute top-2 right-2 mono text-[9px] text-ink/50 font-bold z-10">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <span
-              aria-hidden
-              className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 bg-gradient-to-r from-fire via-volt to-ink"
-            />
-
-            <div className="flex items-center justify-between mb-4 relative">
-              <span className={`mono text-[10px] uppercase tracking-[0.14em] px-2 py-1 rounded ${chip}`}>
-                {m.code}
-              </span>
-            </div>
-            <ModuleGlyph i={i} stroke={cardStroke} />
-            <h3 className="font-display text-2xl tracking-[-0.02em] leading-tight mb-3">
-              <span className="hl-target">{m.title}</span>
-            </h3>
-            <p className="text-sm text-ink/70 leading-relaxed">{m.body}</p>
-            <div className="mt-6 flex items-center gap-2 mono text-[10px] text-ink/50 border-t border-ink/10 pt-4">
-              <span className="h-px w-8 bg-ink/40 group-hover:w-16 transition-all" />
-              <span>Module {String(i + 1).padStart(2, "0")} of 06</span>
-              <span className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-            </div>
+            <span className={`mono text-xs ${accent}`}>{m.code}</span>
+            <h3 className="font-display text-xl md:text-2xl tracking-[-0.02em]">{m.title}</h3>
+            <p className="col-span-2 md:col-span-1 text-sm text-ink/65 leading-relaxed">{m.body}</p>
+            <span className="hidden md:block justify-self-end text-fire opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-0.5">→</span>
           </div>
         );
       })}
@@ -937,11 +894,11 @@ function ModulesGrid() {
 const FAQ = [
   {
     q: "Can our marketers really publish without a dev?",
-    a: "Yes, for anything the design system covers — hero, feature, blog, pricing, landing, comparison. New page types still involve us or your dev, but the 90% case is marketer-shippable by design. We measure it: teams we ship hit a median of 3 to 4 pages a week on their own inside the first month.",
+    a: "Yes, for anything the design system covers: hero, feature, blog, pricing, landing, comparison. New page types still involve us or your dev, but the 90% case is marketer-shippable by design. Teams we work with typically start shipping pages on their own within the first month.",
   },
   {
     q: "What about our current rankings on migration?",
-    a: "We take a full SEO snapshot before touching anything, map every URL, and QA the 301s in staging. Ranking loss on migration should be under 5%, and recovered within 60 days. We have done this dozens of times and will show you the exact playbook on our first call.",
+    a: "We take a full SEO snapshot before touching anything. We build a full URL and redirect map, QA the migration in staging, and monitor organic performance after launch. We have done this dozens of times and will show you the exact playbook on our first call.",
   },
   {
     q: "Is the AI writing going to sound like AI?",
@@ -953,7 +910,7 @@ const FAQ = [
   },
   {
     q: "How do you attribute a page to revenue without a data team?",
-    a: "HubSpot's contact attribution plus GA4 sessions plus GSC queries collapse into a single ledger inside the portal. First-touch, multi-touch, and closed-won all show against the page. If you have a data team, we ship the raw model so you can extend it — but you do not need one to run it.",
+    a: "HubSpot's contact attribution plus GA4 sessions plus GSC queries collapse into a single ledger inside the portal. First-touch, multi-touch, and closed-won all show against the page. If you have a data team, we ship the raw model so you can extend it. You do not need one to run it.",
   },
 ];
 
@@ -966,20 +923,6 @@ export default function ContentHub() {
     <div className="min-h-screen bg-paper text-ink">
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative bg-paper border-b border-ink/10 overflow-hidden">
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 1px 1px, rgba(10,10,10,0.18) 1px, transparent 0)",
-            backgroundSize: "22px 22px",
-            maskImage: "radial-gradient(ellipse 70% 60% at 30% 40%, black 20%, transparent 75%)",
-            WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 30% 40%, black 20%, transparent 75%)",
-          }}
-        />
-        <div aria-hidden className="absolute -top-32 -left-40 w-[520px] h-[520px] rounded-full bg-volt/25 blur-3xl pointer-events-none" />
-        <div aria-hidden className="absolute -bottom-32 -right-40 w-[520px] h-[520px] rounded-full bg-fire/15 blur-3xl pointer-events-none" />
-
         <div className="max-w-[1300px] mx-auto px-6 pt-28 pb-24 md:pt-36 md:pb-32 relative">
          
           <div className="grid lg:grid-cols-[1.25fr_1fr] gap-12 items-end">
@@ -998,32 +941,30 @@ export default function ContentHub() {
               </div>
               <p className="mt-8 max-w-[560px] text-lg md:text-xl text-ink/70 leading-relaxed" data-reveal data-reveal-delay="0.15">
                 Modular templates a marketer can use without a dev. SEO wired in from the first field. AI-assisted
-                authoring you can trust. And analytics that show which pages drive pipeline, not just traffic. Wired
-                end-to-end in 4-6 weeks by an operator who has done it a dozen times.
+                authoring you can trust. And analytics that show which pages drive pipeline, not just traffic. Built
+                end-to-end in six weeks, with a fixed scope and a defined go-live.
               </p>
               <div className="mt-10 flex flex-wrap gap-3" data-stagger>
-                <Link
-                  href="/contact"
+                <BookCallButton
                   data-magnetic="14"
                   className="group inline-flex items-center gap-2 rounded-full bg-ink text-paper pl-5 pr-2 py-2.5 text-sm font-medium hover:bg-fire transition-colors"
                 >
                   Scope a Content Hub build
                   <span className="inline-flex items-center justify-center h-7 w-7 rounded-full bg-paper text-ink group-hover:translate-x-0.5 transition-transform">→</span>
-                </Link>
-                <Link
-                  href="/hubspot-audit"
+                </BookCallButton>
+                <BookAuditButton
                   data-magnetic="10"
                   className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-5 py-2.5 text-sm hover:bg-bone transition-colors"
                 >
-                  Get a free 47-point audit
-                </Link>
+                  Start with a free HubSpot audit
+                </BookAuditButton>
               </div>
 
               <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-[600px]" data-stagger>
                 {[
-                  { k: "3.4x", v: "Publish velocity", n: "pages per week, no dev" },
-                  { k: "94", v: "Lighthouse median", n: "across shipped templates" },
-                  { k: "1 model", v: "Page → revenue", n: "in the same dashboard" },
+                  { k: "6 wks", v: "Fixed-scope build", n: "design system through go-live" },
+                  { k: "6", v: "Named workstreams", n: "each with an owner on both sides" },
+                  { k: "1", v: "Attribution model", n: "GSC + GA4 + HubSpot, one ledger" },
                 ].map((o) => (
                   <div key={o.v} className="border-l-2 border-ink/10 pl-4">
                     <div className="font-display text-3xl md:text-4xl leading-none tracking-tight text-ink">{o.k}</div>
@@ -1034,26 +975,10 @@ export default function ContentHub() {
               </div>
             </div>
 
-            {/* Right: portal schematic card wrapping the live composer */}
-            <div className="relative" data-tilt="6" data-reveal>
-              <div className="absolute inset-4 rounded-3xl blur-2xl bg-volt/40 opacity-70 -z-10" />
-              <div className="relative rounded-2xl border border-ink/15 bg-paper shadow-[0_28px_80px_-24px_rgba(10,10,10,0.28)] overflow-hidden">
-                <div className="flex items-center justify-between px-4 py-3 border-b border-ink/10 bg-bone/60">
-                  <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-fire animate-pulse" />
-                    <span className="mono text-[10px] uppercase tracking-[0.14em] text-ink/60">
-                      Portal schematic · C-Hub
-                    </span>
-                  </div>
-                  <span className="mono text-[10px] text-ink/40">live</span>
-                </div>
-                <div className="bg-paper">
-                  <HeroComposer />
-                </div>
-                <div className="px-4 py-3 border-t border-ink/10 flex items-center justify-between bg-bone/40">
-                  <span className="mono text-[10px] uppercase tracking-[0.14em] text-ink/60">Signed off, week 06</span>
-                  <span className="mono text-[10px] px-2 py-0.5 rounded bg-volt text-ink">Live</span>
-                </div>
+            {/* Right: the live composer itself, one frame, not nested UI chrome */}
+            <div className="relative" data-reveal>
+              <div className="brutal-border bg-paper overflow-hidden">
+                <HeroComposer />
               </div>
             </div>
           </div>
@@ -1131,7 +1056,7 @@ export default function ContentHub() {
             num="05"
             kicker="AI drafts. Editor decides."
             title="A voice model tuned on your best writing, not the internet's."
-            lede="We fine-tune on your best 40 pages. The editor drafts, rewrites, and translates inside the CMS. Cliches, AI tells, and policy issues are flagged before review. Nothing publishes in an AI voice unless someone signs off."
+            lede="We tune the authoring system on your best 40 pages. The editor drafts, rewrites, and translates inside the CMS. Cliches, AI tells, and policy issues are flagged before review. Nothing publishes in an AI voice unless someone signs off."
           />
           <VoiceTuner />
         </div>
@@ -1157,7 +1082,7 @@ export default function ContentHub() {
             num="07"
             kicker="One URL, many pages"
             title="The founder and the head of ops should not see the same hero."
-            lede="Segment-based personalization by ICP. Statistically valid A/B on hero, form, and pricing. Winners promote to default at 95% confidence. Every test tied to pipeline, not just clicks."
+            lede="Segment-based personalization by ICP. Statistically valid A/B on hero, form, and pricing. Winners are promoted to the default once the agreed confidence threshold is met. Every test tied to pipeline, not just clicks."
           />
           <SegmentMatrix />
         </div>
@@ -1209,7 +1134,7 @@ export default function ContentHub() {
             kicker="What lands in your portal"
             title="Ten artifacts. Every one of them survives you."
           />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="border-t border-ink">
             {[
               "Design system + block kit (Figma + code)",
               "10 modular page templates",
@@ -1224,11 +1149,11 @@ export default function ContentHub() {
             ].map((d, i) => (
               <div
                 key={d}
-                className="group brutal-border bg-paper p-4 flex items-start gap-3 hover:brutal-shadow hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                className="group grid grid-cols-[3rem_1fr_1.5rem] items-center gap-3 border-b border-ink py-4 transition-colors hover:bg-paper"
               >
-                <span className="mono text-[10px] text-ink/50 mt-1">{String(i + 1).padStart(2, "0")}</span>
+                <span className="mono text-[10px] text-ink/50">{String(i + 1).padStart(2, "0")}</span>
                 <div className="text-sm">{d}</div>
-                <span className="ml-auto h-2 w-2 rounded-full bg-volt opacity-0 group-hover:opacity-100 transition" />
+                <span className="justify-self-end h-2 w-2 rounded-full bg-volt opacity-0 transition-opacity group-hover:opacity-100" />
               </div>
             ))}
           </div>
@@ -1288,14 +1213,12 @@ export default function ContentHub() {
             backgroundSize: "60px 60px",
           }}
         />
-        <div className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-fire blur-3xl opacity-25" />
-        <div className="absolute -bottom-40 -right-40 w-[520px] h-[520px] rounded-full bg-volt blur-3xl opacity-15" />
         <div className="max-w-[1200px] mx-auto px-6 py-28 md:py-36 relative">
           <div className="mono text-[11px] uppercase tracking-[0.24em] text-paper/50 mb-6" data-reveal>
             14 · Ready when you are
           </div>
           <h2 className="font-display text-5xl md:text-7xl tracking-[-0.045em] leading-[0.98] max-w-[900px]" data-split>
-            A Content Hub that ships pages, and pipeline.
+            Ship pages without waiting for dev, and know which ones drive pipeline.
           </h2>
           <p className="mt-6 max-w-[580px] text-paper/70 leading-relaxed text-lg" data-reveal>
             Send us your portal, your current CMS, and the three pages you wish shipped last month. We come back
@@ -1304,14 +1227,14 @@ export default function ContentHub() {
           <div className="mt-10 flex flex-wrap gap-3" data-stagger>
             <BookCallButton data-magnetic="16"
               className="inline-flex items-center gap-2 bg-volt text-ink pl-5 pr-2 py-2.5 text-sm font-medium hover:bg-paper transition-colors">
-              Book a scoping call
+              Scope a Content Hub build
               <span className="inline-flex items-center justify-center h-7 w-7 bg-ink text-paper">→</span>
             </BookCallButton>
             <Link
               href="/hubspot-implementation"
               className="inline-flex items-center gap-2 border border-paper/25 px-5 py-2.5 text-sm text-paper/80 hover:bg-paper/5 transition-colors"
             >
-              See the full Implementation practice
+              See the full HubSpot implementation practice
             </Link>
           </div>
         </div>

@@ -3,46 +3,54 @@
 import * as React from "react";
 import Link from "next/link";
 import { BookCallButton } from "@/components/BookCallButton";
+import { BookAuditButton } from "@/components/BookAuditButton";
 import { Footer } from "@/components/Footer";
 
-// TODO: source "mhub-hero.jpg" is a Lovable-hosted asset — not migrated.
 const heroImg = "/mhub-hero.jpg";
-// TODO: source "mhub-desk.jpg" is a Lovable-hosted asset — not migrated.
 const deskImg = "/mhub-desk.jpg";
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
-const revlynWordmark = "/logos/revlyn-wordmark.png";
 
 /* ---------------------------------------------------------------- shared */
 
 // Reuses the site's existing scroll-reveal system (the [data-reveal]
-// attribute, wired up once in components/MotionRuntime.tsx) instead of a
-// separate ScrollJourney/Reveal component that doesn't exist in this
-// project — same fade-up-on-scroll effect used on every other page.
+// attribute, wired up once in components/MotionRuntime.tsx) — unchanged.
 function Reveal({ children }: { children: React.ReactNode }) {
   return <div data-reveal>{children}</div>;
 }
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-ink/50">
-      {children}
-    </p>
-  );
+  return <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire">{children}</p>;
 }
 
+type Tone = "paper" | "bone" | "dark";
 function Section({
   children,
+  tone = "paper",
+  texture = false,
   className = "",
   id,
 }: {
   children: React.ReactNode;
+  tone?: Tone;
+  texture?: boolean;
   className?: string;
   id?: string;
 }) {
+  const bg = tone === "dark" ? "bg-ink" : tone === "bone" ? "bg-bone" : "bg-paper";
+  const text = tone === "dark" ? "text-paper" : "text-ink";
   return (
-    <section id={id} className={`px-6 py-20 md:py-28 ${className}`}>
-      <div className="mx-auto w-full max-w-6xl">{children}</div>
+    <section id={id} className={`relative border-b-2 border-ink overflow-hidden ${bg} ${text} ${className}`}>
+      {texture ? <div className="absolute inset-0 blueprint opacity-[0.06] pointer-events-none" aria-hidden="true" /> : null}
+      <div className="relative mx-auto w-full max-w-6xl px-6 py-16 md:py-24">{children}</div>
     </section>
+  );
+}
+
+function PrimaryCta({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <BookCallButton className={`group border border-ink bg-fire text-paper px-6 py-3.5 display text-sm inline-flex items-center gap-2.5 hover:bg-orange-600 transition-colors ${className}`}>
+      {children}
+      <span className="inline-block group-hover:translate-x-1 transition-transform" aria-hidden="true">→</span>
+    </BookCallButton>
   );
 }
 
@@ -50,41 +58,48 @@ function Section({
 
 function Hero() {
   return (
-    <header className="relative overflow-hidden bg-ink text-paper">
+    <header className="relative overflow-hidden bg-ink text-paper border-b-2 border-ink">
       <img
         src={heroImg}
         alt="Marketing leadership team reviewing pipeline dashboards on a wall display"
         width={1600}
         height={1008}
-        className="absolute inset-0 h-full w-full object-cover opacity-40"
+        className="absolute inset-0 h-full w-full object-cover opacity-[0.18]"
       />
-      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/30" />
-      <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 py-24 md:py-32">
-        
+      <div className="absolute inset-0 bg-ink/80" />
+      <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-20 md:py-28">
+        <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire">Managed Marketing Hub Build</p>
 
-        <h1 className="max-w-4xl text-[clamp(2.6rem,7vw,5.2rem)] font-bold leading-[0.95] tracking-[-0.04em]">
-          A Marketing Hub built to produce{" "}
-          <span className="text-volt">pipeline</span>
+        <h1 className="display max-w-4xl text-[clamp(2.5rem,6.5vw,4.75rem)] leading-[0.95]">
+          A Marketing Hub built to turn demand into <span className="text-fire">pipeline</span>
         </h1>
 
-        <p className="max-w-2xl text-lg leading-relaxed text-paper/75">
+        <p className="max-w-2xl text-base leading-relaxed text-paper/70">
           Most portals can send email. Very few can tell you which campaign paid
           for last quarter. We rebuild Marketing Hub around the three numbers
           your CEO asks about: spend, pipeline created, revenue closed.
         </p>
 
+        <p className="mono text-[10px] uppercase tracking-[0.16em] text-paper/40 flex flex-wrap items-center gap-x-2 gap-y-1">
+          <span>Anonymous visitor</span><span className="text-fire">→</span>
+          <span>Known contact</span><span className="text-fire">→</span>
+          <span>Lifecycle</span><span className="text-fire">→</span>
+          <span>Qualification</span><span className="text-fire">→</span>
+          <span>Routing</span><span className="text-fire">→</span>
+          <span>Sales handoff</span><span className="text-fire">→</span>
+          <span>Opportunity</span><span className="text-fire">→</span>
+          <span>Revenue attribution</span>
+        </p>
+
         <BoardStrip />
 
-        <div className="flex flex-wrap gap-4">
-          <BookCallButton className="brutal-border border-paper bg-volt px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] text-ink transition-transform hover:-translate-y-1">
-            Book a working session
-          </BookCallButton>
-          <Link
-            href="/hubspot-audit"
-            className="border border-paper/40 px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] text-paper transition-colors hover:bg-paper hover:text-ink"
+        <div className="flex flex-wrap gap-3">
+          <PrimaryCta>Scope a Marketing Hub build</PrimaryCta>
+          <BookAuditButton
+            className="border border-paper/30 px-6 py-3.5 text-sm hover:bg-paper/10 transition-colors"
           >
-            Get a portal audit first
-          </Link>
+            Start with the free HubSpot audit
+          </BookAuditButton>
         </div>
       </div>
     </header>
@@ -98,26 +113,71 @@ function BoardStrip() {
     { label: "Closed won", value: "$610k", sub: "attributed", bars: [22, 34, 45, 68] },
   ];
   return (
-    <div className="grid gap-px border border-paper/20 bg-paper/20 sm:grid-cols-3">
-      {cols.map((c) => (
-        <div key={c.label} className="group bg-ink p-6 transition-colors hover:bg-ink/70">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-paper/45">
-            {c.label}
-          </p>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-paper">{c.value}</p>
-          <p className="text-xs text-paper/50">{c.sub}</p>
-          <div className="mt-4 flex h-12 items-end gap-1.5">
-            {c.bars.map((b, i) => (
-              <span
-                key={i}
-                style={{ height: `${b}%` }}
-                className="w-full bg-fire/40 transition-all duration-500 group-hover:bg-volt"
-              />
-            ))}
+    <div>
+      <div className="grid gap-px border border-paper/15 bg-paper/15 sm:grid-cols-3">
+        {cols.map((c) => (
+          <div key={c.label} className="group bg-ink p-5 transition-colors hover:bg-paper/[0.03]">
+            <p className="mono text-[10px] uppercase tracking-[0.16em] text-paper/45">{c.label}</p>
+            <p className="mt-2 display text-2xl">{c.value}</p>
+            <p className="text-xs text-paper/45">{c.sub}</p>
+            <div className="mt-4 flex h-10 items-end gap-1.5">
+              {c.bars.map((b, i) => (
+                <span key={i} style={{ height: `${b}%` }} className="w-full bg-fire/50 transition-all duration-500 group-hover:bg-fire" />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <p className="mt-2 mono text-[9px] uppercase tracking-[0.12em] text-paper/30">Illustrative board view</p>
+    </div>
+  );
+}
+
+/* -------------------------------------------------------- journey map */
+
+const STOPS = [
+  { id: "ch-01", n: "01", t: "Questions your portal should answer", w: "Before" },
+  { id: "ch-02", n: "02", t: "What we find in the portal", w: "Week 0" },
+  { id: "ch-03", n: "03", t: "Fewer qualified leads, more opportunities", w: "Week 1" },
+  { id: "ch-04", n: "04", t: "Lifecycle and scoring", w: "Week 2" },
+  { id: "ch-05", n: "05", t: "Forms and routing", w: "Week 3" },
+  { id: "ch-06", n: "06", t: "A 91 day buying cycle", w: "Week 4" },
+  { id: "ch-07", n: "07", t: "How credit gets split", w: "Week 5" },
+  { id: "ch-08", n: "08", t: "Go live", w: "Week 6" },
+];
+
+function JourneyMap() {
+  return (
+    <section className="relative overflow-hidden bg-ink py-14 text-paper border-b-2 border-ink">
+      <div className="mx-auto max-w-[1400px] px-6 md:px-10">
+        <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+          <h2 className="display text-xl">The route</h2>
+          <p className="mono text-[11px] uppercase tracking-[0.18em] text-paper/40">8 stops · 6 weeks · click any stop</p>
+        </div>
+
+        <div className="mt-6 md:hidden mono text-[10px] uppercase tracking-[0.18em] text-paper/35">Swipe →</div>
+        <div className="mt-4 md:mt-12 overflow-x-auto pb-2">
+          <div className="relative min-w-[880px] pb-2">
+            <div className="absolute left-0 right-0 top-[7px] h-px bg-paper/20" />
+            <div className="flex">
+              {STOPS.map((s, i) => (
+                <a key={s.id} href={`#${s.id}`} className="group relative flex-1 pr-6">
+                  <span className="relative z-10 block h-[13px] w-[13px] rotate-45 border border-paper/35 bg-ink transition-colors duration-300 group-hover:border-fire group-hover:bg-fire" />
+                  <span className="mt-5 block mono text-[10px] tracking-[0.18em] text-fire/80">
+                    {s.n} <span className="text-paper/30">/ {s.w}</span>
+                  </span>
+                  <p className="mt-2 max-w-[15ch] text-sm font-medium leading-tight tracking-tight text-paper/75 transition-colors duration-300 group-hover:text-paper">
+                    {s.t}
+                  </p>
+                  <span className="mt-3 block h-px w-0 bg-fire transition-all duration-500 group-hover:w-10" />
+                  {i === STOPS.length - 1 && <span className="absolute right-6 top-0 h-[13px] w-px bg-paper/20" />}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
-      ))}
-    </div>
+      </div>
+    </section>
   );
 }
 
@@ -125,41 +185,83 @@ function BoardStrip() {
 
 function Questions() {
   const qs = [
-    {
-      n: "01",
-      q: "Where did the pipeline come from?",
-      a: "Every deal carries a first touch, a last touch and the campaign that did the work in between. No spreadsheet reconciliation on the Friday before the board meeting.",
-    },
-    {
-      n: "02",
-      q: "What happens if we cut this budget line?",
-      a: "Channel level cost per opportunity, not cost per click. You can see which line pays for itself and which one is a habit.",
-    },
-    {
-      n: "03",
-      q: "Why is sales ignoring the leads?",
-      a: "Usually routing and scoring, not lead quality. We fix the handoff first, then argue about volume.",
-    },
+    { n: "01", q: "Where did the pipeline come from?", a: "Every deal carries a first touch, a last touch and the campaign that did the work in between. No spreadsheet reconciliation on the Friday before the board meeting." },
+    { n: "02", q: "What happens if we cut this budget line?", a: "Channel level cost per opportunity, not cost per click. You can see which line pays for itself and which one is a habit." },
+    { n: "03", q: "Why is sales ignoring the leads?", a: "Usually routing and scoring, not lead quality. We fix the handoff first, then argue about volume." },
   ];
   return (
-    <Section className="bg-paper">
+    <Section tone="paper">
       <Eyebrow>Before we start</Eyebrow>
-      <h2 className="mt-4 max-w-3xl text-4xl font-bold leading-[1.05] tracking-[-0.03em] md:text-5xl">
+      <h2 className="mt-4 display max-w-3xl text-3xl md:text-4xl leading-[1.05]">
         The questions your portal should be able to answer
       </h2>
-      <div className="mt-12 grid gap-6 md:grid-cols-3">
+      <div className="mt-10 grid gap-px bg-ink/10 border border-ink/10 md:grid-cols-3">
         {qs.map((x) => (
-          <article
-            key={x.n}
-            className="brutal-border group bg-bone p-7 transition-all hover:-translate-y-1 hover:brutal-shadow-fire"
-          >
-            <span className="text-5xl font-bold leading-none text-fire/25 transition-colors group-hover:text-fire">
-              {x.n}
-            </span>
-            <h3 className="mt-4 text-xl font-bold leading-snug tracking-tight">{x.q}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-ink/70">{x.a}</p>
+          <article key={x.n} className="group bg-bone p-6 transition-colors hover:bg-paper">
+            <span className="display text-4xl leading-none text-fire/25 transition-colors group-hover:text-fire">{x.n}</span>
+            <h3 className="mt-3 display text-lg leading-snug">{x.q}</h3>
+            <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{x.a}</p>
+            <span className="mt-4 block h-px w-0 bg-fire transition-all duration-500 group-hover:w-10" />
           </article>
         ))}
+      </div>
+    </Section>
+  );
+}
+
+/* --------------------------------------------------------- diagnosis */
+
+function Diagnosis() {
+  const findings = [
+    { f: "Lifecycle stages set by a workflow nobody can find", cost: "Reporting is fiction" },
+    { f: "Four form variants writing to three different properties", cost: "Routing misses" },
+    { f: "1,100 contacts stuck at MQL since 2023", cost: "Scores never decay" },
+    { f: "Campaign names typed by hand, 60+ variations", cost: "No channel rollup" },
+    { f: "Ads account connected, offline conversions never sent back", cost: "Bidding on the wrong leads" },
+    { f: "Two dashboards, different definitions of an opportunity", cost: "Weekly arguments" },
+  ];
+  return (
+    <Section tone="paper">
+      <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:items-start">
+        <div>
+          <Eyebrow>Week 0</Eyebrow>
+          <h2 className="mt-4 display text-3xl md:text-4xl leading-[1.05]">We start in your portal, not in a deck</h2>
+          <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+            The first session is a screen share. You watch us click through the
+            same settings your team clicks through, and we write down what does
+            not add up. Nothing gets changed in that hour.
+          </p>
+          <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+            This is the list from a recent 40 person software company. Yours will
+            look different in the details and very similar in shape.
+          </p>
+          <img
+            src={deskImg}
+            alt="Planning desk with campaign notes and a laptop showing marketing reports"
+            width={1200}
+            height={800}
+            loading="lazy"
+            className="border border-ink mt-6 w-full object-cover"
+          />
+        </div>
+
+        <div className="border border-ink bg-bone">
+          <div className="flex items-center justify-between border-b border-ink px-5 py-3.5">
+            <p className="mono text-[10px] uppercase tracking-[0.18em]">Audit notes</p>
+            <p className="mono text-[10px] text-muted-foreground">6 of 23 shown</p>
+          </div>
+          <ul className="divide-y divide-ink/12">
+            {findings.map((x, i) => (
+              <li key={x.f} className="group flex flex-col gap-1 px-5 py-4 transition-colors hover:bg-paper sm:flex-row sm:items-center sm:justify-between sm:gap-8">
+                <span className="flex gap-3.5">
+                  <span className="mono text-xs text-fire">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="text-sm leading-snug">{x.f}</span>
+                </span>
+                <span className="shrink-0 pl-8 mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground sm:pl-0">{x.cost}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </Section>
   );
@@ -177,48 +279,41 @@ function Funnel() {
     { label: "Closed won", before: "11", after: "26", w: 13 },
   ];
   return (
-    <Section className="bg-ink text-paper">
-      <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+    <Section tone="dark">
+      <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-volt">
-            The shape we build toward
-          </p>
-          <h2 className="mt-4 text-4xl font-bold leading-[1.05] tracking-[-0.03em] md:text-5xl">
+          <Eyebrow>The shape we build toward</Eyebrow>
+          <h2 className="mt-4 display text-3xl md:text-4xl leading-[1.05] text-paper">
             Fewer leads marked qualified, more real opportunities
           </h2>
-          <p className="mt-5 max-w-md text-paper/70">
+          <p className="mt-4 max-w-md text-sm text-paper/60 leading-relaxed">
             Loosening the MQL definition inflates the top and starves the
             bottom. We tighten scoring, cut the noise sales was already
-            ignoring, and the deals go up. Numbers below are a real portal,
-            ninety days either side of the rebuild.
+            ignoring, and the deals go up. The numbers below are an
+            illustrative example of that shift, not a specific client's
+            results.
           </p>
-          <div className="mt-8 flex gap-6 text-sm">
-            <span className="flex items-center gap-2 text-paper/60">
-              <span className="h-3 w-3 bg-paper/25" /> Before
-            </span>
-            <span className="flex items-center gap-2 text-paper/60">
-              <span className="h-3 w-3 bg-volt" /> After
-            </span>
+          <div className="mt-6 flex flex-wrap items-center gap-6 text-xs">
+            <span className="flex items-center gap-2 text-paper/55"><span className="h-2.5 w-2.5 bg-paper/25" /> Before</span>
+            <span className="flex items-center gap-2 text-paper/55"><span className="h-2.5 w-2.5 bg-fire" /> After</span>
+            <span className="mono text-[9px] uppercase tracking-[0.1em] text-paper/30 border border-paper/15 px-1.5 py-0.5">Illustrative example</span>
           </div>
         </div>
 
         <div className="space-y-3">
           {stages.map((s) => (
             <div key={s.label} className="group">
-              <div className="flex items-baseline justify-between text-xs uppercase tracking-[0.18em] text-paper/50">
+              <div className="flex items-baseline justify-between text-[11px] uppercase tracking-[0.14em] text-paper/45">
                 <span>{s.label}</span>
-                <span className="font-mono text-paper/70">
-                  {s.before} → <span className="text-volt">{s.after}</span>
+                <span className="mono text-paper/65">
+                  {s.before} → <span className="text-fire">{s.after}</span>
                 </span>
               </div>
-              <div className="mt-2 flex h-9 items-center">
-                <div
-                  style={{ width: `${s.w}%` }}
-                  className="relative h-full border border-paper/20 bg-paper/10 transition-all duration-500 group-hover:bg-paper/15"
-                >
+              <div className="mt-2 flex h-8 items-center">
+                <div style={{ width: `${s.w}%` }} className="relative h-full border border-paper/15 bg-paper/5 transition-all duration-500 group-hover:bg-paper/10">
                   <div
                     style={{ width: `${Math.min(100, (parseFloat(s.after.replace(/,/g, "")) / parseFloat(s.before.replace(/,/g, ""))) * 100)}%` }}
-                    className="h-full bg-volt/80 transition-all duration-700"
+                    className="h-full bg-fire/80 transition-all duration-700"
                   />
                 </div>
               </div>
@@ -242,54 +337,44 @@ function LifecycleDiagram() {
     { k: "Customer", d: "Closed won, handed to CS" },
   ];
   return (
-    <Section className="blueprint">
+    <Section tone="paper" texture>
       <Eyebrow>Lifecycle</Eyebrow>
-      <h2 className="mt-4 text-4xl font-bold tracking-[-0.03em] md:text-5xl">
-        Lifecycle stages everyone reads the same way
-      </h2>
-      <p className="mt-4 max-w-2xl text-ink/70">
+      <h2 className="mt-4 display text-3xl md:text-4xl leading-[1.05]">Lifecycle stages everyone reads the same way</h2>
+      <p className="mt-3 max-w-2xl text-sm text-muted-foreground leading-relaxed">
         Written down, agreed by sales, enforced by workflow. Nobody gets to
         drag a contact into MQL because the month is quiet.
       </p>
 
-      <div className="mt-8 md:hidden mono text-[10px] uppercase tracking-[0.18em] text-ink/40">
-        Swipe →
-      </div>
-      <div className="mt-2 md:mt-12 overflow-x-auto">
+      <div className="mt-6 md:hidden mono text-[10px] uppercase tracking-[0.18em] text-ink/35">Swipe →</div>
+      <div className="mt-2 md:mt-10 overflow-x-auto">
         <div className="flex min-w-[860px] items-stretch">
           {nodes.map((n, i) => (
             <div key={n.k} className="group relative flex-1">
               <div
-                className={`brutal-border h-full bg-paper p-5 transition-all duration-300 group-hover:-translate-y-2 ${
-                  i === 2 || i === 3 ? "bg-volt/25" : ""
-                }`}
-                style={{ marginLeft: i ? -2 : 0 }}
+                className={`border border-ink h-full bg-paper p-4 transition-all duration-300 group-hover:-translate-y-1 ${i === 2 || i === 3 ? "bg-fire/10" : ""}`}
+                style={{ marginLeft: i ? -1 : 0 }}
               >
-                <span className="font-mono text-[11px] text-fire">
-                  0{i + 1}
-                </span>
-                <p className="mt-2 text-sm font-bold uppercase tracking-[0.08em]">
-                  {n.k}
-                </p>
-                <p className="mt-2 text-xs leading-relaxed text-ink/60">{n.d}</p>
+                <span className="mono text-[10px] text-fire">0{i + 1}</span>
+                <p className="mt-2 text-sm font-semibold uppercase tracking-[0.06em]">{n.k}</p>
+                <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{n.d}</p>
               </div>
               {i < nodes.length - 1 && (
-                <span className="absolute -right-2 top-1/2 z-10 hidden h-3 w-3 -translate-y-1/2 rotate-45 border-r-2 border-t-2 border-ink bg-paper md:block" />
+                <span className="absolute -right-1.5 top-1/2 z-10 hidden h-2.5 w-2.5 -translate-y-1/2 rotate-45 border-r border-t border-ink bg-paper md:block" />
               )}
             </div>
           ))}
         </div>
       </div>
 
-      <div className="mt-8 grid gap-6 md:grid-cols-3">
+      <div className="mt-8 grid gap-5 md:grid-cols-3">
         {[
           { t: "Scoring", b: "Fit (industry, size, title) scored separately from behaviour. A junior intern reading forty blogs never outranks a VP who read the pricing page." },
           { t: "Decay", b: "Scores drop after 30 days of silence. Old interest stops masquerading as intent." },
           { t: "Reasons", b: "Every MQL stores the reason it qualified, visible on the contact record, so a rep can open with something real." },
         ].map((x) => (
-          <div key={x.t} className="border-l-2 border-fire pl-4">
-            <p className="text-sm font-bold uppercase tracking-[0.14em]">{x.t}</p>
-            <p className="mt-2 text-sm leading-relaxed text-ink/70">{x.b}</p>
+          <div key={x.t} className="border-l border-fire pl-4">
+            <p className="mono text-[10px] uppercase tracking-[0.14em]">{x.t}</p>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{x.b}</p>
           </div>
         ))}
       </div>
@@ -301,18 +386,18 @@ function LifecycleDiagram() {
 
 function RoutingDiagram() {
   return (
-    <Section className="blueprint">
-      <div className="grid gap-12 lg:grid-cols-[1.05fr_1fr] lg:items-center">
+    <Section tone="paper" texture>
+      <div className="grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:items-center">
         <div>
           <Eyebrow>Forms and routing</Eyebrow>
-          <h2 className="mt-4 text-4xl font-bold tracking-[-0.03em] md:text-5xl">
+          <h2 className="mt-4 display text-3xl md:text-4xl leading-[1.05]">
             A form submission reaches a rep in under a minute
           </h2>
-          <p className="mt-4 text-ink/70">
+          <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
             Most leaks happen in the ninety seconds after a form fill. We map
             the path once, then automate every hop of it.
           </p>
-          <ul className="mt-8 space-y-4">
+          <ul className="mt-6 space-y-3">
             {[
               ["00:00", "Form submitted, enrichment fires"],
               ["00:12", "Fit and score calculated"],
@@ -320,26 +405,26 @@ function RoutingDiagram() {
               ["00:35", "Slack ping with company context"],
               ["00:50", "Meeting link sent, task created"],
             ].map(([t, d]) => (
-              <li key={t} className="flex items-start gap-4">
-                <span className="mt-0.5 shrink-0 font-mono text-xs text-fire">{t}</span>
+              <li key={t} className="flex items-start gap-3.5">
+                <span className="mt-0.5 shrink-0 mono text-xs text-fire">{t}</span>
                 <span className="text-sm text-ink/80">{d}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <svg viewBox="0 0 460 340" className="w-full brutal-border bg-paper p-4">
+        <svg viewBox="0 0 460 340" className="w-full border border-ink bg-paper p-4">
           <defs>
             <marker id="mh-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
               <path d="M0,0 L6,3 L0,6 Z" fill="currentColor" />
             </marker>
           </defs>
-          <g className="text-ink" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <rect x="20" y="140" width="110" height="52" className="fill-volt/40" />
+          <g className="text-ink" fill="none" stroke="currentColor" strokeWidth="1.2">
+            <rect x="20" y="140" width="110" height="52" className="fill-fire/15" />
             <rect x="185" y="60" width="110" height="46" />
             <rect x="185" y="145" width="110" height="46" />
             <rect x="185" y="230" width="110" height="46" />
-            <rect x="345" y="145" width="95" height="46" className="fill-fire/20" />
+            <rect x="345" y="145" width="95" height="46" className="fill-fire/15" />
             <path d="M130 166 H185" markerEnd="url(#mh-arrow)" />
             <path d="M155 166 V83 H185" markerEnd="url(#mh-arrow)" />
             <path d="M155 166 V253 H185" markerEnd="url(#mh-arrow)" />
@@ -365,64 +450,94 @@ function RoutingDiagram() {
   );
 }
 
+/* -------------------------------------------------- buyer touchpoints */
+
+function BuyerJourney() {
+  const touches = [
+    { d: "Day 1", t: "Clicks a paid search ad", who: "Anonymous", accent: "bg-fire" },
+    { d: "Day 3", t: "Reads two comparison posts", who: "Anonymous", accent: "bg-ink/25" },
+    { d: "Day 12", t: "Registers for the webinar", who: "Lead", accent: "bg-fire/60" },
+    { d: "Day 13", t: "Score crosses 60, routed to a rep", who: "MQL", accent: "bg-fire" },
+    { d: "Day 15", t: "Books a call from the follow up email", who: "SQL", accent: "bg-fire/60" },
+    { d: "Day 34", t: "Two colleagues join the deal record", who: "Opportunity", accent: "bg-ink/50" },
+    { d: "Day 91", t: "Signs, $92,000", who: "Customer", accent: "bg-fire" },
+  ];
+  return (
+    <Section tone="bone">
+      <Eyebrow>Week 4</Eyebrow>
+      <h2 className="mt-4 display max-w-3xl text-3xl md:text-4xl leading-[1.05]">
+        What a 91 day buying cycle looks like in the portal
+      </h2>
+      <p className="mt-3 max-w-2xl text-sm text-muted-foreground leading-relaxed">
+        This is the same deal that gets split five ways in the next section. Once
+        the timeline is captured properly, the credit argument mostly ends.
+      </p>
+
+      <div className="mt-10 md:hidden mono text-[10px] uppercase tracking-[0.18em] text-ink/35">Swipe →</div>
+      <div className="mt-3 md:mt-10 overflow-x-auto">
+        <ol className="grid grid-flow-col auto-cols-[70%] sm:auto-cols-[40%] md:auto-cols-auto md:grid-flow-row md:grid-cols-7 gap-px border border-ink bg-ink">
+          {touches.map((x) => (
+            <li key={x.d} className="group bg-paper p-4 transition-colors hover:bg-bone">
+              <span className={`block h-1 w-7 ${x.accent}`} />
+              <p className="mt-3 mono text-[11px] text-muted-foreground">{x.d}</p>
+              <p className="mt-1.5 text-sm font-medium leading-snug tracking-tight">{x.t}</p>
+              <p className="mt-3 mono text-[10px] uppercase tracking-[0.16em] text-fire">{x.who}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </Section>
+  );
+}
+
 /* --------------------------------------------------------- attribution */
 
 function Attribution() {
+  const dealValue = 92000;
   const touches = [
     { ch: "Paid search", credit: 34, color: "bg-fire" },
-    { ch: "Webinar", credit: 26, color: "bg-volt" },
-    { ch: "Organic content", credit: 21, color: "bg-ink/70" },
-    { ch: "Outbound sequence", credit: 12, color: "bg-fire/50" },
-    { ch: "Review site", credit: 7, color: "bg-ink/30" },
+    { ch: "Webinar", credit: 26, color: "bg-fire/70" },
+    { ch: "Organic content", credit: 21, color: "bg-paper/60" },
+    { ch: "Outbound sequence", credit: 12, color: "bg-fire/40" },
+    { ch: "Review site", credit: 7, color: "bg-paper/25" },
   ];
   return (
-    <Section className="bg-ink text-paper">
-      <Eyebrow>
-        <span className="text-volt">Attribution</span>
-      </Eyebrow>
-      <h2 className="mt-4 max-w-3xl text-4xl font-bold tracking-[-0.03em] md:text-5xl">
+    <Section tone="dark">
+      <Eyebrow>Attribution</Eyebrow>
+      <h2 className="mt-4 display max-w-3xl text-3xl md:text-4xl leading-[1.05] text-paper">
         How credit gets split when a deal has five touches
       </h2>
-      <p className="mt-4 max-w-2xl text-paper/70">
+      <p className="mt-3 max-w-2xl text-sm text-paper/60 leading-relaxed">
         A $92,000 deal. Here is how the credit lands under the model we set up,
         and the same view rolls up to channel, campaign and quarter.
       </p>
 
-      <div className="mt-12 grid gap-10 lg:grid-cols-[1.2fr_1fr]">
-        <div className="space-y-4">
+      <div className="mt-10 grid gap-8 lg:grid-cols-[1.2fr_1fr]">
+        <div className="space-y-3.5">
           {touches.map((t) => (
             <div key={t.ch} className="group">
               <div className="flex justify-between text-sm">
-                <span className="text-paper/80">{t.ch}</span>
-                <span className="font-mono text-paper/60">
-                  {t.credit}% · ${Math.round(920 * t.credit).toLocaleString()}
-                </span>
+                <span className="text-paper/75">{t.ch}</span>
+                <span className="mono text-paper/55">{t.credit}% · ${Math.round((dealValue * t.credit) / 100).toLocaleString()}</span>
               </div>
-              <div className="mt-2 h-6 w-full bg-paper/10">
-                <div
-                  style={{ width: `${t.credit * 2.6}%` }}
-                  className={`h-full ${t.color} transition-all duration-700 group-hover:opacity-80`}
-                />
+              <div className="mt-1.5 h-5 w-full bg-paper/10">
+                <div style={{ width: `${t.credit * 2.6}%` }} className={`h-full ${t.color} transition-all duration-700 group-hover:opacity-80`} />
               </div>
             </div>
           ))}
         </div>
 
-        <div className="brutal-border border-paper/30 p-6">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-paper/50">
-            What this replaces
-          </p>
-          <ul className="mt-4 space-y-3 text-sm text-paper/70">
+        <div className="border border-paper/20 p-5">
+          <p className="mono text-[10px] uppercase tracking-[0.18em] text-paper/45">What this replaces</p>
+          <ul className="mt-3.5 space-y-2.5 text-sm text-paper/65">
             <li>A spreadsheet three people maintain differently</li>
             <li>Last touch, which always flatters paid search</li>
             <li>Arguments about whether the webinar worked</li>
             <li>A quarterly deck built from memory</li>
           </ul>
-          <div className="mt-6 border-t border-paper/20 pt-5">
-            <p className="text-3xl font-bold text-volt">$1 : $7.60</p>
-            <p className="text-xs text-paper/50">
-              Spend to pipeline, measured the same way every month
-            </p>
+          <div className="mt-5 border-t border-paper/15 pt-4">
+            <p className="display text-2xl text-fire">$1 : $7.60</p>
+            <p className="mono text-[9px] uppercase tracking-[0.1em] text-paper/40 mt-1">Illustrative · Spend to pipeline, measured the same way every month</p>
           </div>
         </div>
       </div>
@@ -434,51 +549,28 @@ function Attribution() {
 
 function Modules() {
   const mods = [
-    {
-      code: "M-01",
-      title: "Lifecycle and scoring",
-      body: "Stage definitions, fit and behaviour scoring, decay rules, and the SLA sales signs off on.",
-    },
-    {
-      code: "M-02",
-      title: "Forms, CTAs and routing",
-      body: "Progressive profiling, territory and round robin assignment, Slack alerts with context attached.",
-    },
-    {
-      code: "M-03",
-      title: "Campaign architecture",
-      body: "Naming standard, UTM governance, campaigns as objects that roll up across email, ads and events.",
-    },
-    {
-      code: "M-04",
-      title: "Email and workflows",
-      body: "Nurtures with branching logic, suppression rules, send time tuning and deliverability warm up.",
-    },
-    {
-      code: "M-05",
-      title: "Landing pages and CMS",
-      body: "Modular templates your team can ship without a developer, instrumented from the first pixel.",
-    },
-    {
-      code: "M-06",
-      title: "Reporting and dashboards",
-      body: "One board view, one weekly ops view, one channel view. Same numbers in all three.",
-    },
+    { code: "M-01", title: "Lifecycle and scoring", body: "Stage definitions, fit and behaviour scoring, decay rules, and the SLA sales signs off on." },
+    { code: "M-02", title: "Forms, CTAs and routing", body: "Progressive profiling, territory and round robin assignment, Slack alerts with context attached." },
+    { code: "M-03", title: "Campaign architecture", body: "Naming standard, UTM governance, campaigns as objects that roll up across email, ads and events." },
+    { code: "M-04", title: "Email and workflows", body: "Nurtures with branching logic, suppression rules, send time tuning and deliverability warm up." },
+    { code: "M-05", title: "Marketing-to-sales handoff", body: "MQL and SQL defined once, agreed by both teams. An SLA for what happens in the first hour after a lead qualifies." },
+    { code: "M-06", title: "Reporting and dashboards", body: "One board view, one weekly ops view, one channel view. Same numbers in all three." },
   ];
   return (
-    <Section className="bg-paper">
+    <Section tone="paper">
       <Eyebrow>What gets built</Eyebrow>
-      <h2 className="mt-4 text-4xl font-bold tracking-[-0.03em] md:text-5xl">
-        The six pieces we build
-      </h2>
-      <div className="mt-12 grid gap-px border border-ink bg-ink sm:grid-cols-2 lg:grid-cols-3">
+      <h2 className="mt-4 display text-3xl md:text-4xl leading-[1.05]">The six pieces we build</h2>
+      <div className="mt-10 border-t border-ink">
         {mods.map((m) => (
-          <article key={m.code} className="group relative bg-paper p-8 transition-colors hover:bg-volt/20">
-            <span className="font-mono text-xs text-fire">{m.code}</span>
-            <h3 className="mt-3 text-xl font-bold tracking-tight">{m.title}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-ink/70">{m.body}</p>
-            <span className="absolute bottom-0 left-0 h-1 w-0 bg-fire transition-all duration-500 group-hover:w-full" />
-          </article>
+          <div
+            key={m.code}
+            className="group grid grid-cols-[3.5rem_1fr] items-baseline gap-4 border-b border-ink py-6 transition-colors hover:bg-bone sm:grid-cols-[4rem_1.2fr_1.6fr_2rem] sm:items-center"
+          >
+            <span className="mono text-xs text-fire">{m.code}</span>
+            <span className="display text-xl">{m.title}</span>
+            <span className="col-span-2 sm:col-span-1 text-sm text-muted-foreground">{m.body}</span>
+            <span className="hidden sm:block justify-self-end text-fire opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-0.5">→</span>
+          </div>
         ))}
       </div>
     </Section>
@@ -497,49 +589,77 @@ function Timeline() {
     { t: "QA, training, go live", start: 5, span: 1 },
   ];
   return (
-    <Section className="blueprint">
-      <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-center">
+    <Section tone="bone">
+      <div className="grid gap-8 lg:grid-cols-[0.8fr_1.6fr] lg:items-start">
         <div>
           <Eyebrow>Timeline</Eyebrow>
-          <h2 className="mt-4 text-4xl font-bold tracking-[-0.03em] md:text-5xl">
-            What happens in each of the six weeks
-          </h2>
-          <p className="mt-4 text-ink/70">
+          <h2 className="mt-4 display text-3xl md:text-4xl leading-[1.05]">What happens in each of the six weeks</h2>
+          <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
             Two hours a week from a marketing lead, one hour from sales. We do
             the build, you make the calls that only you can make.
           </p>
-          <img
-            src={deskImg}
-            alt="Marketing planning desk with campaign calendar and charts"
-            width={1408}
-            height={912}
-            loading="lazy"
-            className="brutal-border mt-8 w-full object-cover"
-          />
         </div>
 
-        <div className="brutal-border bg-paper p-6 overflow-x-auto">
-          <div className="min-w-[420px]">
-            <div className="mb-4 grid grid-cols-6 gap-2 text-center text-[10px] font-semibold uppercase tracking-[0.14em] text-ink/50">
-              {["W1", "W2", "W3", "W4", "W5", "W6"].map((w) => (
-                <span key={w}>{w}</span>
-              ))}
+        <div className="border border-ink bg-paper p-6 overflow-x-auto">
+          <div className="min-w-[480px]">
+            <div className="mb-5 grid grid-cols-6 gap-2 text-center mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+              {["W1", "W2", "W3", "W4", "W5", "W6"].map((w) => <span key={w}>{w}</span>)}
             </div>
-            <div className="space-y-3">
+            <div className="space-y-4">
               {rows.map((r) => (
                 <div key={r.t} className="group">
-                  <div className="relative h-9 bg-ink/5">
+                  <div className="relative h-11 bg-ink/5">
                     <div
                       style={{ left: `${(r.start / 6) * 100}%`, width: `${(r.span / 6) * 100}%` }}
-                      className="absolute inset-y-0 flex items-center border-2 border-ink bg-fire/70 px-2 transition-colors group-hover:bg-volt"
+                      className="absolute inset-y-0 flex items-center border border-ink bg-fire/70 px-2.5 transition-colors group-hover:bg-fire"
                     >
-                      <span className="truncate text-[11px] font-semibold text-ink">{r.t}</span>
+                      <span className="truncate text-[11px] font-medium text-ink">{r.t}</span>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
+        </div>
+      </div>
+    </Section>
+  );
+}
+
+/* ------------------------------------------------------- after go live */
+
+function MondayAfter() {
+  const items = [
+    { time: "08:40", t: "The weekly ops view", b: "New opportunities by source, SLA breaches from last week, and any form that stopped submitting." },
+    { time: "09:15", t: "Sales standup", b: "Reps open one list, sorted by score and recency, with the reason for the score visible on the record." },
+    { time: "11:00", t: "Campaign check", b: "Spend against pipeline for every live campaign. Two clicks to pause the one that is not paying." },
+    { time: "16:30", t: "The board question lands", b: "You send a link instead of building a slide. The numbers are the same ones the team saw at 08:40." },
+  ];
+  return (
+    <Section tone="dark">
+      <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+        <div>
+          <Eyebrow>After go live</Eyebrow>
+          <h2 className="mt-4 display text-3xl md:text-4xl leading-[1.05] text-paper">Your first Monday after go live</h2>
+          <p className="mt-3 text-sm text-paper/60 leading-relaxed">
+            The point of the build is an ordinary week that does not need you to
+            reconcile anything. Here is that week, hour by hour.
+          </p>
+          <Link href="/work/datapel" className="mt-6 inline-block border border-paper/25 px-5 py-3 text-sm hover:bg-paper/10 transition-colors">
+            Read a build we shipped
+          </Link>
+        </div>
+
+        <div className="space-y-px bg-paper/12">
+          {items.map((x) => (
+            <div key={x.time} className="group flex gap-5 bg-ink p-5 transition-colors hover:bg-paper/[0.04]">
+              <span className="mono text-xs text-fire shrink-0">{x.time}</span>
+              <div>
+                <p className="text-base font-medium tracking-tight">{x.t}</p>
+                <p className="mt-1.5 text-sm leading-relaxed text-paper/60">{x.b}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </Section>
@@ -556,31 +676,27 @@ function Deliverables() {
     "Form and routing map",
     "Attribution dashboard, weekly and quarterly",
     "Deliverability health report",
-    "Email and landing page template library",
+    "Marketing-to-sales SLA + handoff doc",
     "Admin SOPs for marketing ops",
     "30 day tune up window",
     "Shared Slack channel with the build team",
   ];
   return (
-    <Section className="bg-ink text-paper">
-      <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
+    <Section tone="dark">
+      <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-volt">
-            What you keep
-          </p>
-          <h2 className="mt-4 text-4xl font-bold tracking-[-0.03em] md:text-5xl">
-            What you get handed over at the end
-          </h2>
-          <p className="mt-4 text-paper/70">
+          <Eyebrow>What you keep</Eyebrow>
+          <h2 className="mt-4 display text-3xl md:text-4xl leading-[1.05] text-paper">What you get handed over at the end</h2>
+          <p className="mt-3 text-sm text-paper/60 leading-relaxed">
             If you never speak to us again, your team can still run the portal.
             That is the test we build against.
           </p>
         </div>
-        <ul className="grid gap-px bg-paper/15 sm:grid-cols-2">
+        <ul className="grid gap-px bg-paper/12 sm:grid-cols-2">
           {items.map((i, n) => (
-            <li key={i} className="flex items-start gap-3 bg-ink p-5 transition-colors hover:bg-paper/10">
-              <span className="font-mono text-xs text-fire">{String(n + 1).padStart(2, "0")}</span>
-              <span className="text-sm text-paper/80">{i}</span>
+            <li key={i} className="flex items-start gap-3 bg-ink p-4 transition-colors hover:bg-paper/[0.04]">
+              <span className="mono text-xs text-fire">{String(n + 1).padStart(2, "0")}</span>
+              <span className="text-sm text-paper/75">{i}</span>
             </li>
           ))}
         </ul>
@@ -620,13 +736,21 @@ const GROUPS = ["Ads", "Data", "Web", "Sales", "Automation"] as const;
 
 const GROUP_ACCENT: Record<string, string> = {
   Ads: "bg-fire",
-  Data: "bg-volt",
-  Web: "bg-ink",
+  Data: "bg-fire/60",
+  Web: "bg-ink/40",
   Sales: "bg-fire",
-  Automation: "bg-volt",
+  Automation: "bg-fire/60",
 };
 
 function ToolLogo({ domain, name }: { domain: string; name: string }) {
+  const [errored, setErrored] = React.useState(false);
+  if (errored) {
+    return (
+      <span className="flex h-6 w-6 shrink-0 items-center justify-center border border-ink/15 bg-bone mono text-[9px] text-ink/50">
+        {name.charAt(0)}
+      </span>
+    );
+  }
   return (
     <img
       src={`https://www.google.com/s2/favicons?domain=${domain}&sz=128`}
@@ -634,6 +758,7 @@ function ToolLogo({ domain, name }: { domain: string; name: string }) {
       loading="lazy"
       width={24}
       height={24}
+      onError={() => setErrored(true)}
       className="h-6 w-6 shrink-0 object-contain"
     />
   );
@@ -647,24 +772,22 @@ function Stack() {
   const activeTool = STACK_TOOLS.find((t) => t.name === active) ?? null;
 
   return (
-    <Section className="blueprint">
+    <Section tone="paper" texture>
       <Eyebrow>Integrations</Eyebrow>
-      <h2 className="mt-4 max-w-2xl text-3xl font-bold tracking-tight md:text-4xl">
-        How your other tools connect to HubSpot
-      </h2>
-      <p className="mt-4 max-w-2xl text-ink/70">
+      <h2 className="mt-4 display max-w-2xl text-2xl md:text-3xl leading-[1.05]">How your other tools connect to HubSpot</h2>
+      <p className="mt-3 max-w-2xl text-sm text-muted-foreground leading-relaxed">
         Hover a tool to see exactly what moves between it and HubSpot. Nothing here is a
         logo wall, each one is a connection we have built and documented.
       </p>
 
-      <div className="mt-8 flex gap-2 overflow-x-auto pb-2 -mx-6 px-6 sm:mx-0 sm:px-0 sm:flex-wrap">
+      <div className="mt-6 flex gap-2 overflow-x-auto pb-2 -mx-6 px-6 sm:mx-0 sm:px-0 sm:flex-wrap">
         {(["All", ...GROUPS] as const).map((g) => (
           <button
             key={g}
             type="button"
             onClick={() => setFilter(g)}
-            className={`shrink-0 brutal-border px-3 py-1.5 text-xs font-semibold uppercase tracking-wider transition-all ${
-              filter === g ? "bg-ink text-paper" : "bg-paper hover:-translate-y-0.5 hover:bg-volt"
+            className={`shrink-0 border border-ink px-3 py-1.5 text-xs font-medium uppercase tracking-wider transition-colors ${
+              filter === g ? "bg-ink text-paper" : "bg-paper hover:bg-bone"
             }`}
           >
             {g}
@@ -672,30 +795,18 @@ function Stack() {
         ))}
       </div>
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_320px]">
+      <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_320px]">
         {/* hub + spokes */}
-        <div className="brutal-border relative overflow-hidden bg-paper p-6 md:p-10">
+        <div className="border border-ink relative overflow-hidden bg-paper p-5 md:p-8">
           <div className="relative mx-auto flex max-w-2xl flex-col items-center">
-            {/* the hub */}
-            <div className="brutal-border brutal-shadow z-10 flex items-center gap-3 bg-ink px-6 py-4 text-paper">
-              <img
-                src="https://www.google.com/s2/favicons?domain=hubspot.com&sz=128"
-                alt="HubSpot logo"
-                width={28}
-                height={28}
-                className="h-7 w-7"
-              />
-              <span className="text-lg font-bold tracking-tight">HubSpot</span>
+            <div className="border border-ink flex items-center gap-3 bg-ink px-5 py-3.5 text-paper">
+              <ToolLogo domain="hubspot.com" name="HubSpot" />
+              <span className="display text-base">HubSpot</span>
             </div>
 
-            {/* connector line */}
-            <div
-              className={`h-10 w-0.5 transition-colors duration-300 ${
-                activeTool ? "bg-fire" : "bg-ink/25"
-              }`}
-            />
+            <div className={`h-8 w-px transition-colors duration-300 ${activeTool ? "bg-fire" : "bg-ink/20"}`} />
 
-            <div className="flex w-full flex-wrap justify-center gap-3">
+            <div className="flex w-full flex-wrap justify-center gap-2.5">
               {shown.map((t) => {
                 const on = active === t.name;
                 return (
@@ -707,26 +818,18 @@ function Stack() {
                     onMouseLeave={() => setActive(null)}
                     onBlur={() => setActive(null)}
                     onTouchStart={() => setActive(t.name)}
-                    className={`brutal-border group relative flex items-center gap-2.5 px-3.5 py-2.5 text-sm font-semibold transition-all duration-200 ${
-                      on
-                        ? "-translate-y-1 bg-volt shadow-[4px_4px_0_0_var(--color-ink)]"
-                        : active
-                          ? "bg-paper opacity-45"
-                          : "bg-paper hover:-translate-y-1"
+                    className={`border border-ink group relative flex items-center gap-2.5 px-3.5 py-2.5 text-sm font-medium transition-all duration-200 ${
+                      on ? "-translate-y-0.5 bg-fire text-paper" : active ? "bg-paper opacity-45" : "bg-paper hover:-translate-y-0.5 hover:bg-bone"
                     }`}
                   >
                     <span
-                      className={`absolute -top-10 left-1/2 h-10 w-0.5 -translate-x-1/2 origin-bottom transition-transform duration-200 ${
-                        on ? "scale-y-100 bg-fire" : "scale-y-0 bg-ink/30"
+                      className={`absolute -top-8 left-1/2 h-8 w-px -translate-x-1/2 origin-bottom transition-transform duration-200 ${
+                        on ? "scale-y-100 bg-fire" : "scale-y-0 bg-ink/25"
                       }`}
                     />
                     <ToolLogo domain={t.domain} name={t.name} />
                     <span>{t.name}</span>
-                    <span
-                      className={`h-1.5 w-1.5 rounded-full ${GROUP_ACCENT[t.group]} ${
-                        on ? "opacity-100" : "opacity-40"
-                      }`}
-                    />
+                    <span className={`h-1.5 w-1.5 rounded-full ${GROUP_ACCENT[t.group]} ${on ? "opacity-100" : "opacity-40"}`} />
                   </button>
                 );
               })}
@@ -735,34 +838,30 @@ function Stack() {
         </div>
 
         {/* detail panel */}
-        <aside className="brutal-border flex flex-col justify-between bg-ink p-6 text-paper">
+        <aside className="border border-ink flex flex-col justify-between bg-ink p-5 text-paper">
           {activeTool ? (
             <div>
               <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center bg-paper">
+                <span className="flex h-9 w-9 items-center justify-center bg-paper">
                   <ToolLogo domain={activeTool.domain} name={activeTool.name} />
                 </span>
                 <div>
-                  <p className="text-lg font-bold tracking-tight">{activeTool.name}</p>
-                  <p className="text-[11px] uppercase tracking-[0.2em] text-paper/50">
-                    {activeTool.group}
-                  </p>
+                  <p className="display text-base">{activeTool.name}</p>
+                  <p className="mono text-[10px] uppercase tracking-[0.18em] text-paper/45">{activeTool.group}</p>
                 </div>
               </div>
-              <p className="mt-5 text-sm leading-relaxed text-paper/80">{activeTool.flow}</p>
+              <p className="mt-4 text-sm leading-relaxed text-paper/70">{activeTool.flow}</p>
             </div>
           ) : (
             <div>
-              <p className="text-lg font-bold tracking-tight">
-                {shown.length} connections in this view
-              </p>
-              <p className="mt-4 text-sm leading-relaxed text-paper/70">
+              <p className="display text-base">{shown.length} connections in this view</p>
+              <p className="mt-3 text-sm leading-relaxed text-paper/60">
                 Pick a tool to see what data moves, which direction it moves in, and who owns
                 the field when both systems disagree.
               </p>
             </div>
           )}
-          <p className="mt-8 border-t-2 border-paper/20 pt-4 text-xs text-paper/50">
+          <p className="mt-6 border-t border-paper/15 pt-3.5 text-xs text-paper/45">
             Using something not listed? We have almost certainly wired it before.
           </p>
         </aside>
@@ -771,284 +870,35 @@ function Stack() {
   );
 }
 
-
-/* -------------------------------------------------------- journey map */
-
-const STOPS = [
-  { id: "ch-01", n: "01", t: "Questions your portal should answer", w: "Before" },
-  { id: "ch-02", n: "02", t: "What we find in the portal", w: "Week 0" },
-  { id: "ch-03", n: "03", t: "Fewer qualified leads, more opportunities", w: "Week 1" },
-  { id: "ch-04", n: "04", t: "Lifecycle and scoring", w: "Week 2" },
-  { id: "ch-05", n: "05", t: "Forms and routing", w: "Week 3" },
-  { id: "ch-06", n: "06", t: "A 91 day buying cycle", w: "Week 4" },
-  { id: "ch-07", n: "07", t: "How credit gets split", w: "Week 5" },
-  { id: "ch-08", n: "08", t: "Go live", w: "Week 6" },
-];
-
-function JourneyMap() {
-  return (
-    <section className="relative overflow-hidden bg-ink py-16 text-paper">
-      <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
-          <h2 className="text-2xl font-bold tracking-[-0.03em]">
-            The route
-          </h2>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-paper/45">
-            8 stops · 6 weeks · click any stop
-          </p>
-        </div>
-
-        <div className="mt-6 md:hidden font-mono text-[10px] uppercase tracking-[0.18em] text-paper/40">
-          Swipe →
-        </div>
-        <div className="mt-4 md:mt-12 overflow-x-auto pb-2">
-          <div className="relative min-w-[880px] pb-2">
-            {/* the line */}
-            <div className="absolute left-0 right-0 top-[7px] h-px bg-paper/25" />
-            <div className="flex">
-              {STOPS.map((s, i) => (
-                <a
-                  key={s.id}
-                  href={`#${s.id}`}
-                  className="group relative flex-1 pr-6"
-                >
-                  {/* tick */}
-                  <span className="relative z-10 block h-[15px] w-[15px] rotate-45 border border-paper/40 bg-ink transition-colors duration-300 group-hover:border-fire group-hover:bg-fire" />
-                  <span className="mt-5 block font-mono text-[11px] tracking-[0.2em] text-fire/80">
-                    {s.n} <span className="text-paper/35">/ {s.w}</span>
-                  </span>
-                  <p className="mt-2 max-w-[15ch] text-[15px] font-semibold leading-tight tracking-tight text-paper/80 transition-colors duration-300 group-hover:text-paper">
-                    {s.t}
-                  </p>
-                  <span className="mt-4 block h-px w-0 bg-fire transition-all duration-500 group-hover:w-10" />
-                  {i === STOPS.length - 1 && (
-                    <span className="absolute right-6 top-0 h-[15px] w-px bg-paper/25" />
-                  )}
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-
-/* --------------------------------------------------------- diagnosis */
-
-function Diagnosis() {
-  const findings = [
-    { f: "Lifecycle stages set by a workflow nobody can find", cost: "Reporting is fiction" },
-    { f: "Four form variants writing to three different properties", cost: "Routing misses" },
-    { f: "1,100 contacts stuck at MQL since 2023", cost: "Scores never decay" },
-    { f: "Campaign names typed by hand, 60+ variations", cost: "No channel rollup" },
-    { f: "Ads account connected, offline conversions never sent back", cost: "Bidding on the wrong leads" },
-    { f: "Two dashboards, different definitions of an opportunity", cost: "Weekly arguments" },
-  ];
-  return (
-    <Section className="bg-paper">
-      <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:items-start">
-        <div>
-          <Eyebrow>Week 0</Eyebrow>
-          <h2 className="mt-4 text-4xl font-bold leading-[1.05] tracking-[-0.03em] md:text-5xl">
-            We start in your portal, not in a deck
-          </h2>
-          <p className="mt-5 text-ink/70">
-            The first session is a screen share. You watch us click through the
-            same settings your team clicks through, and we write down what does
-            not add up. Nothing gets changed in that hour.
-          </p>
-          <p className="mt-4 text-ink/70">
-            This is the list from a recent 40 person software company. Yours will
-            look different in the details and very similar in shape.
-          </p>
-          <img
-            src={deskImg}
-            alt="Planning desk with campaign notes and a laptop showing marketing reports"
-            width={1200}
-            height={800}
-            loading="lazy"
-            className="brutal-border mt-8 w-full object-cover"
-          />
-        </div>
-
-        <div className="brutal-border bg-bone">
-          <div className="flex items-center justify-between border-b-2 border-ink px-6 py-4">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em]">
-              Audit notes
-            </p>
-            <p className="font-mono text-xs text-ink/50">6 of 23 shown</p>
-          </div>
-          <ul className="divide-y divide-ink/15">
-            {findings.map((x, i) => (
-              <li
-                key={x.f}
-                className="group flex flex-col gap-1 px-6 py-5 transition-colors hover:bg-volt/25 sm:flex-row sm:items-center sm:justify-between sm:gap-8"
-              >
-                <span className="flex gap-4">
-                  <span className="font-mono text-xs text-fire">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-sm leading-snug">{x.f}</span>
-                </span>
-                <span className="shrink-0 pl-8 text-xs font-semibold uppercase tracking-[0.14em] text-ink/45 sm:pl-0">
-                  {x.cost}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </Section>
-  );
-}
-
-/* -------------------------------------------------- buyer touchpoints */
-
-function BuyerJourney() {
-  const touches = [
-    { d: "Day 1", t: "Clicks a paid search ad", who: "Anonymous", accent: "bg-fire" },
-    { d: "Day 3", t: "Reads two comparison posts", who: "Anonymous", accent: "bg-ink/30" },
-    { d: "Day 12", t: "Registers for the webinar", who: "Lead", accent: "bg-volt" },
-    { d: "Day 13", t: "Score crosses 60, routed to a rep", who: "MQL", accent: "bg-fire" },
-    { d: "Day 15", t: "Books a call from the follow up email", who: "SQL", accent: "bg-volt" },
-    { d: "Day 34", t: "Two colleagues join the deal record", who: "Opportunity", accent: "bg-ink/60" },
-    { d: "Day 91", t: "Signs, $92,000", who: "Customer", accent: "bg-fire" },
-  ];
-  return (
-    <Section className="bg-bone">
-      <Eyebrow>Week 4</Eyebrow>
-      <h2 className="mt-4 max-w-3xl text-4xl font-bold leading-[1.05] tracking-[-0.03em] md:text-5xl">
-        What a 91 day buying cycle looks like in the portal
-      </h2>
-      <p className="mt-5 max-w-2xl text-ink/70">
-        This is the same deal that gets split five ways in the next section. Once
-        the timeline is captured properly, the credit argument mostly ends.
-      </p>
-
-      <div className="mt-14 md:hidden mono text-[10px] uppercase tracking-[0.18em] text-ink/40">
-        Swipe →
-      </div>
-      <div className="mt-4 md:mt-14 overflow-x-auto">
-        <ol className="grid grid-flow-col auto-cols-[70%] sm:auto-cols-[40%] md:auto-cols-auto md:grid-flow-row md:grid-cols-7 gap-px border border-ink bg-ink">
-          {touches.map((x) => (
-            <li key={x.d} className="group bg-paper p-5 transition-colors hover:bg-volt/25">
-              <span className={`block h-1.5 w-8 ${x.accent}`} />
-              <p className="mt-4 font-mono text-xs text-ink/50">{x.d}</p>
-              <p className="mt-2 text-sm font-semibold leading-snug tracking-tight">{x.t}</p>
-              <p className="mt-4 text-[10px] font-bold uppercase tracking-[0.18em] text-fire">
-                {x.who}
-              </p>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </Section>
-  );
-}
-
-/* ------------------------------------------------------- after go live */
-
-function MondayAfter() {
-  const items = [
-    {
-      time: "08:40",
-      t: "The weekly ops view",
-      b: "New opportunities by source, SLA breaches from last week, and any form that stopped submitting.",
-    },
-    {
-      time: "09:15",
-      t: "Sales standup",
-      b: "Reps open one list, sorted by score and recency, with the reason for the score visible on the record.",
-    },
-    {
-      time: "11:00",
-      t: "Campaign check",
-      b: "Spend against pipeline for every live campaign. Two clicks to pause the one that is not paying.",
-    },
-    {
-      time: "16:30",
-      t: "The board question lands",
-      b: "You send a link instead of building a slide. The numbers are the same ones the team saw at 08:40.",
-    },
-  ];
-  return (
-    <Section className="bg-ink text-paper">
-      <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
-        <div>
-          <Eyebrow>
-            <span className="text-volt">After go live</span>
-          </Eyebrow>
-          <h2 className="mt-4 text-4xl font-bold leading-[1.05] tracking-[-0.03em] md:text-5xl">
-            Your first Monday after go live
-          </h2>
-          <p className="mt-5 text-paper/70">
-            The point of the build is an ordinary week that does not need you to
-            reconcile anything. Here is that week, hour by hour.
-          </p>
-          <Link
-            href="/work/datapel"
-            className="mt-8 inline-block border border-paper/40 px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] transition-colors hover:bg-paper hover:text-ink"
-          >
-            Read a build we shipped
-          </Link>
-        </div>
-
-        <div className="space-y-px bg-paper/20">
-          {items.map((x) => (
-            <div
-              key={x.time}
-              className="group flex gap-6 bg-ink p-6 transition-colors hover:bg-paper/10"
-            >
-              <span className="font-mono text-sm text-volt">{x.time}</span>
-              <div>
-                <p className="text-lg font-bold tracking-tight">{x.t}</p>
-                <p className="mt-2 text-sm leading-relaxed text-paper/70">{x.b}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Section>
-  );
-}
-
-
 /* ----------------------------------------------------------------- faq */
 
 function Faq() {
   const faq = [
-    {
-      q: "Do we need Marketing Hub Enterprise?",
-      a: "Not always. We scope to the tier you own and tell you when Pro is the ceiling. If Enterprise unlocks revenue you can measure, we put the case in writing.",
-    },
-    {
-      q: "What happens to our existing campaigns?",
-      a: "We audit before we touch anything. What works stays. What is noise gets archived and documented, never silently deleted.",
-    },
-    {
-      q: "Can you make sales trust the leads?",
-      a: "By building a scoring model sales helps define, an SLA both sides agree to, and a weekly report that shows the SLA being kept.",
-    },
-    {
-      q: "How much of our time do you need?",
-      a: "Two hours a week from marketing, one from sales, plus a kickoff and a training session.",
-    },
+    { q: "What happens to our existing campaigns?", a: "We audit before we touch anything. What works stays. What is noise gets archived and documented, never silently deleted." },
+    { q: "Can you work with our sales team?", a: "Yes, directly. Scoring and the MQL/SQL definition are built with sales in the room, not handed to them afterward. The handoff SLA is something both teams sign off on." },
+    { q: "How do you define MQL/SQL?", a: "There is no universal answer. We build the definition with your marketing and sales leaders together, based on fit and behaviour signals specific to your business, then write it down so it stops being a debate." },
+    { q: "What happens to our existing forms and workflows?", a: "Same as campaigns: audited first. Forms that convert stay. Workflows get reviewed for what they are actually doing today, not rebuilt from scratch by default." },
+    { q: "How is attribution handled?", a: "Every touch a contact has, tied back to the campaign, tracked through to closed-won. One model, one dashboard, so marketing and sales are arguing from the same numbers." },
+    { q: "Do we need Marketing Hub Enterprise?", a: "Not always. We scope to the tier you own and tell you when Pro is the ceiling. If Enterprise unlocks revenue you can measure, we put the case in writing." },
   ];
   return (
-    <Section className="bg-paper">
-      <Eyebrow>Questions we get</Eyebrow>
-      <div className="mt-10 divide-y-2 divide-ink border-y-2 border-ink">
-        {faq.map((f) => (
-          <details key={f.q} className="group py-6">
-            <summary className="flex cursor-pointer items-center justify-between gap-6 text-xl font-bold tracking-tight">
-              {f.q}
-              <span className="text-fire transition-transform group-open:rotate-45">+</span>
-            </summary>
-            <p className="mt-4 max-w-3xl text-ink/70">{f.a}</p>
-          </details>
-        ))}
+    <Section tone="bone">
+      <div className="grid gap-10 md:grid-cols-[1fr_1.4fr]">
+        <div>
+          <Eyebrow>Questions we get</Eyebrow>
+          <h2 className="mt-3 display text-2xl md:text-3xl leading-[1.05]">Before getting started.</h2>
+        </div>
+        <div className="divide-y divide-ink border-y border-ink">
+          {faq.map((f) => (
+            <details key={f.q} className="group py-5">
+              <summary className="flex cursor-pointer items-center justify-between gap-6 text-base font-medium tracking-tight list-none">
+                {f.q}
+                <span className="text-fire text-xl shrink-0 transition-transform group-open:rotate-45">+</span>
+              </summary>
+              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+            </details>
+          ))}
+        </div>
       </div>
     </Section>
   );
@@ -1058,21 +908,27 @@ function Faq() {
 
 function Cta() {
   return (
-    <Section className="bg-fire text-paper">
-      <div className="flex flex-col items-start gap-8 md:flex-row md:items-end md:justify-between">
-        <div>
-          <h2 className="max-w-2xl text-4xl font-bold leading-[1.05] tracking-[-0.03em] md:text-5xl">
-            Show us your portal and we will tell you what is breaking
-          </h2>
-          <p className="mt-4 max-w-xl text-paper/80">
-            Forty five minutes, screen shared, no deck.
-          </p>
+    <section className="relative overflow-hidden border-b-2 border-ink bg-fire text-paper">
+      <div className="relative mx-auto w-full max-w-6xl px-6 py-16 md:py-20">
+        <div className="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <h2 className="display max-w-2xl text-3xl md:text-4xl leading-[1.05]">
+              Build a Marketing Hub that sales can trust.
+            </h2>
+            <p className="mt-3 max-w-xl text-sm text-paper/80">Forty five minutes, screen shared, no deck.</p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <BookCallButton className="group border border-paper bg-paper px-7 py-3.5 display text-sm text-ink inline-flex items-center gap-2.5 hover:bg-bone transition-colors">
+              Scope a Marketing Hub build
+              <span className="inline-block group-hover:translate-x-1 transition-transform" aria-hidden="true">→</span>
+            </BookCallButton>
+            <BookAuditButton className="border border-paper/40 px-7 py-3.5 display text-sm text-paper inline-flex items-center gap-2.5 hover:bg-paper/10 transition-colors">
+              Start with the free HubSpot audit
+            </BookAuditButton>
+          </div>
         </div>
-        <BookCallButton className="brutal-border border-paper bg-paper px-8 py-4 text-sm font-bold uppercase tracking-[0.14em] text-ink transition-transform hover:-translate-y-1">
-          Book the session
-        </BookCallButton>
       </div>
-    </Section>
+    </section>
   );
 }
 
@@ -1086,7 +942,7 @@ function Chapter({ id, children }: { id: string; children: React.ReactNode }) {
 
 export default function MarketingHubClient() {
   return (
-    <main>
+    <main className="bg-paper text-ink">
       <Hero />
       <JourneyMap />
       <Chapter id="ch-01"><Questions /></Chapter>
@@ -1107,4 +963,3 @@ export default function MarketingHubClient() {
     </main>
   );
 }
-

@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { BookCallButton } from "@/components/BookCallButton";
 import { Footer } from "@/components/Footer";
-
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
-const revlynWordmark = "/logos/revlyn-wordmark.png";
 
 export const metadata: Metadata = {
   title: "HubSpot Service Hub Implementation",
@@ -15,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "HubSpot Service Hub Implementation · Revlyn",
     description:
-      "Ticketing, SLAs, knowledge base, CSAT, and churn signals wired to one customer record. Live in 4-6 weeks with the operator who built it in your Slack.",
+      "Ticketing, SLAs, knowledge base, CSAT, and churn signals wired to one customer record. Live in six weeks with the operator who built it in your Slack.",
     type: "website",
   },
   twitter: { card: "summary_large_image" },
@@ -27,12 +23,12 @@ export const metadata: Metadata = {
 
 function Tag({ children, tone = "ink" }: { children: React.ReactNode; tone?: "ink" | "fire" | "volt" | "bone" }) {
   const map: Record<string, string> = {
-    ink: "bg-ink text-paper",
-    fire: "bg-fire text-paper",
-    volt: "bg-volt text-ink",
-    bone: "bg-bone text-ink",
+    ink: "bg-ink text-paper border-ink",
+    fire: "bg-fire text-paper border-fire",
+    volt: "bg-volt text-ink border-ink",
+    bone: "bg-bone text-ink border-ink",
   };
-  return <span className={`mono text-[10px] px-2 py-1 rounded-full ${map[tone]}`}>{children}</span>;
+  return <span className={`mono text-[10px] px-2 py-1 border ${map[tone]}`}>{children}</span>;
 }
 
 function GridPaper() {
@@ -126,6 +122,7 @@ function HeroQueue() {
             </div>
           ))}
         </div>
+        <p className="mt-2 mono text-[9px] uppercase tracking-[0.1em] text-ink/35">Illustrative</p>
       </div>
     </div>
   );
@@ -299,8 +296,7 @@ function SlaLadder() {
         ].map((d) => (
           <div
             key={d.pri}
-            data-tilt="6"
-            className="brutal-border bg-bone p-4 flex items-center gap-4 hover:brutal-shadow transition-all"
+            className="brutal-border bg-bone p-4 flex items-center gap-4 transition-colors hover:bg-paper"
           >
             <svg viewBox="0 0 80 80" className="w-20 h-20 shrink-0" aria-hidden>
               <circle cx="40" cy="40" r="32" stroke="var(--color-ink)" strokeOpacity="0.15" strokeWidth="6" fill="none" />
@@ -433,46 +429,40 @@ function HealthTwins() {
     },
   ];
   return (
-    <div className="grid md:grid-cols-2 gap-6">
-      {items.map((g) => {
-        const angle = -90 + 180 * g.pct;
-        return (
-          <div
-            key={g.label}
-            data-tilt="6"
-            data-spotlight
-            className="group brutal-border bg-paper p-6 hover:-translate-y-1 hover:brutal-shadow transition-all duration-300 relative overflow-hidden"
-            style={{
-              backgroundImage:
-                "radial-gradient(280px circle at var(--sx,50%) var(--sy,50%), rgba(255,235,59,0.22), transparent 55%)",
-            }}
-          >
-            <Tag tone={g.tone}>{g.label}</Tag>
-            <div className="mt-6 flex items-center gap-6">
-              <svg viewBox="0 0 160 100" className="w-40 group-hover:scale-105 transition-transform duration-500" aria-hidden>
-                <path d="M10 90 A 70 70 0 0 1 150 90" stroke="var(--color-ink)" strokeOpacity="0.15" strokeWidth="8" fill="none" />
-                <path
-                  d="M10 90 A 70 70 0 0 1 150 90"
-                  stroke={g.tone === "fire" ? "var(--color-fire)" : "var(--color-volt)"}
-                  strokeWidth="8"
-                  fill="none"
-                  strokeDasharray="220"
-                  strokeDashoffset={220 - 220 * g.pct}
-                />
-                <g transform={`translate(80 90) rotate(${angle})`}>
-                  <line x1="0" y1="0" x2="0" y2="-60" stroke="var(--color-ink)" strokeWidth="2.5" />
-                  <circle r="5" fill="var(--color-ink)" />
-                </g>
-              </svg>
-              <div>
-                <div className="font-display text-5xl tracking-[-0.03em] leading-none">{g.value}</div>
-                <div className="mono text-[10px] mt-2 text-ink/60">health score</div>
+    <div>
+      <div className="grid md:grid-cols-2 gap-6">
+        {items.map((g) => {
+          const angle = -90 + 180 * g.pct;
+          return (
+            <div key={g.label} className="brutal-border bg-paper p-6">
+              <Tag tone={g.tone}>{g.label}</Tag>
+              <div className="mt-6 flex items-center gap-6">
+                <svg viewBox="0 0 160 100" className="w-40" aria-hidden>
+                  <path d="M10 90 A 70 70 0 0 1 150 90" stroke="var(--color-ink)" strokeOpacity="0.15" strokeWidth="8" fill="none" />
+                  <path
+                    d="M10 90 A 70 70 0 0 1 150 90"
+                    stroke={g.tone === "fire" ? "var(--color-fire)" : "var(--color-volt)"}
+                    strokeWidth="8"
+                    fill="none"
+                    strokeDasharray="220"
+                    strokeDashoffset={220 - 220 * g.pct}
+                  />
+                  <g transform={`translate(80 90) rotate(${angle})`}>
+                    <line x1="0" y1="0" x2="0" y2="-60" stroke="var(--color-ink)" strokeWidth="2.5" />
+                    <circle r="5" fill="var(--color-ink)" />
+                  </g>
+                </svg>
+                <div>
+                  <div className="font-display text-5xl tracking-[-0.03em] leading-none">{g.value}</div>
+                  <div className="mono text-[10px] mt-2 text-ink/60">health score</div>
+                </div>
               </div>
+              <p className="mt-5 text-sm text-ink/70">{g.desc}</p>
             </div>
-            <p className="mt-5 text-sm text-ink/70">{g.desc}</p>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
+      <p className="mt-3 mono text-[9px] uppercase tracking-[0.1em] text-ink/35">Illustrative example, not a specific client's measured result</p>
     </div>
   );
 }
@@ -693,46 +683,64 @@ function BuildPlan() {
    ───────────────────────────────────────────────────────────── */
 
 function IntegrationsOrbit() {
-  const items = [
-    "Intercom (migration)", "Zendesk (migration)", "Jira", "Linear",
-    "Slack", "PagerDuty", "Statuspage", "Aircall",
-    "Twilio", "Gong", "Segment", "Mixpanel",
-    "Stripe", "Chargebee", "Notion", "Confluence",
-    "Google Workspace", "Microsoft 365",
+  const categories = [
+    { name: "Support & Migration", tools: ["Intercom (migration)", "Zendesk (migration)"] },
+    { name: "Engineering & Incidents", tools: ["Jira", "Linear", "PagerDuty", "Statuspage"] },
+    { name: "Communication", tools: ["Slack", "Aircall", "Twilio"] },
+    { name: "Product & Data", tools: ["Gong", "Segment", "Mixpanel"] },
+    { name: "Billing", tools: ["Stripe", "Chargebee"] },
+    { name: "Docs & Workspace", tools: ["Notion", "Confluence", "Google Workspace", "Microsoft 365"] },
   ];
   return (
-    <div className="brutal-border bg-paper p-6 md:p-10 relative overflow-hidden">
-      <div className="grid md:grid-cols-[300px_1fr] gap-8 items-center">
-        <div className="relative h-[300px]">
-          <svg viewBox="0 0 300 300" className="w-full h-full animate-spin-slow" aria-hidden>
-            <circle cx="150" cy="150" r="120" stroke="var(--color-ink)" strokeOpacity="0.15" strokeDasharray="4 6" fill="none" />
-            <circle cx="150" cy="150" r="80" stroke="var(--color-ink)" strokeOpacity="0.1" strokeDasharray="2 4" fill="none" />
-          </svg>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="brutal-border bg-volt px-5 py-3 font-display text-2xl">Service Hub</div>
-          </div>
-          {[0, 60, 120, 180, 240, 300].map((deg, i) => {
-            const rad = (deg * Math.PI) / 180;
-            const x = 150 + 120 * Math.cos(rad);
-            const y = 150 + 120 * Math.sin(rad);
-            return (
-              <div
-                key={i}
-                className="absolute h-3 w-3 rounded-full bg-fire brutal-border"
-                style={{ left: `${(x / 300) * 100}%`, top: `${(y / 300) * 100}%`, transform: "translate(-50%,-50%)" }}
-              />
-            );
-          })}
-        </div>
-        <div>
-          <div className="mono text-[11px] text-ink/60 mb-4">CONNECTS TO YOUR STACK · NO DUCT TAPE</div>
-          <div className="flex flex-wrap gap-2">
-            {items.map((x) => (
-              <span key={x} className="brutal-border bg-bone px-3 py-1.5 text-sm hover:bg-volt transition-colors">
-                {x}
-              </span>
-            ))}
-          </div>
+    <div className="brutal-border bg-paper p-6 md:p-10">
+      <div className="mono text-[11px] text-ink/60 mb-6">SERVICE HUB · OPERATING SPINE</div>
+
+      <svg viewBox="0 0 800 260" className="w-full h-auto" aria-hidden>
+        <defs>
+          <marker id="svc-int-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="var(--color-ink)" />
+          </marker>
+        </defs>
+        <path d="M400 130 H90" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#svc-int-arrow)" />
+        <path d="M400 130 H710" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#svc-int-arrow)" />
+        <path d="M370 110 L200 35" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#svc-int-arrow)" />
+        <path d="M430 110 L600 35" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#svc-int-arrow)" />
+        <path d="M370 150 L200 225" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#svc-int-arrow)" />
+        <path d="M430 150 L600 225" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#svc-int-arrow)" />
+
+        <g transform="translate(320, 105)">
+          <rect width="160" height="50" fill="var(--color-volt)" stroke="var(--color-ink)" strokeWidth="1.5" />
+          <text x="80" y="30" textAnchor="middle" fontSize="14" fontWeight="700" fontFamily="var(--font-mono)" fill="var(--color-ink)">Service Hub</text>
+        </g>
+
+        {[
+          { x: 10, y: 106, label: "Support & Migration" },
+          { x: 630, y: 106, label: "Product & Data" },
+          { x: 130, y: 12, label: "Engineering" },
+          { x: 530, y: 12, label: "Communication" },
+          { x: 130, y: 200, label: "Billing" },
+          { x: 530, y: 200, label: "Docs & Workspace" },
+        ].map((n) => (
+          <g key={n.label} transform={`translate(${n.x}, ${n.y})`}>
+            <rect width="160" height="46" fill="var(--color-bone)" stroke="var(--color-ink)" strokeWidth="1.2" />
+            <text x="10" y="27" fontSize="11" fontFamily="var(--font-mono)" fill="var(--color-ink)">{n.label}</text>
+          </g>
+        ))}
+      </svg>
+
+      <div className="mt-8 border-t border-ink/10 pt-6">
+        <div className="mono text-[10px] uppercase tracking-[0.14em] text-ink/45 mb-4">Full connection list · no duct tape</div>
+        <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+          {categories.map((c) => (
+            <div key={c.name}>
+              <div className="mono text-[10px] uppercase tracking-[0.1em] text-ink/50 mb-1.5">{c.name}</div>
+              <div className="flex flex-wrap gap-1.5">
+                {c.tools.map((t) => (
+                  <span key={t} className="text-xs text-ink/70 border border-ink/12 px-2 py-1">{t}</span>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -782,73 +790,21 @@ const MODULES = [
   },
 ] as const;
 
-function ModuleGlyph({ i, stroke }: { i: number; stroke: string }) {
-  const paths = [
-    "M2 26 Q 18 6, 36 18 T 70 10",
-    "M2 18 h 20 v -12 h 14 v 22 h 34",
-    "M4 28 l 14 -20 l 14 14 l 14 -10 l 22 16",
-    "M2 24 c 10 -18, 22 -18, 32 0 s 24 18, 34 0",
-    "M2 22 h 12 l 4 -12 l 4 12 l 4 -8 l 4 8 h 40",
-    "M2 6 h 68 M2 16 h 40 M2 26 h 60",
-  ];
-  return (
-    <svg width="80" height="34" viewBox="0 0 72 32" className="mb-4" aria-hidden>
-      <rect x="0" y="20" width="72" height="8" fill="#ffeb3b" opacity="0.55" />
-      <path d={paths[i % paths.length]} stroke={stroke} strokeWidth="2.5" fill="none" strokeLinecap="round" data-draw />
-    </svg>
-  );
-}
-
 function ModulesGrid() {
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4" data-stagger>
+    <div className="border-t border-ink">
       {MODULES.map((m, i) => {
-        const isVolt = m.tone === "volt";
-        const isFire = m.tone === "fire";
-        const cardStroke = isFire ? "#ff5722" : "#0a0a0a";
-        const chip = isFire ? "bg-fire text-paper" : isVolt ? "bg-volt text-ink" : "bg-ink text-paper";
-        const tape = isFire ? "bg-fire" : isVolt ? "bg-volt" : "bg-ink";
-        const shadowHover = isFire
-          ? "hover:brutal-shadow-fire"
-          : isVolt
-            ? "hover:brutal-shadow-volt"
-            : "hover:brutal-shadow";
+        const accent = m.tone === "fire" ? "text-fire" : m.tone === "volt" ? "text-ink" : "text-ink";
         return (
           <div
             key={m.code}
-            data-tilt="5"
-            data-spotlight
             data-reveal
-            className={`group module-card relative overflow-hidden brutal-border bg-paper p-6 transition-all duration-200 hover:-translate-y-1 hover:-translate-x-0.5 ${shadowHover}`}
-            style={{
-              backgroundImage:
-                "radial-gradient(320px circle at var(--sx,50%) var(--sy,50%), rgba(255,235,59,0.20), transparent 60%)",
-            }}
+            className="group grid grid-cols-[4rem_1fr] gap-4 border-b border-ink py-7 transition-colors hover:bg-bone/50 md:grid-cols-[5rem_1.3fr_1.7fr_2rem] md:items-center"
           >
-            <span className={`absolute -top-3 -right-3 h-14 w-14 rotate-45 ${tape} opacity-90`} />
-            <span className="absolute top-2 right-2 mono text-[9px] text-ink/50 font-bold z-10">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <span
-              aria-hidden
-              className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 bg-gradient-to-r from-fire via-volt to-ink"
-            />
-
-            <div className="flex items-center justify-between mb-4 relative">
-              <span className={`mono text-[10px] uppercase tracking-[0.14em] px-2 py-1 rounded ${chip}`}>
-                {m.code}
-              </span>
-            </div>
-            <ModuleGlyph i={i} stroke={cardStroke} />
-            <h3 className="font-display text-2xl tracking-[-0.02em] leading-tight mb-3">
-              <span className="hl-target">{m.title}</span>
-            </h3>
-            <p className="text-sm text-ink/70 leading-relaxed">{m.body}</p>
-            <div className="mt-6 flex items-center gap-2 mono text-[10px] text-ink/50 border-t border-ink/10 pt-4">
-              <span className="h-px w-8 bg-ink/40 group-hover:w-16 transition-all" />
-              <span>Module {String(i + 1).padStart(2, "0")} of 06</span>
-              <span className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-            </div>
+            <span className={`mono text-xs ${accent}`}>{m.code}</span>
+            <h3 className="font-display text-xl md:text-2xl tracking-[-0.02em]">{m.title}</h3>
+            <p className="col-span-2 md:col-span-1 text-sm text-ink/65 leading-relaxed">{m.body}</p>
+            <span className="hidden md:block justify-self-end text-fire opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-0.5">→</span>
           </div>
         );
       })}
@@ -892,20 +848,6 @@ export default function ServiceHub() {
     <div className="min-h-screen bg-paper text-ink">
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative bg-paper border-b border-ink/10 overflow-hidden">
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 1px 1px, rgba(10,10,10,0.18) 1px, transparent 0)",
-            backgroundSize: "22px 22px",
-            maskImage: "radial-gradient(ellipse 70% 60% at 30% 40%, black 20%, transparent 75%)",
-            WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 30% 40%, black 20%, transparent 75%)",
-          }}
-        />
-        <div aria-hidden className="absolute -top-32 -left-40 w-[520px] h-[520px] rounded-full bg-volt/25 blur-3xl pointer-events-none" />
-        <div aria-hidden className="absolute -bottom-32 -right-40 w-[520px] h-[520px] rounded-full bg-fire/15 blur-3xl pointer-events-none" />
-
         <div className="max-w-[1300px] mx-auto px-6 pt-28 pb-24 md:pt-36 md:pb-32 relative">
           
 
@@ -926,7 +868,7 @@ export default function ServiceHub() {
               <p className="mt-8 max-w-[560px] text-lg md:text-xl text-ink/70 leading-relaxed" data-reveal data-reveal-delay="0.15">
                 Tickets that route themselves. SLAs that actually hold. A knowledge base that deflects the boring
                 stuff. And a health score CS, sales, and product all trust — before the invoice bounces. Wired
-                end-to-end in 4-6 weeks by an operator who has done it a dozen times.
+                end-to-end in six weeks by an operator who has done it a dozen times.
               </p>
               <div className="mt-10 flex flex-wrap gap-3" data-stagger>
                 <Link
@@ -959,28 +901,13 @@ export default function ServiceHub() {
                   </div>
                 ))}
               </div>
+              <p className="mt-3 mono text-[9px] uppercase tracking-[0.1em] text-ink/35">Illustrative example figures</p>
             </div>
 
-            {/* Right: portal schematic card wrapping the live queue */}
-            <div className="relative" data-tilt="6" data-reveal>
-              <div className="absolute inset-4 rounded-3xl blur-2xl bg-volt/40 opacity-70 -z-10" />
-              <div className="relative rounded-2xl border border-ink/15 bg-paper shadow-[0_28px_80px_-24px_rgba(10,10,10,0.28)] overflow-hidden">
-                <div className="flex items-center justify-between px-4 py-3 border-b border-ink/10 bg-bone/60">
-                  <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-fire animate-pulse" />
-                    <span className="mono text-[10px] uppercase tracking-[0.14em] text-ink/60">
-                      Portal schematic · Svc-Hub
-                    </span>
-                  </div>
-                  <span className="mono text-[10px] text-ink/40">live</span>
-                </div>
-                <div className="bg-paper">
-                  <HeroQueue />
-                </div>
-                <div className="px-4 py-3 border-t border-ink/10 flex items-center justify-between bg-bone/40">
-                  <span className="mono text-[10px] uppercase tracking-[0.14em] text-ink/60">Signed off, week 06</span>
-                  <span className="mono text-[10px] px-2 py-0.5 rounded bg-volt text-ink">Live</span>
-                </div>
+            {/* Right: the live queue itself, one frame, not nested UI chrome */}
+            <div className="relative" data-reveal>
+              <div className="brutal-border bg-paper overflow-hidden">
+                <HeroQueue />
               </div>
             </div>
           </div>
@@ -1202,14 +1129,12 @@ export default function ServiceHub() {
             backgroundSize: "60px 60px",
           }}
         />
-        <div className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-fire blur-3xl opacity-25" />
-        <div className="absolute -bottom-40 -right-40 w-[520px] h-[520px] rounded-full bg-volt blur-3xl opacity-15" />
         <div className="max-w-[1200px] mx-auto px-6 py-28 md:py-36 relative">
           <div className="mono text-[11px] uppercase tracking-[0.24em] text-paper/50 mb-6" data-reveal>
             13 · Ready when you are
           </div>
           <h2 className="font-display text-5xl md:text-7xl tracking-[-0.045em] leading-[0.98] max-w-[900px]" data-split>
-            A Service Hub that keeps customers, and expands them.
+            A Service Hub that keeps customers — and expands them.
           </h2>
           <p className="mt-6 max-w-[580px] text-paper/70 leading-relaxed text-lg" data-reveal>
             Send us your portal, your ticket volume, and the account you are most worried about. We come back with a

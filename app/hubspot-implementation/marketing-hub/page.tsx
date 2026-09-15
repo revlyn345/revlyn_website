@@ -4,12 +4,12 @@ import MarketingHubClient from "@/components/generated/MarketingHubClient";
 export const metadata: Metadata = {
   title: "HubSpot Marketing Hub Implementation",
   description:
-    "Marketing Hub built for demand: lifecycle, forms, routing, campaigns, attribution and a dashboard your board can read. Live in 4-6 weeks.",
+    "Marketing Hub built for demand: lifecycle, forms, routing, campaigns, attribution and a dashboard your board can read. Live in six weeks.",
   alternates: { canonical: "/hubspot-implementation/marketing-hub" },
   openGraph: {
     title: "HubSpot Marketing Hub Implementation · Revlyn",
     description:
-      "A Marketing Hub that ships qualified pipeline, not vanity opens. Lifecycle, forms, attribution and reporting wired end to end.",
+      "A Marketing Hub built to turn demand into qualified pipeline, not just opens and clicks. Lifecycle, forms, attribution and reporting wired end to end.",
     type: "website",
   },
   twitter: {

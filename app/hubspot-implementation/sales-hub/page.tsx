@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { BookCallButton } from "@/components/BookCallButton";
+import { BookAuditButton } from "@/components/BookAuditButton";
 import { Footer } from "@/components/Footer";
-
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
-const revlynWordmark = "/logos/revlyn-wordmark.png";
 
 export const metadata: Metadata = {
   title: "HubSpot Sales Hub Implementation",
@@ -27,13 +24,13 @@ export const metadata: Metadata = {
 
 function Tag({ children, tone = "ink" }: { children: React.ReactNode; tone?: "ink" | "fire" | "volt" | "bone" }) {
   const map: Record<string, string> = {
-    ink: "bg-ink text-paper",
-    fire: "bg-fire text-paper",
-    volt: "bg-volt text-ink",
-    bone: "bg-bone text-ink",
+    ink: "bg-ink text-paper border-ink",
+    fire: "bg-fire text-paper border-fire",
+    volt: "bg-volt text-ink border-ink",
+    bone: "bg-bone text-ink border-ink",
   };
   return (
-    <span className={`mono text-[10px] px-2 py-1 rounded-full ${map[tone]}`}>{children}</span>
+    <span className={`mono text-[10px] px-2 py-1 border ${map[tone]}`}>{children}</span>
   );
 }
 
@@ -132,10 +129,10 @@ function HeroPipeline() {
 
         <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-3">
           {[
-            { k: "±8%", v: "Forecast" },
-            { k: "3.2×", v: "Rep updates" },
-            { k: "41%", v: "Faster log" },
-            { k: "18d", v: "Cycle time" },
+            { k: "5", v: "Pipeline stages" },
+            { k: "EXIT", v: "Criteria, not vibes" },
+            { k: "1", v: "Owner per deal" },
+            { k: "6 wks", v: "Build" },
           ].map((x) => (
             <div key={x.v} className="brutal-border bg-bone px-3 py-3">
               <div className="font-display text-2xl leading-none">{x.k}</div>
@@ -352,7 +349,7 @@ function RoutingWaterfall() {
     <div className="brutal-border bg-paper p-6 md:p-8">
       <div className="flex items-center justify-between mb-6">
         <div className="mono text-[11px] text-ink/60">LEAD.ROUTING / 00:00:00 → 00:00:47</div>
-        <Tag tone="fire">SLA: 60s</Tag>
+        <Tag tone="fire">Target: 60s</Tag>
       </div>
       <svg viewBox="0 0 720 300" className="w-full h-[300px]" aria-hidden>
         <g>
@@ -412,6 +409,7 @@ function RoutingWaterfall() {
       <div className="mt-4 mono text-[11px] text-ink/60">
         Every decision logged on the record. Reason field never blank.
       </div>
+      <p className="mt-1 mono text-[9px] uppercase tracking-[0.1em] text-ink/35">Illustrative example against a 60s SLA target</p>
     </div>
   );
 }
@@ -424,24 +422,15 @@ function ForecastGauge() {
   return (
     <div className="grid md:grid-cols-2 gap-6">
       {[
-        { label: "Before", value: "±30%", desc: "Rep gut. CRO guesses. Board disappointed.", tone: "fire", pct: 0.72 },
-        { label: "After", value: "±8%", desc: "Stage-exit signals + weighted commit + weekly review.", tone: "volt", pct: 0.24 },
+        { label: "Before", value: "Gut call", desc: "Rep gut. CRO guesses. Board disappointed.", tone: "fire", pct: 0.7 },
+        { label: "After", value: "Evidence-based", desc: "Stage-exit signals + weighted commit + weekly review.", tone: "volt", pct: 0.25 },
       ].map((g) => {
         const angle = -90 + 180 * g.pct;
         return (
-          <div
-            key={g.label}
-            data-tilt="6"
-            data-spotlight
-            className="group brutal-border bg-paper p-6 hover:-translate-y-1 hover:brutal-shadow transition-all duration-300 relative overflow-hidden"
-            style={{
-              backgroundImage:
-                "radial-gradient(280px circle at var(--sx,50%) var(--sy,50%), rgba(255,235,59,0.22), transparent 55%)",
-            }}
-          >
+          <div key={g.label} className="brutal-border bg-paper p-6">
             <Tag tone={g.tone as "fire" | "volt"}>{g.label}</Tag>
             <div className="mt-6 flex items-center gap-6">
-              <svg viewBox="0 0 160 100" className="w-40 group-hover:scale-105 transition-transform duration-500" aria-hidden>
+              <svg viewBox="0 0 160 100" className="w-40" aria-hidden>
                 <path d="M10 90 A 70 70 0 0 1 150 90" stroke="var(--color-ink)" strokeOpacity="0.15" strokeWidth="8" fill="none" />
                 <path
                   d="M10 90 A 70 70 0 0 1 150 90"
@@ -457,8 +446,8 @@ function ForecastGauge() {
                 </g>
               </svg>
               <div>
-                <div className="font-display text-5xl tracking-[-0.03em] leading-none">{g.value}</div>
-                <div className="mono text-[10px] mt-2 text-ink/60">variance</div>
+                <div className="font-display text-2xl tracking-[-0.02em] leading-none max-w-[7ch]">{g.value}</div>
+                <div className="mono text-[10px] mt-2 text-ink/60">forecast method</div>
               </div>
             </div>
             <p className="mt-5 text-sm text-ink/70">{g.desc}</p>
@@ -488,19 +477,11 @@ function QuoteFlow() {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4" data-stagger>
         {steps.map((s, i) => (
-          <div key={s.k} className="relative group" data-tilt="4">
-            <div
-              className={`brutal-border p-4 bg-paper transition-all duration-200 group-hover:-translate-y-1 ${
-                i === 1 ? "brutal-shadow-fire" : i === 3 ? "brutal-shadow-volt" : "brutal-shadow"
-              }`}
-            >
+          <div key={s.k} className="relative group">
+            <div className="brutal-border p-4 bg-paper transition-colors duration-200 group-hover:bg-bone">
               <div className="flex items-center justify-between">
                 <div className="mono text-[10px] text-ink/50">STEP {String(i + 1).padStart(2, "0")}</div>
-                <span
-                  className={`h-2 w-2 rounded-full ${
-                    i === 1 ? "bg-fire" : i === 3 ? "bg-volt" : "bg-ink"
-                  } group-hover:animate-blink`}
-                />
+                <span className={`h-2 w-2 rounded-full ${i === 1 ? "bg-fire" : i === 3 ? "bg-volt" : "bg-ink"}`} />
               </div>
               <div className="font-display text-2xl mt-2 tracking-[-0.02em]">{s.k}</div>
               <div className="text-sm text-ink/70 mt-2">{s.d}</div>
@@ -639,45 +620,67 @@ function BuildPlan() {
    ───────────────────────────────────────────────────────────── */
 
 function IntegrationsOrbit() {
-  const items = [
-    "Gmail", "Outlook", "Google Calendar", "Zoom", "Chili Piper",
-    "Gong", "Chorus", "LinkedIn SN", "Apollo", "ZoomInfo",
-    "DocuSign", "PandaDoc", "Slack", "Aircall", "Dialpad",
-    "Stripe", "Xero", "Salesforce (migration)",
+  const categories = [
+    { name: "Calendar & Comms", tools: ["Gmail", "Outlook", "Google Calendar", "Slack"] },
+    { name: "Call Intelligence", tools: ["Gong", "Chorus", "Aircall", "Dialpad"] },
+    { name: "Prospecting & Data", tools: ["LinkedIn SN", "Apollo", "ZoomInfo", "Chili Piper"] },
+    { name: "Contracts", tools: ["DocuSign", "PandaDoc"] },
+    { name: "Billing", tools: ["Stripe", "Xero"] },
+    { name: "Migration", tools: ["Salesforce (migration)"] },
   ];
   return (
-    <div className="brutal-border bg-paper p-6 md:p-10 relative overflow-hidden">
-      <div className="grid md:grid-cols-[300px_1fr] gap-8 items-center">
-        <div className="relative h-[300px]">
-          <svg viewBox="0 0 300 300" className="w-full h-full animate-spin-slow" aria-hidden>
-            <circle cx="150" cy="150" r="120" stroke="var(--color-ink)" strokeOpacity="0.15" strokeDasharray="4 6" fill="none" />
-            <circle cx="150" cy="150" r="80" stroke="var(--color-ink)" strokeOpacity="0.1" strokeDasharray="2 4" fill="none" />
-          </svg>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="brutal-border bg-volt px-5 py-3 font-display text-2xl">Sales Hub</div>
-          </div>
-          {[0, 60, 120, 180, 240, 300].map((deg, i) => {
-            const rad = (deg * Math.PI) / 180;
-            const x = 150 + 120 * Math.cos(rad);
-            const y = 150 + 120 * Math.sin(rad);
-            return (
-              <div
-                key={i}
-                className="absolute h-3 w-3 rounded-full bg-fire brutal-border"
-                style={{ left: `${(x / 300) * 100}%`, top: `${(y / 300) * 100}%`, transform: "translate(-50%,-50%)" }}
-              />
-            );
-          })}
-        </div>
-        <div>
-          <div className="mono text-[11px] text-ink/60 mb-4">CONNECTS TO YOUR STACK · NO DUCT TAPE</div>
-          <div className="flex flex-wrap gap-2">
-            {items.map((x) => (
-              <span key={x} className="brutal-border bg-bone px-3 py-1.5 text-sm hover:bg-volt transition-colors">
-                {x}
-              </span>
-            ))}
-          </div>
+    <div className="brutal-border bg-paper p-6 md:p-10">
+      <div className="mono text-[11px] text-ink/60 mb-6">SALES HUB · OPERATING SPINE</div>
+
+      <svg viewBox="0 0 800 260" className="w-full h-auto" aria-hidden>
+        <defs>
+          <marker id="int-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="var(--color-ink)" />
+          </marker>
+        </defs>
+        {/* connectors: straight lines out from the center to each category slot */}
+        <path d="M400 130 H90" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#int-arrow)" />
+        <path d="M400 130 H710" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#int-arrow)" />
+        <path d="M370 110 L200 35" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#int-arrow)" />
+        <path d="M430 110 L600 35" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#int-arrow)" />
+        <path d="M370 150 L200 225" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#int-arrow)" />
+        <path d="M430 150 L600 225" stroke="var(--color-ink)" strokeOpacity="0.5" strokeWidth="1.5" markerEnd="url(#int-arrow)" />
+
+        {/* center: Sales Hub */}
+        <g transform="translate(330, 105)">
+          <rect width="140" height="50" fill="var(--color-volt)" stroke="var(--color-ink)" strokeWidth="1.5" />
+          <text x="70" y="30" textAnchor="middle" fontSize="14" fontWeight="700" fontFamily="var(--font-mono)" fill="var(--color-ink)">Sales Hub</text>
+        </g>
+
+        {/* six category nodes */}
+        {[
+          { x: 10, y: 106, label: "Calendar & Comms" },
+          { x: 630, y: 106, label: "Prospecting & Data" },
+          { x: 130, y: 12, label: "Call Intelligence" },
+          { x: 530, y: 12, label: "Contracts" },
+          { x: 130, y: 200, label: "Billing" },
+          { x: 530, y: 200, label: "Migration" },
+        ].map((n) => (
+          <g key={n.label} transform={`translate(${n.x}, ${n.y})`}>
+            <rect width="160" height="46" fill="var(--color-bone)" stroke="var(--color-ink)" strokeWidth="1.2" />
+            <text x="10" y="27" fontSize="11" fontFamily="var(--font-mono)" fill="var(--color-ink)">{n.label}</text>
+          </g>
+        ))}
+      </svg>
+
+      <div className="mt-8 border-t border-ink/10 pt-6">
+        <div className="mono text-[10px] uppercase tracking-[0.14em] text-ink/45 mb-4">Full connection list · no duct tape</div>
+        <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+          {categories.map((c) => (
+            <div key={c.name}>
+              <div className="mono text-[10px] uppercase tracking-[0.1em] text-ink/50 mb-1.5">{c.name}</div>
+              <div className="flex flex-wrap gap-1.5">
+                {c.tools.map((t) => (
+                  <span key={t} className="text-xs text-ink/70 border border-ink/12 px-2 py-1">{t}</span>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -727,73 +730,21 @@ const MODULES = [
   },
 ] as const;
 
-function ModuleGlyph({ i, stroke }: { i: number; stroke: string }) {
-  const paths = [
-    "M2 26 Q 18 6, 36 18 T 70 10",
-    "M2 18 h 20 v -12 h 14 v 22 h 34",
-    "M4 28 l 14 -20 l 14 14 l 14 -10 l 22 16",
-    "M2 24 c 10 -18, 22 -18, 32 0 s 24 18, 34 0",
-    "M2 22 h 12 l 4 -12 l 4 12 l 4 -8 l 4 8 h 40",
-    "M2 6 h 68 M2 16 h 40 M2 26 h 60",
-  ];
-  return (
-    <svg width="80" height="34" viewBox="0 0 72 32" className="mb-4" aria-hidden>
-      <rect x="0" y="20" width="72" height="8" fill="#ffeb3b" opacity="0.55" />
-      <path d={paths[i % paths.length]} stroke={stroke} strokeWidth="2.5" fill="none" strokeLinecap="round" data-draw />
-    </svg>
-  );
-}
-
 function ModulesGrid() {
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4" data-stagger>
+    <div className="border-t border-ink">
       {MODULES.map((m, i) => {
-        const isVolt = m.tone === "volt";
-        const isFire = m.tone === "fire";
-        const cardStroke = isVolt ? "#0a0a0a" : isFire ? "#ff5722" : "#0a0a0a";
-        const chip = isFire ? "bg-fire text-paper" : isVolt ? "bg-volt text-ink" : "bg-ink text-paper";
-        const tape = isFire ? "bg-fire" : isVolt ? "bg-volt" : "bg-ink";
-        const shadowHover = isFire
-          ? "hover:brutal-shadow-fire"
-          : isVolt
-            ? "hover:brutal-shadow-volt"
-            : "hover:brutal-shadow";
+        const accent = m.tone === "fire" ? "text-fire" : m.tone === "volt" ? "text-ink" : "text-ink";
         return (
           <div
             key={m.code}
-            data-tilt="5"
-            data-spotlight
             data-reveal
-            className={`group module-card relative overflow-hidden brutal-border bg-paper p-6 transition-all duration-200 hover:-translate-y-1 hover:-translate-x-0.5 ${shadowHover}`}
-            style={{
-              backgroundImage:
-                "radial-gradient(320px circle at var(--sx,50%) var(--sy,50%), rgba(255,235,59,0.20), transparent 60%)",
-            }}
+            className="group grid grid-cols-[4rem_1fr] gap-4 border-b border-ink py-7 transition-colors hover:bg-bone/50 md:grid-cols-[5rem_1.3fr_1.7fr_2rem] md:items-center"
           >
-            <span className={`absolute -top-3 -right-3 h-14 w-14 rotate-45 ${tape} opacity-90`} />
-            <span className="absolute top-2 right-2 mono text-[9px] text-ink/50 font-bold z-10">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <span
-              aria-hidden
-              className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 bg-gradient-to-r from-fire via-volt to-ink"
-            />
-
-            <div className="flex items-center justify-between mb-4 relative">
-              <span className={`mono text-[10px] uppercase tracking-[0.14em] px-2 py-1 rounded ${chip}`}>
-                {m.code}
-              </span>
-            </div>
-            <ModuleGlyph i={i} stroke={cardStroke} />
-            <h3 className="font-display text-2xl tracking-[-0.02em] leading-tight mb-3">
-              <span className="hl-target">{m.title}</span>
-            </h3>
-            <p className="text-sm text-ink/70 leading-relaxed">{m.body}</p>
-            <div className="mt-6 flex items-center gap-2 mono text-[10px] text-ink/50 border-t border-ink/10 pt-4">
-              <span className="h-px w-8 bg-ink/40 group-hover:w-16 transition-all" />
-              <span>Module {String(i + 1).padStart(2, "0")} of 06</span>
-              <span className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-            </div>
+            <span className={`mono text-xs ${accent}`}>{m.code}</span>
+            <h3 className="font-display text-xl md:text-2xl tracking-[-0.02em]">{m.title}</h3>
+            <p className="col-span-2 md:col-span-1 text-sm text-ink/65 leading-relaxed">{m.body}</p>
+            <span className="hidden md:block justify-self-end text-fire opacity-0 transition-all group-hover:opacity-100 group-hover:translate-x-0.5">→</span>
           </div>
         );
       })}
@@ -837,20 +788,6 @@ export default function SalesHub() {
     <div className="min-h-screen bg-paper text-ink">
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative bg-paper border-b border-ink/10 overflow-hidden">
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 1px 1px, rgba(10,10,10,0.18) 1px, transparent 0)",
-            backgroundSize: "22px 22px",
-            maskImage: "radial-gradient(ellipse 70% 60% at 30% 40%, black 20%, transparent 75%)",
-            WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 30% 40%, black 20%, transparent 75%)",
-          }}
-        />
-        <div aria-hidden className="absolute -top-32 -left-40 w-[520px] h-[520px] rounded-full bg-volt/25 blur-3xl pointer-events-none" />
-        <div aria-hidden className="absolute -bottom-32 -right-40 w-[520px] h-[520px] rounded-full bg-fire/15 blur-3xl pointer-events-none" />
-
         <div className="max-w-[1300px] mx-auto px-6 pt-28 pb-24 md:pt-36 md:pb-32 relative">
           
 
@@ -868,34 +805,35 @@ export default function SalesHub() {
                 <div className="h-[10px] w-[80px] bg-fire rounded-sm" />
                 <div className="h-[10px] w-[40px] bg-ink rounded-sm" />
               </div>
-              <p className="mt-8 max-w-[560px] text-lg md:text-xl text-ink/70 leading-relaxed" data-reveal data-reveal-delay="0.15">
+              <p className="mt-6 mono text-[11px] uppercase tracking-[0.14em] text-ink/50" data-reveal>
+                Pipeline · Routing · Sequences · Forecasting · Quoting · Manager visibility
+              </p>
+              <p className="mt-6 max-w-[560px] text-lg md:text-xl text-ink/70 leading-relaxed" data-reveal data-reveal-delay="0.15">
                 Honest pipeline stages. Sequences that respect the buyer. A forecast the CRO can defend on a Monday.
                 Rep scorecards that end the pipeline-review argument by 9:15am. Wired end-to-end by an operator who
-                has done it twelve times before.
+                has done it before.
               </p>
               <div className="mt-10 flex flex-wrap gap-3" data-stagger>
-                <Link
-                  href="/contact"
+                <BookCallButton
                   data-magnetic="14"
                   className="group inline-flex items-center gap-2 rounded-full bg-ink text-paper pl-5 pr-2 py-2.5 text-sm font-medium hover:bg-fire transition-colors"
                 >
                   Scope a Sales Hub build
                   <span className="inline-flex items-center justify-center h-7 w-7 rounded-full bg-paper text-ink group-hover:translate-x-0.5 transition-transform">→</span>
-                </Link>
-                <Link
-                  href="/hubspot-audit"
+                </BookCallButton>
+                <BookAuditButton
                   data-magnetic="10"
                   className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-5 py-2.5 text-sm hover:bg-bone transition-colors"
                 >
-                  Get a free 47-point audit
-                </Link>
+                  Start with a free HubSpot audit
+                </BookAuditButton>
               </div>
 
               <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-[600px]" data-stagger>
                 {[
-                  { k: "3.2×", v: "Rep adoption", n: "measured week 8" },
-                  { k: "±8%", v: "Forecast variance", n: "vs ±30% before" },
-                  { k: "12", v: "Sales Hubs shipped", n: "senior operators only" },
+                  { k: "6 wks", v: "Fixed-scope build", n: "architecture, data, automation, reporting, enablement" },
+                  { k: "6", v: "Named workstreams", n: "each with an owner on our side and yours" },
+                  { k: "1", v: "Documented handoff", n: "runbook, playbooks, and 30-day support" },
                 ].map((o) => (
                   <div key={o.v} className="border-l-2 border-ink/10 pl-4">
                     <div className="font-display text-3xl md:text-4xl leading-none tracking-tight text-ink">{o.k}</div>
@@ -906,26 +844,10 @@ export default function SalesHub() {
               </div>
             </div>
 
-            {/* Right: portal schematic card wrapping the animated pipeline */}
-            <div className="relative" data-tilt="6" data-reveal>
-              <div className="absolute inset-4 rounded-3xl blur-2xl bg-volt/40 opacity-70 -z-10" />
-              <div className="relative rounded-2xl border border-ink/15 bg-paper shadow-[0_28px_80px_-24px_rgba(10,10,10,0.28)] overflow-hidden">
-                <div className="flex items-center justify-between px-4 py-3 border-b border-ink/10 bg-bone/60">
-                  <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-fire animate-pulse" />
-                    <span className="mono text-[10px] uppercase tracking-[0.14em] text-ink/60">
-                      Portal schematic · S-Hub
-                    </span>
-                  </div>
-                  <span className="mono text-[10px] text-ink/40">live</span>
-                </div>
-                <div className="bg-paper">
-                  <HeroPipeline />
-                </div>
-                <div className="px-4 py-3 border-t border-ink/10 flex items-center justify-between bg-bone/40">
-                  <span className="mono text-[10px] uppercase tracking-[0.14em] text-ink/60">Signed off, week 06</span>
-                  <span className="mono text-[10px] px-2 py-0.5 rounded bg-volt text-ink">Live</span>
-                </div>
+            {/* Right: the pipeline schematic itself, one frame, not nested UI chrome */}
+            <div className="relative" data-reveal>
+              <div className="brutal-border bg-paper overflow-hidden">
+                <HeroPipeline />
               </div>
             </div>
           </div>
@@ -981,7 +903,7 @@ export default function SalesHub() {
             </div>
             <div>
               <h2 className="font-display text-4xl md:text-6xl tracking-[-0.03em] leading-[1.02] text-paper">
-                A lead lands. The right rep pings the prospect in 47 seconds.
+                A lead lands. Inside an example 60-second SLA target, the right rep gets pinged.
               </h2>
               <p className="mt-5 max-w-[640px] text-paper/70 leading-relaxed text-lg">
                 Enrichment, ICP scoring, territory, and rep load resolved in the background. Reason for every routing
@@ -1014,8 +936,8 @@ export default function SalesHub() {
           <Chapter
             num="06"
             kicker="Close the loop"
-            title="Quotes that close themselves at 5:47pm on a Friday."
-            lede="Products, price books, and approval rules live on the record. Reps configure, the system approves within policy, and signed quotes auto-move deals to Closed Won. No more late-night Slack scrambles for discount sign-off."
+            title="Quotes that move the deal forward."
+            lede="Products, price books, and approval rules live on the record. Reps configure, the system checks against policy, and signed quotes auto-move deals to Closed Won. No more late-night Slack scrambles for discount sign-off, even on a Friday."
           />
           <QuoteFlow />
         </div>
@@ -1067,7 +989,7 @@ export default function SalesHub() {
             kicker="What lands in your portal"
             title="Ten artifacts. Every one of them survives you."
           />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="border-t border-ink">
             {[
               "Pipeline design doc with exit criteria",
               "Sequence library + performance targets",
@@ -1082,11 +1004,11 @@ export default function SalesHub() {
             ].map((d, i) => (
               <div
                 key={d}
-                className="group brutal-border bg-paper p-4 flex items-start gap-3 hover:brutal-shadow hover:-translate-x-0.5 hover:-translate-y-0.5 transition-all"
+                className="group grid grid-cols-[3rem_1fr_1.5rem] items-center gap-3 border-b border-ink py-4 transition-colors hover:bg-paper"
               >
-                <span className="mono text-[10px] text-ink/50 mt-1">{String(i + 1).padStart(2, "0")}</span>
+                <span className="mono text-[10px] text-ink/50">{String(i + 1).padStart(2, "0")}</span>
                 <div className="text-sm">{d}</div>
-                <span className="ml-auto h-2 w-2 rounded-full bg-volt opacity-0 group-hover:opacity-100 transition" />
+                <span className="justify-self-end h-2 w-2 rounded-full bg-volt opacity-0 transition-opacity group-hover:opacity-100" />
               </div>
             ))}
           </div>
@@ -1146,8 +1068,6 @@ export default function SalesHub() {
             backgroundSize: "60px 60px",
           }}
         />
-        <div className="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-fire blur-3xl opacity-25" />
-        <div className="absolute -bottom-40 -right-40 w-[520px] h-[520px] rounded-full bg-volt blur-3xl opacity-15" />
         <div className="max-w-[1200px] mx-auto px-6 py-28 md:py-36 relative">
           <div className="mono text-[11px] uppercase tracking-[0.24em] text-paper/50 mb-6" data-reveal>
             13 · Ready when you are

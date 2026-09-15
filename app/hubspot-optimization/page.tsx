@@ -1,13 +1,11 @@
 import { OptMoment, OptRehab, OptArtifacts } from "@/components/OptimizationJourney";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { BookCallButton } from "@/components/BookCallButton";
+import { BookAuditButton } from "@/components/BookAuditButton";
 import { Footer } from "@/components/Footer";
 const hero = "/hubspot-impl-hero.jpg";
 const whiteboard = "/whiteboard.jpg";
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
-const revlynWordmark = "/logos/revlyn-wordmark.png";
 
 export const metadata: Metadata = {
   title: "HubSpot Optimization · Revlyn",
@@ -37,6 +35,7 @@ export default function HubSpotOptimization() {
   return (
     <div className="min-h-screen bg-paper text-ink overflow-x-hidden">
       <Hero />
+      <Positioning />
       <OptMoment />
       <Promise />
       <AuditSurface />
@@ -55,26 +54,55 @@ export default function HubSpotOptimization() {
   );
 }
 
+/* ═══════════════════════════════ POSITIONING ═══════════════════════════════ */
+function Positioning() {
+  const rows = [
+    ["Audit", "Find the problems.", false],
+    ["Optimization", "Fix the problems.", true],
+    ["Implementation", "Build the foundation.", false],
+    ["HubSpot as a Service", "Operate and continuously improve it.", false],
+  ] as const;
+  return (
+    <section className="border-b border-ink/10 bg-bone/40 py-16 md:py-20">
+      <div className="max-w-[1400px] mx-auto px-6">
+        <div className="mono text-xs tracking-widest text-fire mb-6">Where this fits</div>
+        <div className="border-t border-ink">
+          {rows.map(([name, desc, current]) => (
+            <div
+              key={name}
+              className={`grid gap-1 border-b border-ink py-4 md:grid-cols-[1.3fr_1.7fr] md:items-baseline md:gap-8 ${
+                current ? "bg-fire/5" : ""
+              }`}
+            >
+              <div className="flex items-center gap-2">
+                {current && <span className="h-1.5 w-1.5 rounded-full bg-fire shrink-0" />}
+                <span className={`text-[15px] ${current ? "font-medium" : "text-ink/70"}`}>{name}</span>
+                {current && <span className="mono text-[9px] uppercase tracking-widest text-fire ml-1">You are here</span>}
+              </div>
+              <span className="text-sm text-ink/60">{desc}</span>
+            </div>
+          ))}
+        </div>
+        <p className="mt-6 max-w-2xl text-sm text-ink/60 leading-relaxed">
+          If the audit finds problems, Optimization is the repair layer.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 /* ═══════════════════════════════ HERO ═══════════════════════════════ */
 function Hero() {
   return (
     <section className="relative border-b border-ink/10 overflow-hidden">
       <div
-        className="absolute -top-32 -left-32 w-[520px] h-[520px] rounded-full blur-3xl opacity-40 pointer-events-none"
-        style={{ background: `radial-gradient(circle, ${COLORS.fireSoft}, transparent 65%)` }}
-      />
-      <div
-        className="absolute top-1/3 -right-32 w-[520px] h-[520px] rounded-full blur-3xl opacity-40 pointer-events-none"
-        style={{ background: `radial-gradient(circle, ${COLORS.voltSoft}, transparent 65%)` }}
-      />
-      <div
-        className="absolute bottom-0 left-1/3 w-[440px] h-[440px] rounded-full blur-3xl opacity-30 pointer-events-none"
-        style={{ background: `radial-gradient(circle, ${COLORS.volt}, transparent 65%)` }}
+        className="absolute -top-32 -right-32 w-[480px] h-[480px] rounded-full blur-3xl opacity-25 pointer-events-none"
+        style={{ background: `radial-gradient(circle, ${COLORS.fireWash}, transparent 65%)` }}
       />
 
       <div className="max-w-[1400px] mx-auto px-6 pt-14 md:pt-20 pb-16 md:pb-24 grid md:grid-cols-12 gap-10 items-end relative">
         <div className="md:col-span-7">
-          <div className="inline-flex items-center gap-3 mono text-xs tracking-[0.22em] uppercase bg-paper/70 backdrop-blur border border-ink/10 rounded-full px-3 py-1.5">
+          <div className="inline-flex items-center gap-3 mono text-xs tracking-[0.22em] uppercase border border-ink/15 px-3 py-1.5">
             <span className="w-2 h-2 rounded-full bg-fire animate-pulse" />
             The portal you already own, made to behave
           </div>
@@ -83,26 +111,20 @@ function Hero() {
             <br />
             finally{" "}
             <span className="relative inline-block">
-              <span
-                className="relative z-10 italic"
-                style={{
-                  backgroundImage: `linear-gradient(90deg, ${COLORS.fire}, ${COLORS.volt})`,
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  color: "transparent",
-                }}
-              >
+              <span className="relative z-10 italic text-fire">
                 working
               </span>
               <span
-                className="absolute -bottom-1 left-0 right-0 h-3 -z-0"
-                style={{ background: `linear-gradient(90deg, ${COLORS.volt}, ${COLORS.fire})` }}
+                className="absolute -bottom-1 left-0 right-0 h-3 -z-0 bg-volt"
                 aria-hidden
               />
             </span>
             .
           </h1>
-          <p className="mt-8 max-w-xl text-lg md:text-xl text-ink/75 leading-relaxed">
+          <p className="mt-4 mono text-[11px] uppercase tracking-[0.16em] text-fire">
+            We work inside your existing portal. No rip-and-replace.
+          </p>
+          <p className="mt-6 max-w-xl text-lg md:text-xl text-ink/75 leading-relaxed">
             Every portal drifts. A growing team typically adds three to five workflows a quarter, and after eighteen months there's more automation than any one person can hold in their head. That's a healthy sign your business moved, not a failure of setup. We spend a week inside your instance to learn what each layer was protecting, then rebuild only the parts that need to be trusted again.
           </p>
           <p className="mt-4 max-w-xl text-base text-ink/60 leading-relaxed">
@@ -110,12 +132,11 @@ function Hero() {
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
-            <a
-              href="mailto:info@revlyn.io?subject=HubSpot Optimization"
+            <BookAuditButton
               className="inline-flex items-center gap-2 rounded-full bg-ink text-paper px-6 py-3 text-sm font-medium hover:bg-fire transition-colors"
             >
               Start with an audit <span>→</span>
-            </a>
+            </BookAuditButton>
             <Link
               href="/hubspot-as-a-service"
               className="inline-flex items-center gap-2 rounded-full border border-ink/20 bg-paper/60 backdrop-blur px-6 py-3 text-sm font-medium hover:bg-ink hover:text-paper transition-colors"
@@ -126,9 +147,9 @@ function Hero() {
 
           <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-lg">
             {[
-              ["83", "portals we have rehabilitated", COLORS.fire],
-              ["100%", "of your history stays put", COLORS.volt],
-              ["0", "reps retrained from scratch", COLORS.ink],
+              ["4-6 wks", "typical rebuild, scoped after audit", COLORS.fire],
+              ["0", "migrations required", COLORS.volt],
+              ["1", "team, inside your existing portal", COLORS.ink],
             ].map(([n, l, c]) => (
               <div key={l} className="pt-3" style={{ borderTop: `3px solid ${c}` }}>
                 <div className="display text-4xl md:text-5xl leading-none">{n}</div>
@@ -141,13 +162,7 @@ function Hero() {
         </div>
 
         <div className="md:col-span-5 relative">
-          <div
-            className="absolute -inset-4 rounded-2xl opacity-70 blur-2xl"
-            style={{
-              background: `linear-gradient(135deg, ${COLORS.fireSoft}, ${COLORS.voltSoft}, ${COLORS.bone})`,
-            }}
-          />
-          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border-2 border-ink shadow-[8px_8px_0_0_var(--color-ink)]">
+          <div className="relative aspect-[4/5] overflow-hidden border-2 border-ink shadow-[8px_8px_0_0_var(--color-ink)]">
             <img
               src={hero}
               alt="HubSpot audit and rebuild blueprint"
@@ -155,11 +170,11 @@ function Hero() {
               width={1600}
               height={2000}
             />
-            <div className="absolute top-4 left-4 bg-volt border border-ink px-3 py-1.5 rounded-full mono text-[10px] tracking-widest uppercase">
+            <div className="absolute top-4 left-4 bg-volt border border-ink px-3 py-1.5 mono text-[10px] tracking-widest uppercase">
               Audit · v2.1
             </div>
-            <div className="absolute bottom-4 right-4 bg-fire text-paper px-3 py-1.5 rounded-full mono text-[10px] tracking-widest uppercase">
-              Rebuilt in 4 weeks
+            <div className="absolute bottom-4 right-4 bg-fire text-paper border border-ink px-3 py-1.5 mono text-[10px] tracking-widest uppercase">
+              Typically 4-6 weeks
             </div>
           </div>
         </div>
@@ -215,24 +230,15 @@ function Promise() {
             </h2>
           </div>
         </div>
-        <div className="grid md:grid-cols-2 gap-5">
+        <div className="border-t border-ink">
           {items.map((it) => (
             <div
               key={it.k}
-              className="rounded-3xl p-8 md:p-10 border-2 border-ink transition-all hover:-translate-y-1 hover:shadow-[8px_8px_0_0_var(--color-ink)]"
-              style={{ background: it.bg }}
+              className="grid gap-3 border-b border-ink py-8 md:grid-cols-[4rem_1.4fr_1.6fr] md:items-center md:gap-8"
             >
-              <div className="flex items-center gap-3">
-                <span
-                  className="w-3 h-3 rounded-full"
-                  style={{ background: it.dot }}
-                />
-                <div className="mono text-xs tracking-widest">{it.k}</div>
-              </div>
-              <h3 className="mt-4 display text-2xl md:text-3xl leading-tight">
-                {it.h}
-              </h3>
-              <p className="mt-3 text-ink/75 leading-relaxed">{it.p}</p>
+              <span className="mono text-xs text-fire">{it.k}</span>
+              <h3 className="display text-xl md:text-2xl leading-tight">{it.h}</h3>
+              <p className="text-ink/70 leading-relaxed text-sm">{it.p}</p>
             </div>
           ))}
         </div>
@@ -256,7 +262,7 @@ function AuditSurface() {
   return (
     <section className="bg-ink text-paper py-20 md:py-28 border-b border-ink relative overflow-hidden">
       <div
-        className="absolute inset-0 opacity-20 pointer-events-none"
+        className="absolute inset-0 opacity-14 pointer-events-none"
         style={{
           background: `radial-gradient(circle at 20% 30%, ${COLORS.fire}, transparent 40%), radial-gradient(circle at 80% 70%, ${COLORS.volt}, transparent 40%), radial-gradient(circle at 50% 100%, ${COLORS.fireSoft}, transparent 40%)`,
         }}
@@ -486,10 +492,7 @@ function Phases() {
 function Blueprint() {
   return (
     <section
-      className="py-20 md:py-28 border-b border-ink/10 relative overflow-hidden"
-      style={{
-        background: `linear-gradient(135deg, ${COLORS.voltWash} 0%, ${COLORS.fireWash} 50%, ${COLORS.bone} 100%)`,
-      }}
+      className="py-20 md:py-28 border-b border-ink/10 relative overflow-hidden bg-bone"
     >
       <div className="max-w-[1400px] mx-auto px-6 grid md:grid-cols-12 gap-10 items-center relative">
         <div className="md:col-span-5">
@@ -565,34 +568,14 @@ function Levers() {
             </h2>
           </div>
         </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {groups.map((g) => (
-            <div
-              key={g.h}
-              className="rounded-2xl border-2 border-ink p-8 bg-paper relative overflow-hidden hover:-translate-y-1 hover:shadow-[8px_8px_0_0_var(--color-ink)] transition-all"
-            >
-              <div
-                className="absolute top-0 left-0 right-0 h-2"
-                style={{ background: g.c }}
-              />
-              <div
-                className="inline-block mono text-[10px] tracking-widest uppercase px-2 py-0.5 rounded border border-ink"
-                style={{ background: g.c }}
-              >
-                Lever
+        <div className="border-t border-ink">
+          {groups.map((g, i) => (
+            <div key={g.h} className="grid gap-2 border-b border-ink py-7 md:grid-cols-[4rem_1fr] md:items-baseline md:gap-8">
+              <span className="mono text-xs text-fire">{String(i + 1).padStart(2, "0")}</span>
+              <div>
+                <h3 className="display text-xl uppercase tracking-tight">{g.h}</h3>
+                <p className="mt-1.5 text-sm text-ink/65">{g.items.join(" · ")}</p>
               </div>
-              <h3 className="mt-3 display text-2xl">{g.h}</h3>
-              <ul className="mt-5 space-y-2">
-                {g.items.map((i) => (
-                  <li key={i} className="flex items-center gap-3 text-ink/80">
-                    <span
-                      className="w-2 h-2 rounded-full"
-                      style={{ background: g.c }}
-                    />
-                    {i}
-                  </li>
-                ))}
-              </ul>
             </div>
           ))}
         </div>
@@ -619,7 +602,7 @@ function DataFlow() {
   return (
     <section className="bg-ink text-paper py-20 md:py-28 border-b border-ink relative overflow-hidden">
       <div
-        className="absolute inset-0 opacity-15 pointer-events-none"
+        className="absolute inset-0 opacity-10 pointer-events-none"
         style={{
           background: `radial-gradient(circle at 10% 50%, ${COLORS.volt}, transparent 30%), radial-gradient(circle at 90% 50%, ${COLORS.fire}, transparent 30%)`,
         }}
@@ -838,10 +821,7 @@ function WhoItsFor() {
   ];
   return (
     <section
-      className="py-20 md:py-28 border-b border-ink/10 relative"
-      style={{
-        background: `linear-gradient(135deg, ${COLORS.voltWash} 0%, ${COLORS.fireWash} 50%, ${COLORS.bone} 100%)`,
-      }}
+      className="py-20 md:py-28 border-b border-ink/10 relative bg-bone"
     >
       <div className="max-w-[1400px] mx-auto px-6 relative">
         <div className="grid md:grid-cols-12 gap-8 items-end mb-14">
@@ -979,7 +959,7 @@ function CTA() {
   return (
     <section className="bg-ink text-paper py-24 md:py-32 relative overflow-hidden">
       <div
-        className="absolute inset-0 opacity-40 pointer-events-none"
+        className="absolute inset-0 opacity-28 pointer-events-none"
         style={{
           backgroundImage: `radial-gradient(circle at 15% 20%, ${COLORS.fire}, transparent 35%), radial-gradient(circle at 85% 30%, ${COLORS.volt}, transparent 35%), radial-gradient(circle at 50% 90%, ${COLORS.fire}, transparent 35%), radial-gradient(circle at 30% 80%, ${COLORS.volt}, transparent 30%)`,
         }}
@@ -990,15 +970,7 @@ function CTA() {
         </div>
         <h2 className="display text-[clamp(2.5rem,7vw,6.5rem)] leading-[0.92] tracking-tight">
           Let's make the HubSpot you have<br />
-          <span
-            className="italic"
-            style={{
-              backgroundImage: `linear-gradient(90deg, ${COLORS.volt}, ${COLORS.fire})`,
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
-              color: "transparent",
-            }}
-          >
+          <span className="italic text-volt">
             the one you were promised
           </span>
           .
@@ -1008,18 +980,16 @@ function CTA() {
           If we do, you'll get a Findings document that reads like a plan.
         </p>
         <div className="mt-10 flex flex-wrap gap-4">
-          <a
-            href="mailto:info@revlyn.io?subject=HubSpot Optimization"
+          <BookAuditButton
             className="inline-flex items-center gap-2 rounded-full bg-paper text-ink px-6 py-3 text-sm font-medium hover:bg-fire hover:text-paper transition-colors"
           >
-            Book an audit <span>→</span>
-          </a>
-          <a
-            href="mailto:info@revlyn.io?subject=HubSpot review"
+            Start with an audit <span>→</span>
+          </BookAuditButton>
+          <BookCallButton
             className="inline-flex items-center gap-2 rounded-full border border-paper/30 px-6 py-3 text-sm font-medium hover:bg-paper hover:text-ink transition-colors"
           >
-            Or just talk it through
-          </a>
+            Talk through the repair
+          </BookCallButton>
         </div>
       </div>
     </section>
