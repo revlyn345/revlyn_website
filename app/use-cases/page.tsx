@@ -14,7 +14,7 @@ export default function UseCasesIndex() {
     <div className="min-h-screen bg-paper text-ink">
       <Hero />
       <RhythmStrip />
-      <CasesLedger />
+      
       <Footer />
     </div>
   );
