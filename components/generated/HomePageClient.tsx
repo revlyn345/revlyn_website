@@ -1539,7 +1539,7 @@ function IndustriesSection() {
       <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24 relative">
         <div className="flex items-baseline justify-between gap-6 mb-12">
           <div>
-            <h2 className="display text-3xl md:text-5xl tracking-[-0.035em] leading-[0.95] max-w-3xl">
+            <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl whitespace-nowrap">
               Experience across <span className="text-fire">industries<span className="text-ink">.</span></span>
             </h2>
             <p className="mt-5 max-w-3xl text-lg text-ink/70 leading-relaxed">
