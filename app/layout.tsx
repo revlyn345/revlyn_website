@@ -40,8 +40,6 @@ const defaultDescription =
 
 // ─────────────────────────────────────────────────────────────
 // GOOGLE ANALYTICS
-// IMPORTANT: Replace this with your actual GA4 Measurement ID.
-// Example: G-ABC123XYZ
 // ─────────────────────────────────────────────────────────────
 
 const GA_MEASUREMENT_ID = "G-DHW6KDE2R1";

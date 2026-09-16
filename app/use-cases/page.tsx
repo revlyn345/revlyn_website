@@ -1,84 +1,13 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { BookCallButton } from "@/components/BookCallButton";
 import { Footer } from "@/components/Footer";
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
-const revlynWordmark = "/logos/revlyn-wordmark.png";
 
 export const metadata: Metadata = {
   title: "Use Cases · Revlyn",
-  description: "Field files on how Revlyn runs revenue for different kinds of B2B companies — starting with SaaS, more in the works.",
+  description: "Field files on how Revlyn runs revenue for different kinds of B2B companies, starting with SaaS, more in the works.",
   alternates: { canonical: "/use-cases" },
 };
-
-type Case = {
-  slug: string;
-  code: string;
-  eyebrow: string;
-  name: string;
-  blurb: string;
-  status: "live" | "soon";
-  motion: string;
-  metric: string;
-  metricLabel: string;
-  stack: string[];
-};
-
-const cases: Case[] = [
-  {
-    slug: "/use-cases/saas",
-    code: "UC-01",
-    eyebrow: "Product-led + Sales-led",
-    name: "SaaS",
-    blurb:
-      "Where the product is the product. We wire signup, activation, PQLs, expansion and renewal into one system your team can actually see, then keep it running past the launch.",
-    status: "live",
-    motion: "Freemium · Trial · Self-serve · PLG-assist",
-    metric: "6",
-    metricLabel: "Lifecycle stages, one CRM",
-    stack: ["HubSpot", "Segment", "Warehouse", "AI"],
-  },
-  {
-    slug: "#",
-    code: "UC-02",
-    eyebrow: "Services & Consulting",
-    name: "Professional services",
-    blurb:
-      "Pipelines, proposals, staffing and utilisation, connected so nothing falls between sales, delivery and finance. Written for firms billing time, not seats.",
-    status: "soon",
-    motion: "Retainers · SOWs · Utilisation · Renewals",
-    metric: "3",
-    metricLabel: "Systems stitched (CRM, PSA, Finance)",
-    stack: ["HubSpot", "Harvest", "QuickBooks"],
-  },
-  {
-    slug: "#",
-    code: "UC-03",
-    eyebrow: "Marketplaces",
-    name: "Marketplaces",
-    blurb:
-      "Two-sided pipelines, supply and demand ops, and lifecycle automation for the messy middle. Buyers and sellers on the same portal, without stepping on each other.",
-    status: "soon",
-    motion: "Supply ops · Demand ops · Transaction lifecycle",
-    metric: "2×",
-    metricLabel: "Pipelines, one operating rhythm",
-    stack: ["HubSpot", "Warehouse", "Ops tooling"],
-  },
-  {
-    slug: "#",
-    code: "UC-04",
-    eyebrow: "Fintech & Regulated",
-    name: "Fintech",
-    blurb:
-      "Compliance-aware CRM design, KYB pipelines and revenue reporting your risk team will sign off on. Built for teams where the audit trail matters as much as the pipeline.",
-    status: "soon",
-    motion: "KYB · Onboarding · Regulated reporting",
-    metric: "SOC",
-    metricLabel: "Audit-ready reporting stack",
-    stack: ["HubSpot", "Persona", "Warehouse"],
-  },
-];
 
 export default function UseCasesIndex() {
   return (
@@ -128,13 +57,13 @@ function Hero() {
                 </div>
                 <div className="border-2 border-ink bg-ink text-paper p-4">
                   <div className="mono text-[10px] uppercase tracking-[0.22em] text-paper/60">In dock</div>
-                  <div className="display text-5xl leading-none mt-2">03</div>
-                  <div className="mono text-[10px] uppercase tracking-[0.18em] text-paper/70 mt-2">Q1–Q2</div>
+                  <div className="display text-5xl leading-none mt-2">05</div>
+                  <div className="mono text-[10px] uppercase tracking-[0.18em] text-paper/70 mt-2">Q1-Q2</div>
                 </div>
               </div>
               <div className="mt-4 border-2 border-ink bg-paper p-3 flex items-center justify-between mono text-[10px] uppercase tracking-[0.22em]">
                 <span className="text-ink/60">Total files</span>
-                <span className="text-fire font-bold">04 / 04</span>
+                <span className="text-fire font-bold">06 / 06</span>
               </div>
             </div>
           </div>
@@ -199,101 +128,142 @@ function RhythmStrip() {
   );
 }
 
-/* ── CASES LEDGER: dossier-style file cards ───────────────────────── */
+/* ── CASES LEDGER: 6-card industry grid, accent bar + icon + copy ──── */
+type Industry = {
+  slug: string;
+  live: boolean;
+  name: string;
+  blurb: string;
+  icon: ReactNode;
+  color: string;
+  border: string;
+  panelBg: string;
+  text: string;
+};
+
+const industries: Industry[] = [
+  {
+    slug: "/use-cases/saas",
+    live: true,
+    name: "SaaS & Technology",
+    blurb: "Bring marketing, sales, customer success, and revenue data into one connected system. Build the processes and visibility needed to support growth.",
+    color: "#16A34A",
+    border: "border-[#16A34A]",
+    panelBg: "bg-[#16A34A]/10",
+    text: "text-[#16A34A]",
+    icon: (
+      <path d="M4 5h16v10H4V5zm0 12h16v2H4v-2zm5-9h6v1H9V8z" />
+    ),
+  },
+  {
+    slug: "#",
+    live: false,
+    name: "Professional Services",
+    blurb: "Connect lead generation, sales, client onboarding, delivery, and renewals. Create a clearer view of the client journey from first conversation to expansion.",
+    color: "#7C3AED",
+    border: "border-[#7C3AED]",
+    panelBg: "bg-[#7C3AED]/10",
+    text: "text-[#7C3AED]",
+    icon: (
+      <path d="M9 3h6a1 1 0 011 1v2h4a1 1 0 011 1v3H3V7a1 1 0 011-1h4V4a1 1 0 011-1zm0 3h6V5H9v1zM3 12h18v7a1 1 0 01-1 1H4a1 1 0 01-1-1v-7z" />
+    ),
+  },
+  {
+    slug: "#",
+    live: false,
+    name: "Media & Entertainment",
+    blurb: "Connect enquiries, partnerships, bookings, campaigns, and customer data in one place. Create clearer processes across commercial and operational teams.",
+    color: "#2563EB",
+    border: "border-[#2563EB]",
+    panelBg: "bg-[#2563EB]/10",
+    text: "text-[#2563EB]",
+    icon: (
+      <path d="M4 5h16v14H4V5zm2 2v2h2V7H6zm4 0v2h2V7h-2zm4 0v2h2V7h-2zM6 11v6h12v-6H6z" />
+    ),
+  },
+  {
+    slug: "#",
+    live: false,
+    name: "Logistics & Supply Chain",
+    blurb: "Connect sales activity, customer data, and operational workflows in one place. Improve visibility across accounts, opportunities, and the customer lifecycle.",
+    color: "#EA580C",
+    border: "border-[#EA580C]",
+    panelBg: "bg-[#EA580C]/10",
+    text: "text-[#EA580C]",
+    icon: (
+      <path d="M3 7h11v7H3V7zm11 2h4l3 3v2h-7V9zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm11 0a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+    ),
+  },
+  {
+    slug: "#",
+    live: false,
+    name: "Field Services",
+    blurb: "Bring sales, quoting, service activity, renewals, and customer information together. Reduce manual work and create more consistent processes across teams.",
+    color: "#DC2626",
+    border: "border-[#DC2626]",
+    panelBg: "bg-[#DC2626]/10",
+    text: "text-[#DC2626]",
+    icon: (
+      <path d="M10.6 3.4a2 2 0 012.8 0l1 1 1.6-1.6a1 1 0 011.4 1.4L15.8 5.8l2.4 2.4a2 2 0 010 2.8l-1.6 1.6-6.4-6.4 1.6-1.6-1.2-1.2zM8 8.6l6.4 6.4-5 5a2 2 0 01-2.8 0l-3.6-3.6a2 2 0 010-2.8l5-5z" />
+    ),
+  },
+  {
+    slug: "#",
+    live: false,
+    name: "Education & EdTech",
+    blurb: "Manage longer sales cycles, multiple stakeholders, and complex customer journeys with clearer processes, automation, and reporting.",
+    color: "#D97706",
+    border: "border-[#D97706]",
+    panelBg: "bg-[#D97706]/10",
+    text: "text-[#D97706]",
+    icon: (
+      <path d="M12 3L2 8l10 5 8-4v6h2V8L12 3zM6 12.2V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-3.8l-6 3-6-3z" />
+    ),
+  },
+];
+
 function CasesLedger() {
   return (
-    <section className="border-b-2 border-ink bg-bone relative">
-      <div className="absolute inset-0 stripes opacity-[0.03] pointer-events-none" />
+    <section className="border-b-2 border-ink bg-paper relative">
       <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24 relative">
         <div className="flex items-baseline justify-between gap-6 mb-12">
           <div>
-            <p className="mono text-[11px] uppercase tracking-[0.22em] text-ink/60 mb-3">
-              The Ledger · 04 field files
-            </p>
             <h2 className="display text-3xl md:text-5xl tracking-[-0.035em] leading-[0.95] max-w-3xl">
-              Pick the terrain<br />
-              <span className="text-fire">that looks most like yours<span className="text-ink">.</span></span>
+              Experience across <span className="text-fire">industries<span className="text-ink">.</span></span>
             </h2>
+            <p className="mt-5 max-w-3xl text-lg text-ink/70 leading-relaxed">
+              We've worked with revenue teams across a range of industries and business models.
+            </p>
           </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {cases.map((c) => {
-            const isLive = c.status === "live";
+          {industries.map((ind) => {
             const CardInner = (
               <div
-                className={`group relative brutal-border bg-paper p-6 md:p-8 h-full flex flex-col transition-all ${
-                  isLive
-                    ? "hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[10px_10px_0_0_var(--color-fire)] cursor-pointer"
-                    : ""
-                }`}
+                className={`group relative rounded-xl border-2 ${ind.border} bg-paper h-full flex overflow-hidden transition-all hover:-translate-y-1 hover:shadow-lg cursor-pointer`}
               >
-                {/* File header */}
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-ink/15 pb-3 mb-6">
-                  <span className="mono text-[11px] uppercase tracking-[0.22em] min-w-0">
-                    {c.code} · {c.eyebrow}
-                  </span>
-                  <span
-                    className={`shrink-0 mono text-[10px] uppercase tracking-[0.22em] px-2 py-1 border border-ink ${
-                      isLive ? "bg-fire text-paper" : "bg-paper text-ink"
-                    }`}
-                  >
-                    {isLive ? "● Available" : "○ In dock"}
-                  </span>
+                <div className={`w-24 md:w-28 shrink-0 ${ind.panelBg} flex items-center justify-center`}>
+                  <svg viewBox="0 0 24 24" className="w-9 h-9" style={{ fill: ind.color }}>{ind.icon}</svg>
                 </div>
-
-                {/* Name */}
-                <div className="display text-5xl md:text-6xl tracking-[-0.045em] leading-[0.9]">
-                  {c.name}
-                  <span className="text-fire">.</span>
-                </div>
-
-                {/* Blurb */}
-                <p className="mt-5 text-ink/75 leading-relaxed">{c.blurb}</p>
-
-                {/* Motion strip */}
-                <div className="mt-6 border-t-2 border-ink pt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <div className="mono text-[10px] uppercase tracking-[0.22em] text-ink/50">Motion</div>
-                    <div className="mt-1 mono text-xs leading-relaxed text-ink/80">{c.motion}</div>
-                  </div>
-                  <div>
-                    <div className="mono text-[10px] uppercase tracking-[0.22em] text-ink/50">System of record</div>
-                    <div className="mt-1 mono text-xs leading-relaxed text-ink/80">
-                      {c.stack.join(" · ")}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Metric plaque */}
-                <div className="mt-6 flex items-end justify-between gap-4">
-                  <div className={`border-2 border-ink px-4 py-3 ${isLive ? "bg-volt" : "bg-bone"}`}>
-                    <div className="display text-3xl leading-none tracking-[-0.02em]">{c.metric}</div>
-                    <div className="mono text-[10px] uppercase tracking-[0.18em] text-ink/70 mt-1 max-w-[18ch]">
-                      {c.metricLabel}
-                    </div>
-                  </div>
-                  <div className="mono text-xs uppercase tracking-[0.22em] flex items-center gap-2 text-ink">
-                    {isLive ? "Open file" : "Notify me"}
-                    <span
-                      className={`inline-block transition-transform ${
-                        isLive ? "group-hover:translate-x-1" : ""
-                      }`}
-                    >
-                      →
-                    </span>
+                <div className="p-6 md:p-7 flex flex-col">
+                  <div className="display text-2xl md:text-3xl tracking-[-0.02em] leading-tight text-ink">{ind.name}</div>
+                  <p className="mt-3 text-ink/70 leading-relaxed">{ind.blurb}</p>
+                  <div className={`mt-6 text-sm font-semibold flex items-center gap-2 ${ind.text}`}>
+                    Learn more
+                    <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
                   </div>
                 </div>
               </div>
             );
-            return isLive ? (
-              <Link key={c.code} href={c.slug}>
+            return ind.live ? (
+              <Link key={ind.name} href={ind.slug}>
                 {CardInner}
               </Link>
             ) : (
               <a
-                key={c.code}
-                href={`mailto:info@revlyn.io?subject=Notify%20me%20when%20${encodeURIComponent(c.name)}%20use%20case%20is%20live`}
+                key={ind.name}
+                href={`mailto:info@revlyn.io?subject=Ask%20about%20${encodeURIComponent(ind.name)}`}
                 className="block"
               >
                 {CardInner}
@@ -309,7 +279,7 @@ function CasesLedger() {
               Not on the ledger?
             </p>
             <p className="display text-2xl md:text-3xl tracking-[-0.02em] leading-tight max-w-xl">
-              We have run vertical B2B, dev tools, healthtech, edtech, logistics. Ask.
+              We have run vertical B2B, dev tools, healthtech, logistics. Ask.
             </p>
           </div>
           <a
@@ -323,5 +293,3 @@ function CasesLedger() {
     </section>
   );
 }
-
-/* ── FOOTER ───────────────────────────────────────────────────────── */

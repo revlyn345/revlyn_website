@@ -215,7 +215,7 @@ function Hero() {
                 display
                 font-black
                 text-white
-                leading-[0.94]
+                leading-[1.08]
                 tracking-[-0.045em]
                 max-w-full
               "
@@ -225,10 +225,10 @@ function Hero() {
                 className="
                   block
                   whitespace-nowrap
-                  text-[clamp(2.15rem,8vw,6rem)]
+                  text-[clamp(2.15rem,7.5vw,5.5rem)]
                 "
               >
-                Build a Better,
+                We are the
               </span>
 
               {/* ROW 2 */}
@@ -236,10 +236,21 @@ function Hero() {
                 className="
                   block
                   whitespace-nowrap
-                  text-[clamp(1.9rem,7.5vw,6rem)]
+                  text-[clamp(2.15rem,7.5vw,5.5rem)]
                 "
               >
-                Revenue Operation
+                Revenue Engineering
+              </span>
+
+              {/* ROW 3 */}
+              <span
+                className="
+                  block
+                  whitespace-nowrap
+                  text-[clamp(2.15rem,7.5vw,5.5rem)]
+                "
+              >
+               Company.
               </span>
             </h1>
 
@@ -850,8 +861,10 @@ function Proof() {
   return (
     <section id="proof" className="bg-bone">
       <div className="max-w-[1400px] mx-auto px-6 py-20">
-        <SectionHeader n="07" label="How we help" title="HubSpot should make your revenue team easier to run." />
-        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink/70">
+        <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] max-w-4xl">
+          HubSpot should make your revenue team easier to run.
+        </h2>
+        <p className="mt-6 max-w-6xl text-lg leading-relaxed text-ink/70">
           As your business grows, HubSpot gets more complex. Pipelines change, workflows pile up, data gets messy,
           and reporting stops telling the full story. We manage and improve your HubSpot so your teams can keep
           working from a system they trust.
@@ -1535,38 +1548,29 @@ const CLIENT_LOGOS: ClientLogo[] = [
   { name: "Sparkle", href: "https://sparkle.life/", src: sparkleLogo, tag: "Consumer", geo: "India", scope: "D2C + CRM", outcome: "PLG loops and activation funnel" },
 ];
 function LogoWall() {
-  const [hovered, setHovered] = useState<ClientLogo | null>(null);
+  
 
   return (
-    <section className="border-b-2 border-ink bg-[#faece7] relative overflow-hidden">
+    <section className="border-b-2 border-ink bg-[#000000] relative overflow-hidden">
       <div className="max-w-[1360px] mx-auto px-6 md:px-10 pt-20 md:pt-28 pb-14 md:pb-16">
         <div className="grid md:grid-cols-12 gap-x-8 gap-y-6 items-end">
           <div className="md:col-span-9">
-            <div className="flex items-center gap-3 mono text-[10px] tracking-[0.24em] text-ink/50">
-              <span className="inline-block h-px w-8 bg-ink/25" />
-              SELECTED CLIENTS
-            </div>
-            <h2 className="display mt-6 text-[clamp(2rem,4.4vw,3.25rem)] leading-[1.1] tracking-[-0.025em] text-ink">
-              A quiet list of teams we build<br className="hidden md:block" /> revenue engines with.
+            
+            <h2 className="display mt-6 text-[clamp(2rem,4.4vw,3.25rem)] leading-[1.1] tracking-[-0.025em] text-white">
+              A few teams we have worked with.
             </h2>
           </div>
           <div className="md:col-span-3 md:text-right">
-            <div className="mono text-[10px] tracking-[0.2em] text-ink/45 leading-relaxed">
-              {CLIENT_LOGOS.length.toString().padStart(2, "0")} companies
-              <br />
-              Seed to mid-market
-              <br />
-              Referenceable on request
-            </div>
+            
           </div>
         </div>
       </div>
 
       {/* Single continuous marquee row */}
-      <div className="border-y border-ink/10 bg-white relative overflow-hidden">
+      <div className="border-y border-white/10 bg-white relative overflow-hidden">
         <div className="revlyn-marquee group/track relative">
           <div
-            className="flex w-max items-center gap-12 md:gap-16 py-6 md:py-8"
+            className="flex w-max items-center gap-10 md:gap-16 py-6 md:py-8"
             style={{
               animation: "revlyn-marquee-scroll 48s linear infinite",
             }}
@@ -1578,11 +1582,10 @@ function LogoWall() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={c.name}
-                onMouseEnter={() => setHovered(c)}
-                onMouseLeave={() => setHovered(null)}
+                
                 className="group/logo relative shrink-0 flex items-center gap-3 px-3 py-2 transition-transform duration-300 ease-out hover:scale-105"
               >
-                <span className="mono text-[9px] tracking-[0.24em] text-ink/30 tabular-nums group-hover/logo:text-fire transition-colors duration-300">
+                <span className="mono text-[9px] tracking-[0.24em] text-white/30 tabular-nums group-hover/logo:text-fire transition-colors duration-300">
                   {String((i % CLIENT_LOGOS.length) + 1).padStart(2, "0")}
                 </span>
                 {c.src ? (
@@ -1593,11 +1596,11 @@ function LogoWall() {
                     className="h-8 md:h-10 max-w-[150px] object-contain opacity-80 transition-all duration-300 ease-out group-hover/logo:opacity-100"
                   />
                 ) : (
-                  <span className="display text-lg tracking-tight text-ink/60 group-hover/logo:text-ink transition-colors duration-300">
+                  <span className="display text-lg tracking-tight text-white/60 group-hover/logo:text-white transition-colors duration-300">
                     {c.wordmark}
                   </span>
                 )}
-                <span className="mx-3 h-5 w-px bg-ink/10 group-hover/logo:bg-ink/20 transition-colors duration-300" />
+                <span className="mx-3 h-5 w-px bg-white/10 group-hover/logo:bg-white/20 transition-colors duration-300" />
               </a>
             ))}
           </div>
@@ -1608,33 +1611,7 @@ function LogoWall() {
         </div>
       </div>
 
-      <div className="max-w-[1360px] mx-auto px-6 md:px-10 py-8 flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-[10px] tracking-[0.22em] text-ink/45">
-        <div className="flex items-center gap-3 uppercase">
-          <span className="inline-block h-px w-8 bg-ink/25" />
-          <span>PARTNERSHIPS BUILT TO COMPOUND</span>
-          <span
-            className={`inline-block w-2 h-2 rounded-full bg-fire transition-opacity duration-300 ${hovered ? "opacity-100" : "opacity-0"
-              }`}
-          />
-        </div>
-        <div className="md:text-right min-h-[3rem] flex items-center justify-end">
-          {hovered ? (
-            <div className="flex flex-col md:flex-row md:flex-wrap md:items-center gap-2 md:gap-4 text-ink/80 tracking-normal">
-              <span className="display text-base tracking-tight text-ink">{hovered.name}</span>
-              <span className="hidden md:inline text-ink/25">/</span>
-              <span className="font-mono uppercase text-[10px]">{hovered.tag}</span>
-              <span className="hidden md:inline text-ink/25">/</span>
-              <span className="font-mono uppercase text-[10px]">{hovered.geo}</span>
-              <span className="hidden md:inline text-ink/25">/</span>
-              <span className="text-sm font-medium text-ink tracking-tight">{hovered.scope}</span>
-              <span className="hidden md:inline text-ink/25">/</span>
-              <span className="text-sm font-medium text-ink/60 tracking-tight">{hovered.outcome}</span>
-            </div>
-          ) : (
-            <span className="uppercase whitespace-nowrap">HOVER A LOGO TO SEE THE BRIEF</span>
-          )}
-        </div>
-      </div>
+      <div className="pb-14 md:pb-16" />
     </section>
   );
 }
