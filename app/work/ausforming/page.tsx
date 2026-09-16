@@ -3,7 +3,6 @@ import Link from "next/link";
 import { BookCallButton } from "@/components/BookCallButton";
 import { Footer } from "@/components/Footer";
 
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
 const revlynWordmark = "/logos/revlyn-wordmark.png";
 
 export const metadata: Metadata = {
@@ -48,22 +47,21 @@ export default function AusformingCase() {
 
               <h1
                 data-reveal
-                className="display text-[clamp(2.2rem,5.6vw,4.8rem)] leading-[0.92] tracking-[-0.045em]"
+                className="display text-[clamp(1.8rem,4.4vw,2.9rem)] leading-[1.05] tracking-[-0.03em]"
               >
-                No CRM. No outbound. No funnel. Six months later, more than{" "}
-                <span className="inline-block bg-fire text-paper px-2 py-0.5 -rotate-1">1 in 2</span>{" "}
-                cold replies become{" "}
-                <span className="inline-block bg-ink text-paper px-2 py-0.5 rotate-1">discovery calls</span>.
+                No CRM. No outbound. No funnel.
                 <br />
-                <span className="text-ink/60">Here is how we built it, in order.</span>
+                Six months later, 1 in 2 positive
+                <br />
+                replies converted to discovery.
               </h1>
 
               <p data-reveal data-reveal-delay="0.15" className="mt-8 max-w-xl text-lg leading-snug text-ink/80">
-                Ausforming is an SAP consulting firm in Sydney. When we started there was no CRM,
-                no marketing tool, no outbound program, and the website needed rebuilding. We
-                designed the go-to-market motion first, then put the stack around it: a tight
-                target list, Smartlead for sending, a new WordPress site, HubSpot Marketing and
-                Sales Hub, and a pipeline where every stage has to be earned.
+                Ausforming is an SAP consulting firm in Sydney. When we started, there was no CRM,
+                no outbound motion, and no connected funnel. We designed the go-to-market process
+                first, then built the stack around it: a focused target list, Smartlead for
+                outbound, a new WordPress site, HubSpot Marketing and Sales Hub, and a pipeline
+                where every stage had to be earned.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -80,7 +78,13 @@ export default function AusformingCase() {
             </div>
 
             <div className="lg:col-span-5">
-              <FunnelCard />
+              <div className="brutal-border bg-paper overflow-hidden brutal-shadow-fire">
+                <img
+                  src="/ausforming-sap.avif"
+                  alt="SAP consulting engagement for Ausforming"
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -756,7 +760,7 @@ function GatedPipeline() {
     { s: "Qualified opportunity", entry: "Named champion, timeline, budget signal.", exit: "Fit and value confirmed on both sides." },
     { s: "Proposal", entry: "Scope and commercials agreed in principle.", exit: "Written proposal shared with the buying group." },
     { s: "Verbal", entry: "Buyer has said yes. Legal or procurement remains.", exit: "Contract issued." },
-    { s: "Closed won", entry: "Signed. Kick-off scheduled.", exit: "—" },
+    { s: "Closed won", entry: "Signed. Kick-off scheduled.", exit: "Final stage." },
   ];
   return (
     <div className="brutal-border bg-paper overflow-hidden">

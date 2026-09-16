@@ -50,7 +50,7 @@ import {
   DayTimelineVisual,
   PlaybookRingsVisual,
 } from "@/components/AnimatedVisuals";
-import { ServicesSpec, MethodRhythm } from "@/components/DenseSections";
+import { MethodRhythm } from "@/components/DenseSections";
 import Image from "next/image";
 import { BookCallButton } from "@/components/BookCallButton";
 
@@ -78,6 +78,7 @@ export default function HomePageClient() {
       <section id="act-1" data-act>
        
         <Problem />
+        <RevenueEngineDiagram />
         <StoryVisual />
       </section>
 
@@ -94,7 +95,6 @@ export default function HomePageClient() {
       {/* ══ ACT IV · THE METHOD ═══════════════════════════════ */}
       <section id="act-3" data-act>
         <div id="stack" />
-        <ServicesSpec />
         <MethodRhythm />
         <Engagements />
         <Playbook />
@@ -471,7 +471,7 @@ function Problem() {
               One team. One system.
             </div>
 
-            <div className="grid grid-cols-4 gap-2 relative">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-2 relative">
               <div className="absolute top-8 left-[12.5%] right-[12.5%] h-px bg-fire/50 hidden sm:block" />
               {nodes.map((n) => (
                 <div key={n.label} className="flex flex-col items-center text-center gap-3 relative">
@@ -515,6 +515,394 @@ function Problem() {
   );
 }
 
+/* ─────────────────────────────  REVENUE ENGINE DIAGRAM  ───────────────────────────── */
+/*
+   NOTE: this section intentionally breaks the site's usual visual rules
+   (dark background, glow, heavily rounded cards) to reproduce a specific
+   reference diagram as closely as possible in code. Keep it isolated here
+   rather than reusing its patterns elsewhere on the site.
+*/
+
+function DiagramIconMegaphone() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <path d="M3 10.5v3a2 2 0 002 2h1.2l6.3 3.1V5.4L6.2 8.5H5a2 2 0 00-2 2z" />
+      <path d="M16.5 8.2a4 4 0 010 7.6" />
+    </svg>
+  );
+}
+function DiagramIconGear() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009.2 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9.2a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09c0 .658.396 1.25 1 1.51.604.26 1.31.14 1.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06c-.47.51-.59 1.216-.33 1.82.26.604.852 1 1.51 1H21a2 2 0 110 4h-.09c-.658 0-1.25.396-1.51 1z" />
+    </svg>
+  );
+}
+function DiagramIconBars() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+      <path d="M4 20V11M12 20V4M20 20v-6.5" />
+    </svg>
+  );
+}
+function DiagramIconBolt() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+      <path d="M13 2 3 14h7l-1 8 11-14h-7l1-6z" />
+    </svg>
+  );
+}
+function DiagramIconNodes() {
+  return (
+    <svg viewBox="0 0 24 24" className="w-7 h-7">
+      <path d="M12 6.4V10M13.7 13.4l4 1.8M10.3 13.4l-4 1.8" stroke="currentColor" strokeWidth="1.6" fill="none" />
+      <circle cx="12" cy="12" r="2.3" fill="currentColor" />
+      <circle cx="12" cy="4" r="1.5" fill="currentColor" />
+      <circle cx="19" cy="16" r="1.5" fill="currentColor" />
+      <circle cx="5" cy="16" r="1.5" fill="currentColor" />
+    </svg>
+  );
+}
+
+/*
+   Layout model: a real CSS Grid, not percentage-positioned boxes on a
+   fixed-pixel canvas. Every card, connector and handwritten note is an
+   actual grid item in its own cell. Grid cells cannot overlap each other,
+   and row/column tracks auto-size to whatever content they hold (a tag
+   wrapping to a second line grows its row instead of spilling into the
+   note below it). That's what makes this resistant to breaking at
+   different zoom levels or viewport widths, unlike the previous
+   absolute-position version.
+
+   Columns (9): noteL | gapL | quadrantL | gapC1 | crm | gapC2 | quadrantR | gapR | noteR
+   Rows (7):    topbox | gapRow1 | row1(Q1/CRM/Q2) | gapRow2 | row2(Q3/CRM/Q4) | gapRow3 | bottombox
+*/
+
+const DIAGRAM_GRID_COLS =
+  "200px 32px minmax(220px,1fr) 32px minmax(280px,340px) 32px minmax(220px,1fr) 32px 200px";
+const DIAGRAM_GRID_ROWS = "auto 32px auto 24px auto 32px auto";
+
+type DiagramQuadrant = {
+  num: string;
+  flow: string;
+  icon: ReactNode;
+  title: string;
+  tags: string[];
+  note: string;
+};
+
+const DIAGRAM_QUADRANTS: Record<"q1" | "q2" | "q3" | "q4", DiagramQuadrant> = {
+  q1: {
+    num: "1",
+    flow: "ATTRACT  ›  ENGAGE  ›  CONVERT",
+    icon: <DiagramIconMegaphone />,
+    title: "Demand & GTM",
+    tags: ["Marketing", "Inbound", "Outbound"],
+    note: "Generate demand. Create opportunities.",
+  },
+  q2: {
+    num: "2",
+    flow: "ALIGN  ›  OPERATE  ›  SCALE",
+    icon: <DiagramIconGear />,
+    title: "Revenue Operations",
+    tags: ["Pipeline", "Lifecycle", "Handoffs"],
+    note: "Turn strategy into a repeatable revenue engine.",
+  },
+  q3: {
+    num: "3",
+    flow: "MEASURE  ›  LEARN  ›  IMPROVE",
+    icon: <DiagramIconBars />,
+    title: "Reporting",
+    tags: ["Forecasting", "Attribution", "Dashboards"],
+    note: "See what's working. Make smarter decisions.",
+  },
+  q4: {
+    num: "4",
+    flow: "AUTOMATE  ›  AMPLIFY  ›  ACCELERATE",
+    icon: <DiagramIconBolt />,
+    title: "Automation + AI",
+    tags: ["Workflows", "Routing", "Agents"],
+    note: "Remove manual work. Multiply impact.",
+  },
+};
+
+const DIAGRAM_TOP_NOTE = "Teams, tools and data working together.";
+const DIAGRAM_BOTTOM_NOTE = "A more efficient, higher performing revenue team.";
+
+function DiagramQuadrantCard({ q, style }: { q: DiagramQuadrant; style?: React.CSSProperties }) {
+  return (
+    <div style={style} className="relative z-10 min-w-0">
+      <div className="flex items-center gap-2 mb-3">
+        <span className="w-5 h-5 rounded-full border border-white/25 flex items-center justify-center mono text-[10px] text-white/70 shrink-0">
+          {q.num}
+        </span>
+        <span className="mono text-[9.5px] md:text-[10.5px] tracking-[0.14em] text-white/40 whitespace-nowrap overflow-hidden text-ellipsis">
+          {q.flow}
+        </span>
+        <span className="flex-1 h-px bg-white/10 min-w-[8px]" />
+      </div>
+      <div className="rounded-xl border border-white/12 bg-white/[0.02] px-5 py-5 h-full flex flex-col justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-fire/10 border border-fire/30 flex items-center justify-center text-fire shrink-0">
+            {q.icon}
+          </div>
+          <div className="display text-[19px] md:text-[22px] leading-tight text-white">{q.title}</div>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {q.tags.map((t) => (
+            <span
+              key={t}
+              className="mono text-[10.5px] px-3 py-1.5 rounded-full border border-white/15 text-white/70 whitespace-nowrap"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DiagramHandNote({
+  align = "left",
+  style,
+  children,
+}: {
+  align?: "left" | "right";
+  style?: React.CSSProperties;
+  children: ReactNode;
+}) {
+  const isRight = align === "right";
+  return (
+    <div
+      style={style}
+      className={`relative z-10 min-w-0 text-white/50 ${isRight ? "text-right" : "text-left"}`}
+    >
+      <svg
+        viewBox="0 0 40 40"
+        className="w-7 h-7 text-white/30 mb-1"
+        style={{ transform: isRight ? "scaleX(-1)" : undefined, marginLeft: isRight ? "auto" : undefined }}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      >
+        <path d="M5 5 Q 4 30 33 33" />
+        <path d="M24 31 L33 33 L31 24" />
+      </svg>
+      <p className="text-[16px] leading-[1.2]" style={{ fontFamily: "'Caveat', cursive" }}>
+        {children}
+      </p>
+    </div>
+  );
+}
+
+/* Decorative connector segments. Purely visual, z-0 (behind the cards and
+   notes, which are z-10), so a slightly-off line can never obscure text. */
+function DiagramVLine({ style }: { style?: React.CSSProperties }) {
+  return (
+    <div style={style} className="relative z-0 w-px mx-auto h-full border-l border-dashed border-fire/40" />
+  );
+}
+function DiagramHLine({ style }: { style?: React.CSSProperties }) {
+  return (
+    <div style={style} className="relative z-0 h-px w-full my-auto border-t border-dashed border-fire/40" />
+  );
+}
+
+function RevenueEngineDiagram() {
+  return (
+    <section className="relative bg-[#0a0a0a] text-white border-b-2 border-ink overflow-hidden">
+      {/* Self-contained handwriting font import, scoped to this section only. */}
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap');`}</style>
+
+      <div className="max-w-[1500px] mx-auto px-6 py-20 md:py-28">
+        {/* header */}
+        <div className="max-w-3xl">
+          
+          <h2 className="display text-[clamp(2.1rem,4.2vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-white">
+            One connected system behind your revenue team.
+          </h2>
+          <p className="mt-5 text-[16px] md:text-[17px] text-white/50 leading-relaxed max-w-xl">
+            We connect HubSpot, process, reporting, automation and AI so sales and marketing can run from one reliable system.
+          </p>
+        </div>
+
+        {/* mobile / tablet: simple stacked flow, no grid, nothing absolutely positioned */}
+        <div className="lg:hidden mt-14">
+          <div className="flex flex-col items-center gap-6">
+            <div className="rounded-md border border-white/15 text-center py-3 px-4 w-full max-w-xs">
+              <div className="mono text-[10.5px] tracking-[0.14em] text-white">PEOPLE + PROCESS + TECHNOLOGY</div>
+              <div className="mono text-[9.5px] tracking-[0.14em] text-white/35 mt-1">ALIGNED FOR GROWTH</div>
+            </div>
+            <p className="text-[15px] text-white/50 text-center -mt-2" style={{ fontFamily: "'Caveat', cursive" }}>
+              {DIAGRAM_TOP_NOTE}
+            </p>
+
+            <div className="w-px h-8 border-l border-dashed border-fire/40" />
+
+            <div
+              className="rounded-2xl border-2 border-fire flex flex-col items-center justify-center text-center gap-2 px-6 py-8 w-full max-w-xs"
+              style={{ boxShadow: "0 0 50px 6px rgba(255,87,34,0.3), inset 0 0 30px rgba(255,87,34,0.08)" }}
+            >
+              <div className="text-fire">
+                <DiagramIconNodes />
+              </div>
+              <div className="display text-[22px] leading-tight text-white">HubSpot CRM</div>
+              <div className="mono text-[9.5px] tracking-[0.14em] text-white/40">THE SINGLE SOURCE OF TRUTH</div>
+            </div>
+
+            <div className="w-px h-8 border-l border-dashed border-fire/40" />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full">
+              {Object.values(DIAGRAM_QUADRANTS).map((q) => (
+                <div key={q.num} className="flex flex-col gap-3">
+                  <DiagramQuadrantCard q={q} />
+                  <p className="text-[15px] text-white/50 px-1" style={{ fontFamily: "'Caveat', cursive" }}>
+                    {q.note}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="w-px h-8 border-l border-dashed border-fire/40" />
+
+            <div className="rounded-2xl border-2 border-fire/70 flex flex-col items-center justify-center gap-4 px-6 py-6 text-center w-full max-w-sm">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-fire/10 border border-fire/30 flex items-center justify-center text-fire shrink-0">
+                  <DiagramIconBars />
+                </div>
+                <div className="display text-[20px] leading-tight text-white">Clearer Revenue Operations</div>
+              </div>
+              <div className="flex flex-wrap justify-center gap-2">
+                {["Visibility", "Control", "Less Manual Work", "Better Adoption"].map((t) => (
+                  <span
+                    key={t}
+                    className="mono text-[10.5px] px-3 py-1.5 rounded-full border border-white/15 text-white/70 whitespace-nowrap"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <p className="text-[15px] text-white/50 text-center -mt-2" style={{ fontFamily: "'Caveat', cursive" }}>
+              {DIAGRAM_BOTTOM_NOTE}
+            </p>
+          </div>
+        </div>
+
+        {/* desktop: real CSS grid, horizontal scroll only kicks in below the grid's natural minimum */}
+        <div className="hidden lg:block mt-16 -mx-6 px-6 overflow-x-auto">
+          <div
+            className="mx-auto"
+            style={{
+              display: "grid",
+              gridTemplateColumns: DIAGRAM_GRID_COLS,
+              gridTemplateRows: DIAGRAM_GRID_ROWS,
+              minWidth: 1400,
+            }}
+          >
+            {/* row 1: top note box + top-right corner annotation */}
+            <div
+              className="relative z-10 rounded-md border border-white/15 text-center py-3 px-4"
+              style={{ gridColumn: "5", gridRow: "1" }}
+            >
+              <div className="mono text-[10.5px] tracking-[0.14em] text-white">PEOPLE + PROCESS + TECHNOLOGY</div>
+              <div className="mono text-[9.5px] tracking-[0.14em] text-white/35 mt-1">ALIGNED FOR GROWTH</div>
+            </div>
+            <DiagramHandNote align="right" style={{ gridColumn: "9", gridRow: "1", alignSelf: "start", justifySelf: "end" }}>
+              {DIAGRAM_TOP_NOTE}
+            </DiagramHandNote>
+
+            {/* gap row 1: vertical connector, top box -> CRM */}
+            <DiagramVLine style={{ gridColumn: "5", gridRow: "2" }} />
+
+            {/* row group: Q1 / trunkL / CRM / trunkR / Q2, plus their side notes */}
+            <DiagramHandNote align="left" style={{ gridColumn: "1", gridRow: "3", alignSelf: "center" }}>
+              {DIAGRAM_QUADRANTS.q1.note}
+            </DiagramHandNote>
+            <DiagramQuadrantCard q={DIAGRAM_QUADRANTS.q1} style={{ gridColumn: "3", gridRow: "3" }} />
+            <DiagramHLine style={{ gridColumn: "4", gridRow: "3" }} />
+            <div style={{ gridColumn: "4", gridRow: "3 / span 3" }} className="relative">
+              <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px border-l border-dashed border-fire/40 z-0" />
+            </div>
+
+            <div
+              className="relative z-10 rounded-2xl border-2 border-fire flex flex-col items-center justify-center text-center gap-2 px-6 py-8"
+              style={{
+                gridColumn: "5",
+                gridRow: "3 / span 3",
+                boxShadow: "0 0 50px 6px rgba(255,87,34,0.3), inset 0 0 30px rgba(255,87,34,0.08)",
+              }}
+            >
+              <div className="text-fire">
+                <DiagramIconNodes />
+              </div>
+              <div className="display text-[22px] md:text-[26px] leading-tight text-white">HubSpot CRM</div>
+              <div className="mono text-[9.5px] tracking-[0.14em] text-white/40">THE SINGLE SOURCE OF TRUTH</div>
+            </div>
+
+            <div style={{ gridColumn: "6", gridRow: "3 / span 3" }} className="relative">
+              <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px border-l border-dashed border-fire/40 z-0" />
+            </div>
+            <DiagramHLine style={{ gridColumn: "6", gridRow: "3" }} />
+            <DiagramQuadrantCard q={DIAGRAM_QUADRANTS.q2} style={{ gridColumn: "7", gridRow: "3" }} />
+            <DiagramHandNote align="right" style={{ gridColumn: "9", gridRow: "3", alignSelf: "center" }}>
+              {DIAGRAM_QUADRANTS.q2.note}
+            </DiagramHandNote>
+
+            {/* row group: Q3 / CRM continues / Q4, plus their side notes */}
+            <DiagramHandNote align="left" style={{ gridColumn: "1", gridRow: "5", alignSelf: "center" }}>
+              {DIAGRAM_QUADRANTS.q3.note}
+            </DiagramHandNote>
+            <DiagramQuadrantCard q={DIAGRAM_QUADRANTS.q3} style={{ gridColumn: "3", gridRow: "5" }} />
+            <DiagramHLine style={{ gridColumn: "4", gridRow: "5" }} />
+            <DiagramHLine style={{ gridColumn: "6", gridRow: "5" }} />
+            <DiagramQuadrantCard q={DIAGRAM_QUADRANTS.q4} style={{ gridColumn: "7", gridRow: "5" }} />
+            <DiagramHandNote align="right" style={{ gridColumn: "9", gridRow: "5", alignSelf: "center" }}>
+              {DIAGRAM_QUADRANTS.q4.note}
+            </DiagramHandNote>
+
+            {/* gap row 3: vertical connectors down into the bottom box */}
+            <DiagramVLine style={{ gridColumn: "3", gridRow: "6" }} />
+            <DiagramVLine style={{ gridColumn: "5", gridRow: "6" }} />
+            <DiagramVLine style={{ gridColumn: "7", gridRow: "6" }} />
+
+            {/* bottom outcome box + closing note */}
+            <div
+              className="relative z-10 rounded-2xl border-2 border-fire/70 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 px-8 py-6 mx-auto max-w-[820px] w-full"
+              style={{ gridColumn: "3 / span 5", gridRow: "7" }}
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-fire/10 border border-fire/30 flex items-center justify-center text-fire shrink-0">
+                  <DiagramIconBars />
+                </div>
+                <div className="display text-[20px] md:text-[24px] leading-tight text-white whitespace-nowrap">
+                  Clearer Revenue Operations
+                </div>
+              </div>
+              <div className="flex flex-wrap justify-center gap-2">
+                {["Visibility", "Control", "Less Manual Work", "Better Adoption"].map((t) => (
+                  <span
+                    key={t}
+                    className="mono text-[10.5px] px-3 py-1.5 rounded-full border border-white/15 text-white/70 whitespace-nowrap"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <DiagramHandNote align="right" style={{ gridColumn: "9", gridRow: "7", alignSelf: "start" }}>
+              {DIAGRAM_BOTTOM_NOTE}
+            </DiagramHandNote>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─────────────────────────────  ENGINE DIAGRAM  ───────────────────────────── */
 function EngineDiagram() {
   return (
@@ -522,9 +910,12 @@ function EngineDiagram() {
       <div className="max-w-[1400px] mx-auto px-6 py-20">
         <SectionHeader n="03" label="How it works" title="One system, four moving parts, wired together with care." />
 
-        <div className="mt-12 brutal-border bg-paper p-6 md:p-10 relative">
+        <div className="mt-12 brutal-border bg-paper p-6 md:p-10 relative overflow-x-auto">
           <div className="absolute top-2 right-4 mono text-xs">FIG. 03.A / SCHEMATIC</div>
-          <svg viewBox="0 0 1200 560" className="w-full h-auto" role="img" aria-label="Revenue engine schematic">
+          {/* min-width keeps the schematic's small SVG-unit text legible; below that
+              width the container scrolls horizontally instead of scaling text down
+              to unreadable size. */}
+          <svg viewBox="0 0 1200 560" className="h-auto" style={{ minWidth: 900, width: "100%" }} role="img" aria-label="Revenue engine schematic">
             <defs>
               <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
                 <path d="M0,0 L10,5 L0,10 z" fill="#0a0a0a" />
@@ -1299,38 +1690,38 @@ function MacroShot() {
             <img
               src={engineMacro}
               alt="Revenue Engine"
-              className="w-full h-[520px] object-cover"
+              className="w-full h-[320px] sm:h-[420px] lg:h-[520px] object-cover"
             />
 
           </div>
 
           {/* Floating Stats */}
 
-          <div className="absolute left-1/2 -translate-x-1/2 bottom-8 bg-black/80 backdrop-blur-xl rounded-2xl border border-white/10 px-8 py-5">
+          <div className="absolute left-1/2 -translate-x-1/2 bottom-4 sm:bottom-8 bg-black/80 backdrop-blur-xl rounded-2xl border border-white/10 px-5 sm:px-8 py-4 sm:py-5 w-[calc(100%-2rem)] max-w-sm sm:w-auto sm:max-w-none">
 
-            <div className="flex gap-10">
+            <div className="flex gap-4 sm:gap-10 justify-between sm:justify-center">
 
               <div className="text-center">
-                <div className="mono text-[10px] tracking-[0.25em] text-paper/50">
+                <div className="mono text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.25em] text-paper/50 whitespace-nowrap">
                   RESPONSE
                 </div>
-                <div className="display text-2xl mt-2">&lt;2m</div>
+                <div className="display text-xl sm:text-2xl mt-2">&lt;2m</div>
               </div>
 
               <div className="text-center">
-                <div className="mono text-[10px] tracking-[0.25em] text-paper/50">
+                <div className="mono text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.25em] text-paper/50 whitespace-nowrap">
                   AUTOMATION
                 </div>
-                <div className="display text-2xl mt-2 text-fire">
+                <div className="display text-xl sm:text-2xl mt-2 text-fire">
                   24/7
                 </div>
               </div>
 
               <div className="text-center">
-                <div className="mono text-[10px] tracking-[0.25em] text-paper/50">
+                <div className="mono text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.25em] text-paper/50 whitespace-nowrap">
                   VISIBILITY
                 </div>
-                <div className="display text-2xl mt-2">
+                <div className="display text-xl sm:text-2xl mt-2">
                   100%
                 </div>
               </div>
@@ -1539,7 +1930,7 @@ function IndustriesSection() {
       <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24 relative">
         <div className="flex items-baseline justify-between gap-6 mb-12">
           <div>
-            <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl whitespace-nowrap">
+            <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl">
               Experience across <span className="text-fire">industries<span className="text-ink">.</span></span>
             </h2>
             <p className="mt-5 max-w-3xl text-lg text-ink/70 leading-relaxed">
