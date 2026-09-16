@@ -12,31 +12,31 @@ const dashboardMockup = "/dashboard-mockup.jpg";
 const aiTerminal = "/ai-terminal.jpg";
 const caseFounder = "/case-founder.jpg";
 const playbookDesk = "/playbook-desk.jpg";
-// TODO: source "cap" is a Lovable-hosted logo asset — not migrated.
+// TODO: source "cap" is a Lovable-hosted logo asset - not migrated.
 const capLogo = "/logos/cap.svg";
-// TODO: source "detrack" is a Lovable-hosted logo asset — not migrated.
+// TODO: source "detrack" is a Lovable-hosted logo asset - not migrated.
 const detrackLogo = "/logos/detrack.svg";
-// TODO: source "irim" is a Lovable-hosted logo asset — not migrated.
+// TODO: source "irim" is a Lovable-hosted logo asset - not migrated.
 const irimLogo = "/logos/irim.svg";
-// TODO: source "intuitive" is a Lovable-hosted logo asset — not migrated.
+// TODO: source "intuitive" is a Lovable-hosted logo asset - not migrated.
 const intuitiveLogo = "/logos/intuitive.svg";
-// TODO: source "runo" is a Lovable-hosted logo asset — not migrated.
+// TODO: source "runo" is a Lovable-hosted logo asset - not migrated.
 const runoLogo = "/logos/runo.svg";
-// TODO: source "statesystems" is a Lovable-hosted logo asset — not migrated.
+// TODO: source "statesystems" is a Lovable-hosted logo asset - not migrated.
 const stateSystemsLogo = "/logos/statesystems.svg";
-// TODO: source "subcinctus" is a Lovable-hosted logo asset — not migrated.
+// TODO: source "subcinctus" is a Lovable-hosted logo asset - not migrated.
 const subcinctusLogo = "/logos/subcinctus.svg";
-// TODO: source "integrity-fire.png" is a Lovable-hosted logo asset — not migrated.
+// TODO: source "integrity-fire.png" is a Lovable-hosted logo asset - not migrated.
 const integrityFireLogo = "/logos/integrity-fire.svg";
-// TODO: source "datapel.svg" is a Lovable-hosted logo asset — not migrated.
+// TODO: source "datapel.svg" is a Lovable-hosted logo asset - not migrated.
 const datapelLogo = "/logos/datapel.svg";
-// TODO: source "agent-agentur.png" is a Lovable-hosted logo asset — not migrated.
+// TODO: source "agent-agentur.png" is a Lovable-hosted logo asset - not migrated.
 const agentAgenturLogo = "/logos/agent-agentur.svg";
-// TODO: source "ausforming.png" is a Lovable-hosted logo asset — not migrated.
+// TODO: source "ausforming.png" is a Lovable-hosted logo asset - not migrated.
 const ausformingLogo = "/logos/ausforming.svg";
-// TODO: source "sparkle.svg" is a Lovable-hosted logo asset — not migrated.
+// TODO: source "sparkle.svg" is a Lovable-hosted logo asset - not migrated.
 const sparkleLogo = "/logos/sparkle.svg";
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
+// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset - not migrated.
 const revlynWordmark = "/logos/revlyn-wordmark.png";
 
 import {
@@ -49,7 +49,7 @@ import {
   DayTimelineVisual,
   PlaybookRingsVisual,
 } from "@/components/AnimatedVisuals";
-import { ServicesSpec, MethodRhythm, ProofLedger } from "@/components/DenseSections";
+import { ServicesSpec, MethodRhythm } from "@/components/DenseSections";
 import Image from "next/image";
 import { BookCallButton } from "@/components/BookCallButton";
 
@@ -102,7 +102,6 @@ export default function HomePageClient() {
       {/* ══ ACT V · THE PROOF ═════════════════════════════════ */}
       <section id="act-4" data-act>
         
-        <ProofLedger />
         <CaseStories />
         <Proof />
         <Numbers />
@@ -117,7 +116,7 @@ export default function HomePageClient() {
       <FAQ />
 
       {/* ══ CLOSER ════════════════════════════════════════════ */}
-      <CTA />
+      <TalkToUs />
       <Footer />
 
     </div>
@@ -414,7 +413,7 @@ function Problem() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
-          {/* TODAY — disconnected */}
+          {/* TODAY - disconnected */}
           <div className="rounded-2xl border-2 border-ink/10 bg-white/60 p-6 md:p-8">
             <div className="flex items-center justify-between mono text-[10px] uppercase tracking-[0.2em] text-ink/40 mb-10">
               
@@ -447,7 +446,7 @@ function Problem() {
             </ul>
           </div>
 
-          {/* WITH REVLYN — connected */}
+          {/* WITH REVLYN - connected */}
           <div className="rounded-2xl bg-ink text-paper p-6 md:p-8">
             <div className="flex items-center justify-between mono text-[10px] uppercase tracking-[0.2em] text-paper/40 mb-6">
              
@@ -627,7 +626,7 @@ function Services() {
     {
       n: "01", tag: "FLAGSHIP", tint: "bg-volt",
       title: "HUBSPOT AS A SERVICE",
-      lede: "Your entire HubSpot, RevOps, GTM and AI function — run for you.",
+      lede: "Your entire HubSpot, RevOps, GTM and AI function, run for you.",
       bullets: [
         "CRM architecture, admin and hygiene",
         "RevOps, reporting and forecast rigour",
@@ -653,7 +652,7 @@ function Services() {
     {
       n: "03", tag: "MODULE", tint: "bg-paper",
       title: "GTM MOTION",
-      lede: "ICP, outbound, PLG loops — the motion that converts.",
+      lede: "ICP, outbound, PLG loops, the motion that converts.",
       bullets: [
         "ICP scoring · segment strategy",
         "Outbound engine (reps + signal + AI)",
@@ -724,7 +723,7 @@ function Method() {
     },
     {
       day: "W03–06", title: "BUILD & INTEGRATE",
-      body: "Schema, lifecycle, reporting, AI agents and playbooks — shipped in production, not a sandbox. You approve every change before it goes live.",
+      body: "Schema, lifecycle, reporting, AI agents and playbooks, shipped in production, not a sandbox. You approve every change before it goes live.",
     },
     {
       day: "W07+", title: "OPERATE",
@@ -827,26 +826,23 @@ function StackGrid() {
 
 /* ─────────────────────────────  PROOF  ───────────────────────────── */
 function Proof() {
-  const cases = [
+  const cards = [
     {
-      tag: "SERIES B · SAAS",
-      metric: "+$14M",
-      unit: "ARR IN 6MO",
-      body: "Rebuilt the CRM schema, wired PLG loops into outbound. Sales-sourced pipeline went from 34% → 71% closable.",
+      tag: "CRM & Data",
+      title: "Keep HubSpot clean and structured.",
+      body: "We manage properties, pipelines, lifecycle stages, permissions and data quality so your CRM stays usable as the business evolves.",
       accent: "bg-volt",
     },
     {
-      tag: "MID-MKT · FINTECH",
-      metric: "−62%",
-      unit: "SDR MANUAL WORK",
-      body: "AI SDR agents on guardrails handled research, first-touch, and CRM writeback. Human reps focused on live conversations.",
+      tag: "Sales & Marketing Operations",
+      title: "Build the processes your teams actually need.",
+      body: "Lead routing, workflows, automation, campaigns, sales processes and handoffs are built around how your teams work.",
       accent: "bg-fire text-paper",
     },
     {
-      tag: "DEVTOOLS · YC",
-      metric: "22d",
-      unit: "DEMO → WON (WAS 41d)",
-      body: "Deal-desk automation, forecast model and executive command center. Cycle time cut in half without adding headcount.",
+      tag: "Reporting & Improvement",
+      title: "Keep the portal moving with the business.",
+      body: "We manage dashboards, integrations, reporting and ongoing changes so HubSpot doesn't become another internal backlog.",
       accent: "bg-ink text-paper",
     },
   ];
@@ -854,18 +850,21 @@ function Proof() {
   return (
     <section id="proof" className="bg-bone">
       <div className="max-w-[1400px] mx-auto px-6 py-20">
-        <SectionHeader n="07" label="Some of our work" title="A few teams whose numbers moved." />
+        <SectionHeader n="07" label="How we help" title="HubSpot should make your revenue team easier to run." />
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink/70">
+          As your business grows, HubSpot gets more complex. Pipelines change, workflows pile up, data gets messy,
+          and reporting stops telling the full story. We manage and improve your HubSpot so your teams can keep
+          working from a system they trust.
+        </p>
         <div className="mt-12 grid md:grid-cols-3 gap-6">
-          {cases.map((c, i) => (
+          {cards.map((c, i) => (
             <article
               key={i}
               className={`${c.accent} p-6 flex flex-col shadow-md hover:shadow-lg transition-shadow`}
             >
-              <div className="mono text-xs opacity-80">CASE · 0{i + 1} · {c.tag}</div>
-              <div className="mt-6 display text-6xl md:text-7xl">{c.metric}</div>
-              <div className="mono mt-1 text-xs">{c.unit}</div>
-              <p className="mt-6 text-base leading-snug">{c.body}</p>
-              <div className="mt-auto pt-6 mono text-[10px] opacity-70">↳ VERIFIED BY CLIENT</div>
+              <div className="mono text-xs opacity-80">0{i + 1} · {c.tag}</div>
+              <div className="mt-6 display text-2xl md:text-3xl leading-tight">{c.title}</div>
+              <p className="mt-4 text-base leading-snug">{c.body}</p>
             </article>
           ))}
         </div>
@@ -877,18 +876,18 @@ function Proof() {
 /* ─────────────────────────────  NUMBERS BAND  ───────────────────────────── */
 function Numbers() {
   const stats = [
-    { n: "142%", l: "MEDIAN PIPELINE LIFT" },
-    { n: "38%", l: "AVG CAC REDUCTION" },
-    { n: "1", l: "TEAM / 4 FUNCTIONS" },
-    { n: "≤ 90d", l: "STANDALONE BUILD WINDOW" },
+    { n: "CRM", l: "Managed" },
+    { n: "Workflows", l: "Built + maintained" },
+    { n: "Reporting", l: "Always current" },
+    { n: "Support", l: "Ongoing" },
   ];
   return (
     <section className="border-b-2 border-ink bg-fire text-paper">
       <div className="max-w-[1400px] mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         {stats.map((s, i) => (
           <div key={s.l} className={`p-4 ${i !== stats.length - 1 ? "md:border-r-2 md:border-paper" : ""}`}>
-            <div className="display text-6xl md:text-7xl">{s.n}</div>
-            <div className="mono mt-2 text-xs">{s.l}</div>
+            <div className="display text-3xl md:text-4xl">{s.n}</div>
+            <div className="mono mt-2 text-xs uppercase tracking-[0.14em]">{s.l}</div>
           </div>
         ))}
       </div>
@@ -933,91 +932,65 @@ function Manifesto() {
   );
 }
 
-/* ─────────────────────────────  CTA  ───────────────────────────── */
-function CTA() {
+/* ─────────────────────────────  TALK TO US  ───────────────────────────── */
+function TalkToUs() {
+  const points = [
+    "Your current HubSpot and RevOps setup",
+    "Pipeline and process bottlenecks",
+    "Reporting and data gaps",
+    "Automation and AI opportunities",
+    "What the next version of your GTM operation should look like",
+  ];
   return (
-    <section
-      id="book"
-      className="relative overflow-hidden bg-[#F5F3EE]"
-    >
-      <div className="max-w-[1400px] mx-auto px-6 py-24 md:py-32 text-center">
+    <section id="talk" className="relative overflow-hidden" style={{ backgroundColor: "#FAECE7" }}>
+      <div className="max-w-[1400px] mx-auto px-6 py-20 md:py-28">
+        <div className="grid md:grid-cols-2 gap-14 items-start">
+          <div>
+            <h2 className="display text-[clamp(1.9rem,4.5vw,3rem)] leading-[1.05] text-ink">
+              Think your revenue system could run better? Let's talk.
+            </h2>
+            <div className="mt-8 h-px bg-ink/15" />
+            <p className="mt-8 font-semibold text-ink">We'll cover:</p>
+            <ul className="mt-4 space-y-3">
+              {points.map((p) => (
+                <li key={p} className="flex items-start gap-3 text-ink/80">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-fire shrink-0" />
+                  {p}
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        <h2 className="display text-[clamp(3rem,10vw,9rem)] leading-[0.9]">
-          GET YOUR
-          <br />
-          <span className="inline-block bg-ink text-paper px-5 py-1 rounded-md">
-            HUBSPOT TEAM.
-          </span>
-        </h2>
-
-        <p className="max-w-2xl mx-auto mt-8 text-xl leading-relaxed text-ink/80">
-          A 30-minute working session for Founders and Heads of Sales,
-          Marketing, Revenue or GTM. We'll map what your internal
-          HubSpot, RevOps, GTM and AI function should look like — and
-          whether Revlyn is the right team to run it.
-        </p>
-
-        <div className="mt-12 flex flex-wrap justify-center gap-5">
-
-          <BookCallButton
-            className="
-              group
-              inline-flex
-              items-center
-              justify-center
-              rounded-full
-              bg-ink
-              text-paper
-              px-9
-              py-4
-              text-lg
-              font-semibold
-              shadow-lg
-              transition-all
-              duration-300
-              hover:-translate-y-1
-              hover:shadow-2xl
-            "
-          >
-            → BOOK A CALL
-          </BookCallButton>
-
-          <a
-            href="#services"
-            className="
-              inline-flex
-              items-center
-              justify-center
-              rounded-full
-              border
-              border-black/10
-              bg-white
-              text-ink
-              px-9
-              py-4
-              text-lg
-              font-semibold
-              shadow-sm
-              transition-all
-              duration-300
-              hover:bg-black
-              hover:text-white
-              hover:border-black
-              hover:-translate-y-1
-              hover:shadow-xl
-            "
-          >
-            SEE WHAT WE RUN
-          </a>
-
+          <div>
+            <TalkToUsMeetings />
+          </div>
         </div>
-
-        <div className="mt-10 mono text-xs tracking-[0.2em] uppercase text-ink/60">
-          NO NDA REQUIRED · NO SALES CALL
-        </div>
-
       </div>
     </section>
+  );
+}
+
+function TalkToUsMeetings() {
+  const MEETINGS_URL = "https://meetings.hubspot.com/rishabh52/discovery-call-with-revlyn";
+
+  useEffect(() => {
+    const existing = document.querySelector<HTMLScriptElement>(
+      'script[src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"]',
+    );
+    if (!existing) {
+      const script = document.createElement("script");
+      script.src = "https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js";
+      script.async = true;
+      document.body.appendChild(script);
+    } else if ((window as any).hbspt?.meetings?.create) {
+      (window as any).hbspt.meetings.create();
+    }
+  }, []);
+
+  return (
+    <div className="border border-ink/10 shadow-xl">
+      <div className="meetings-iframe-container" data-src={`${MEETINGS_URL}?embed=true`} />
+    </div>
   );
 }
 
@@ -2394,7 +2367,7 @@ function Engagements() {
 /* ─────────────────────────────  FAQ  ───────────────────────────── */
 function FAQ() {
   const items = [
-    { q: "How is Revlyn different from a typical RevOps agency?", a: "We're your extended revenue operations team, not a project shop. HubSpot as a Service means we run CRM, RevOps, GTM and AI for you — weekly standups, monthly scorecards, quarterly roadmaps. No juniors, no offshore, no sub-contracting." },
+    { q: "How is Revlyn different from a typical RevOps agency?", a: "We're your extended revenue operations team, not a project shop. HubSpot as a Service means we run CRM, RevOps, GTM and AI for you: weekly standups, monthly scorecards, quarterly roadmaps. No juniors, no offshore, no sub-contracting." },
     { q: "Which CRMs and tools do you work with?", a: "HubSpot, Salesforce, Attio, and Pipedrive on the CRM side. Segment, Rudderstack, and dbt on the data side. Clay, Apollo, and Common Room on the GTM side. On the AI side we build on OpenAI, Anthropic, and open models via LangChain and custom infra." },
     { q: "How do you price engagements?", a: "HubSpot as a Service is a monthly subscription. Diagnostics are a fixed fee. Standalone 90-day builds are fixed-scope, fixed-timeline." },
     { q: "Do you replace our team, or work with them?", a: "We work alongside your leadership and frontline teams. We run the operations layer so your internal people can focus on decisions, conversations and strategy." },
@@ -2474,7 +2447,7 @@ function OperatorRow() {
 /* ────────────── REVENUE STACK · scroll-driven anatomy ──────────────
    Four stacked layers that transform from "leaking" to "sealed" as
    the hero scrolls. Each layer has its own fault, its own fix, its
-   own micro-metric. Not decorative — this is the page's spine.
+   own micro-metric. Not decorative - this is the page's spine.
    ────────────────────────────────────────────────────────────────── */
 function RevenueStackScroll() {
   const wrapRef = useRef<HTMLDivElement | null>(null);

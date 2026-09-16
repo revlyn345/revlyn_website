@@ -96,7 +96,7 @@ const SERVICES: Spec[] = [
       { w: "W4", t: "Cutover, team training, reporting rebuilt on new schema" },
     ],
     tools: ["HubSpot", "Salesforce", "Attio", "dbt", "Hightouch", "Segment"],
-    artifact: "The Portal Blueprint — a 40-page PDF documenting every object, field, workflow and owner.",
+    artifact: "The Portal Blueprint: a 40-page PDF documenting every object, field, workflow and owner.",
     cadence: "Tues + Thurs standup · Fri demo",
     price: "From $18k · 4–6 weeks",
     accent: "fire",
@@ -121,7 +121,7 @@ const SERVICES: Spec[] = [
       { w: "W4+", t: "Ongoing: forecast call facilitation, deal desk, QBRs" },
     ],
     tools: ["Clari", "Gong", "Weflow", "BoostUp", "Looker", "Metabase"],
-    artifact: "The Revenue Operating Model — a live doc with funnel, forecast, comp and headcount plan in one place.",
+    artifact: "The Revenue Operating Model: a live doc with funnel, forecast, comp and headcount plan in one place.",
     cadence: "Mon forecast · Thu deal desk · monthly board pack",
     price: "From $12k / mo · retainer",
     accent: "volt",
@@ -130,12 +130,12 @@ const SERVICES: Spec[] = [
     id: "gtm",
     code: "S-03",
     name: "GTM Design",
-    tagline: "Segment, motion, message, comp — designed together.",
+    tagline: "Segment, motion, message, comp, designed together.",
     who: "Founders launching a second product, moving upmarket, or expanding into a new region and needing the motion redesigned end-to-end.",
     problem: "Marketing writes for one ICP, sales sells to another, CS renews a third. The pricing page contradicts the deck. The demo doesn't match the discovery script.",
     outcomes: [
       "ICP defined at Tier-A / Tier-B / Tier-C with named accounts, not personas",
-      "Sales motion mapped: inbound / outbound / PLG / partner — with routing rules",
+      "Sales motion mapped: inbound / outbound / PLG / partner, with routing rules",
       "Messaging house: one primary claim, three proof points, per segment",
       "Pricing & packaging tested against 3 alternative frames before launch",
     ],
@@ -146,7 +146,7 @@ const SERVICES: Spec[] = [
       { w: "W5–6", t: "Pricing test, launch plan, enablement rollout" },
     ],
     tools: ["Notion", "Attio", "Common Room", "Clay", "Apollo", "LinkedIn Sales Nav"],
-    artifact: "The GTM Blueprint — 60 pages: ICP, motion, message, pricing, launch calendar.",
+    artifact: "The GTM Blueprint: 60 pages: ICP, motion, message, pricing, launch calendar.",
     cadence: "Weekly working session · async in Notion",
     price: "From $28k · 6–8 weeks",
     accent: "fire",
@@ -156,13 +156,13 @@ const SERVICES: Spec[] = [
     code: "S-04",
     name: "AI Infrastructure",
     tagline: "Agents that actually earn their seat.",
-    who: "Revenue teams under headcount pressure who need AI to do real work — not summarise Slack.",
+    who: "Revenue teams under headcount pressure who need AI to do real work, not summarise Slack.",
     problem: "You bought four AI SDR tools. None are running. The ones that do run send emails your VP would fire a human for writing.",
     outcomes: [
       "Agent-per-job architecture: research, enrich, route, draft, follow-up, log",
       "Every agent has a scorecard: precision, recall, cost per action, human override rate",
       "Human-in-the-loop by default; autonomy earned per agent based on 30-day scorecard",
-      "Full observability: prompt, context, tool calls, output, cost — every run",
+      "Full observability: prompt, context, tool calls, output, cost, every run",
     ],
     deliverables: [
       { w: "W1", t: "Job-to-be-done audit, 8–12 automatable jobs ranked by ROI" },
@@ -171,7 +171,7 @@ const SERVICES: Spec[] = [
       { w: "W5+", t: "Weekly agent review, retrain, retire, add new" },
     ],
     tools: ["OpenAI", "Anthropic", "Clay", "n8n", "Braintrust", "LangSmith"],
-    artifact: "The Agent Ledger — every agent with its job, scorecard, cost and last review.",
+    artifact: "The Agent Ledger: every agent with its job, scorecard, cost and last review.",
     cadence: "Weekly agent review · monthly ROI report",
     price: "From $15k / mo · retainer",
     accent: "volt",
@@ -230,7 +230,7 @@ function ServiceCard({ spec, idx }: { spec: Spec; idx: number }) {
       className="bg-paper p-8 md:p-12 grid md:grid-cols-[280px_1fr] gap-10 scroll-mt-24 group"
       data-pin
     >
-      {/* LEFT — identity */}
+      {/* LEFT - identity */}
       <header className="self-start" data-pin-inner>
         <div className="flex items-center gap-2 mb-6">
           <span className={`w-2 h-2 rounded-full ${accent}`} />
@@ -246,7 +246,7 @@ function ServiceCard({ spec, idx }: { spec: Spec; idx: number }) {
         <p className="text-[13px] text-ink/80 leading-relaxed">{spec.problem}</p>
       </header>
 
-      {/* RIGHT — spec */}
+      {/* RIGHT - spec */}
       <div className="grid md:grid-cols-2 gap-x-10 gap-y-8">
         {/* outcomes */}
         <div className="md:col-span-2">
@@ -304,20 +304,20 @@ function ServiceCard({ spec, idx }: { spec: Spec; idx: number }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   2 · METHOD RHYTHM — how a week / month / quarter looks
+   2 · METHOD RHYTHM - how a week / month / quarter looks
    ═══════════════════════════════════════════════════════════════ */
 
 const WEEK = [
   { d: "MON", h: "09:30", t: "Forecast call", who: "Head of Revenue + Principal", out: "Weekly commit locked" },
   { d: "MON", h: "16:00", t: "Async digest", who: "Operator → team", out: "Loom + doc, 8 min" },
   { d: "TUE", h: "10:00", t: "RevOps standup", who: "Operator + RevOps lead", out: "Ticket queue triaged" },
-  { d: "WED", h: "—", t: "Build day", who: "Operator (heads-down)", out: "Ship + PR review" },
+  { d: "WED", h: "Flex", t: "Build day", who: "Operator (heads-down)", out: "Ship + PR review" },
   { d: "THU", h: "14:00", t: "Deal desk", who: "Principal + AE managers", out: "3–5 deals unblocked" },
   { d: "FRI", h: "11:00", t: "Demo + retro", who: "Full team", out: "What shipped, what's next" },
 ];
 
 const MONTH = [
-  "Board pack draft — pipeline, forecast, agent ROI, hygiene score",
+  "Board pack draft: pipeline, forecast, agent ROI, hygiene score",
   "Comp plan reconciliation vs. attainment",
   "ICP tier refresh from CS + won/lost data",
   "Agent scorecard review, retire ≤ 60% precision",
@@ -327,7 +327,7 @@ const QUARTER = [
   "QBR: motion, message, funnel, headcount",
   "Portal audit re-run against original blueprint",
   "Segment expansion decision (up-market / new region)",
-  "Tooling review: 1 in, 1 out — no bloat",
+  "Tooling review: 1 in, 1 out, no bloat",
 ];
 
 export function MethodRhythm() {
@@ -429,171 +429,6 @@ export function MethodRhythm() {
             </div>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   3 · PROOF LEDGER — real before/after, named metrics
-   ═══════════════════════════════════════════════════════════════ */
-
-type Case = {
-  co: string;
-  stage: string;
-  scope: string;
-  duration: string;
-  metrics: { k: string; before: string; after: string; delta: string }[];
-  quote: { t: string; a: string };
-};
-
-const CASES: Case[] = [
-  {
-    co: "SaaS · Series B · $18M ARR",
-    stage: "HubSpot rebuild + RevOps retainer",
-    scope: "S-01 · S-02",
-    duration: "6 weeks + 9 mo retainer",
-    metrics: [
-      { k: "Forecast accuracy", before: "63%", after: "91%", delta: "+28 pts" },
-      { k: "Pipeline hygiene score", before: "41 / 100", after: "88 / 100", delta: "+47" },
-      { k: "AE ramp (to quota)", before: "7.2 mo", after: "4.1 mo", delta: "−43%" },
-      { k: "Reporting time (weekly)", before: "11 hrs", after: "40 min", delta: "−94%" },
-    ],
-    quote: {
-      t: "First quarter in three years the board didn't ask why the forecast moved.",
-      a: "Head of Revenue",
-    },
-  },
-  {
-    co: "Fintech · Series A · $6M ARR",
-    stage: "GTM redesign, moved from SMB to mid-market",
-    scope: "S-03",
-    duration: "8 weeks",
-    metrics: [
-      { k: "Average ACV", before: "$14k", after: "$61k", delta: "4.3×" },
-      { k: "Win rate (Tier-A)", before: "9%", after: "27%", delta: "3×" },
-      { k: "Sales cycle", before: "94 days", after: "68 days", delta: "−28%" },
-      { k: "SDR → SQL rate", before: "4.2%", after: "11.6%", delta: "+7.4 pts" },
-    ],
-    quote: {
-      t: "We stopped writing decks for personas that never signed and started writing to the four titles that do.",
-      a: "Founder / CEO",
-    },
-  },
-  {
-    co: "Vertical SaaS · Bootstrapped · $9M ARR",
-    stage: "AI agent infrastructure",
-    scope: "S-04",
-    duration: "5 weeks + retainer",
-    metrics: [
-      { k: "Research time / account", before: "22 min", after: "40 sec", delta: "−97%" },
-      { k: "Outbound reply rate", before: "1.1%", after: "4.8%", delta: "4.4×" },
-      { k: "Cost per qualified meeting", before: "$412", after: "$118", delta: "−71%" },
-      { k: "Agent override rate", before: "—", after: "6.3%", delta: "under 10% target" },
-    ],
-    quote: {
-      t: "Six agents replaced two contractors and made the SDRs 3× more effective. No 'AI vibes' — real scorecards.",
-      a: "VP Growth",
-    },
-  },
-];
-
-export function ProofLedger() {
-  return (
-    <section className="bg-paper border-t border-ink/10">
-      <div className="max-w-[1240px] mx-auto px-6 md:px-10 py-24 md:py-32">
-        <SectionHead
-          eyebrow="§ 05 · Proof"
-          count={`${CASES.length} case studies`}
-          title="The numbers. Before and after. On the record."
-          sub="Every number below has a name and a phone number behind it. Ask us for references — we'll route you to the operator who owned it."
-        />
-
-        <div className="grid gap-px bg-ink/10 border border-ink/15">
-          {CASES.map((c, i) => (
-            <article key={i} data-reveal className="bg-paper p-8 md:p-10 grid md:grid-cols-[280px_1fr] gap-10">
-              {/* meta */}
-              <header>
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="mono text-[10.5px] text-ink/40 tabular-nums">CASE.{String(i + 1).padStart(2, "0")}</span>
-                  <span className="h-px flex-1 bg-ink/10" />
-                  <span className="mono text-[10.5px] text-ink/40">{c.scope}</span>
-                </div>
-                <div className="mono text-[10.5px] text-ink/50 mb-2">{c.co}</div>
-                <h3 className="display text-[24px] leading-tight mb-3">{c.stage}</h3>
-                <div className="flex items-center gap-2 text-[11.5px] text-ink/50">
-                  <Dot tone="fire" /> {c.duration}
-                </div>
-
-                <figure className="mt-6 border-l-2 border-ink pl-4">
-                  <blockquote className="text-[14.5px] text-ink leading-snug italic">
-                    &ldquo;{c.quote.t}&rdquo;
-                  </blockquote>
-                  <figcaption className="mt-2 mono text-[10.5px] text-ink/50">— {c.quote.a}</figcaption>
-                </figure>
-              </header>
-
-              {/* metrics table */}
-              <div>
-                <div className="hidden md:grid grid-cols-[1.4fr_1fr_1fr_0.9fr] border-b border-ink/15 pb-2 mb-1 mono text-[10.5px] text-ink/40">
-                  <div>Metric</div>
-                  <div className="text-right tabular-nums">Before</div>
-                  <div className="text-right tabular-nums">After</div>
-                  <div className="text-right tabular-nums">Δ</div>
-                </div>
-                {c.metrics.map((m, j) => (
-                  <div
-                    key={j}
-                    className="py-3 border-b border-ink/8 last:border-b-0 text-[13.5px] md:grid md:grid-cols-[1.4fr_1fr_1fr_0.9fr] md:items-baseline"
-                  >
-                    <div className="text-ink/85 mb-2 md:mb-0">{m.k}</div>
-                    <div className="grid grid-cols-3 gap-3 md:contents">
-                      <div className="md:text-right">
-                        <span className="mono text-[9.5px] text-ink/40 md:hidden block mb-0.5">Before</span>
-                        <span className="tabular-nums text-ink/45 line-through decoration-ink/30">{m.before}</span>
-                      </div>
-                      <div className="md:text-right">
-                        <span className="mono text-[9.5px] text-ink/40 md:hidden block mb-0.5">After</span>
-                        <span className="tabular-nums font-medium text-ink">{m.after}</span>
-                      </div>
-                      <div className="md:text-right">
-                        <span className="mono text-[9.5px] text-ink/40 md:hidden block mb-0.5">Δ</span>
-                        <span className="inline-block px-1.5 py-0.5 bg-volt/60 text-ink text-[12px]">{m.delta}</span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-
-                {/* sparkline-ish rail */}
-                <div className="mt-5 flex items-center gap-3">
-                  <span className="mono text-[10px] text-ink/40">TRAJECTORY</span>
-                  <svg viewBox="0 0 200 24" className="flex-1 h-6" preserveAspectRatio="none">
-                    <polyline
-                      points={c.metrics.map((_, k) => `${(k / (c.metrics.length - 1)) * 200},${20 - k * (16 / (c.metrics.length - 1))}`).join(" ")}
-                      fill="none"
-                      stroke="var(--color-fire)"
-                      strokeWidth="1.5"
-                    />
-                    {c.metrics.map((_, k) => (
-                      <circle
-                        key={k}
-                        cx={(k / (c.metrics.length - 1)) * 200}
-                        cy={20 - k * (16 / (c.metrics.length - 1))}
-                        r="2.5"
-                        fill="var(--color-ink)"
-                      />
-                    ))}
-                  </svg>
-                  <span className="mono text-[10px] text-ink/40 tabular-nums">{c.duration}</span>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <p className="mt-8 text-[11.5px] text-ink/45 leading-relaxed max-w-2xl">
-          <span className="mono text-ink/70">†</span> Company names withheld under NDA on this page. Full case studies and references shared under mutual NDA on the intro call.
-        </p>
       </div>
     </section>
   );

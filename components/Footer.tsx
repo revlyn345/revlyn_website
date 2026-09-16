@@ -14,7 +14,7 @@ export function Footer() {
     <footer className="relative bg-ink text-paper overflow-hidden">
       <div className="relative max-w-[1400px] mx-auto px-6 pt-16 pb-10">
         {/* Editorial lead */}
-        <div className="grid md:grid-cols-12 gap-10 pb-10 border-b border-paper/10">
+        <div className="grid md:grid-cols-12 gap-10 pb-6 border-b border-paper/10">
           <div className="md:col-span-7 min-w-0">
             <h3 className="display text-5xl md:text-7xl leading-[0.9] tracking-[-0.035em]">
               Revenue systems,
@@ -23,29 +23,9 @@ export function Footer() {
               <span className="text-fire">seniors</span>
               <span className="text-fire">.</span>
             </h3>
-            <p className="mt-6 max-w-xl text-paper/70 leading-relaxed text-lg">
-              A small team of revenue operators for Founders and Heads of Sales, Marketing, Revenue and GTM. We build the portal, tune the pipeline, wire the AI, and stay on the account.
+            <p className="mt-6 mb-2 max-w-xl text-paper/70 leading-relaxed text-lg">
+              Revlyn builds and operates the revenue systems behind modern GTM teams. We connect technology, process, pipeline, and AI to create a commercial engine that runs cleaner, moves faster, and scales with the business.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <BookCallButton className="group inline-flex items-center gap-2 rounded-full bg-fire text-paper pl-5 pr-1.5 py-1.5 text-sm font-medium hover:bg-paper hover:text-ink transition-colors">
-                Book a diagnostic call
-                <span className="inline-flex items-center justify-center h-8 w-8 rounded-full bg-ink text-paper group-hover:translate-x-0.5 transition-transform">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
-                </span>
-              </BookCallButton>
-              <a
-                href="mailto:info@revlyn.io"
-                className="inline-flex items-center gap-2 rounded-full border border-paper/25 px-5 py-2.5 text-sm text-paper hover:bg-paper hover:text-ink transition-colors"
-              >
-                info@revlyn.io
-              </a>
-              <a
-                href="tel:+917503044000"
-                className="inline-flex items-center gap-2 rounded-full border border-paper/25 px-5 py-2.5 text-sm text-paper hover:bg-paper hover:text-ink transition-colors"
-              >
-                +91 75030 44000
-              </a>
-            </div>
           </div>
 
           <div className="md:col-span-5 md:pl-10 md:border-l md:border-paper/10 min-w-0">
@@ -72,28 +52,6 @@ export function Footer() {
               <p className="mt-3 text-[11px] text-paper/60">
                 One email a month. Unsubscribe with one click.
               </p>
-            </div>
-
-            {/* Studio card */}
-            <div className="mt-8 rounded-2xl border border-paper/12 bg-paper/[0.03] p-5">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-2">Studio</div>
-                  <div className="text-paper leading-snug">
-                    Gurugram, Haryana
-                    <br />
-                    <span className="text-paper/60">India · IST (UTC+5:30)</span>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="mono text-[10px] tracking-[0.22em] uppercase text-paper/60 mb-2">Hours</div>
-                  <div className="text-paper">Mon, Fri</div>
-                  <div className="text-paper/60 text-sm">09:30 to 19:30 IST</div>
-                </div>
-              </div>
-              <div className="mt-4 pt-4 border-t border-paper/10 flex items-center justify-between text-[12px]">
-                <span className="text-paper/55">Async everywhere. Slack shared channel on request.</span>
-              </div>
             </div>
           </div>
         </div>
