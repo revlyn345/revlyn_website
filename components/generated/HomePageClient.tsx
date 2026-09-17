@@ -50,7 +50,6 @@ import {
   DayTimelineVisual,
   PlaybookRingsVisual,
 } from "@/components/AnimatedVisuals";
-import { MethodRhythm } from "@/components/DenseSections";
 import Image from "next/image";
 import { BookCallButton } from "@/components/BookCallButton";
 
@@ -89,13 +88,11 @@ export default function HomePageClient() {
         <MacroShot />
         <LiveDashboard />
         <FunnelVisual />
-        <AIAgentTerminal />
       </section>
 
       {/* ══ ACT IV · THE METHOD ═══════════════════════════════ */}
       <section id="act-3" data-act>
         <div id="stack" />
-        <MethodRhythm />
         <Engagements />
         <Playbook />
       </section>
@@ -565,11 +562,30 @@ function DiagramIconNodes() {
   );
 }
 
+/*
+   Layout model: a real CSS Grid, not percentage-positioned boxes on a
+   fixed-pixel canvas. Every card, connector and handwritten note is an
+   actual grid item in its own cell. Grid cells cannot overlap each other,
+   and row/column tracks auto-size to whatever content they hold (a tag
+   wrapping to a second line grows its row instead of spilling into the
+   note below it). That's what makes this resistant to breaking at
+   different zoom levels or viewport widths, unlike the previous
+   absolute-position version.
 
+   Columns (9): noteL | gapL | quadrantL | gapC1 | crm | gapC2 | quadrantR | gapR | noteR
+   Rows (7):    topbox | gapRow1 | row1(Q1/CRM/Q2) | gapRow2 | row2(Q3/CRM/Q4) | gapRow3 | bottombox
+*/
 
-const DIAGRAM_GRID_COLS =
-  "200px 32px minmax(220px,1fr) 32px minmax(280px,340px) 32px minmax(220px,1fr) 32px 200px";
-const DIAGRAM_GRID_ROWS = "auto 32px auto 24px auto 32px auto";
+const DIAGRAM_GRID_COLS = "180px 40px 380px 60px 300px 60px 380px 40px 180px";
+const DIAGRAM_GRID_ROWS = "90px 50px 200px 30px 200px 50px 130px";
+/* This canvas is fully fixed-pixel (no fr/auto tracks) on purpose: the
+   connector wiring below is drawn as one precise SVG overlay, and an SVG
+   with a fixed viewBox can only stay pixel-aligned with the grid if the
+   grid itself never reflows relative to it. The wrapper scrolls
+   horizontally below its natural width instead of scaling, so nothing
+   ever drifts out of alignment. */
+const DIAGRAM_CANVAS_W = 1620;
+const DIAGRAM_CANVAS_H = 750;
 
 type DiagramQuadrant = {
   num: string;
@@ -686,45 +702,139 @@ function DiagramHandNote({
   );
 }
 
-/* Decorative connector segments. Purely visual, z-0 (behind the cards and
-   notes, which are z-10), so a slightly-off line can never obscure text. */
-function DiagramVLine({ style }: { style?: React.CSSProperties }) {
+/* One precise connector overlay, matching the reference diagram: a solid
+   pale line exits each quadrant card, turns a corner, and two quadrants'
+   lines merge at a ring marker before continuing as dashed-then-glowing
+   orange into the CRM hub. Top/bottom and the two lower quadrants use a
+   plain arrowhead where they terminate into a box. Because the grid above
+   is fixed-pixel, this SVG's viewBox lines up with it exactly at every
+   width; the wrapper just scrolls horizontally if the viewport is
+   narrower than the canvas, so nothing ever drifts out of alignment. */
+function DiagramConnectors() {
+  const W = DIAGRAM_CANVAS_W;
+  const H = DIAGRAM_CANVAS_H;
+  const wire = "rgba(255,255,255,0.32)";
+  const wireArrow = "rgba(255,255,255,0.55)";
+  const orangeDash = "rgba(255,87,34,0.55)";
+  const orangeSolid = "#FF5722";
+
   return (
-    <div style={style} className="relative z-0 w-px mx-auto h-full border-l border-dashed border-fire/40" />
-  );
-}
-function DiagramHLine({ style }: { style?: React.CSSProperties }) {
-  return (
-    <div style={style} className="relative z-0 h-px w-full my-auto border-t border-dashed border-fire/40" />
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      style={{ width: W, height: H }}
+      fill="none"
+    >
+      <defs>
+        <marker id="diagArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill={wireArrow} />
+        </marker>
+      </defs>
+
+      {/* top box -> CRM */}
+      <path d="M810,90 V115" stroke={wire} strokeWidth="1.5" />
+      <path d="M810,115 V135" stroke={orangeDash} strokeWidth="1.5" strokeDasharray="3 5" />
+      <path d="M810,135 V140" stroke={orangeSolid} strokeWidth="2" markerEnd="url(#diagArrow)" />
+      <circle cx="810" cy="90" r="4" fill="#0a0a0a" stroke={wire} strokeWidth="1.5" />
+
+      {/* CRM -> bottom box */}
+      <path d="M810,570 V595" stroke={orangeSolid} strokeWidth="2" style={{ filter: "drop-shadow(0 0 3px rgba(255,87,34,0.7))" }} />
+      <path d="M810,595 V615" stroke={orangeDash} strokeWidth="1.5" strokeDasharray="3 5" />
+      <path d="M810,615 V620" stroke={wireArrow} strokeWidth="1.5" markerEnd="url(#diagArrow)" />
+      <circle cx="810" cy="570" r="4" fill={orangeSolid} style={{ filter: "drop-shadow(0 0 4px rgba(255,87,34,0.8))" }} />
+
+      {/* Q1 (top-left) + Q3 (bottom-left) merge, then into CRM's left edge */}
+      <path d="M600,240 H630 V355" stroke={wire} strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M600,470 H630 V355" stroke={wire} strokeWidth="1.5" strokeLinejoin="round" />
+      <circle cx="630" cy="355" r="4" fill="#0a0a0a" stroke={wire} strokeWidth="1.5" />
+      <path d="M630,355 H648" stroke={orangeDash} strokeWidth="1.5" strokeDasharray="3 5" />
+      <circle cx="648" cy="355" r="3.5" fill={orangeSolid} style={{ filter: "drop-shadow(0 0 4px rgba(255,87,34,0.8))" }} />
+      <path d="M648,355 H660" stroke={orangeSolid} strokeWidth="2" style={{ filter: "drop-shadow(0 0 3px rgba(255,87,34,0.7))" }} />
+
+      {/* Q2 (top-right) + Q4 (bottom-right) merge, then into CRM's right edge */}
+      <path d="M1020,240 H990 V355" stroke={wire} strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M1020,470 H990 V355" stroke={wire} strokeWidth="1.5" strokeLinejoin="round" />
+      <circle cx="990" cy="355" r="4" fill="#0a0a0a" stroke={wire} strokeWidth="1.5" />
+      <path d="M990,355 H972" stroke={orangeDash} strokeWidth="1.5" strokeDasharray="3 5" />
+      <circle cx="972" cy="355" r="3.5" fill={orangeSolid} style={{ filter: "drop-shadow(0 0 4px rgba(255,87,34,0.8))" }} />
+      <path d="M972,355 H960" stroke={orangeSolid} strokeWidth="2" style={{ filter: "drop-shadow(0 0 3px rgba(255,87,34,0.7))" }} />
+
+      {/* Q3 -> bottom box (left side), Q4 -> bottom box (right side) */}
+      <path d="M410,570 V635 H396" stroke={wireArrow} strokeWidth="1.5" strokeDasharray="3 5" strokeLinejoin="round" markerEnd="url(#diagArrow)" />
+      <path d="M1210,570 V635 H1224" stroke={wireArrow} strokeWidth="1.5" strokeDasharray="3 5" strokeLinejoin="round" markerEnd="url(#diagArrow)" />
+    </svg>
   );
 }
 
 function RevenueEngineDiagram() {
   return (
     <section className="relative bg-[#0a0a0a] text-white border-b-2 border-ink overflow-hidden">
-      {/* Self-contained handwriting font import, scoped to this section only. */}
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap');`}</style>
+
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap');
+
+        .rev-desktop-svg {
+          width: 100%;
+          height: auto;
+          display: block;
+          overflow: visible;
+        }
+
+        .rev-svg-card { transition: filter 400ms ease; cursor: default; }
+        .rev-svg-card:hover { filter: drop-shadow(0 0 22px rgba(255, 90, 31, 0.45)); }
+
+        .rev-svg-crm { transition: filter 500ms ease; }
+        .rev-svg-crm:hover { filter: drop-shadow(0 0 40px rgba(255, 90, 31, 0.55)); }
+
+        .rev-svg-outcome { transition: filter 500ms ease; }
+        .rev-svg-outcome:hover { filter: drop-shadow(0 0 32px rgba(255, 90, 31, 0.4)); }
+
+        .rev-svg-pill { transition: fill 300ms ease, stroke 300ms ease; }
+        .rev-svg-pill:hover { fill: rgba(255, 90, 31, 0.12); stroke: rgba(255, 90, 31, 0.7); }
+
+        @media (prefers-reduced-motion: reduce) {
+          .rev-svg-card, .rev-svg-crm, .rev-svg-outcome, .rev-svg-pill {
+            transition: none !important;
+          }
+        }
+      `}</style>
 
       <div className="max-w-[1500px] mx-auto px-6 py-20 md:py-28">
-        {/* header */}
+
+        {/* HEADER */}
         <div className="max-w-3xl">
-          
+          <div className="flex items-center gap-4 mb-5">
+            <span className="mono text-[11px] md:text-[12px] tracking-[0.22em] text-fire uppercase">
+              HOW REVENUE ENGINEERING WORKS
+            </span>
+            <span className="w-12 h-px bg-white/40" />
+          </div>
+
           <h2 className="display text-[clamp(2.1rem,4.2vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-white">
             One connected system behind your revenue team.
           </h2>
+
           <p className="mt-5 text-[16px] md:text-[17px] text-white/50 leading-relaxed max-w-xl">
-            We connect HubSpot, process, reporting, automation and AI so sales and marketing can run from one reliable system.
+            We connect HubSpot, process, reporting, automation and AI so sales
+            and marketing can run from one reliable system.
           </p>
         </div>
 
-        {/* mobile / tablet: simple stacked flow, no grid, nothing absolutely positioned */}
-        <div className="lg:hidden mt-14">
-          <div className="flex flex-col items-center gap-6">
+        {/* MOBILE */}
+        <div className="lg:hidden mt-14 w-full min-w-0">
+          <div className="flex flex-col items-center gap-6 w-full min-w-0">
+
             <div className="rounded-md border border-white/15 text-center py-3 px-4 w-full max-w-xs">
-              <div className="mono text-[10.5px] tracking-[0.14em] text-white">PEOPLE + PROCESS + TECHNOLOGY</div>
-              <div className="mono text-[9.5px] tracking-[0.14em] text-white/35 mt-1">ALIGNED FOR GROWTH</div>
+              <div className="mono text-[10.5px] tracking-[0.14em] text-white">
+                PEOPLE + PROCESS + TECHNOLOGY
+              </div>
+              <div className="mono text-[9.5px] tracking-[0.14em] text-white/35 mt-1">
+                ALIGNED FOR GROWTH
+              </div>
             </div>
-            <p className="text-[15px] text-white/50 text-center -mt-2" style={{ fontFamily: "'Caveat', cursive" }}>
+
+            <p className="text-[15px] text-white/50 text-center -mt-2"
+               style={{ fontFamily: "'Caveat', cursive" }}>
               {DIAGRAM_TOP_NOTE}
             </p>
 
@@ -732,160 +842,540 @@ function RevenueEngineDiagram() {
 
             <div
               className="rounded-2xl border-2 border-fire flex flex-col items-center justify-center text-center gap-2 px-6 py-8 w-full max-w-xs"
-              style={{ boxShadow: "0 0 50px 6px rgba(255,87,34,0.3), inset 0 0 30px rgba(255,87,34,0.08)" }}
+              style={{
+                boxShadow: "0 0 50px 6px rgba(255,87,34,0.3), inset 0 0 30px rgba(255,87,34,0.08)",
+              }}
             >
-              <div className="text-fire">
-                <DiagramIconNodes />
-              </div>
+              <div className="text-fire"><DiagramIconNodes /></div>
               <div className="display text-[22px] leading-tight text-white">HubSpot CRM</div>
-              <div className="mono text-[9.5px] tracking-[0.14em] text-white/40">THE SINGLE SOURCE OF TRUTH</div>
+              <div className="mono text-[9.5px] tracking-[0.14em] text-white/40">
+                THE SINGLE SOURCE OF TRUTH
+              </div>
             </div>
 
             <div className="w-px h-8 border-l border-dashed border-fire/40" />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full min-w-0">
               {Object.values(DIAGRAM_QUADRANTS).map((q) => (
-                <div key={q.num} className="flex flex-col gap-3">
-                  <DiagramQuadrantCard q={q} />
-                  <p className="text-[15px] text-white/50 px-1" style={{ fontFamily: "'Caveat', cursive" }}>
+                <div key={q.num} className="flex flex-col gap-3 min-w-0">
+                  <DiagramQuadrantCard q={q} style={{ width: "100%", maxWidth: "100%", minWidth: 0 }} />
+                  <p className="text-[15px] text-white/50 px-1"
+                     style={{ fontFamily: "'Caveat', cursive" }}>
                     {q.note}
                   </p>
                 </div>
               ))}
             </div>
 
-            <div className="w-px h-8 border-l border-dashed border-fire/40" />
+            <div className="w-px h-14 border-l border-dashed border-fire/40 mt-2" />
 
-            <div className="rounded-2xl border-2 border-fire/70 flex flex-col items-center justify-center gap-4 px-6 py-6 text-center w-full max-w-sm">
+            <div className="rounded-2xl border-2 border-fire/70 flex flex-col items-center justify-center gap-4 px-6 py-7 text-center w-full max-w-sm mt-1">
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-lg bg-fire/10 border border-fire/30 flex items-center justify-center text-fire shrink-0">
                   <DiagramIconBars />
                 </div>
-                <div className="display text-[20px] leading-tight text-white">Clearer Revenue Operations</div>
+                <div className="display text-[20px] leading-tight text-white">
+                  Clearer Revenue Operations
+                </div>
               </div>
               <div className="flex flex-wrap justify-center gap-2">
-                {["Visibility", "Control", "Less Manual Work", "Better Adoption"].map((t) => (
-                  <span
-                    key={t}
-                    className="mono text-[10.5px] px-3 py-1.5 rounded-full border border-white/15 text-white/70 whitespace-nowrap"
-                  >
+                {["Visibility","Control","Less Manual Work","Better Adoption"].map((t) => (
+                  <span key={t}
+                        className="mono text-[10.5px] px-3 py-1.5 rounded-full border border-white/15 text-white/70 whitespace-nowrap">
                     {t}
                   </span>
                 ))}
               </div>
             </div>
-            <p className="text-[15px] text-white/50 text-center -mt-2" style={{ fontFamily: "'Caveat', cursive" }}>
+
+            <p className="text-[15px] text-white/50 text-center -mt-2"
+               style={{ fontFamily: "'Caveat', cursive" }}>
               {DIAGRAM_BOTTOM_NOTE}
             </p>
           </div>
         </div>
 
-        {/* desktop: real CSS grid, horizontal scroll only kicks in below the grid's natural minimum */}
-        <div className="hidden lg:block mt-16 -mx-6 px-6 overflow-x-auto">
-          <div
-            className="mx-auto"
-            style={{
-              display: "grid",
-              gridTemplateColumns: DIAGRAM_GRID_COLS,
-              gridTemplateRows: DIAGRAM_GRID_ROWS,
-              minWidth: 1400,
-            }}
+        {/* DESKTOP */}
+        <div className="hidden lg:block mt-16 w-full">
+          <svg
+            className="rev-desktop-svg"
+            viewBox="0 0 1440 730"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            {/* row 1: top note box + top-right corner annotation */}
-            <div
-              className="relative z-10 rounded-md border border-white/15 text-center py-3 px-4"
-              style={{ gridColumn: "5", gridRow: "1" }}
-            >
-              <div className="mono text-[10.5px] tracking-[0.14em] text-white">PEOPLE + PROCESS + TECHNOLOGY</div>
-              <div className="mono text-[9.5px] tracking-[0.14em] text-white/35 mt-1">ALIGNED FOR GROWTH</div>
-            </div>
-            <DiagramHandNote align="right" style={{ gridColumn: "9", gridRow: "1", alignSelf: "start", justifySelf: "end" }}>
-              {DIAGRAM_TOP_NOTE}
-            </DiagramHandNote>
+            <defs>
+              <linearGradient id="rev-crm-glow" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="rgba(255,90,31,0.15)" />
+                <stop offset="100%" stopColor="rgba(255,90,31,0)" />
+              </linearGradient>
+            </defs>
 
-            {/* gap row 1: vertical connector, top box -> CRM */}
-            <DiagramVLine style={{ gridColumn: "5", gridRow: "2" }} />
+            <style>{`
+              .rev-t-mono-sm  { font-family: ui-monospace, Menlo, monospace; font-size: 10px; letter-spacing: 0.16em; fill: rgba(255,255,255,0.55); }
+              .rev-t-mono-xs  { font-family: ui-monospace, Menlo, monospace; font-size: 9px; letter-spacing: 0.16em; fill: rgba(255,255,255,0.42); }
+              .rev-t-mono-pill{ font-family: ui-monospace, Menlo, monospace; font-size: 10px; letter-spacing: 0.10em; fill: rgba(255,255,255,0.72); }
+              .rev-t-step     { font-family: ui-monospace, Menlo, monospace; font-size: 9px;  letter-spacing: 0.18em; fill: rgba(255,255,255,0.45); }
+              .rev-t-step-arrow { font-family: ui-monospace, Menlo, monospace; font-size: 9px; fill: rgba(255,90,31,0.75); }
+              .rev-t-title    { font-family: Inter, sans-serif; font-weight: 700; font-size: 20px; fill: #ffffff; }
+              .rev-t-title-lg { font-family: Inter, sans-serif; font-weight: 700; font-size: 26px; fill: #ffffff; }
+              .rev-t-num      { font-family: Inter, sans-serif; font-weight: 700; font-size: 11px; fill: #ff5a1f; }
+              .rev-t-hand     { font-family: 'Caveat', cursive; font-size: 17px; fill: rgba(255,255,255,0.55); }
+              .rev-t-hand-sm  { font-family: 'Caveat', cursive; font-size: 16px; fill: rgba(255,255,255,0.55); }
+            `}</style>
 
-            {/* row group: Q1 / trunkL / CRM / trunkR / Q2, plus their side notes */}
-            <DiagramHandNote align="left" style={{ gridColumn: "1", gridRow: "3", alignSelf: "center" }}>
-              {DIAGRAM_QUADRANTS.q1.note}
-            </DiagramHandNote>
-            <DiagramQuadrantCard q={DIAGRAM_QUADRANTS.q1} style={{ gridColumn: "3", gridRow: "3" }} />
-            <DiagramHLine style={{ gridColumn: "4", gridRow: "3" }} />
-            <div style={{ gridColumn: "4", gridRow: "3 / span 3" }} className="relative">
-              <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px border-l border-dashed border-fire/40 z-0" />
-            </div>
+            {/* TOP LABEL BOX */}
+            <g>
+              <rect x="560" y="30" width="320" height="52" rx="6"
+                    fill="#0a0a0a"
+                    stroke="rgba(255,255,255,0.22)"
+                    strokeDasharray="4 4" />
+              <text x="720" y="52" textAnchor="middle" className="rev-t-mono-sm">
+                PEOPLE + PROCESS + TECHNOLOGY
+              </text>
+              <text x="720" y="68" textAnchor="middle" className="rev-t-mono-xs">
+                ALIGNED FOR GROWTH
+              </text>
+            </g>
 
-            <div
-              className="relative z-10 rounded-2xl border-2 border-fire flex flex-col items-center justify-center text-center gap-2 px-6 py-8"
-              style={{
-                gridColumn: "5",
-                gridRow: "3 / span 3",
-                boxShadow: "0 0 50px 6px rgba(255,87,34,0.3), inset 0 0 30px rgba(255,87,34,0.08)",
-              }}
-            >
-              <div className="text-fire">
-                <DiagramIconNodes />
-              </div>
-              <div className="display text-[22px] md:text-[26px] leading-tight text-white">HubSpot CRM</div>
-              <div className="mono text-[9.5px] tracking-[0.14em] text-white/40">THE SINGLE SOURCE OF TRUTH</div>
-            </div>
+            {/* TOP dashed connector into CRM */}
+            <line x1="720" y1="82" x2="720" y2="150"
+                  stroke="rgba(255,90,31,0.55)"
+                  strokeWidth="1"
+                  strokeDasharray="3 4" />
 
-            <div style={{ gridColumn: "6", gridRow: "3 / span 3" }} className="relative">
-              <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px border-l border-dashed border-fire/40 z-0" />
-            </div>
-            <DiagramHLine style={{ gridColumn: "6", gridRow: "3" }} />
-            <DiagramQuadrantCard q={DIAGRAM_QUADRANTS.q2} style={{ gridColumn: "7", gridRow: "3" }} />
-            <DiagramHandNote align="right" style={{ gridColumn: "9", gridRow: "3", alignSelf: "center" }}>
-              {DIAGRAM_QUADRANTS.q2.note}
-            </DiagramHandNote>
+            {/* TOP RIGHT HAND NOTE + line ending in a small circle */}
+            <text x="1155" y="90" className="rev-t-hand">
+              <tspan x="1155" dy="0">Teams, tools and data</tspan>
+              <tspan x="1155" dy="20">working together.</tspan>
+            </text>
+            <path d="M 1150 115 Q 1110 120 1095 145"
+                  stroke="rgba(255,255,255,0.55)"
+                  strokeWidth="1.2" fill="none" strokeLinecap="round" />
+            <circle cx="1095" cy="145" r="4" fill="rgba(255,255,255,0.85)" />
 
-            {/* row group: Q3 / CRM continues / Q4, plus their side notes */}
-            <DiagramHandNote align="left" style={{ gridColumn: "1", gridRow: "5", alignSelf: "center" }}>
-              {DIAGRAM_QUADRANTS.q3.note}
-            </DiagramHandNote>
-            <DiagramQuadrantCard q={DIAGRAM_QUADRANTS.q3} style={{ gridColumn: "3", gridRow: "5" }} />
-            <DiagramHLine style={{ gridColumn: "4", gridRow: "5" }} />
-            <DiagramHLine style={{ gridColumn: "6", gridRow: "5" }} />
-            <DiagramQuadrantCard q={DIAGRAM_QUADRANTS.q4} style={{ gridColumn: "7", gridRow: "5" }} />
-            <DiagramHandNote align="right" style={{ gridColumn: "9", gridRow: "5", alignSelf: "center" }}>
-              {DIAGRAM_QUADRANTS.q4.note}
-            </DiagramHandNote>
+            {/* ============================================================
+                LEFT CONNECTOR COLUMN
+                ============================================================ */}
 
-            {/* gap row 3: vertical connectors down into the bottom box */}
-            <DiagramVLine style={{ gridColumn: "3", gridRow: "6" }} />
-            <DiagramVLine style={{ gridColumn: "5", gridRow: "6" }} />
-            <DiagramVLine style={{ gridColumn: "7", gridRow: "6" }} />
+            {/* Q1 dashed horizontal (top) */}
+            <line x1="430" y1="185" x2="505" y2="185"
+                  stroke="rgba(255,255,255,0.55)"
+                  strokeWidth="1"
+                  strokeDasharray="4 4" />
+            <circle cx="510" cy="185" r="4"
+                    fill="#0a0a0a" stroke="rgba(255,255,255,0.75)" strokeWidth="1.2" />
 
-            {/* bottom outcome box + closing note */}
-            <div
-              className="relative z-10 rounded-2xl border-2 border-fire/70 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 px-8 py-6 mx-auto max-w-[820px] w-full"
-              style={{ gridColumn: "3 / span 5", gridRow: "7" }}
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-fire/10 border border-fire/30 flex items-center justify-center text-fire shrink-0">
-                  <DiagramIconBars />
-                </div>
-                <div className="display text-[20px] md:text-[24px] leading-tight text-white whitespace-nowrap">
-                  Clearer Revenue Operations
-                </div>
-              </div>
-              <div className="flex flex-wrap justify-center gap-2">
-                {["Visibility", "Control", "Less Manual Work", "Better Adoption"].map((t) => (
-                  <span
-                    key={t}
-                    className="mono text-[10.5px] px-3 py-1.5 rounded-full border border-white/15 text-white/70 whitespace-nowrap"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <DiagramHandNote align="right" style={{ gridColumn: "9", gridRow: "7", alignSelf: "start" }}>
-              {DIAGRAM_BOTTOM_NOTE}
-            </DiagramHandNote>
-          </div>
+            {/* Q1 solid orange line — goes right, curves down, joins trunk */}
+            <path d="M 430 200 H 480 Q 500 200 500 220 V 320"
+                  stroke="#ff5a1f" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+            <circle cx="430" cy="200" r="5" fill="#ff5a1f" />
+
+            {/* Q3 dashed horizontal (top) */}
+            <line x1="430" y1="485" x2="505" y2="485"
+                  stroke="rgba(255,255,255,0.55)"
+                  strokeWidth="1"
+                  strokeDasharray="4 4" />
+            <circle cx="510" cy="485" r="4"
+                    fill="#0a0a0a" stroke="rgba(255,255,255,0.75)" strokeWidth="1.2" />
+
+            {/* Q3 solid orange line — goes right, curves up, joins trunk */}
+            <path d="M 430 500 H 480 Q 500 500 500 480 V 320"
+                  stroke="#ff5a1f" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+            <circle cx="430" cy="500" r="5" fill="#ff5a1f" />
+
+            {/* Trunk → CRM : line ending in filled orange circle at CRM edge */}
+            <path d="M 500 320 H 555"
+                  stroke="#ff5a1f" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+            <circle cx="558" cy="320" r="5" fill="#ff5a1f" />
+
+            {/* ============================================================
+                RIGHT CONNECTOR COLUMN (mirrored)
+                ============================================================ */}
+
+            {/* Q2 dashed horizontal */}
+            <line x1="1010" y1="185" x2="935" y2="185"
+                  stroke="rgba(255,255,255,0.55)"
+                  strokeWidth="1"
+                  strokeDasharray="4 4" />
+            <circle cx="930" cy="185" r="4"
+                    fill="#0a0a0a" stroke="rgba(255,255,255,0.75)" strokeWidth="1.2" />
+
+            {/* Q2 solid orange line */}
+            <path d="M 1010 200 H 960 Q 940 200 940 220 V 320"
+                  stroke="#ff5a1f" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+            <circle cx="1010" cy="200" r="5" fill="#ff5a1f" />
+
+            {/* Q4 dashed horizontal */}
+            <line x1="1010" y1="485" x2="935" y2="485"
+                  stroke="rgba(255,255,255,0.55)"
+                  strokeWidth="1"
+                  strokeDasharray="4 4" />
+            <circle cx="930" cy="485" r="4"
+                    fill="#0a0a0a" stroke="rgba(255,255,255,0.75)" strokeWidth="1.2" />
+
+            {/* Q4 solid orange line */}
+            <path d="M 1010 500 H 960 Q 940 500 940 480 V 320"
+                  stroke="#ff5a1f" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+            <circle cx="1010" cy="500" r="5" fill="#ff5a1f" />
+
+            {/* Trunk → CRM : line ending in filled orange circle */}
+            <path d="M 940 320 H 885"
+                  stroke="#ff5a1f" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+            <circle cx="882" cy="320" r="5" fill="#ff5a1f" />
+
+            {/* ============================================================
+                Q1 CARD
+                ============================================================ */}
+            <g className="rev-svg-card">
+              <rect x="100" y="150" width="330" height="140" rx="14"
+                    fill="rgba(255,255,255,0.015)"
+                    stroke="rgba(255,255,255,0.14)" />
+              <circle cx="126" cy="152" r="12" fill="#0a0a0a" stroke="#ff5a1f" strokeWidth="1" />
+              <text x="126" y="156" textAnchor="middle" className="rev-t-num">1</text>
+              <text x="150" y="155" className="rev-t-step">
+                ATTRACT
+                <tspan className="rev-t-step-arrow"> › </tspan>
+                ENGAGE
+                <tspan className="rev-t-step-arrow"> › </tspan>
+                CONVERT
+              </text>
+
+              <rect x="118" y="175" width="294" height="100" rx="10"
+                    fill="#0d0d0d" stroke="rgba(255,255,255,0.08)" />
+
+              <rect x="132" y="195" width="40" height="40" rx="10"
+                    fill="rgba(255,90,31,0.10)" stroke="rgba(255,90,31,0.45)" />
+              <g transform="translate(142,205)" fill="none" stroke="#ff5a1f"
+                 strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 6.5v3a1 1 0 0 0 1 1H6l3.5 2.5v-10L6 5.5H4a1 1 0 0 0-1 1Z" />
+                <path d="M11 4.5a5 5 0 0 1 0 7" />
+              </g>
+              <line x1="188" y1="195" x2="188" y2="235" stroke="rgba(255,255,255,0.10)" />
+              <text x="200" y="219" className="rev-t-title">Demand &amp; GTM</text>
+
+              <g>
+                <rect className="rev-svg-pill" x="132" y="248" width="72" height="22" rx="11"
+                      fill="transparent" stroke="rgba(255,255,255,0.18)" />
+                <text x="168" y="263" textAnchor="middle" className="rev-t-mono-pill">MARKETING</text>
+
+                <rect className="rev-svg-pill" x="212" y="248" width="64" height="22" rx="11"
+                      fill="transparent" stroke="rgba(255,255,255,0.18)" />
+                <text x="244" y="263" textAnchor="middle" className="rev-t-mono-pill">INBOUND</text>
+
+                <rect className="rev-svg-pill" x="284" y="248" width="76" height="22" rx="11"
+                      fill="transparent" stroke="rgba(255,255,255,0.18)" />
+                <text x="322" y="263" textAnchor="middle" className="rev-t-mono-pill">OUTBOUND</text>
+              </g>
+            </g>
+
+            {/* Q1 note + line ending in small circle */}
+            <text x="80" y="205" textAnchor="end" className="rev-t-hand-sm">
+              <tspan x="80" dy="0">Generate demand.</tspan>
+              <tspan x="80" dy="20">Create</tspan>
+              <tspan x="80" dy="20">opportunities.</tspan>
+            </text>
+            <path
+              d="M 92 232 Q 96 210 100 198"
+              stroke="rgba(255,255,255,0.55)"
+              strokeWidth="1.2" fill="none" strokeLinecap="round"
+            />
+            <circle cx="100" cy="198" r="4" fill="rgba(255,255,255,0.85)" />
+
+            {/* ============================================================
+                Q2 CARD
+                ============================================================ */}
+            <g className="rev-svg-card">
+              <rect x="1010" y="150" width="330" height="140" rx="14"
+                    fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.14)" />
+              <circle cx="1036" cy="152" r="12" fill="#0a0a0a" stroke="#ff5a1f" strokeWidth="1" />
+              <text x="1036" y="156" textAnchor="middle" className="rev-t-num">2</text>
+              <text x="1060" y="155" className="rev-t-step">
+                ALIGN
+                <tspan className="rev-t-step-arrow"> › </tspan>
+                OPERATE
+                <tspan className="rev-t-step-arrow"> › </tspan>
+                SCALE
+              </text>
+
+              <rect x="1028" y="175" width="294" height="100" rx="10"
+                    fill="#0d0d0d" stroke="rgba(255,255,255,0.08)" />
+
+              <rect x="1042" y="195" width="40" height="40" rx="10"
+                    fill="rgba(255,90,31,0.10)" stroke="rgba(255,90,31,0.45)" />
+              <g transform="translate(1052,205)" fill="none" stroke="#ff5a1f"
+                 strokeWidth="1.5" strokeLinecap="round">
+                <circle cx="10" cy="10" r="3" />
+                <path d="M10 2v2M10 16v2M2 10h2M18 10h-2M5 5l1.5 1.5M15 15l-1.5-1.5M5 15l1.5-1.5M15 5l-1.5 1.5" />
+              </g>
+              <line x1="1098" y1="195" x2="1098" y2="235" stroke="rgba(255,255,255,0.10)" />
+              <text x="1110" y="219" className="rev-t-title">Revenue Operations</text>
+
+              <g>
+                <rect className="rev-svg-pill" x="1042" y="248" width="64" height="22" rx="11"
+                      fill="transparent" stroke="rgba(255,255,255,0.18)" />
+                <text x="1074" y="263" textAnchor="middle" className="rev-t-mono-pill">PIPELINE</text>
+
+                <rect className="rev-svg-pill" x="1114" y="248" width="72" height="22" rx="11"
+                      fill="transparent" stroke="rgba(255,255,255,0.18)" />
+                <text x="1150" y="263" textAnchor="middle" className="rev-t-mono-pill">LIFECYCLE</text>
+
+                <rect className="rev-svg-pill" x="1194" y="248" width="72" height="22" rx="11"
+                      fill="transparent" stroke="rgba(255,255,255,0.18)" />
+                <text x="1230" y="263" textAnchor="middle" className="rev-t-mono-pill">HANDOFFS</text>
+              </g>
+            </g>
+
+            {/* Q2 note + line ending in small circle */}
+            <text x="1360" y="205" className="rev-t-hand-sm">
+              <tspan x="1360" dy="0">Turn strategy</tspan>
+              <tspan x="1360" dy="20">into a</tspan>
+              <tspan x="1360" dy="20">repeatable</tspan>
+              <tspan x="1360" dy="20">revenue engine.</tspan>
+            </text>
+            <path
+              d="M 1348 232 Q 1344 210 1340 198"
+              stroke="rgba(255,255,255,0.55)"
+              strokeWidth="1.2" fill="none" strokeLinecap="round"
+            />
+            <circle cx="1340" cy="198" r="4" fill="rgba(255,255,255,0.85)" />
+
+            {/* ============================================================
+                Q3 CARD
+                ============================================================ */}
+            <g className="rev-svg-card">
+              <rect x="100" y="450" width="330" height="140" rx="14"
+                    fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.14)" />
+              <circle cx="126" cy="452" r="12" fill="#0a0a0a" stroke="#ff5a1f" strokeWidth="1" />
+              <text x="126" y="456" textAnchor="middle" className="rev-t-num">3</text>
+              <text x="150" y="455" className="rev-t-step">
+                MEASURE
+                <tspan className="rev-t-step-arrow"> › </tspan>
+                LEARN
+                <tspan className="rev-t-step-arrow"> › </tspan>
+                IMPROVE
+              </text>
+
+              <rect x="118" y="475" width="294" height="100" rx="10"
+                    fill="#0d0d0d" stroke="rgba(255,255,255,0.08)" />
+
+              <rect x="132" y="495" width="40" height="40" rx="10"
+                    fill="rgba(255,90,31,0.10)" stroke="rgba(255,90,31,0.45)" />
+              <g transform="translate(140,503)" fill="#ff5a1f">
+                <rect x="0" y="8" width="3.5" height="8" rx="1" />
+                <rect x="6" y="4" width="3.5" height="12" rx="1" />
+                <rect x="12" y="0" width="3.5" height="16" rx="1" />
+              </g>
+              <line x1="188" y1="495" x2="188" y2="535" stroke="rgba(255,255,255,0.10)" />
+              <text x="200" y="519" className="rev-t-title">Reporting</text>
+
+              <g>
+                <rect className="rev-svg-pill" x="132" y="548" width="82" height="22" rx="11"
+                      fill="transparent" stroke="rgba(255,255,255,0.18)" />
+                <text x="173" y="563" textAnchor="middle" className="rev-t-mono-pill">FORECASTING</text>
+
+                <rect className="rev-svg-pill" x="222" y="548" width="82" height="22" rx="11"
+                      fill="transparent" stroke="rgba(255,255,255,0.18)" />
+                <text x="263" y="563" textAnchor="middle" className="rev-t-mono-pill">ATTRIBUTION</text>
+
+                <rect className="rev-svg-pill" x="312" y="548" width="82" height="22" rx="11"
+                      fill="transparent" stroke="rgba(255,255,255,0.18)" />
+                <text x="353" y="563" textAnchor="middle" className="rev-t-mono-pill">DASHBOARDS</text>
+              </g>
+            </g>
+
+            {/* Q3 note + line ending in small circle */}
+            <text x="80" y="505" textAnchor="end" className="rev-t-hand-sm">
+              <tspan x="80" dy="0">See what's working.</tspan>
+              <tspan x="80" dy="20">Make</tspan>
+              <tspan x="80" dy="20">smarter decisions.</tspan>
+            </text>
+            <path
+              d="M 92 532 Q 96 510 100 498"
+              stroke="rgba(255,255,255,0.55)"
+              strokeWidth="1.2" fill="none" strokeLinecap="round"
+            />
+            <circle cx="100" cy="498" r="4" fill="rgba(255,255,255,0.85)" />
+
+            {/* ============================================================
+                Q4 CARD
+                ============================================================ */}
+            <g className="rev-svg-card">
+              <rect x="1010" y="450" width="330" height="140" rx="14"
+                    fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.14)" />
+              <circle cx="1036" cy="452" r="12" fill="#0a0a0a" stroke="#ff5a1f" strokeWidth="1" />
+              <text x="1036" y="456" textAnchor="middle" className="rev-t-num">4</text>
+
+              <text x="1060" y="455" className="rev-t-step" style={{ letterSpacing: "0.14em" }}>
+                AUTOMATE
+                <tspan className="rev-t-step-arrow"> › </tspan>
+                AMPLIFY
+                <tspan className="rev-t-step-arrow"> › </tspan>
+                ACCELERATE
+              </text>
+
+              <rect x="1028" y="475" width="294" height="100" rx="10"
+                    fill="#0d0d0d" stroke="rgba(255,255,255,0.08)" />
+
+              <rect x="1042" y="495" width="40" height="40" rx="10"
+                    fill="rgba(255,90,31,0.10)" stroke="rgba(255,90,31,0.45)" />
+              <g transform="translate(1053,503)" fill="#ff5a1f">
+                <path d="M8 0 1 10h5l-1 8 9-11h-5L8 0Z" />
+              </g>
+              <line x1="1098" y1="495" x2="1098" y2="535" stroke="rgba(255,255,255,0.10)" />
+              <text x="1110" y="519" className="rev-t-title">Automation + AI</text>
+
+              <g>
+                <rect className="rev-svg-pill" x="1042" y="548" width="72" height="22" rx="11"
+                      fill="transparent" stroke="rgba(255,255,255,0.18)" />
+                <text x="1078" y="563" textAnchor="middle" className="rev-t-mono-pill">WORKFLOWS</text>
+
+                <rect className="rev-svg-pill" x="1122" y="548" width="64" height="22" rx="11"
+                      fill="transparent" stroke="rgba(255,255,255,0.18)" />
+                <text x="1154" y="563" textAnchor="middle" className="rev-t-mono-pill">ROUTING</text>
+
+                <rect className="rev-svg-pill" x="1194" y="548" width="64" height="22" rx="11"
+                      fill="transparent" stroke="rgba(255,255,255,0.18)" />
+                <text x="1226" y="563" textAnchor="middle" className="rev-t-mono-pill">AGENTS</text>
+              </g>
+            </g>
+
+            {/* Q4 note + line ending in small circle */}
+            <text x="1360" y="505" className="rev-t-hand-sm">
+              <tspan x="1360" dy="0">Remove manual work.</tspan>
+              <tspan x="1360" dy="20">Multiply impact.</tspan>
+            </text>
+            <path
+              d="M 1348 532 Q 1344 510 1340 498"
+              stroke="rgba(255,255,255,0.55)"
+              strokeWidth="1.2" fill="none" strokeLinecap="round"
+            />
+            <circle cx="1340" cy="498" r="4" fill="rgba(255,255,255,0.85)" />
+
+            {/* ============================================================
+                CRM — CENTER
+                ============================================================ */}
+            <g className="rev-svg-crm">
+              <rect x="560" y="150" width="320" height="440" rx="16"
+                    fill="#0d0d0d"
+                    stroke="#ff5a1f" strokeWidth="2" />
+              <rect x="560" y="150" width="320" height="440" rx="16"
+                    fill="url(#rev-crm-glow)" pointerEvents="none" />
+
+              <circle cx="720" cy="150" r="5" fill="#0a0a0a" stroke="#ff5a1f" strokeWidth="1.2" />
+              <circle cx="720" cy="590" r="5" fill="#0a0a0a" stroke="#ff5a1f" strokeWidth="1.2" />
+
+              <g transform="translate(694,286) scale(1.0)">
+                <path
+                  fill="#ff5a1f"
+                  d="M23.38 7.88v3.33c3.1.47 5.57 2.75 6.21 5.74.63 2.98-.7 6.04-3.36 7.66-2.65 1.62-6.07 1.47-8.56-.38l-2.79 2.71c.07.22.11.45.11.68 0 .96-.6 1.83-1.51 2.2s-1.97.16-2.66-.52c-.7-.68-.91-1.7-.53-2.59s1.27-1.47 2.26-1.47c.24 0 .47.04.7.11l2.82-2.74a7.13 7.13 0 0 1-.12-8.22l-9.25-7c-.45.25-.95.39-1.47.39-1.64 0-2.97-1.3-2.97-2.9S3.6 1.99 5.24 1.99s2.97 1.3 2.97 2.9c0 .24-.04.49-.11.72l9.41 7.12a7.57 7.57 0 0 1 3.56-1.52V7.88c-.92-.42-1.52-1.32-1.52-2.31v-.08c0-1.41 1.18-2.56 2.64-2.56h.08c1.45 0 2.63 1.15 2.64 2.56v.08c0 .99-.6 1.89-1.52 2.31Zm-5.02 10.55c0 2.07 1.73 3.75 3.85 3.75s3.85-1.68 3.85-3.75-1.73-3.75-3.85-3.75-3.85 1.68-3.85 3.75"
+                />
+              </g>
+
+              <text x="720" y="380" textAnchor="middle" className="rev-t-title-lg">
+                HubSpot CRM              </text>
+              <text x="720" y="404" textAnchor="middle" className="rev-t-mono-sm"
+                    style={{ fill: "rgba(255,255,255,0.42)" }}>
+                THE SINGLE SOURCE OF TRUTH
+              </text>
+            </g>
+
+            {/* ============================================================
+                BOTTOM CONNECTORS — line ends with filled orange circle
+                ============================================================ */}
+
+            {/* LEFT merge — Q1 & Q3 bottoms → line to outcome (circle at end) */}
+            <g fill="none" strokeLinecap="round">
+              <path d="M 265 592 V 620"
+                    stroke="rgba(255,255,255,0.55)"
+                    strokeWidth="1"
+                    strokeDasharray="4 4" />
+
+              <path d="M 265 620 V 630 Q 265 645 285 645 H 300 Q 315 645 315 660 V 665"
+                    stroke="#ff5a1f"
+                    strokeWidth="1.4" />
+              <circle cx="315" cy="668" r="5" fill="#ff5a1f" />
+            </g>
+
+            {/* RIGHT merge — Q2 & Q4 bottoms → line to outcome (circle at end) */}
+            <g fill="none" strokeLinecap="round">
+              <path d="M 1175 592 V 620"
+                    stroke="rgba(255,255,255,0.55)"
+                    strokeWidth="1"
+                    strokeDasharray="4 4" />
+
+              <path d="M 1175 620 V 630 Q 1175 645 1155 645 H 1140 Q 1125 645 1125 660 V 665"
+                    stroke="#ff5a1f"
+                    strokeWidth="1.4" />
+              <circle cx="1125" cy="668" r="5" fill="#ff5a1f" />
+            </g>
+
+            {/* Center dashed line + outline circle */}
+            <line x1="720" y1="590" x2="720" y2="645"
+                  stroke="rgba(255,90,31,0.55)"
+                  strokeWidth="1"
+                  strokeDasharray="3 4" />
+            <circle cx="720" cy="650" r="4" fill="#0a0a0a"
+                    stroke="rgba(255,90,31,0.85)" strokeWidth="1.2" />
+
+            {/* ============================================================
+                OUTCOME BOX
+                ============================================================ */}
+            <g className="rev-svg-outcome">
+              <rect x="220" y="655" width="1000" height="60" rx="14"
+                    fill="#0a0a0a" stroke="rgba(255,90,31,0.55)" strokeWidth="2" />
+
+              <rect x="255" y="670" width="32" height="32" rx="8"
+                    fill="rgba(255,90,31,0.10)" stroke="rgba(255,90,31,0.5)" />
+              <g transform="translate(263,678)" fill="#ff5a1f">
+                <rect x="0" y="8" width="3" height="6" rx="1" />
+                <rect x="5" y="4" width="3" height="10" rx="1" />
+                <rect x="10" y="0" width="3" height="14" rx="1" />
+              </g>
+
+              <text x="305" y="692" className="rev-t-title" style={{ fontSize: "22px" }}>
+                Clearer Revenue Operations
+              </text>
+
+              <g>
+                <rect className="rev-svg-pill" x="640" y="672" width="90" height="26" rx="13"
+                      fill="transparent" stroke="rgba(255,255,255,0.18)" />
+                <text x="685" y="690" textAnchor="middle" className="rev-t-mono-pill">VISIBILITY</text>
+
+                <rect className="rev-svg-pill" x="740" y="672" width="76" height="26" rx="13"
+                      fill="transparent" stroke="rgba(255,255,255,0.18)" />
+                <text x="778" y="690" textAnchor="middle" className="rev-t-mono-pill">CONTROL</text>
+
+                <rect className="rev-svg-pill" x="826" y="672" width="134" height="26" rx="13"
+                      fill="transparent" stroke="rgba(255,255,255,0.18)" />
+                <text x="893" y="690" textAnchor="middle" className="rev-t-mono-pill">LESS MANUAL WORK</text>
+
+                <rect className="rev-svg-pill" x="970" y="672" width="134" height="26" rx="13"
+                      fill="transparent" stroke="rgba(255,255,255,0.18)" />
+                <text x="1037" y="690" textAnchor="middle" className="rev-t-mono-pill">BETTER ADOPTION</text>
+              </g>
+            </g>
+
+            {/* ============================================================
+                BOTTOM RIGHT HAND NOTE
+                Line curves up-left, ending in a small white circle.
+                ============================================================ */}
+            <text x="1360" y="675" className="rev-t-hand-sm">
+              <tspan x="1360" dy="0">A more efficient,</tspan>
+              <tspan x="1360" dy="20">higher</tspan>
+              <tspan x="1360" dy="20">performing</tspan>
+              <tspan x="1360" dy="20">revenue team.</tspan>
+            </text>
+            <path
+              d="M 1348 700 Q 1290 690 1240 682"
+              stroke="rgba(255,255,255,0.65)"
+              strokeWidth="1.4"
+              fill="none"
+              strokeLinecap="round"
+            />
+            <circle cx="1237" cy="682" r="4" fill="rgba(255,255,255,0.85)" />
+
+          </svg>
         </div>
+
       </div>
     </section>
   );
@@ -2347,180 +2837,6 @@ function LiveDashboard() {
 }
 
 /* ─────────────────────────────  AI AGENT TERMINAL  ───────────────────────────── */
-function AIAgentTerminal() {
-  const lines = [
-    "$ revlyn agent run --pipeline qualify --live",
-    "[14:37:41] boot ok · loading firmographics · clearbit + apollo",
-    "[14:37:41] scanning 237 new leads from web / outbound / plg",
-    "[14:37:42] scoring on ICP · intent · engagement · seniority",
-    "[14:37:42] filtered · score ≥ 70 · n=14",
-    "[14:37:43] enrich · finance leaders · funded < 24 months",
-    "[14:37:43] routing · owner=sarah.j · sla=15m · channel=li+email",
-    "[14:37:44] draft · personalised opener · reviewed by human ✓",
-    "[14:37:44] handoff · CRM synced · pipeline +$2.48M",
-    "> next run in 15:00 · auto",
-  ];
-
-  const [shown, setShown] = useState<number>(0);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          let n = 0;
-          const id = setInterval(() => {
-            n++;
-            setShown(n);
-            if (n >= lines.length) clearInterval(id);
-          }, 320);
-        }
-      },
-      { threshold: 0.2 }
-    );
-    if (ref.current) io.observe(ref.current);
-    return () => io.disconnect();
-  }, [lines.length]);
-
-  return (
-    <section className="border-b-2 border-ink bg-ink text-paper relative overflow-hidden">
-      {/* Subtle texture */}
-      <div className="absolute inset-0 opacity-[0.04] pointer-events-none">
-        <div
-          className="w-full h-full"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            backgroundSize: "60px 60px",
-          }}
-        />
-      </div>
-
-      {/* Soft ambient glow */}
-      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] bg-fire/10 rounded-full blur-[120px] pointer-events-none" />
-
-      <div
-        className="max-w-[1400px] mx-auto px-6 py-20 md:py-28 relative"
-        ref={ref}
-      >
-        <div className="grid md:grid-cols-12 gap-12 md:gap-16 items-start">
-          {/* Left – Content */}
-          <div className="md:col-span-5">
-            <div className="flex items-center gap-3 mb-6">
-              <span className="w-6 h-[2px] bg-fire/70" />
-              <span className="font-mono text-[10px] tracking-[0.22em] text-fire/70 uppercase">
-                AI Layer
-              </span>
-            </div>
-
-            <h2 className="font-display text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-0.03em] text-paper">
-              AI agents that
-              <br />
-              <span className="text-volt underline decoration-fire/40 underline-offset-8 decoration-2">
-                actually deliver
-              </span>
-              <br />
-              pipeline.
-            </h2>
-
-            <p className="mt-6 text-lg text-paper/65 leading-relaxed max-w-md">
-              Production agents inside your CRM. Guardrails on. Human-approved.
-            </p>
-
-            {/* Feature list */}
-            <div className="mt-10 space-y-3">
-              {[
-                ["QUALIFIER", "scores every lead against your live ICP"],
-                ["ENRICHER", "fills firmographics + intent, cited sources"],
-                ["ORCHESTRATOR", "routes to owner with SLA + fallback"],
-                ["DRAFTER", "personalised opener, human-approved"],
-              ].map(([label, desc]) => (
-                <div
-                  key={label}
-                  className="flex items-start gap-3 group hover:translate-x-1 transition-transform duration-200"
-                >
-                  <span className="font-mono text-[11px] text-fire/60 shrink-0 mt-0.5 group-hover:text-fire transition-colors">
-                    ▸
-                  </span>
-                  <div className="flex flex-wrap items-baseline gap-x-2">
-                    <span className="font-mono text-[10px] tracking-[0.12em] text-paper/45 uppercase">
-                      {label}
-                    </span>
-                    <span className="text-paper/70 text-sm">{desc}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right – Image + Terminal */}
-          <div className="md:col-span-7 space-y-6">
-            {/* Image */}
-            <div className="relative overflow-hidden rounded-sm bg-paper/5 ring-1 ring-paper/10">
-              <img
-                src={aiTerminal}
-                alt="AI agent terminal user interface"
-                className="w-full h-auto block"
-                loading="lazy"
-                width={1600}
-                height={912}
-              />
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-fire via-volt to-transparent" />
-            </div>
-
-            {/* Terminal */}
-            <div className="relative bg-[#0a0a0a] border border-paper/10 rounded-sm overflow-hidden shadow-[0_0_40px_-12px_rgba(255,80,40,0.15)]">
-              {/* Window chrome */}
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-paper/10 bg-[#0d0d0d]">
-                <div className="flex gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-fire/90" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-volt/90" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-paper/25" />
-                </div>
-                <span className="ml-3 font-mono text-[10px] tracking-[0.12em] text-paper/35">
-                  revlyn // rev-agent · running
-                </span>
-                <span className="ml-auto flex items-center gap-1.5 font-mono text-[9px] tracking-wider text-volt/80">
-                  <span className="w-1.5 h-1.5 rounded-full bg-volt animate-pulse" />
-                  LIVE
-                </span>
-              </div>
-
-              {/* Terminal body */}
-              <div className="p-5 font-mono text-xs md:text-[13px] leading-relaxed min-h-[300px]">
-                <div className="space-y-1.5">
-                  {lines.slice(0, shown).map((l, i) => {
-                    let color = "text-paper/65";
-                    if (l.startsWith("$")) color = "text-volt";
-                    else if (l.startsWith(">")) color = "text-fire";
-                    else if (l.includes("✓")) color = "text-volt";
-                    else if (l.includes("handoff"))
-                      color = "text-paper/90 font-medium";
-                    else if (l.includes("filtered") || l.includes("score ≥"))
-                      color = "text-paper/80";
-
-                    return (
-                      <div
-                        key={i}
-                        className={`${color} animate-in fade-in slide-in-from-left-1 duration-200`}
-                      >
-                        {l}
-                      </div>
-                    );
-                  })}
-
-                  {shown < lines.length && (
-                    <span className="inline-block w-[7px] h-[15px] bg-volt/90 animate-blink align-middle ml-0.5" />
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ─────────────────────────────  PLAYBOOK  ───────────────────────────── */
 function Playbook() {
   return (
