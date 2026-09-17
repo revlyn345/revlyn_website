@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { BookCallButton } from "@/components/BookCallButton";
 import { Footer } from "@/components/Footer";
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
+// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset, not migrated.
 const revlynWordmark = "/logos/revlyn-wordmark.png";
 
 
@@ -29,22 +29,35 @@ export default function AboutPageClient() {
 /* ─────────────────  DOSSIER HERO (Editorial signature)  ───────────────── */
 function Dossier() {
   return (
-    <header className="border-b-2 border-ink p-8 md:p-16 flex flex-col md:flex-row gap-12 items-end relative">
+    <header className="border-b-2 border-ink p-8 md:p-16 relative overflow-hidden">
       <div className="absolute inset-0 stripes opacity-[0.03] pointer-events-none" />
-      <div className="flex-1 relative">
-       
-        <h1 className="display text-[clamp(3rem,9vw,8rem)] font-extrabold tracking-[-0.045em] leading-[0.85] uppercase mb-10">
-          Who is
-          <br />
-          <span className="text-fire">Revlyn<span className="text-ink">.</span></span>
-        </h1>
-        <p className="text-2xl md:text-3xl font-medium max-w-2xl leading-[1.15] tracking-tight">
-          Revlyn is a Revenue Engineering team that brings HubSpot, RevOps, automation, reporting and data together, then stays close to keep it all working.
-        </p>
-        
-      </div>
+      <div className="relative grid md:grid-cols-12 gap-10 md:gap-14 items-center">
+        <div className="md:col-span-7">
+          <h1 className="display text-[clamp(2.1rem,4.6vw,3.8rem)] font-extrabold tracking-[-0.03em] leading-[1.08] mb-8">
+            <span className="whitespace-nowrap">We&rsquo;re the operators</span>
+            <br />
+            <span className="whitespace-nowrap">behind your revenue</span>
+            <br />
+            systems.
+          </h1>
+          <p className="text-xl md:text-2xl font-medium max-w-2xl leading-[1.25] tracking-tight">
+            Revlyn is a Revenue Engineering team that brings HubSpot, RevOps, automation, reporting and data together, then stays close to keep it all working.
+          </p>
+        </div>
 
-      
+        <div className="md:col-span-5">
+          <div className="relative w-full aspect-[4/3] border-2 border-ink overflow-hidden">
+            <Image
+              src="/about-hero.avif"
+              alt="A Revlyn operator working inside a client's reporting dashboard"
+              fill
+              priority
+              sizes="(min-width: 768px) 40vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </div>
     </header>
   );
 }
@@ -64,21 +77,22 @@ function Origin() {
         />
         <h2 className="relative mono text-xs uppercase tracking-[0.28em] mb-10 text-fire">The origin</h2>
         <p className="relative text-xl leading-relaxed">
-          Revlyn was started by operators who had spent a decade running Sales, Marketing, RevOps and GTM inside
-          B2B companies. We kept noticing the same thing: the software wasn't the bottleneck. The person at the
-          keyboard was. Most portals were being built by juniors or by consultants who had never carried a number.
+          Revlyn was built by operators who spent years running Sales, Marketing, RevOps and GTM inside B2B companies.
+        </p>
+        <p className="relative mt-6 text-xl leading-relaxed">
+          We kept seeing the same gap. Companies had capable tools, but no clear ownership across the systems, processes and data that made revenue run.
         </p>
         <p className="relative mt-6 text-base text-paper/75 leading-relaxed">
-          So we built the team we wish we had hired: senior end to end, in your Slack, no account manager in the middle.
+          So we built Revlyn to stay close to the work, from architecture and implementation through ongoing operation.
         </p>
 
         <dl className="relative mt-12 space-y-3">
           {[
-            ["Established", "2018"],
-            ["Builds shipped", "127+"],
-            ["Avg. operator tenure", "8 years"],
-            ["Systems we run", "HubSpot · Salesforce · Gong · Segment"],
-            ["Base", "Gurugram · remote"],
+            ["Established", "2025"],
+            ["Builds shipped", "50+"],
+            ["Avg. operator experience", "8+ years"],
+            ["Systems we run", "HubSpot · Bitscale"],
+            ["Base", "Gurugram · Remote"],
           ].map(([k, v]) => (
             <div
               key={k}
@@ -93,24 +107,29 @@ function Origin() {
 
       <div className="md:col-span-8 p-8 md:p-16 relative">
         <div className="max-w-3xl">
-          <p className="mono text-xs uppercase tracking-[0.28em] mb-6 text-ink/50">The practice, in plain terms</p>
-          <p className="display text-[clamp(1.75rem,3vw,2.75rem)] font-semibold leading-[1.1] tracking-[-0.02em]">
-            We don't recommend tools from a slide deck. We sit inside your Slack, take ownership of the portal,
-            and execute the RevOps and GTM roadmap that internal teams are too underwater to touch.
-          </p>
+          <p className="mono text-xs uppercase tracking-[0.28em] mb-6 text-ink/50">How we work</p>
+          <h2
+            className="display text-[clamp(1.8rem,4vw,3.2rem)] font-extrabold tracking-[-0.02em] leading-[1.1]"
+            style={{ fontFamily: "'Inter Tight', Inter, sans-serif" }}
+          >
+            We do the work, not just recommend it.
+          </h2>
           <p className="mt-8 text-lg text-ink/75 leading-relaxed">
-            Most CRM, RevOps and GTM work fails at the same seam: the moment the SOW ends and the person who
-            wrote the workflows leaves the building. Our practice is designed to live on the other side of that
-            seam, so the portal keeps behaving in year two, year three, year four.
+            We work inside your systems and alongside your revenue team. We build the workflows, improve the
+            processes, keep reporting reliable and own the roadmap as the business changes.
+          </p>
+          <p className="mt-6 text-lg text-ink/75 leading-relaxed">
+            The same operators who understand the problem stay close to the execution. There is no handoff
+            between strategy and delivery.
           </p>
         </div>
 
         <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           {[
-            { n: "120+", l: "Portals audited", bg: "bg-paper" },
-            { n: "$4B+", l: "Pipeline under management", bg: "bg-paper" },
-            { n: "14k", l: "Workflows written", bg: "bg-volt" },
-            { n: "< 14m", l: "Avg. Slack first-reply", bg: "bg-paper" },
+            { n: "50+", l: "Portals audited", bg: "bg-paper" },
+            { n: "$1B+", l: "Client pipeline supported", bg: "bg-paper" },
+            { n: "2K+", l: "Workflows built", bg: "bg-volt" },
+            { n: "< 14 min", l: "Avg. Slack first response", bg: "bg-paper" },
           ].map((s) => (
             <div key={s.l} className={`border-2 border-ink p-5 ${s.bg}`}>
               <div className="mono display text-3xl md:text-4xl leading-none">{s.n}</div>
@@ -128,33 +147,18 @@ function Manifesto() {
   const principles = [
     {
       n: "01",
-      t: "Systems over software",
-      p: "HubSpot, Salesforce, Gong, they're containers. The physics of your revenue live underneath. We solve the physics first, then pick the container that fits.",
+      t: "Operators stay involved",
+      p: "The people who understand the problem stay close to the execution.",
     },
     {
       n: "02",
-      t: "Documentation is the product",
-      p: "If a workflow isn't documented in language a new hire can read, it doesn't really exist. Every build ends with a runbook and a Loom trail. Yours to keep.",
+      t: "One team across the system",
+      p: "HubSpot, process, reporting, automation and data are treated as one revenue operation, not separate projects.",
     },
     {
       n: "03",
-      t: "No hidden hand-offs",
-      p: "The senior operator who scopes the work is the same one writing the workflow at 4pm on a Tuesday. There is no account manager translating between you and the build.",
-    },
-    {
-      n: "04",
-      t: "Output over activity",
-      p: "We don't sell hours. We measure ourselves by the friction removed from your Monday, the reports the board finally trusts, and the seat you no longer need to hire.",
-    },
-    {
-      n: "05",
-      t: "Educate, don't blame",
-      p: "Portals drift because businesses grow. Shadow-CRM in Sheets is a signal, not a discipline problem. Our job is to explain what's happening and rebuild it, without a shame list.",
-    },
-    {
-      n: "06",
-      t: "Slack, not status decks",
-      p: "One shared channel with the operators writing the workflows. Average first reply under 14 minutes during working hours. Weekly status decks retire themselves.",
+      t: "Built to keep working",
+      p: "Documentation, ownership and ongoing improvement are part of the work from the beginning.",
     },
   ];
   return (
@@ -166,22 +170,26 @@ function Manifesto() {
             "repeating-linear-gradient(135deg, rgba(255,255,255,0.6) 0 1px, transparent 1px 12px)",
         }}
       />
-      <div className="relative flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
-        <div>
-          <p className="mono text-xs uppercase tracking-[0.28em] mb-4">Operator manifesto</p>
-          <h2 className="display text-[clamp(2.25rem,6vw,5rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.04em]">
-            Six things we
-            <br />
-            actually mean.
+      <div className="relative flex flex-col md:flex-row md:items-start md:justify-between gap-10 mb-16">
+        <div className="md:max-w-xl">
+          <p className="mono text-xs uppercase tracking-[0.28em] mb-4">What makes Revlyn different</p>
+          <h2 className="display text-[clamp(1.9rem,4.2vw,3.4rem)] font-extrabold leading-[1.1] tracking-[-0.02em]">
+            We stay accountable for the system, not just the project.
           </h2>
         </div>
-        <p className="max-w-sm mono text-xs uppercase tracking-widest text-paper/80">
-          Every operator on the practice signs this before they touch a portal. It's the difference between an
-          agency and a team that keeps showing up.
-        </p>
+        <div className="max-w-md text-base text-paper/85 leading-relaxed space-y-4">
+          <p>
+            Most engagements do not fail because the initial build was wrong. They fail because the business
+            changes, the portal drifts, and ownership becomes unclear.
+          </p>
+          <p>
+            Revlyn stays close to the work. The same team that understands the system continues to improve it
+            as your processes, data and priorities change.
+          </p>
+        </div>
       </div>
 
-      <div className="relative grid md:grid-cols-2 gap-x-16 gap-y-14">
+      <div className="relative grid md:grid-cols-3 gap-x-16 gap-y-14">
         {principles.map((p) => (
           <div key={p.n} className="border-t-2 border-paper/30 pt-6">
             <div className="flex items-baseline justify-between mb-4">
@@ -252,17 +260,15 @@ function StrikeTeam() {
             Strike team · direct access
           </p>
           <h2
-            className="display text-[clamp(2rem,5vw,4rem)] font-extrabold uppercase tracking-[-0.04em] leading-[0.95]"
+            className="display text-[clamp(1.8rem,4vw,3.2rem)] font-extrabold tracking-[-0.02em] leading-[1.1]"
             style={{ fontFamily: "'Inter Tight', Inter, sans-serif" }}
           >
-            Senior operators.
-            <br />
-            <span className="text-ink/40">No juniors, no account managers.</span>
+            We came from the teams we now work alongside.
           </h2>
         </div>
-        <div className="max-w-xs mono text-xs uppercase tracking-widest text-ink/60">
-          Average tenure per operator sits at 9.8 years of CRM, RevOps, GTM or AI leadership. Every one of them is
-          in your Slack.
+        <div className="max-w-sm mono text-xs uppercase tracking-widest text-ink/60">
+          Our operators have spent years inside revenue teams, building pipeline, running systems, fixing
+          handoffs and answering for the numbers. Revlyn brings that operating experience to every engagement.
         </div>
       </div>
 
@@ -517,31 +523,23 @@ function ClosingSpread() {
       <div className="relative flex flex-col items-center text-center">
         <p className="mono text-xs uppercase tracking-[0.28em] mb-8 text-volt">Ready when you are</p>
         <h2
-          className="display text-[clamp(2.5rem,7vw,6rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.04em] mb-12 max-w-4xl"
+          className="display text-[clamp(2.25rem,6vw,5.25rem)] font-extrabold uppercase leading-[0.95] tracking-[-0.03em] mb-12 max-w-4xl"
           style={{ fontFamily: "'Inter Tight', Inter, sans-serif" }}
         >
-          Put a senior operator
+          Put Revenue Engineering
           <br />
-          <span className="text-fire">in your portal<span className="text-paper">.</span></span>
+          <span className="text-fire">to work<span className="text-paper">.</span></span>
         </h2>
         <p className="max-w-xl text-lg text-paper/70 leading-relaxed mb-10">
-          A 30-minute call, no deck. We look at your HubSpot together and tell you whether we're the right team,
-          which layer to touch first, and what a realistic six-week and six-month picture looks like.
+          Bring us the portal, the process, or the problem. We&rsquo;ll help you work out what needs fixing,
+          what needs building, and what should stay exactly as it is.
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-4">
+        <div className="flex justify-center">
           <BookCallButton className="inline-flex items-center gap-2 bg-fire text-paper border-2 border-paper px-8 py-4 mono text-sm uppercase tracking-widest shadow-[8px_8px_0_0_var(--color-volt)] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[3px_3px_0_0_var(--color-volt)] transition-all">
             Book a 30-min call <span>→</span>
           </BookCallButton>
-          <Link
-            href="/hubspot-as-a-service"
-            className="inline-flex items-center gap-2 border-2 border-paper/40 px-8 py-4 mono text-sm uppercase tracking-widest hover:bg-paper hover:text-ink transition-colors"
-          >
-            Read the flagship offer
-          </Link>
         </div>
-        <p className="mt-10 mono text-[10px] uppercase tracking-widest text-paper/40">
-          File revised · {new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })} · Signed, the operators
-        </p>
+        
       </div>
     </section>
   );

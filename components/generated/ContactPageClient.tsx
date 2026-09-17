@@ -169,9 +169,9 @@ function ContactForm() {
         }
       `}</style>
       <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24 relative">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16" data-pin>
-          {/* Left sidebar: dossier ledger */}
-          <aside className="lg:col-span-5" data-pin-inner>
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+  {/* Left sidebar: dossier ledger */}
+  <aside className="lg:col-span-5 lg:sticky lg:top-24 self-start">
             <div className="space-y-6">
               {/* Ledger card */}
               <div className="brutal-border bg-ink text-paper p-6 md:p-8 relative overflow-hidden">
@@ -255,7 +255,7 @@ function ContactForm() {
           </aside>
 
           {/* Right: form column */}
-          <div className="lg:col-span-7 lg:sticky lg:top-24 lg:self-start">
+          <div className="lg:col-span-7">
             <div className="brutal-border bg-paper shadow-[12px_12px_0_0_var(--color-ink)]">
               {/* Form header strip */}
               <div className="border-b-2 border-ink bg-bone px-6 md:px-10 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
