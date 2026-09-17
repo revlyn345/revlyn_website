@@ -333,7 +333,7 @@ function StackVisual() {
               {/* Nodes */}
               {nodes.map((n, i) => {
                 const fill =
-                  n.c === "fire" ? "#FF5722" : n.c === "volt" ? "#F5C518" : "#111";
+                  n.c === "fire" ? "#ff5533e3" : n.c === "volt" ? "#F5C518" : "#111";
                 const textFill = n.c === "ink" ? "#F5C518" : "#111";
                 return (
                   <g key={i}>
@@ -362,7 +362,7 @@ function StackVisual() {
 
               {/* Traveling pulses */}
               {nodes.map((n, i) => (
-                <circle key={`p${i}`} r="0.7" fill="#FF5722">
+                <circle key={`p${i}`} r="0.7" fill="#ff5533e3">
                   <animateMotion
                     dur={`${3 + (i % 3)}s`}
                     repeatCount="indefinite"

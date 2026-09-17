@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const FIRE = "#ff5722";
+const FIRE = "#ff5533e3";
 const VOLT = "#ffeb3b";
 const INK = "#0a0a0a";
 const BONE = "#f2f0ea";

@@ -336,7 +336,7 @@ const PLAYS: Play[] = [
         <rect x="8" y="34" width="140" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" />
         <rect x="8" y="54" width="70" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" />
         <g>
-          <rect x="120" y="78" width="90" height="30" fill="#ff5722" stroke="#0a0a0a" strokeWidth="1.5" />
+          <rect x="120" y="78" width="90" height="30" fill="#ff5533e3" stroke="#0a0a0a" strokeWidth="1.5" />
           <text x="165" y="98" textAnchor="middle" fontFamily="monospace" fontSize="10" fill="#fff" fontWeight="700">142 MATCHES</text>
         </g>
         <path d="M78 68 C 100 90, 100 88, 120 92" stroke="currentColor" strokeWidth="1.2" fill="none" strokeDasharray="3 3" className="animate-dash" />
@@ -469,8 +469,8 @@ const PLAYS: Play[] = [
         <path d="M10 90 L 50 70 L 90 78 L 130 40 L 170 55 L 210 20" stroke="currentColor" strokeWidth="1.8" fill="none" />
         {[[50, 70], [130, 40], [210, 20]].map(([x, y], i) => (
           <g key={i}>
-            <circle cx={x} cy={y} r="4" fill="#ff5722" stroke="#0a0a0a" strokeWidth="1" />
-            <circle cx={x} cy={y} r="10" fill="none" stroke="#ff5722" strokeWidth="0.6" opacity="0.5">
+            <circle cx={x} cy={y} r="4" fill="#ff5533e3" stroke="#0a0a0a" strokeWidth="1" />
+            <circle cx={x} cy={y} r="10" fill="none" stroke="#ff5533e3" strokeWidth="0.6" opacity="0.5">
               <animate attributeName="r" values="4;12;4" dur="2.4s" repeatCount="indefinite" begin={`${i * 0.4}s`} />
               <animate attributeName="opacity" values="0.6;0;0.6" dur="2.4s" repeatCount="indefinite" begin={`${i * 0.4}s`} />
             </circle>
@@ -491,7 +491,7 @@ const PLAYS: Play[] = [
       <svg viewBox="0 0 220 120" className="w-full h-full">
         {["T1", "T2", "T3"].map((l, i) => (
           <g key={l} transform={`translate(${10 + i * 70} 12)`}>
-            <rect width="60" height="96" fill={i === 0 ? "#ff5722" : i === 1 ? "#ffeb3b" : "none"} stroke="currentColor" strokeWidth="1.5" />
+            <rect width="60" height="96" fill={i === 0 ? "#ff5533e3" : i === 1 ? "#ffeb3b" : "none"} stroke="currentColor" strokeWidth="1.5" />
             <text x="30" y="20" textAnchor="middle" fontFamily="monospace" fontSize="10" fill={i === 0 ? "#fff" : "#0a0a0a"} fontWeight="800">{l}</text>
             <text x="30" y="60" textAnchor="middle" fontFamily="Inter" fontSize="22" fill={i === 0 ? "#fff" : "#0a0a0a"} fontWeight="800">
               {i === 0 ? "24" : i === 1 ? "86" : "312"}
@@ -671,13 +671,13 @@ function WorkflowDiagram() {
               { x: 20, label: "Signal", sub: "Hiring · Funding · Install", tone: "#ffeb3b" },
               { x: 200, label: "Bitscale", sub: "Enrich · Score · Draft", tone: "#0a0a0a" },
               { x: 400, label: "Guardrails", sub: "Prompt review · Approve", tone: "#ffffff" },
-              { x: 600, label: "HubSpot", sub: "Contact · Deal · Task", tone: "#ff5722" },
+              { x: 600, label: "HubSpot", sub: "Contact · Deal · Task", tone: "#ff5533e3" },
               { x: 780, label: "Rep", sub: "One-click send", tone: "#ffffff" },
             ].map((n, i) => (
               <g key={n.label} transform={`translate(${n.x} 90)`}>
                 <rect width="120" height="120" fill={n.tone} stroke="#0a0a0a" strokeWidth="2" />
-                <text x="60" y="52" textAnchor="middle" fontFamily="Inter" fontSize="18" fill={n.tone === "#0a0a0a" || n.tone === "#ff5722" ? "#fff" : "#0a0a0a"} fontWeight="800" letterSpacing="-0.02em">{n.label}</text>
-                <text x="60" y="76" textAnchor="middle" fontFamily="monospace" fontSize="9" fill={n.tone === "#0a0a0a" || n.tone === "#ff5722" ? "#fff" : "#0a0a0a"} opacity="0.85">{n.sub}</text>
+                <text x="60" y="52" textAnchor="middle" fontFamily="Inter" fontSize="18" fill={n.tone === "#0a0a0a" || n.tone === "#ff5533e3" ? "#fff" : "#0a0a0a"} fontWeight="800" letterSpacing="-0.02em">{n.label}</text>
+                <text x="60" y="76" textAnchor="middle" fontFamily="monospace" fontSize="9" fill={n.tone === "#0a0a0a" || n.tone === "#ff5533e3" ? "#fff" : "#0a0a0a"} opacity="0.85">{n.sub}</text>
                 <text x="0" y="-8" fontFamily="monospace" fontSize="10" fill="#0a0a0a" fontWeight="700">STEP {String(i + 1).padStart(2, "0")}</text>
               </g>
             ))}
@@ -685,7 +685,7 @@ function WorkflowDiagram() {
             {[140, 320, 520, 720].map((x, i) => (
               <g key={x}>
                 <line x1={x} y1="150" x2={x + 60} y2="150" stroke="#0a0a0a" strokeWidth="1.6" markerEnd="url(#warrow)" strokeDasharray="4 3" className="animate-dash" />
-                <circle r="4" fill="#ff5722">
+                <circle r="4" fill="#ff5533e3">
                   <animateMotion dur={`${2 + i * 0.2}s`} repeatCount="indefinite" path={`M${x},150 L${x + 60},150`} />
                 </circle>
               </g>

@@ -47,7 +47,7 @@ function HubSpotMark({ className }: { className?: string }) {
       {/* Sprocket / hub graphic */}
       <g transform="translate(100 100)">
         <circle r="52" fill="none" stroke="#0a0a0a" strokeWidth="2" />
-        <circle r="34" fill="#ff5722" stroke="#0a0a0a" strokeWidth="2">
+        <circle r="34" fill="#ff5533e3" stroke="#0a0a0a" strokeWidth="2">
           <animate attributeName="r" values="34;36;34" dur="3.6s" repeatCount="indefinite" />
         </circle>
         <circle r="14" fill="#ffffff" stroke="#0a0a0a" strokeWidth="2" />
@@ -95,7 +95,7 @@ function BitscaleMark({ className }: { className?: string }) {
             y={-b.h}
             width="16"
             height={b.h}
-            fill={i === 5 ? "#ff5722" : "#0a0a0a"}
+            fill={i === 5 ? "#ff5533e3" : "#0a0a0a"}
             stroke="#0a0a0a"
             strokeWidth="1.5"
           >
@@ -106,7 +106,7 @@ function BitscaleMark({ className }: { className?: string }) {
         <line x1="-76" y1="4" x2="76" y2="4" stroke="#0a0a0a" strokeWidth="2" />
         {/* Data dots */}
         {[-60, -36, -12, 12, 36, 60].map((x, i) => (
-          <circle key={x} cx={x} cy="18" r="2.5" fill={i === 5 ? "#ff5722" : "#0a0a0a"}>
+          <circle key={x} cx={x} cy="18" r="2.5" fill={i === 5 ? "#ff5533e3" : "#0a0a0a"}>
             <animate attributeName="opacity" values="1;0.25;1" dur={`${2 + i * 0.15}s`} repeatCount="indefinite" />
           </circle>
         ))}

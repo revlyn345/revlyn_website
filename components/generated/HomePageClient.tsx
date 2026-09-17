@@ -57,7 +57,7 @@ import { BookCallButton } from "@/components/BookCallButton";
 
 /* ═══════════════════════════════════════════════════════════════
    REVLYN // BRUTALIST POP · REVENUE OS
-   Palette: paper #fff · ink #0a0a0a · fire #ff5722 · volt #ffeb3b
+   Palette: paper #fff · ink #0a0a0a · fire #ff5533e3 · volt #ffeb3b
    ═══════════════════════════════════════════════════════════════ */
 
 export default function HomePageClient() {
@@ -68,24 +68,24 @@ export default function HomePageClient() {
       {/* ══ ACT I · THE HOOK ══════════════════════════════════ */}
       <section id="act-0" data-act>
         <Hero />
-        <WhoItsFor />
+        
 
-        <LogoWall />
+        <Problem />
       </section>
 
       {/* ══ ACT II · THE DIAGNOSIS ════════════════════════════ */}
       <section id="act-1" data-act>
        
-        <Problem />
+        <LogoWall />
         <RevenueEngineDiagram />
-        <StoryVisual />
+        
       </section>
 
       {/* ══ ACT III · THE ENGINE ══════════════════════════════ */}
       <section id="act-2" data-act>
         
-        <EngineDiagram />
-        <MacroShot />
+      
+        
         <LiveDashboard />
         <FunnelVisual />
       </section>
@@ -94,6 +94,8 @@ export default function HomePageClient() {
       <section id="act-3" data-act>
         <div id="stack" />
         <Engagements />
+        <Proof />
+        <Numbers />
         <Playbook />
       </section>
 
@@ -101,10 +103,7 @@ export default function HomePageClient() {
       <section id="act-4" data-act>
         
         <CaseStories />
-        <Proof />
-        <Numbers />
       </section>
-
       <IndustriesSection />
 
       {/* ══ ACT VI · THE TEAM ════════════════════════════ */}
@@ -266,9 +265,7 @@ function Hero() {
                 leading-relaxed
               "
             >
-              Revlyn helps growing B2B companies get more from HubSpot with
-              better processes, reliable reporting and automation built around
-              how your team works.
+              We design and run HubSpot, RevOps, reporting, automation and AI as one connected revenue system for growing B2B teams.
             </p>
 
             <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4">
@@ -387,7 +384,7 @@ function Problem() {
   ];
 
   const disconnectedList = [
-    "Tools and data don't connect",
+    "Tools and data don’t connect",
     "Different processes across teams",
     "Limited visibility into performance",
     "Manual work and constant handoffs",
@@ -405,14 +402,16 @@ function Problem() {
   return (
     <section className="border-b-2 border-ink bg-gradient-to-b from-[#fff4ee] to-paper">
       <div className="max-w-[1400px] mx-auto px-6 py-20 md:py-28">
+
+        {/* Heading */}
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-14">
-        <div className="lg:col-span-6">
-  <h2 className="display text-[clamp(2.25rem,5vw,4rem)] leading-[1.15] tracking-[-0.03em] overflow-visible [clip-path:none!important]">
-    Bring your revenue
-    <br />
-    operation together.
-  </h2>
-</div>
+          <div className="lg:col-span-6">
+            <h2 className="display text-[clamp(2.25rem,5vw,4rem)] leading-[1.15] tracking-[-0.03em] overflow-visible [clip-path:none!important]">
+              Bring your revenue
+              <br />
+              operation together.
+            </h2>
+          </div>
 
           <div className="lg:col-span-6 flex items-end">
             <p className="text-lg leading-relaxed text-ink/70">
@@ -423,33 +422,132 @@ function Problem() {
           </div>
         </div>
 
+        {/* Cards */}
         <div className="grid lg:grid-cols-2 gap-6">
-          {/* TODAY - disconnected */}
-          <div className="rounded-2xl border-2 border-ink/10 bg-white/60 p-6 md:p-8">
+
+          {/* ============================================================
+              TODAY · DISCONNECTED
+          ============================================================ */}
+          <div className="relative rounded-2xl border-2 border-ink/10 bg-white/60 p-6 md:p-8">
+
+            {/* Arrow pointing to connected card */}
+            <div className="hidden lg:flex absolute top-1/2 -right-[32px] -translate-y-1/2 z-20 items-center justify-center">
+              <span className="text-fire text-4xl leading-none font-light">
+                →
+              </span>
+            </div>
+
+            {/* Card header */}
             <div className="flex items-center justify-between mono text-[10px] uppercase tracking-[0.2em] text-ink/40 mb-10">
-              
-              <span>Disconnected</span>
+              <span>TODAY</span>
+              <span>DISCONNECTED</span>
             </div>
 
-            <div className="grid grid-cols-2 gap-x-8 gap-y-10 relative">
-              {nodes.map((n) => (
-                <div key={n.label} className="flex flex-col items-center text-center gap-3">
-                  <div className="w-16 h-16 rounded-full border-2 border-ink/25 flex items-center justify-center bg-white">
-                    <svg viewBox="0 0 24 24" className="w-7 h-7 fill-ink/50">
-                      {n.icon}
-                    </svg>
+            {/* ==========================================================
+                NODE GRAPH
+            ========================================================== */}
+            <div className="relative w-full aspect-[2/1]">
+
+              {/* Connection lines */}
+              <svg
+                viewBox="0 0 400 200"
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <defs>
+                  <style>{`
+                    .prob-dash {
+                      stroke: rgba(10, 10, 10, 0.25);
+                      stroke-width: 1.2;
+                      stroke-dasharray: 6 6;
+                      fill: none;
+                    }
+                  `}</style>
+                </defs>
+
+                {/* HubSpot ↔ Processes */}
+                <path
+                  className="prob-dash"
+                  d="M 100 48 C 145 18, 255 18, 300 48"
+                />
+
+                {/* HubSpot ↔ Reporting */}
+                <path
+                  className="prob-dash"
+                  d="M 100 55 C 55 78, 55 122, 100 148"
+                />
+
+                {/* HubSpot ↔ Automation */}
+                <path
+                  className="prob-dash"
+                  d="M 105 55 C 155 82, 245 118, 295 148"
+                />
+
+                {/* Processes ↔ Reporting */}
+                <path
+                  className="prob-dash"
+                  d="M 295 55 C 245 82, 155 118, 105 148"
+                />
+
+                {/* Processes ↔ Automation */}
+                <path
+                  className="prob-dash"
+                  d="M 300 55 C 345 78, 345 122, 300 148"
+                />
+
+                {/* Reporting ↔ Automation */}
+                <path
+                  className="prob-dash"
+                  d="M 100 148 C 145 178, 255 178, 300 148"
+                />
+              </svg>
+
+              {/* ========================================================
+                  NODE GRID
+              ======================================================== */}
+              <div className="relative grid grid-cols-2 gap-x-8 gap-y-4 h-full items-start">
+
+                {nodes.map((n) => (
+                  <div
+                    key={n.label}
+                    className="flex flex-col items-center text-center gap-3"
+                  >
+
+                    {/* Node circle */}
+                    <div className="w-16 h-16 rounded-full border-2 border-ink/25 flex items-center justify-center bg-white relative z-10">
+                      <svg
+                        viewBox="0 0 24 24"
+                        className="w-7 h-7 fill-ink/50"
+                      >
+                        {n.icon}
+                      </svg>
+                    </div>
+
+                    {/* Node text */}
+                    <div>
+                      <div className="font-medium text-ink">
+                        {n.label}
+                      </div>
+
+                      <div className="text-xs text-ink/50 mt-0.5 max-w-[140px]">
+                        {n.noteDisconnected}
+                      </div>
+                    </div>
+
                   </div>
-                  <div>
-                    <div className="font-medium text-ink">{n.label}</div>
-                    <div className="text-xs text-ink/50 mt-0.5 max-w-[140px]">{n.noteDisconnected}</div>
-                  </div>
-                </div>
-              ))}
+                ))}
+
+              </div>
             </div>
 
+            {/* Disconnected problems */}
             <ul className="mt-10 pt-6 border-t border-ink/10 space-y-2.5">
               {disconnectedList.map((item) => (
-                <li key={item} className="flex items-center gap-2 text-sm text-ink/70">
+                <li
+                  key={item}
+                  className="flex items-center gap-2 text-sm text-ink/70"
+                >
                   <span className="text-fire shrink-0">✕</span>
                   {item}
                 </li>
@@ -457,61 +555,95 @@ function Problem() {
             </ul>
           </div>
 
-          {/* WITH REVLYN - connected */}
+          {/* ============================================================
+              WITH REVLYN · CONNECTED
+          ============================================================ */}
           <div className="rounded-2xl bg-ink text-paper p-6 md:p-8">
+
+            {/* Card header */}
             <div className="flex items-center justify-between mono text-[10px] uppercase tracking-[0.2em] text-paper/40 mb-6">
-             
+              <span>With Revlyn</span>
               <span>Connected</span>
             </div>
 
+            {/* Main label */}
             <div className="text-center mono text-[11px] uppercase tracking-[0.25em] text-fire mb-8">
               One team. One system.
             </div>
 
+            {/* Connected nodes */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-2 relative">
+
+              {/* Connecting line */}
               <div className="absolute top-8 left-[12.5%] right-[12.5%] h-px bg-fire/50 hidden sm:block" />
+
               {nodes.map((n) => (
-                <div key={n.label} className="flex flex-col items-center text-center gap-3 relative">
+                <div
+                  key={n.label}
+                  className="flex flex-col items-center text-center gap-3 relative"
+                >
+
+                  {/* Node */}
                   <div className="w-16 h-16 rounded-full border-2 border-fire/60 flex items-center justify-center bg-ink relative z-10">
-                    <svg viewBox="0 0 24 24" className="w-7 h-7 fill-paper">
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-7 h-7 fill-paper"
+                    >
                       {n.icon}
                     </svg>
                   </div>
+
+                  {/* Node text */}
                   <div>
-                    <div className="font-medium text-paper text-sm">{n.label}</div>
-                    <div className="text-[11px] text-paper/50 mt-0.5">{n.note}</div>
+                    <div className="font-medium text-paper text-sm">
+                      {n.label}
+                    </div>
+
+                    <div className="text-[11px] text-paper/50 mt-0.5">
+                      {n.note}
+                    </div>
                   </div>
+
                 </div>
               ))}
+
             </div>
 
+            {/* Connected benefits */}
             <div className="mt-10 pt-6 border-t border-paper/15 grid sm:grid-cols-[1fr_auto] gap-6 items-center">
+
               <ul className="space-y-2.5">
                 {connectedList.map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-sm text-paper/85">
+                  <li
+                    key={item}
+                    className="flex items-center gap-2 text-sm text-paper/85"
+                  >
                     <span className="text-fire shrink-0">✓</span>
                     {item}
                   </li>
                 ))}
               </ul>
+
               <div className="sm:pl-6 sm:border-l border-paper/15">
                 <div className="mono text-[10px] uppercase tracking-[0.2em] text-paper/40 mb-2">
                   The result
                 </div>
+
                 <div className="display text-2xl leading-tight text-paper">
                   A stronger
                   <br />
                   revenue operation.
                 </div>
               </div>
+
             </div>
           </div>
+
         </div>
       </div>
     </section>
   );
 }
-
 /* ─────────────────────────────  REVENUE ENGINE DIAGRAM  ───────────────────────────── */
 /*
    NOTE: this section intentionally breaks the site's usual visual rules
@@ -716,7 +848,7 @@ function DiagramConnectors() {
   const wire = "rgba(255,255,255,0.32)";
   const wireArrow = "rgba(255,255,255,0.55)";
   const orangeDash = "rgba(255,87,34,0.55)";
-  const orangeSolid = "#FF5722";
+  const orangeSolid = "#ff5533e3";
 
   return (
     <svg
@@ -807,7 +939,7 @@ function RevenueEngineDiagram() {
             <span className="mono text-[11px] md:text-[12px] tracking-[0.22em] text-fire uppercase">
               HOW REVENUE ENGINEERING WORKS
             </span>
-            <span className="w-12 h-px bg-white/40" />
+            
           </div>
 
           <h2 className="display text-[clamp(2.1rem,4.2vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-white">
@@ -964,7 +1096,7 @@ function RevenueEngineDiagram() {
             <circle cx="510" cy="185" r="4"
                     fill="#0a0a0a" stroke="rgba(255,255,255,0.75)" strokeWidth="1.2" />
 
-            {/* Q1 solid orange line — goes right, curves down, joins trunk */}
+            {/* Q1 solid orange line: goes right, curves down, joins trunk */}
             <path d="M 430 200 H 480 Q 500 200 500 220 V 320"
                   stroke="#ff5a1f" strokeWidth="1.4" fill="none" strokeLinecap="round" />
             <circle cx="430" cy="200" r="5" fill="#ff5a1f" />
@@ -977,7 +1109,7 @@ function RevenueEngineDiagram() {
             <circle cx="510" cy="485" r="4"
                     fill="#0a0a0a" stroke="rgba(255,255,255,0.75)" strokeWidth="1.2" />
 
-            {/* Q3 solid orange line — goes right, curves up, joins trunk */}
+            {/* Q3 solid orange line: goes right, curves up, joins trunk */}
             <path d="M 430 500 H 480 Q 500 500 500 480 V 320"
                   stroke="#ff5a1f" strokeWidth="1.4" fill="none" strokeLinecap="round" />
             <circle cx="430" cy="500" r="5" fill="#ff5a1f" />
@@ -1251,7 +1383,7 @@ function RevenueEngineDiagram() {
             <circle cx="1340" cy="498" r="4" fill="rgba(255,255,255,0.85)" />
 
             {/* ============================================================
-                CRM — CENTER
+                CRM, CENTER
                 ============================================================ */}
             <g className="rev-svg-crm">
               <rect x="560" y="150" width="320" height="440" rx="16"
@@ -1279,10 +1411,10 @@ function RevenueEngineDiagram() {
             </g>
 
             {/* ============================================================
-                BOTTOM CONNECTORS — line ends with filled orange circle
+                BOTTOM CONNECTORS: line ends with filled orange circle
                 ============================================================ */}
 
-            {/* LEFT merge — Q1 & Q3 bottoms → line to outcome (circle at end) */}
+            {/* LEFT merge: Q1 & Q3 bottoms, line to outcome (circle at end) */}
             <g fill="none" strokeLinecap="round">
               <path d="M 265 592 V 620"
                     stroke="rgba(255,255,255,0.55)"
@@ -1295,7 +1427,7 @@ function RevenueEngineDiagram() {
               <circle cx="315" cy="668" r="5" fill="#ff5a1f" />
             </g>
 
-            {/* RIGHT merge — Q2 & Q4 bottoms → line to outcome (circle at end) */}
+            {/* RIGHT merge: Q2 & Q4 bottoms, line to outcome (circle at end) */}
             <g fill="none" strokeLinecap="round">
               <path d="M 1175 592 V 620"
                     stroke="rgba(255,255,255,0.55)"
@@ -1381,127 +1513,7 @@ function RevenueEngineDiagram() {
   );
 }
 
-/* ─────────────────────────────  ENGINE DIAGRAM  ───────────────────────────── */
-function EngineDiagram() {
-  return (
-    <section id="engine" className="border-b-2 border-ink bg-bone">
-      <div className="max-w-[1400px] mx-auto px-6 py-20">
-        <SectionHeader n="03" label="How it works" title="One system, four moving parts, wired together with care." />
 
-        <div className="mt-12 brutal-border bg-paper p-6 md:p-10 relative overflow-x-auto">
-          <div className="absolute top-2 right-4 mono text-xs">FIG. 03.A / SCHEMATIC</div>
-          {/* min-width keeps the schematic's small SVG-unit text legible; below that
-              width the container scrolls horizontally instead of scaling text down
-              to unreadable size. */}
-          <svg viewBox="0 0 1200 560" className="h-auto" style={{ minWidth: 900, width: "100%" }} role="img" aria-label="Revenue engine schematic">
-            <defs>
-              <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-                <path d="M0,0 L10,5 L0,10 z" fill="#0a0a0a" />
-              </marker>
-              <pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse">
-                <circle cx="1" cy="1" r="1" fill="#0a0a0a" opacity="0.15" />
-              </pattern>
-            </defs>
-            <rect x="0" y="0" width="1200" height="560" fill="url(#dots)" />
-
-            {/* INPUTS column */}
-            <g fontFamily="JetBrains Mono, monospace" fontSize="12">
-              <text x="80" y="40" fontWeight="700">// INPUTS</text>
-              {[
-                ["WEB / ADS", 70],
-                ["OUTBOUND", 150],
-                ["PRODUCT / PLG", 230],
-                ["PARTNER / CS", 310],
-              ].map(([l, y], i) => (
-                <g key={i}>
-                  <rect x="30" y={y as number} width="180" height="50" fill="#fff" stroke="#0a0a0a" strokeWidth="2" />
-                  <text x="45" y={(y as number) + 20} fontSize="10" opacity="0.6">SRC · 0{i + 1}</text>
-                  <text x="45" y={(y as number) + 38} fontWeight="700">{l}</text>
-                </g>
-              ))}
-            </g>
-
-            {/* Block: CRM */}
-            <g>
-              <rect x="290" y="70" width="260" height="140" fill="#ffeb3b" stroke="#0a0a0a" strokeWidth="2" />
-              <text x="310" y="100" fontFamily="Space Grotesk" fontWeight="700" fontSize="24">01 · CRM</text>
-              <text x="310" y="125" fontFamily="JetBrains Mono, monospace" fontSize="11">strict schema · dedupe · hygiene</text>
-              <text x="310" y="145" fontFamily="JetBrains Mono, monospace" fontSize="11">HubSpot / SFDC · single truth</text>
-              <text x="310" y="175" fontFamily="JetBrains Mono, monospace" fontSize="10" opacity="0.6">SOURCE-OF-RECORD LAYER</text>
-            </g>
-
-            {/* Block: RevOps */}
-            <g>
-              <rect x="290" y="240" width="260" height="140" fill="#fff" stroke="#0a0a0a" strokeWidth="2" />
-              <text x="310" y="270" fontFamily="Space Grotesk" fontWeight="700" fontSize="24">02 · REVOPS</text>
-              <text x="310" y="295" fontFamily="JetBrains Mono, monospace" fontSize="11">lifecycle · SLA · attribution</text>
-              <text x="310" y="315" fontFamily="JetBrains Mono, monospace" fontSize="11">forecast · pipeline math</text>
-              <text x="310" y="345" fontFamily="JetBrains Mono, monospace" fontSize="10" opacity="0.6">PLUMBING BETWEEN TEAMS</text>
-            </g>
-
-            {/* Block: GTM */}
-            <g>
-              <rect x="640" y="70" width="260" height="140" fill="#fff" stroke="#0a0a0a" strokeWidth="2" />
-              <text x="660" y="100" fontFamily="Space Grotesk" fontWeight="700" fontSize="24">03 · GTM</text>
-              <text x="660" y="125" fontFamily="JetBrains Mono, monospace" fontSize="11">ICP · outbound engine</text>
-              <text x="660" y="145" fontFamily="JetBrains Mono, monospace" fontSize="11">PLG loops · sales enablement</text>
-              <text x="660" y="175" fontFamily="JetBrains Mono, monospace" fontSize="10" opacity="0.6">MOTION THAT CONVERTS</text>
-            </g>
-
-            {/* Block: AI */}
-            <g>
-              <rect x="640" y="240" width="260" height="140" fill="#ff5722" stroke="#0a0a0a" strokeWidth="2" />
-              <text x="660" y="270" fontFamily="Space Grotesk" fontWeight="700" fontSize="24" fill="#fff">04 · AI</text>
-              <text x="660" y="295" fontFamily="JetBrains Mono, monospace" fontSize="11" fill="#fff">enrichment · AI SDR · briefs</text>
-              <text x="660" y="315" fontFamily="JetBrains Mono, monospace" fontSize="11" fill="#fff">call intel · deal signals</text>
-              <text x="660" y="345" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="#fff" opacity="0.8">COMPOUNDING LEVERAGE</text>
-            </g>
-
-            {/* Output */}
-            <g>
-              <rect x="960" y="150" width="200" height="160" fill="#0a0a0a" />
-              <text x="980" y="185" fontFamily="Space Grotesk" fontWeight="700" fontSize="22" fill="#fff">FLIGHT</text>
-              <text x="980" y="210" fontFamily="Space Grotesk" fontWeight="700" fontSize="22" fill="#ffeb3b">DECK</text>
-              <text x="980" y="240" fontFamily="JetBrains Mono, monospace" fontSize="11" fill="#fff">forecast · velocity</text>
-              <text x="980" y="258" fontFamily="JetBrains Mono, monospace" fontSize="11" fill="#fff">churn · CAC · LTV</text>
-              <text x="980" y="290" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="#ff5722">→ BOARD-READY</text>
-            </g>
-
-            {/* Arrows */}
-            <g stroke="#0a0a0a" strokeWidth="2" fill="none" markerEnd="url(#arr)">
-              <path d="M210,95  L290,110" />
-              <path d="M210,175 L290,140" />
-              <path d="M210,255 L290,290" />
-              <path d="M210,335 L290,330" />
-              <path d="M550,140 L640,140" />
-              <path d="M550,310 L640,310" />
-              <path d="M770,210 L770,240" />
-              <path d="M420,210 L420,240" />
-              <path d="M900,140 L960,190" />
-              <path d="M900,310 L960,260" />
-            </g>
-
-            {/* Annotations */}
-            <g fontFamily="JetBrains Mono, monospace" fontSize="10" fill="#ff5722">
-              <text x="560" y="130">▲ single source of truth</text>
-              <text x="560" y="300">▲ where deals compound</text>
-              <text x="220" y="410" fill="#0a0a0a" opacity="0.5">// ANNOTATED BY THE HAND OF AN ACTUAL OPERATOR</text>
-            </g>
-
-            {/* Footer stamp */}
-            <g fontFamily="JetBrains Mono, monospace" fontSize="10" fill="#0a0a0a">
-              <line x1="30" y1="470" x2="1160" y2="470" stroke="#0a0a0a" strokeWidth="1" />
-              <text x="30" y="495">DESIGNED BY HAND</text>
-              <text x="30" y="515" opacity="0.6">SHEET 03.A / SCALE 1 : ENGINE</text>
-              <text x="900" y="495" textAnchor="start">HUBSPOT AS A SERVICE</text>
-              <text x="900" y="515" textAnchor="start" opacity="0.6">REV. 2026</text>
-            </g>
-          </svg>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ─────────────────────────────  SERVICES SPEC  ───────────────────────────── */
 function Services() {
@@ -1933,323 +1945,10 @@ function SectionHeader({
 /* ─────────────────────────────  FOOTER  ───────────────────────────── */
 
 /* ─────────────────────────────  STORY (with photo)  ───────────────────────────── */
-function StoryVisual() {
-  const milestones = [
-    {
-      code: "W01",
-      label: "Open every stage. Mark the leaks.",
-      step: "01",
-    },
-    {
-      code: "W06",
-      label: "New schema live. Rollback ready.",
-      step: "02",
-    },
-    {
-      code: "D90",
-      label: "Your team runs it. We're on-call.",
-      step: "03",
-    },
-  ];
 
-  const metrics = [
-    { label: "EMBED", value: "2 OPS", tone: "paper" },
-    { label: "CADENCE", value: "WEEKLY", tone: "volt" },
-    { label: "HAND-OFF", value: "D-90", tone: "ink" },
-  ];
-
-  return (
-    <section className="bg-gradient-to-b from-bone to-paper py-16 lg:py-20">
-      <div className="mx-auto max-w-7xl px-6">
-
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr] items-center gap-10 lg:gap-12">
-
-          {/* IMAGE */}
-
-          <div className="relative">
-
-            <div className="relative h-[430px] lg:h-[500px] overflow-hidden rounded-3xl shadow-2xl">
-
-              <img
-                src={deskOperator}
-                alt="Operator Desk"
-                className="h-full w-full object-cover transition duration-700 hover:scale-105"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-
-            </div>
-
-            {/* Badge */}
-
-            <div className="absolute bottom-5 left-5 rounded-2xl bg-white/95 backdrop-blur-md px-5 py-3 shadow-xl">
-
-              <p className="mono text-[10px] tracking-[0.25em] uppercase text-fire">
-                Week 5 of 12
-              </p>
-
-              <p className="font-semibold text-ink">
-                On-site with your team
-              </p>
-
-            </div>
-
-          </div>
-
-          {/* CONTENT */}
-
-          <div>
-
-            <p className="mono text-[11px] uppercase tracking-[0.35em] text-fire">
-              From the Field
-            </p>
-
-            <h2 className="display mt-4 text-[clamp(2.2rem,4vw,3.9rem)] leading-[1.1] text-ink">
-
-              A system that
-
-              <br />
-
-              <span className="text-fire">works</span>{" "}
-              instead of
-              <br />
-              leaking.
-
-            </h2>
-
-            <p className="mt-5 max-w-md text-base leading-7 text-muted-foreground">
-
-              We don't deliver presentations. We rebuild operations,
-              document every process, and leave your team running
-              independently within ninety days.
-
-            </p>
-
-            {/* Timeline */}
-
-            <div className="mt-8 space-y-3">
-
-              {milestones.map((item) => (
-
-                <div
-                  key={item.code}
-                  className="group flex items-center gap-4 rounded-2xl border border-black/5 bg-white px-4 py-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                >
-
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-fire text-xs font-semibold text-white">
-
-                    {item.step}
-
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-
-                    <div className="mono text-[10px] tracking-[0.2em] uppercase text-fire">
-
-                      {item.code}
-
-                    </div>
-
-                    <div className="mt-1 text-[15px] leading-6 text-ink">
-
-                      {item.label}
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              ))}
-
-            </div>
-
-            {/* Metrics */}
-
-            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
-
-              {metrics.map((metric) => (
-
-                <div
-                  key={metric.label}
-                  className={`rounded-2xl p-4 transition duration-300 hover:-translate-y-1 hover:shadow-lg
-                  ${metric.tone === "paper"
-                      ? "bg-white"
-                      : metric.tone === "volt"
-                        ? "bg-volt"
-                        : "bg-ink text-paper"
-                    }`}
-                >
-
-                  <p
-                    className={`mono text-[10px] tracking-[0.2em] uppercase ${metric.tone === "ink"
-                      ? "text-paper/60"
-                      : "text-muted-foreground"
-                      }`}
-                  >
-                    {metric.label}
-                  </p>
-
-                  <p className="display mt-2 text-2xl">
-
-                    {metric.value}
-
-                  </p>
-
-                </div>
-
-              ))}
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-  );
-}
 
 /* ─────────────────────────────  MACRO SHOT  ───────────────────────────── */
-function MacroShot() {
-  const steps = [
-    {
-      title: "Capture",
-      text: "Every lead enters one pipeline with complete visibility.",
-    },
-    {
-      title: "Qualify",
-      text: "AI and your team score, route and prioritize opportunities.",
-    },
-    {
-      title: "Close",
-      text: "Sales, finance and delivery move together automatically.",
-    },
-    {
-      title: "Expand",
-      text: "Customer success creates renewals and long-term growth.",
-    },
-  ];
 
-  return (
-    <section className="bg-[#0B0B0B] text-paper py-24">
-      <div className="max-w-7xl mx-auto px-6">
-
-        {/* Heading */}
-
-        <div className="max-w-3xl mx-auto text-center">
-
-          <p className="mono uppercase tracking-[0.35em] text-fire text-xs">
-            // CLOSER LOOK
-          </p>
-
-          <h2 className="display mt-5 text-[clamp(2.8rem,6vw,5rem)] leading-[1.02]">
-            Every part
-            <br />
-            <span className="inline-block pb-3 text-fire">
-              working together.
-            </span>
-          </h2>
-
-          <p className="mt-6 text-paper/70 text-lg leading-8 max-w-xl mx-auto">
-            Marketing, sales, delivery and customer success operate
-            as one connected revenue engine.
-          </p>
-
-        </div>
-
-        {/* Image */}
-
-        <div className="relative mt-16">
-
-          <div className="overflow-hidden rounded-[32px] border border-white/10">
-
-            <img
-              src={engineMacro}
-              alt="Revenue Engine"
-              className="w-full h-[320px] sm:h-[420px] lg:h-[520px] object-cover"
-            />
-
-          </div>
-
-          {/* Floating Stats */}
-
-          <div className="absolute left-1/2 -translate-x-1/2 bottom-4 sm:bottom-8 bg-black/80 backdrop-blur-xl rounded-2xl border border-white/10 px-5 sm:px-8 py-4 sm:py-5 w-[calc(100%-2rem)] max-w-sm sm:w-auto sm:max-w-none">
-
-            <div className="flex gap-4 sm:gap-10 justify-between sm:justify-center">
-
-              <div className="text-center">
-                <div className="mono text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.25em] text-paper/50 whitespace-nowrap">
-                  RESPONSE
-                </div>
-                <div className="display text-xl sm:text-2xl mt-2">&lt;2m</div>
-              </div>
-
-              <div className="text-center">
-                <div className="mono text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.25em] text-paper/50 whitespace-nowrap">
-                  AUTOMATION
-                </div>
-                <div className="display text-xl sm:text-2xl mt-2 text-fire">
-                  24/7
-                </div>
-              </div>
-
-              <div className="text-center">
-                <div className="mono text-[9px] sm:text-[10px] tracking-[0.2em] sm:tracking-[0.25em] text-paper/50 whitespace-nowrap">
-                  VISIBILITY
-                </div>
-                <div className="display text-xl sm:text-2xl mt-2">
-                  100%
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* Process */}
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mt-20">
-
-          {steps.map((step, index) => (
-
-            <div key={step.title}>
-
-              <div className="flex items-center gap-3">
-
-                <div className="w-10 h-10 rounded-full bg-fire text-ink flex items-center justify-center font-bold">
-
-                  {index + 1}
-
-                </div>
-
-                <h3 className="display text-2xl">
-
-                  {step.title}
-
-                </h3>
-
-              </div>
-
-              <p className="mt-5 text-paper/70 leading-7">
-
-                {step.text}
-
-              </p>
-
-            </div>
-
-          ))}
-
-        </div>
-
-      </div>
-    </section>
-  );
-}
 
 /* ─────────────────────────────  FUNNEL VISUAL  ───────────────────────────── */
 function FunnelVisual() {
@@ -3013,77 +2712,6 @@ function CaseStories() {
                 ))}
               </div>
             </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────  WHO IT'S FOR  ───────────────────────────── */
-function WhoItsFor() {
-  const roles = [
-    {
-      role: "HubSpot",
-      note: "Built around how your business works.",
-    },
-    {
-      role: "Processes",
-      note: "Designed around how your team sales.",
-    },
-    {
-      role: "Reporting",
-      note: "Clear visibility into pipeline and performance.",
-    },
-    {
-      role: "Automation",
-      note: "Less manual works across your revenue operations.",
-    },
-  ];
-
-  return (
-    <section className="relative bg-[#faf9f7] py-24">
-      <div className="max-w-[1400px] mx-auto px-6">
-        {/* Heading */}
-        <div className="grid lg:grid-cols-12 gap-10 items-end mb-16">
-          <div className="lg:col-span-7">
-            <h2 className="display mt-4 text-[clamp(2.6rem,5vw,4.5rem)] leading-[0.95]">
-              Built for
-              <br />
-              what comes next.
-            </h2>
-          </div>
-
-          <div className="lg:col-span-5">
-            <p className="text-lg leading-relaxed text-neutral-600">
-              As your business grows, the way you run revenue needs to keep pace.
-              <br />
-              Revlyn brings HubSpot, processes, reporting and automation together so your team can operate with greater clarity and control.
-            </p>
-          </div>
-        </div>
-
-        {/* Cards */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {roles.map((item, index) => (
-            <div
-              key={item.role}
-              className="group rounded-3xl p-7 bg-white border border-neutral-200 transition-all duration-300 hover:bg-fire hover:border-fire hover:-translate-y-2 hover:shadow-2xl hover:shadow-orange-500/20"
-            >
-              <div className="text-sm font-semibold tracking-widest uppercase text-fire transition-colors duration-300 group-hover:text-white/70">
-                0{index + 1}
-              </div>
-
-              <h3 className="display mt-6 text-2xl leading-tight text-ink transition-colors duration-300 group-hover:text-white">
-                {item.role}
-              </h3>
-
-              <p className="mt-4 leading-relaxed text-sm text-neutral-600 transition-colors duration-300 group-hover:text-white/80">
-                {item.note}
-              </p>
-
-              <div className="mt-8 h-[2px] w-12 bg-fire transition-all duration-300 group-hover:w-20 group-hover:bg-white/60" />
-            </div>
           ))}
         </div>
       </div>

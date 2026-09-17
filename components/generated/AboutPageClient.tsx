@@ -285,7 +285,7 @@ function StrikeTeam() {
           >
             <div
               className="absolute top-0 right-0 mono text-[10px] uppercase tracking-widest px-2 py-1 border-l-2 border-b-2 border-ink"
-              style={{ background: r.tint === "fire" ? "#ff5722" : "#ffeb3b", color: "#0a0a0a" }}
+              style={{ background: r.tint === "fire" ? "#ff5533e3" : "#ffeb3b", color: "#0a0a0a" }}
             >
               {String(i + 1).padStart(2, "0")} / 04
             </div>
@@ -445,7 +445,7 @@ function Rituals() {
 }
 
 function ProtocolIcon({ kind }: { kind: string }) {
-  const stroke = "#ff5722";
+  const stroke = "#ff5533e3";
   const props = {
     width: 30,
     height: 30,

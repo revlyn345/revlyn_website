@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 /* Brand-aligned palette: fire, volt, ink, bone + tints derived from brand */
 const COLORS = {
-  fire: "#ff5722",
+  fire: "#ff5533e3",
   volt: "#ffeb3b",
   ink: "#0a0a0a",
   bone: "#f2f0ea",
@@ -30,7 +30,7 @@ const COLORS = {
   blush: "#ffd9cc",
   lavender: "#f2f0ea",
   emerald: "#ffeb3b",
-  amber: "#ff5722",
+  amber: "#ff5533e3",
 };
 
 

@@ -42,7 +42,7 @@ export function LeakVsSealVisual() {
             fill="none" stroke="#0a0a0a" strokeWidth="3" />
           {/* Cracks */}
           <path d="M120 110 L100 130 M200 200 L215 218 M280 150 L305 168 M170 60 L155 80"
-            stroke="#ff5722" strokeWidth="2.5" strokeLinecap="round" />
+            stroke="#ff5533e3" strokeWidth="2.5" strokeLinecap="round" />
           {/* Leaks */}
           {[
             { x: 100, y: 130, d: "0s" },
@@ -50,12 +50,12 @@ export function LeakVsSealVisual() {
             { x: 305, y: 168, d: "1.2s" },
             { x: 155, y: 80, d: ".3s" },
           ].map((l, i) => (
-            <circle key={i} cx={l.x} cy={l.y} r="5" fill="#ff5722"
+            <circle key={i} cx={l.x} cy={l.y} r="5" fill="#ff5533e3"
               style={{ animation: `rv-drip 1.8s ${l.d} linear infinite`, transformBox: "fill-box", transformOrigin: "center" }} />
           ))}
           {/* Labels */}
           <text x="200" y="45" textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" fill="#0a0a0a">14,000 OPEN OPPS</text>
-          <text x="200" y="170" textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" fill="#ff5722">↓ REALITY: 2,300</text>
+          <text x="200" y="170" textAnchor="middle" fontSize="11" fontFamily="JetBrains Mono, monospace" fill="#ff5533e3">↓ REALITY: 2,300</text>
         </svg>
         <ul className="mt-4 space-y-1.5 text-sm">
           {["CRM full of half-finished notes", "Pipeline nobody trusts", "Reps skip the process", "AI stuck in the sandbox"].map(t =>
@@ -95,7 +95,7 @@ export function LeakVsSealVisual() {
 /* ───── 2. METHOD RUNNER · animated 90-day progress ───── */
 export function MethodRunnerVisual() {
   const stages = [
-    { d: "D01–07", t: "DIAGNOSTIC", w: 8, c: "#ff5722" },
+    { d: "D01–07", t: "DIAGNOSTIC", w: 8, c: "#ff5533e3" },
     { d: "D08–21", t: "BLUEPRINT", w: 15, c: "#ffeb3b" },
     { d: "D22–75", t: "BUILD & WIRE", w: 60, c: "#ffffff" },
     { d: "D76–90", t: "HAND-OFF", w: 17, c: "#ffeb3b" },
@@ -136,14 +136,14 @@ export function MethodRunnerVisual() {
 /* ───── 3. STACK CONSTELLATION · animated node graph ───── */
 export function StackConstellationVisual() {
   const nodes = [
-    { id: "CRM", x: 200, y: 40, c: "#ff5722" },
+    { id: "CRM", x: 200, y: 40, c: "#ff5533e3" },
     { id: "WHSE", x: 340, y: 100, c: "#ffeb3b" },
     { id: "ELT", x: 340, y: 200, c: "#ffffff" },
-    { id: "ENRICH", x: 200, y: 260, c: "#ff5722" },
+    { id: "ENRICH", x: 200, y: 260, c: "#ff5533e3" },
     { id: "OUTREACH", x: 60, y: 200, c: "#ffeb3b" },
     { id: "PLG", x: 60, y: 100, c: "#ffffff" },
     { id: "CALL·INTEL", x: 200, y: 150, c: "#ffeb3b" },
-    { id: "AI", x: 200, y: 150, c: "#ff5722" },
+    { id: "AI", x: 200, y: 150, c: "#ff5533e3" },
   ];
   const edges = [[0, 6], [1, 6], [2, 6], [3, 6], [4, 6], [5, 6], [6, 7]];
   return (
@@ -160,20 +160,20 @@ export function StackConstellationVisual() {
         {/* edges */}
         {edges.map(([a, b], i) => (
           <line key={i} x1={nodes[a].x} y1={nodes[a].y} x2={nodes[b].x} y2={nodes[b].y}
-            stroke="#ff5722" strokeWidth="1.5" className="rv-flow" />
+            stroke="#ff5533e3" strokeWidth="1.5" className="rv-flow" />
         ))}
         {/* Central AI ring */}
         <circle cx="200" cy="150" r="34" fill="none" stroke="#ffeb3b" strokeWidth="1.5" strokeDasharray="4 6"
           style={{ transformOrigin: "200px 150px", animation: "rv-rotate 12s linear infinite" }} />
-        <circle cx="200" cy="150" r="48" fill="none" stroke="#ff5722" strokeWidth="1" strokeDasharray="2 8"
+        <circle cx="200" cy="150" r="48" fill="none" stroke="#ff5533e3" strokeWidth="1" strokeDasharray="2 8"
           style={{ transformOrigin: "200px 150px", animation: "rv-rotate 20s linear infinite reverse" }} />
         {/* nodes */}
         {nodes.map((n, i) => (
           <g key={n.id + i}>
             {i === 7 ? (
               <>
-                <circle cx={n.x} cy={n.y} r="18" fill="#0a0a0a" stroke="#ff5722" strokeWidth="2" />
-                <text x={n.x} y={n.y + 4} textAnchor="middle" fontSize="11" fontFamily="Inter Tight, Inter, sans-serif" fontWeight="700" fill="#ff5722">AI</text>
+                <circle cx={n.x} cy={n.y} r="18" fill="#0a0a0a" stroke="#ff5533e3" strokeWidth="2" />
+                <text x={n.x} y={n.y + 4} textAnchor="middle" fontSize="11" fontFamily="Inter Tight, Inter, sans-serif" fontWeight="700" fill="#ff5533e3">AI</text>
               </>
             ) : i === 6 ? null : (
               <>
@@ -228,7 +228,7 @@ export function AgentBarsVisual() {
         {bars.map((_, i) => (
           <div key={i} className="flex-1 origin-bottom"
             style={{
-              background: i % 4 === 0 ? "#ff5722" : i % 3 === 0 ? "#ffeb3b" : "#ffffff",
+              background: i % 4 === 0 ? "#ff5533e3" : i % 3 === 0 ? "#ffeb3b" : "#ffffff",
               height: `${20 + (i * 17) % 80}%`,
               animation: `rv-bar ${.6 + (i * .07) % .9}s ease-in-out ${i * .05}s infinite`,
             }} />
@@ -254,14 +254,14 @@ export function SystemLoopVisual() {
     <div className="brutal-border border-paper bg-[#0d0d0d] p-5 md:p-6">
       <LoopStyles />
       <svg viewBox="0 0 400 300" className="w-full h-auto">
-        <path d="M200 40 L340 150 L200 260 L60 150 Z" fill="none" stroke="#ff5722" strokeWidth="2" className="rv-flow" />
+        <path d="M200 40 L340 150 L200 260 L60 150 Z" fill="none" stroke="#ff5533e3" strokeWidth="2" className="rv-flow" />
         {nodes.map((n) => (
           <g key={n.id}>
             <rect x={n.x - 34} y={n.y - 14} width="68" height="28" fill="#0a0a0a" stroke="#ffeb3b" strokeWidth="1.5" />
             <text x={n.x} y={n.y + 4} textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="11" fill="#ffeb3b">{n.id}</text>
           </g>
         ))}
-        <circle r="4" fill="#ff5722">
+        <circle r="4" fill="#ff5533e3">
           <animateMotion dur="6s" repeatCount="indefinite" path="M200 40 L340 150 L200 260 L60 150 Z" />
         </circle>
       </svg>
@@ -304,10 +304,10 @@ export function DayTimelineVisual({
 /* ───── 8. PLAYBOOK RINGS · deliverable badges ───── */
 export function PlaybookRingsVisual() {
   const items = [
-    { k: "ICP", c: "#ff5722" },
+    { k: "ICP", c: "#ff5533e3" },
     { k: "MOTIONS", c: "#ffeb3b" },
     { k: "FORECAST", c: "#0a0a0a" },
-    { k: "GUARDRAILS", c: "#ff5722" },
+    { k: "GUARDRAILS", c: "#ff5533e3" },
   ];
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-3">

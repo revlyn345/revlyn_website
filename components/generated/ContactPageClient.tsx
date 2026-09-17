@@ -76,13 +76,13 @@ function Hero() {
                 </g>
                 {/* Stamp */}
                 <g>
-                  <rect x="130" y="40" width="40" height="30" fill="#ff5722" stroke="#0a0a0a" strokeWidth="2" />
+                  <rect x="130" y="40" width="40" height="30" fill="#ff5533e3" stroke="#0a0a0a" strokeWidth="2" />
                   <text x="150" y="59" textAnchor="middle" fontFamily="monospace" fontSize="9" fill="#0a0a0a" fontWeight="700">REVLYN</text>
                 </g>
                 {/* Route line */}
                 <path d="M20 180 Q 60 160 100 175 T 180 165" stroke="#0a0a0a" strokeWidth="1.5" strokeDasharray="3 3" fill="none" />
                 <circle cx="20" cy="180" r="3" fill="#0a0a0a" />
-                <circle cx="180" cy="165" r="4" fill="#ff5722" stroke="#0a0a0a" strokeWidth="1.5">
+                <circle cx="180" cy="165" r="4" fill="#ff5533e3" stroke="#0a0a0a" strokeWidth="1.5">
                   <animate attributeName="r" values="4;6;4" dur="2s" repeatCount="indefinite" />
                 </circle>
               </svg>

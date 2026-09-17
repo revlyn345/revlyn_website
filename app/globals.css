@@ -47,7 +47,7 @@
 :root {
   --paper: #ffffff;
   --ink: #0a0a0a;
-  --fire: #ff5722;
+  --fire: #ff5533e3;
   --volt: #ffeb3b;
   --bone: #f2f0ea;
   --rule: #0a0a0a;
@@ -65,7 +65,7 @@
   --border: var(--ink);
   --accent: var(--volt);
   --accent-foreground: var(--ink);
-  --destructive: #ff5722;
+  --destructive: #ff5533e3;
   --ring: var(--ink);
   --input: var(--ink);
   --popover: var(--paper);
@@ -226,7 +226,9 @@
 .revlyn-marquee:hover > div:first-child {
   animation-play-state: paused !important;
 }
-
+.bg-fire{
+  background-color: #ff5533e3 !important;
+}
 /* Hard safety net for [data-pin]/[data-pin-inner] (see MotionRuntime.tsx).
    That JS is gated to run on desktop only, but this CSS guarantees the
    pinned element can never end up position:fixed/absolute below the md

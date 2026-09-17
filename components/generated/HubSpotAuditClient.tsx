@@ -169,9 +169,9 @@ function AuditCard() {
                         width: `${r.score}%`,
                         background:
                           r.tone === "fire"
-                            ? "#ff5722"
+                            ? "#ff5533e3"
                             : r.tone === "amber"
-                              ? "linear-gradient(90deg,#ff5722,#ffeb3b)"
+                              ? "linear-gradient(90deg,#ff5533e3,#ffeb3b)"
                               : "#ffeb3b",
                       }}
                     />
@@ -390,7 +390,7 @@ function HowItWorks() {
           {steps.map((s, i) => (
             <div key={s.t} className="relative">
               <div className="flex flex-col items-start">
-                <div className="relative z-10 h-[84px] w-[84px] rounded-full border-2 border-ink bg-paper flex items-center justify-center shadow-[4px_4px_0_0_#ff5722]">
+                <div className="relative z-10 h-[84px] w-[84px] rounded-full border-2 border-ink bg-paper flex items-center justify-center shadow-[4px_4px_0_0_#ff5533e3]">
                   <span className="display text-3xl">{i + 1}</span>
                 </div>
                 <div className="mt-6">
@@ -437,11 +437,11 @@ function SurfaceMap() {
 
         <div className="grid lg:grid-cols-12 gap-10 items-start" data-pin>
           <div className="lg:col-span-6" data-reveal data-pin-inner>
-            <div className="relative border-2 border-ink bg-bone p-6 shadow-[10px_10px_0_0_#ff5722]">
+            <div className="relative border-2 border-ink bg-bone p-6 shadow-[10px_10px_0_0_#ff5533e3]">
               <svg viewBox="0 0 400 480" className="w-full h-auto" data-hero-schematic>
                 <defs>
                   <linearGradient id="lg1" x1="0" x2="1">
-                    <stop offset="0%" stopColor="#ff5722" />
+                    <stop offset="0%" stopColor="#ff5533e3" />
                     <stop offset="100%" stopColor="#ffeb3b" />
                   </linearGradient>
                 </defs>
@@ -460,7 +460,7 @@ function SurfaceMap() {
                     </g>
                   );
                 })}
-                <line x1="20" y1="60" x2="20" y2="440" stroke="#ff5722" strokeWidth="2" strokeDasharray="4 4" data-draw />
+                <line x1="20" y1="60" x2="20" y2="440" stroke="#ff5533e3" strokeWidth="2" strokeDasharray="4 4" data-draw />
                 {layers.map((_, i) => (
                   <line key={i} x1="20" y1={60 + i * 52} x2="30" y2={60 + i * 52} stroke="#0a0a0a" strokeWidth="1.5" data-draw />
                 ))}

@@ -30,7 +30,7 @@ export function SampleFinding() {
           </p>
         </div>
 
-        <div className="rounded-3xl border-2 border-ink bg-paper overflow-hidden shadow-[12px_12px_0_0_#ff5722]" data-reveal>
+        <div className="rounded-3xl border-2 border-ink bg-paper overflow-hidden shadow-[12px_12px_0_0_#ff5533e3]" data-reveal>
           {/* header */}
           <div className="grid md:grid-cols-[220px_1fr] border-b-2 border-ink">
             <div className="bg-fire text-paper p-6 flex flex-col justify-between">
