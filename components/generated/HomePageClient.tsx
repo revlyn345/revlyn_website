@@ -565,19 +565,7 @@ function DiagramIconNodes() {
   );
 }
 
-/*
-   Layout model: a real CSS Grid, not percentage-positioned boxes on a
-   fixed-pixel canvas. Every card, connector and handwritten note is an
-   actual grid item in its own cell. Grid cells cannot overlap each other,
-   and row/column tracks auto-size to whatever content they hold (a tag
-   wrapping to a second line grows its row instead of spilling into the
-   note below it). That's what makes this resistant to breaking at
-   different zoom levels or viewport widths, unlike the previous
-   absolute-position version.
 
-   Columns (9): noteL | gapL | quadrantL | gapC1 | crm | gapC2 | quadrantR | gapR | noteR
-   Rows (7):    topbox | gapRow1 | row1(Q1/CRM/Q2) | gapRow2 | row2(Q3/CRM/Q4) | gapRow3 | bottombox
-*/
 
 const DIAGRAM_GRID_COLS =
   "200px 32px minmax(220px,1fr) 32px minmax(280px,340px) 32px minmax(220px,1fr) 32px 200px";

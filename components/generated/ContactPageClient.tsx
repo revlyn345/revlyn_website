@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
+// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset, not migrated.
 const revlynWordmark = "/logos/revlyn-wordmark.png";
 import { contactSchema, type ContactFormData } from "@/lib/contact-schema";
 import { submitContact } from "@/app/actions/contact";
@@ -26,24 +26,32 @@ export default function ContactPageClient() {
 /* ─────────────────────────────  HERO  ───────────────────────────── */
 function Hero() {
   return (
-    <section className="relative border-b-2 border-ink overflow-hidden bg-paper">
-      <div className="absolute inset-0 stripes opacity-[0.04] pointer-events-none" />
+    <section className="relative border-b-2 border-ink overflow-hidden contact-hero">
+      <style>{`
+        .contact-hero {
+          background:
+            radial-gradient(
+              circle at 85% 20%,
+              rgba(255, 90, 31, 0.045),
+              transparent 30%
+            ),
+            #F8F7F3;
+        }
+      `}</style>
       <div className="max-w-[1400px] mx-auto px-6 pt-16 md:pt-24 pb-16 md:pb-20 relative">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-end">
           {/* Left: dossier headline */}
           <div className="lg:col-span-8">
-            
-            <h1 className="display leading-[0.9] tracking-[-0.045em] text-[clamp(3rem,9vw,7.5rem)]">
-              START A<br />
-              <span className="text-fire">CONVERSATION<span className="text-ink">.</span></span>
-            </h1>
-            <p className="mt-8 max-w-2xl text-lg md:text-xl leading-relaxed text-ink/80">
-              Send a short note about your portal, your revenue motion, or the specific
-              workflow that keeps breaking. A senior operator, not an SDR, reads it and
-              replies within one business day.
-            </p>
-            
-          </div>
+  <h1 className="display max-w-[1050px] leading-[1.05] tracking-[-0.03em] text-[clamp(2.6rem,6.5vw,5.5rem)]">
+    Tell us what&rsquo;s happening across your revenue operation.
+  </h1>
+
+  <p className="mt-8 max-w-2xl text-lg md:text-xl leading-relaxed text-ink/80">
+    Whether it&rsquo;s HubSpot, reporting, automation, data, or the way sales and
+    marketing work together, send us a bit of context. A senior operator will get
+    back to you within one business day.
+  </p>
+</div>
 
           {/* Right: dossier plaque */}
           <div className="lg:col-span-4">
@@ -93,11 +101,10 @@ function Hero() {
         </div>
 
         {/* Bottom meta strip */}
-        <div className="mt-14 border-t-2 border-ink pt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mono text-[11px] uppercase tracking-[0.22em]">
-          <div><div className="text-ink/50">Response SLA</div><div className="text-ink mt-1">1 business day</div></div>
-          <div><div className="text-ink/50">First reply from</div><div className="text-ink mt-1">A senior operator</div></div>
-          <div><div className="text-ink/50">Coverage</div><div className="text-ink mt-1">Gurugram · Remote · US/EU hours</div></div>
-          <div><div className="text-ink/50">No forms after this</div><div className="text-ink mt-1">Direct Slack from day 1</div></div>
+        <div className="mt-14 border-t-2 border-ink pt-5 grid grid-cols-1 sm:grid-cols-3 gap-6 mono text-[11px] uppercase tracking-[0.22em]">
+          <div><div className="text-ink/50">Response time</div><div className="text-ink mt-1">Within 1 business day</div></div>
+          <div><div className="text-ink/50">Who replies</div><div className="text-ink mt-1">A senior operator</div></div>
+          <div><div className="text-ink/50">If we work together</div><div className="text-ink mt-1">Direct access to the team doing the work</div></div>
         </div>
       </div>
     </section>
@@ -144,8 +151,23 @@ function ContactForm() {
     "w-full bg-paper border-2 border-ink px-4 py-3 outline-none focus:bg-volt/20 transition-colors placeholder:text-ink/40 mono text-sm";
 
   return (
-    <section className="border-b-2 border-ink bg-bone relative">
-      <div className="absolute inset-0 stripes opacity-[0.03] pointer-events-none" />
+    <section className="border-b-2 border-ink contact-page relative">
+      <style>{`
+        .contact-page {
+          background:
+            radial-gradient(
+              circle at 8% 15%,
+              rgba(255, 90, 31, 0.08) 0%,
+              transparent 32%
+            ),
+            radial-gradient(
+              circle at 90% 85%,
+              rgba(255, 176, 120, 0.10) 0%,
+              transparent 34%
+            ),
+            #F7F6F2;
+        }
+      `}</style>
       <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24 relative">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16" data-pin>
           {/* Left sidebar: dossier ledger */}
@@ -195,13 +217,13 @@ function ContactForm() {
               {/* What happens next */}
               <div className="brutal-border bg-paper p-6 md:p-8">
                 <p className="mono text-[11px] uppercase tracking-[0.22em] text-ink/60 mb-6">
-                  Protocol · After you send
+                  What happens next
                 </p>
                 <ol className="space-y-5">
                   {[
-                    ["01", "Read", "A senior operator reads your note within one business day. Not routed, not queued."],
-                    ["02", "Ask", "Two or three targeted questions to understand where the system is actually leaking."],
-                    ["03", "Map", "If it is a fit, we propose a HubSpot-as-a-Service plan or a fixed 90-day build. If not, we tell you straight."],
+                    ["01", "We read it", "A senior operator reviews your note within one business day."],
+                    ["02", "We ask a few questions", "Enough to understand what is happening across HubSpot, RevOps, reporting, or automation."],
+                    ["03", "We suggest the next step", "That might be an audit, a focused build, ongoing support, or simply some direction on what to fix first."],
                   ].map(([n, t, d]) => (
                     <li key={n} className="grid grid-cols-[auto_1fr] gap-4">
                       <span className="mono text-[11px] font-bold tracking-[0.22em] text-fire pt-0.5">{n}</span>
@@ -233,12 +255,12 @@ function ContactForm() {
           </aside>
 
           {/* Right: form column */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7 lg:sticky lg:top-24 lg:self-start">
             <div className="brutal-border bg-paper shadow-[12px_12px_0_0_var(--color-ink)]">
               {/* Form header strip */}
-              <div className="border-b-2 border-ink bg-bone px-6 md:px-10 py-4 flex items-center justify-between">
+              <div className="border-b-2 border-ink bg-bone px-6 md:px-10 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
                 <p className="mono text-[11px] uppercase tracking-[0.22em]">
-                  Intake Form · 05 fields
+                  Intake Form
                 </p>
                 <p className="mono text-[11px] uppercase tracking-[0.22em] text-ink/60">
                   Encrypted · Never sold
@@ -322,14 +344,13 @@ function ContactForm() {
                       <Field
                         label="Message"
                         required
-                        hint="A few sentences is fine. Portal state, revenue motion, or the workflow that keeps breaking."
                         error={errors.message?.message}
                       >
                         <textarea
                           id="message"
                           {...register("message")}
                           rows={6}
-                          placeholder="We rebuilt HubSpot last year but lead scoring never went live. Reps are working out of a spreadsheet, and the board deck is stitched by hand every month..."
+                          placeholder="A few sentences is enough. Portal state, revenue motion, or the workflow that keeps breaking."
                           className={inputCls + " resize-y leading-relaxed"}
                           aria-invalid={errors.message ? "true" : "false"}
                         />
@@ -342,10 +363,7 @@ function ContactForm() {
                       </div>
                     )}
 
-                    <div className="pt-2 border-t-2 border-ink flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                      <p className="mono text-[10px] uppercase tracking-[0.22em] text-ink/60 max-w-xs">
-                        By sending, you agree to a one-time reply from a Revlyn operator. No newsletters, no drips.
-                      </p>
+                    <div className="pt-6 border-t-2 border-ink flex flex-col items-center text-center gap-4">
                       <button
                         type="submit"
                         disabled={isSubmitting}
@@ -354,6 +372,9 @@ function ContactForm() {
                         {isSubmitting ? "Transmitting…" : "Send signal"}
                         <span className="ml-2 inline-block group-hover:translate-x-1 transition-transform">→</span>
                       </button>
+                      <p className="mono text-[10px] uppercase tracking-[0.22em] text-ink/60 max-w-xs">
+                        By sending, you agree to a one-time reply from a Revlyn operator. No newsletters, no drips.
+                      </p>
                     </div>
                   </form>
                 )}

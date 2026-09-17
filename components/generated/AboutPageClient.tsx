@@ -39,33 +39,12 @@ function Dossier() {
           <span className="text-fire">Revlyn<span className="text-ink">.</span></span>
         </h1>
         <p className="text-2xl md:text-3xl font-medium max-w-2xl leading-[1.15] tracking-tight">
-          A senior CRM, RevOps, GTM and AI practice for founders and revenue leaders who need systems that run,
-          not slide decks about systems that might.
+          Revlyn is a Revenue Engineering team that brings HubSpot, RevOps, automation, reporting and data together, then stays close to keep it all working.
         </p>
         
       </div>
 
-      <aside className="w-full md:w-[280px] shrink-0 border-t-2 md:border-t-0 md:border-l-2 border-ink pt-8 md:pt-0 md:pl-8">
-        <div className="relative aspect-square bg-volt border-2 border-ink overflow-hidden">
-          <svg className="absolute inset-0 w-full h-full p-6" viewBox="0 0 100 100" fill="none" aria-hidden>
-            <circle cx="50" cy="50" r="34" stroke="#0a0a0a" strokeWidth="2" />
-            <circle cx="50" cy="50" r="22" stroke="#0a0a0a" strokeWidth="2" strokeDasharray="3 3" />
-            <path d="M20 20L80 80M80 20L20 80" stroke="#0a0a0a" strokeWidth="2" />
-            <path d="M50 4V16M50 84V96M4 50H16M84 50H96" stroke="#0a0a0a" strokeWidth="2" />
-            <circle cx="50" cy="50" r="4" fill="#ff5722" />
-          </svg>
-          <div className="absolute top-2 left-2 mono text-[9px] uppercase tracking-widest bg-paper border border-ink px-1.5 py-0.5">
-            Schematic · 01
-          </div>
-          <div className="absolute bottom-2 right-2 mono text-[9px] uppercase tracking-widest bg-paper border border-ink px-1.5 py-0.5">
-            Rev. today
-          </div>
-        </div>
-        <div className="mt-4 flex justify-between mono text-[10px] uppercase tracking-widest text-ink/70">
-          <span>signed</span>
-          <span>the operators</span>
-        </div>
-      </aside>
+      
     </header>
   );
 }
