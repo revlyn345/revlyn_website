@@ -1,19 +1,16 @@
 import type { Metadata } from "next";
 import type React from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { BookCallButton } from "@/components/BookCallButton";
+import { BookAuditButton } from "@/components/BookAuditButton";
 import { Footer } from "@/components/Footer";
-// TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset — not migrated.
-const revlynWordmark = "/logos/revlyn-wordmark.png";
 
 export const metadata: Metadata = {
   title: "Partners · Revlyn",
-  description: "The platforms Revlyn is a certified partner of. Short list, on purpose. HubSpot and Bitscale.",
+  description: "Why Revlyn's technology partnerships matter: a small, deep partner stack (HubSpot and Bitscale) connected into one operating system, not a directory of badges.",
   alternates: { canonical: "/partners" },
   openGraph: {
     title: "Partners · Revlyn",
-    description: "We keep our partner list short so we can go deep. HubSpot and Bitscale, worked hands-on, in production, for revenue teams that ship.",
+    description: "We keep our partner list short so we can go deep. HubSpot and Bitscale, worked hands-on, in production, connected into one system.",
     type: "website",
   },
   twitter: { card: "summary_large_image" },
@@ -27,8 +24,8 @@ type Partner = {
   since: string;
   status: string;
   blurb: string;
-  metric: string;
-  metricLabel: string;
+  badge: string;
+  badgeSub: string;
   scope: string;
   mark: (props: { className?: string }) => React.ReactElement;
   accent: "fire" | "volt";
@@ -131,9 +128,9 @@ const partners: Partner[] = [
     status: "Solutions Partner",
     blurb:
       "The system of record for the founders and revenue leaders we work with. We architect, ship and operate HubSpot portals end-to-end, then stay long enough to keep them honest.",
-    metric: "127",
-    metricLabel: "Portals shipped, still running",
-    scope: "Implementation · Optimization · HaaS · AI on top",
+    badge: "Core Platform",
+    badgeSub: "Primary system of record",
+    scope: "Architecture · Implementation · Migration · Optimization · Automation · Reporting · AI layer · Ongoing operations",
     mark: HubSpotMark,
     accent: "fire",
   },
@@ -146,9 +143,9 @@ const partners: Partner[] = [
     status: "Certified Implementation Partner",
     blurb:
       "The AI data layer we bolt onto HubSpot when reps need signal, not another SDR seat. Built by ex-YC operators. Installed and tuned by the same senior who runs your portal.",
-    metric: "14K+",
-    metricLabel: "Enriched records flowing into CRM / mo",
-    scope: "Setup · Workflow design · CRM sync · Playbook build",
+    badge: "Production Stack",
+    badgeSub: "Live in every active portal",
+    scope: "Enrichment · Data workflows · CRM sync · Prospect intelligence · Workflow automation · Playbooks",
     mark: BitscaleMark,
     accent: "volt",
   },
@@ -156,11 +153,16 @@ const partners: Partner[] = [
 
 export default function PartnersIndex() {
   return (
-    <div className="min-h-screen bg-paper text-ink">
+    <div className="min-h-screen bg-paper text-ink overflow-x-hidden">
       <Hero />
-      <WhyUsRail />
+      <WhyPartnershipsMatter />
       <PartnersLedger />
-      <NotOnListPlaque />
+      <TheSeam />
+      <HowWeUsePartner />
+      <RestOfStack />
+      <WhatAreYouBuilding />
+      
+      <FinalCta />
       <Footer />
     </div>
   );
@@ -180,40 +182,41 @@ function Hero() {
           <div className="lg:col-span-8">
             
             <h1 data-reveal data-reveal-delay="0.05" className="display leading-[0.9] tracking-[-0.045em] text-[clamp(3rem,9vw,7.5rem)]">
-              TWO PLATFORMS<span className="text-ink">.</span><br />
+              THE STACK IS BIG<span className="text-ink">.</span><br />
               <span className="relative inline-block">
-                <span className="text-fire">RUN LIKE ONE<span className="text-ink">.</span></span>
+                <span className="text-fire">YOUR SYSTEM SHOULDN&rsquo;T BE<span className="text-ink">.</span></span>
                 <span aria-hidden className="absolute left-0 -bottom-2 h-[6px] w-[70%] bg-fire/25" />
               </span>
             </h1>
             <p data-reveal data-reveal-delay="0.15" className="mt-8 max-w-2xl text-lg md:text-xl leading-relaxed text-ink/80">
-              HubSpot is where your revenue lives. Bitscale is what keeps it awake.
-              We are certified on both, and one senior operator runs the seam between them, so nothing gets handed off, dropped, or re-explained.
+              Revlyn works deeply inside the platforms that sit at the center of modern revenue
+              teams. We choose a small number of partners, learn them in production, and connect
+              them into one operating system.
             </p>
           </div>
 
-          {/* Plaque */}
+          {/* Plaque: the formula */}
           <div data-reveal data-reveal-delay="0.25" className="lg:col-span-4">
             <div className="brutal-border bg-volt p-5 shadow-[10px_10px_0_0_var(--color-ink)] transition-transform duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[14px_14px_0_0_var(--color-ink)]">
               <div className="flex items-center justify-between text-[10px] mono uppercase tracking-[0.22em] mb-5">
-                <span className="border border-ink bg-paper px-2 py-0.5">Certified · 2 of 2</span>
+                <span className="border border-ink bg-paper px-2 py-0.5">The formula</span>
                 <span className="tabular-nums">Rev · Today</span>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <Link href="/partners/hubspot" className="group/plaque border-2 border-ink bg-paper p-3 hover:bg-fire hover:text-paper transition-colors">
-                  <div className="mono text-[10px] uppercase tracking-[0.22em] opacity-60">01</div>
-                  <div className="display text-2xl leading-none mt-2">HubSpot</div>
-                  <div className="mono text-[10px] uppercase tracking-[0.18em] opacity-70 mt-2 flex items-center justify-between">Solutions Partner <span className="inline-block transition-transform group-hover/plaque:translate-x-1">→</span></div>
-                </Link>
-                <Link href="/partners/bitscale" className="group/plaque border-2 border-ink bg-paper p-3 hover:bg-ink hover:text-volt transition-colors">
-                  <div className="mono text-[10px] uppercase tracking-[0.22em] opacity-60">02</div>
-                  <div className="display text-2xl leading-none mt-2">Bitscale</div>
-                  <div className="mono text-[10px] uppercase tracking-[0.18em] opacity-70 mt-2 flex items-center justify-between">Impl. Partner <span className="inline-block transition-transform group-hover/plaque:translate-x-1">→</span></div>
-                </Link>
-              </div>
-              <div className="mt-4 border-2 border-ink bg-ink text-paper p-3 mono text-[10px] uppercase tracking-[0.22em] flex items-center justify-between">
-                <span className="text-paper/60">Everything else</span>
-                <span className="text-volt">By exception</span>
+              <div className="space-y-2">
+                <div className="border-2 border-ink bg-paper p-3">
+                  <div className="display text-xl leading-none">HubSpot</div>
+                  <div className="mono text-[10px] uppercase tracking-[0.18em] text-ink/60 mt-1.5">CRM · Revenue system</div>
+                </div>
+                <div className="text-center mono text-sm text-ink/50">+</div>
+                <div className="border-2 border-ink bg-paper p-3">
+                  <div className="display text-xl leading-none">Bitscale</div>
+                  <div className="mono text-[10px] uppercase tracking-[0.18em] text-ink/60 mt-1.5">Data · Enrichment · Intelligence</div>
+                </div>
+                <div className="text-center mono text-sm text-ink/50">=</div>
+                <div className="border-2 border-ink bg-ink text-paper p-3">
+                  <div className="display text-xl leading-none">Revlyn</div>
+                  <div className="mono text-[10px] uppercase tracking-[0.18em] text-paper/60 mt-1.5">Architecture · Automation · Operations</div>
+                </div>
               </div>
             </div>
           </div>
@@ -231,28 +234,28 @@ function Hero() {
   );
 }
 
-/* ── WHY US: the "1000s of partners" answer ───────────────────────── */
-function WhyUsRail() {
+/* ── WHY PARTNERSHIPS MATTER ──────────────────────────────────────── */
+function WhyPartnershipsMatter() {
   const points = [
     {
       n: "01",
-      t: "We ship in your portal, not a slide deck.",
-      s: "Most partners hand you a proposal and disappear into onboarding. A senior Revlyn operator is live in your HubSpot or Bitscale workspace within week one, doing the actual build.",
+      t: "Depth",
+      s: "We don't collect logos. We learn the platforms we actually deploy.",
     },
     {
       n: "02",
-      t: "Two platforms, deep. Not twenty, shallow.",
-      s: "Directories reward agencies that badge everything. That math only works when juniors do the work. We picked two so every operator on the team has run them in production for years.",
+      t: "Integration",
+      s: "The value isn't inside one tool. It's in what happens between them.",
     },
     {
       n: "03",
-      t: "One team, both sides of the stack.",
-      s: "HubSpot data lands where Bitscale enrichment flows in. Most agencies pick one side and hand off the other. We designed the seam ourselves, and we run both edges of it.",
+      t: "Execution",
+      s: "Partners give us platform capability. Revlyn turns that capability into workflows your team actually uses.",
     },
     {
       n: "04",
-      t: "We keep operating after go-live.",
-      s: "Certification says we can implement. HubSpot as a Service is why teams stay. Post-launch, a senior operator keeps the portal and the AI layer moving, no renewed SOW, no re-onboarding tax.",
+      t: "Operations",
+      s: "The system doesn't stop at go-live. We stay close enough to improve it.",
     },
   ];
 
@@ -273,11 +276,11 @@ function WhyUsRail() {
         <div className="flex items-baseline justify-between gap-6 mb-10">
           <div>
             <p data-reveal className="mono text-[11px] uppercase tracking-[0.22em] text-fire mb-3">
-              The question no directory answers
+              Why partnerships matter
             </p>
             <h2 data-reveal data-reveal-delay="0.1" className="display text-3xl md:text-5xl tracking-[-0.035em] leading-[0.95] max-w-3xl">
-              A directory of thousands.<br />
-              <span className="text-paper/60">Four reasons it narrows to us.</span>
+              A badge doesn&rsquo;t build<br />
+              <span className="text-paper/60">your revenue system.</span>
             </h2>
           </div>
           <div className="hidden md:block mono text-[11px] uppercase tracking-[0.22em] text-paper/50 text-right">
@@ -323,11 +326,11 @@ function PartnersLedger() {
         <div className="flex items-baseline justify-between gap-6 mb-12">
           <div>
             <p data-reveal className="mono text-[11px] uppercase tracking-[0.22em] text-ink/60 mb-3">
-              The Ledger · 02 partner files
+              The Partner Stack
             </p>
             <h2 data-reveal data-reveal-delay="0.1" className="display text-3xl md:text-5xl tracking-[-0.035em] leading-[0.95] max-w-3xl">
-              Open the file<br />
-              <span className="text-fire">on either partner<span className="text-ink">.</span></span>
+              Two deep.<br />
+              <span className="text-fire">More when the system calls for it<span className="text-ink">.</span></span>
             </h2>
           </div>
           <div className="hidden md:block mono text-[11px] uppercase tracking-[0.22em] text-ink/50 text-right">
@@ -403,9 +406,9 @@ function PartnersLedger() {
 
                   <div className="mt-auto pt-6 flex items-end justify-between gap-4">
                     <div className={`border-2 border-ink px-4 py-3 transition-transform duration-300 group-hover:scale-[1.03] ${isFire ? "bg-fire text-paper" : "bg-volt"}`}>
-                      <div className="display text-3xl leading-none tracking-[-0.02em] tabular-nums">{p.metric}</div>
-                      <div className="mono text-[10px] uppercase tracking-[0.18em] mt-1 max-w-[20ch] opacity-90">
-                        {p.metricLabel}
+                      <div className="mono text-[11px] uppercase tracking-[0.16em] font-bold">{p.badge}</div>
+                      <div className="mono text-[10px] uppercase tracking-[0.18em] mt-1 max-w-[22ch] opacity-90">
+                        {p.badgeSub}
                       </div>
                     </div>
                     <div className="mono text-xs uppercase tracking-[0.22em] flex items-center gap-2 text-ink">
@@ -426,13 +429,151 @@ function PartnersLedger() {
   );
 }
 
-/* ── NOT ON LIST ──────────────────────────────────────────────────── */
-function NotOnListPlaque() {
+/* ── THE SEAM: technical flow diagram, no external images ─────────── */
+function TheSeam() {
+  const inputs = ["Bitscale", "Enrichment"];
+  const revlynOutputs = ["Scoring", "Routing", "Automation"];
+  const hubspotOutputs = ["Pipeline", "Ownership", "Reporting"];
+
   return (
-    <section className="border-b-2 border-ink bg-paper">
-      <div className="max-w-[1400px] mx-auto px-6 py-14 md:py-16">
-        <div data-reveal className="relative brutal-border bg-ink text-paper p-6 md:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6 overflow-hidden">
-          {/* animated diagonal stripes */}
+    <section className="border-b-2 border-ink bg-paper relative overflow-hidden">
+      <div className="absolute inset-0 stripes opacity-[0.03] pointer-events-none" />
+      <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24 relative">
+        <p data-reveal className="mono text-[11px] uppercase tracking-[0.22em] text-fire mb-3">The Seam</p>
+        <h2 data-reveal data-reveal-delay="0.1" className="display text-3xl md:text-5xl tracking-[-0.035em] leading-[0.95] max-w-3xl">
+          The important part isn&rsquo;t the tool.<br />
+          <span className="text-ink/50">It&rsquo;s what happens between the tools.</span>
+        </h2>
+
+        <div className="mt-16 flex flex-col items-center" data-reveal data-reveal-delay="0.15">
+          {/* Bitscale node */}
+          <div className="border-2 border-ink bg-bone px-8 py-4 text-center">
+            <div className="display text-2xl">Bitscale</div>
+          </div>
+          <div className="h-8 w-px bg-ink/30" aria-hidden="true" />
+          <div className="mono text-[10px] uppercase tracking-[0.22em] text-ink/50 mb-2">Enrichment</div>
+          <div className="h-8 w-px bg-ink/30" aria-hidden="true" />
+
+          {/* Revlyn node */}
+          <div className="border-2 border-fire bg-ink text-paper px-8 py-4 text-center shadow-[8px_8px_0_0_var(--color-fire)]">
+            <div className="display text-3xl">Revlyn</div>
+          </div>
+          <div className="h-8 w-px bg-ink/30" aria-hidden="true" />
+          <div className="flex flex-wrap justify-center gap-2 mb-2">
+            {revlynOutputs.map((o) => (
+              <span key={o} className="mono text-[10px] uppercase tracking-[0.18em] border border-ink/25 px-2.5 py-1 text-ink/70">
+                {o}
+              </span>
+            ))}
+          </div>
+          <div className="h-8 w-px bg-ink/30" aria-hidden="true" />
+
+          {/* HubSpot node */}
+          <div className="border-2 border-ink bg-bone px-8 py-4 text-center">
+            <div className="display text-2xl">HubSpot</div>
+          </div>
+          <div className="h-8 w-px bg-ink/30" aria-hidden="true" />
+          <div className="flex flex-wrap justify-center gap-2 mb-2">
+            {hubspotOutputs.map((o) => (
+              <span key={o} className="mono text-[10px] uppercase tracking-[0.18em] border border-ink/25 px-2.5 py-1 text-ink/70">
+                {o}
+              </span>
+            ))}
+          </div>
+          <div className="h-8 w-px bg-ink/30" aria-hidden="true" />
+
+          {/* Revenue team node */}
+          <div className="border-2 border-volt bg-volt px-8 py-4 text-center">
+            <div className="display text-2xl">Revenue team</div>
+          </div>
+        </div>
+
+        <p className="mt-16 max-w-2xl mx-auto text-center text-[16px] text-ink/70 leading-relaxed border-t border-ink/10 pt-8">
+          Data enters the system. Revlyn turns it into logic. HubSpot becomes the operating layer.
+          Your team gets the signal when it matters.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ── HOW WE USE A PARTNER: 4-step operating sequence ──────────────── */
+function HowWeUsePartner() {
+  const steps = [
+    { n: "01", t: "Diagnose", s: "Understand the revenue problem before selecting the tool." },
+    { n: "02", t: "Design", s: "Define the data, workflow and ownership model." },
+    { n: "03", t: "Build", s: "Configure the platform and connect it to the existing stack." },
+    { n: "04", t: "Operate", s: "Monitor, improve and extend the system after launch." },
+  ];
+  return (
+    <section className="border-b-2 border-ink bg-bone relative overflow-hidden">
+      <div className="absolute inset-0 stripes opacity-[0.03] pointer-events-none" />
+      <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24 relative">
+        <p data-reveal className="mono text-[11px] uppercase tracking-[0.22em] text-fire mb-3">How we use a partner</p>
+        <h2 data-reveal data-reveal-delay="0.1" className="display text-3xl md:text-5xl tracking-[-0.035em] leading-[0.95] max-w-3xl mb-14">
+          A partner is only useful if it ships.
+        </h2>
+
+        <div className="relative grid md:grid-cols-4 gap-6" data-reveal data-reveal-delay="0.15">
+          <div className="hidden md:block absolute top-[42px] left-[6%] right-[6%] h-px border-t border-dashed border-ink/25" />
+          {steps.map((s) => (
+            <div key={s.n} className="relative">
+              <div className="relative z-10 h-[84px] w-[84px] rounded-full border-2 border-ink bg-paper flex items-center justify-center shadow-[4px_4px_0_0_var(--color-fire)]">
+                <span className="display text-2xl">{s.n}</span>
+              </div>
+              <div className="mt-6">
+                <h3 className="display text-2xl leading-tight mb-2">{s.t}</h3>
+                <p className="text-[14px] text-ink/65 leading-relaxed">{s.s}</p>
+              </div>
+              <div className="mt-4 md:hidden text-ink/30 mono text-[10px]">↓</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── REST OF THE STACK: categories, not fabricated partnerships ───── */
+function RestOfStack() {
+  const categories = [
+    { t: "CRM", items: ["HubSpot", "Salesforce"] },
+    { t: "Data", items: ["Warehouses", "Enrichment", "Reverse ETL"] },
+    { t: "Engagement", items: ["Email", "Calling", "Conversation intelligence"] },
+    { t: "Automation", items: ["Workflow engines", "APIs", "Webhooks"] },
+    { t: "AI", items: ["LLMs", "Agents", "Intelligence layers"] },
+  ];
+  return (
+    <section className="border-b-2 border-ink bg-paper relative">
+      <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24 relative">
+        <p data-reveal className="mono text-[11px] uppercase tracking-[0.22em] text-ink/60 mb-3">The rest of the stack</p>
+        <h2 data-reveal data-reveal-delay="0.1" className="display text-3xl md:text-5xl tracking-[-0.035em] leading-[0.95] max-w-3xl">
+          Not every system needs a badge.
+        </h2>
+        <p data-reveal data-reveal-delay="0.15" className="mt-5 max-w-2xl text-lg text-ink/70 leading-relaxed">
+          Your revenue stack rarely consists of two tools. When the architecture calls for
+          something else, we connect it rather than forcing the system around our partner list.
+        </p>
+
+        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-5 gap-0 border-2 border-ink" data-reveal data-reveal-delay="0.2">
+          {categories.map((c, i) => (
+            <div
+              key={c.t}
+              className={`p-6 ${i > 0 ? "border-t-2 sm:border-t-0 lg:border-l-2 border-ink" : ""} ${
+                i === 1 ? "sm:border-l-2 lg:border-l-2 border-ink" : ""
+              }`}
+            >
+              <div className="mono text-[10px] uppercase tracking-[0.22em] text-fire mb-3">{c.t}</div>
+              <ul className="space-y-1.5">
+                {c.items.map((it) => (
+                  <li key={it} className="text-[14px] text-ink/75">{it}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div data-reveal data-reveal-delay="0.25" className="relative mt-10 brutal-border bg-ink text-paper p-6 md:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6 overflow-hidden">
           <span aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "repeating-linear-gradient(45deg, #ffeb3b 0 2px, transparent 2px 14px)" }} />
           <div className="relative">
             <p className="mono text-[11px] uppercase tracking-[0.22em] text-volt mb-2 flex items-center gap-2">
@@ -446,11 +587,86 @@ function NotOnListPlaque() {
           </div>
           <a
             href="mailto:info@revlyn.io?subject=Stack%20question%20for%20Revlyn"
-            data-magnetic="18"
-            className="relative inline-flex items-center gap-2 bg-fire text-paper border-2 border-paper px-6 py-4 mono text-xs uppercase tracking-[0.22em] hover:bg-volt hover:text-ink transition-colors self-start"
+  data-magnetic="18"
+  className="relative inline-flex items-center gap-2 bg-fire text-paper border-2 border-paper px-6 py-4 mono text-xs uppercase tracking-[0.22em] hover:bg-volt hover:text-ink transition-colors"
+>
+  Ask about your stack <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+</a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── WHAT ARE YOU TRYING TO BUILD ─────────────────────────────────── */
+function WhatAreYouBuilding() {
+  const paths = [
+    { n: "01", q: "We need HubSpot to work properly.", scope: "Implementation / Optimization", label: "Explore HubSpot", href: "/hubspot-implementation" },
+    { n: "02", q: "We need better data flowing into HubSpot.", scope: "Data + Enrichment + Automation", label: "Explore data & enrichment", href: "/partners/bitscale" },
+    { n: "03", q: "We want AI inside our revenue workflow.", scope: "AI Infrastructure", label: "Talk to us about AI", href: "/contact" },
+    { n: "04", q: "We need someone to run the system.", scope: "HubSpot as a Service", label: "Explore HaaS", href: "/hubspot-as-a-service" },
+  ];
+  return (
+    <section className="border-b-2 border-ink bg-bone relative">
+      <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24 relative">
+        <p data-reveal className="mono text-[11px] uppercase tracking-[0.22em] text-fire mb-3">Where should you start?</p>
+        <h2 data-reveal data-reveal-delay="0.1" className="display text-3xl md:text-5xl tracking-[-0.035em] leading-[0.95] max-w-2xl mb-12">
+          What are you trying to build?
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-4" data-reveal data-reveal-delay="0.15">
+          {paths.map((p) => (
+            <Link
+              key={p.n}
+              href={p.href}
+              className="group flex flex-col justify-between border-2 border-ink bg-paper p-6 md:p-7 min-h-[160px] transition-all hover:-translate-y-1 hover:shadow-[8px_8px_0_0_var(--color-fire)]"
+            >
+              <div>
+                <span className="mono text-[11px] font-bold tracking-[0.22em] text-fire">{p.n}</span>
+                <p className="display text-xl md:text-2xl leading-tight mt-3">&ldquo;{p.q}&rdquo;</p>
+                <p className="mono text-[10px] uppercase tracking-[0.18em] text-ink/45 mt-3">{p.scope}</p>
+              </div>
+              <span className="mt-5 inline-flex items-center gap-2 text-fire text-sm font-semibold">
+                {p.label}
+                <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+
+/* ── FINAL CTA ────────────────────────────────────────────────────── */
+function FinalCta() {
+  return (
+    <section className="relative py-24 md:py-32 bg-ink text-paper overflow-hidden">
+      <div className="absolute inset-0 stripes opacity-[0.06] pointer-events-none" />
+      <div className="max-w-[1200px] mx-auto px-6 relative">
+        <h2 className="display text-4xl md:text-7xl leading-[0.95] tracking-[-0.04em] max-w-4xl">
+          The right tool
+          <br />
+          <span className="text-fire">is the one that ships.</span>
+        </h2>
+        <p className="mt-8 max-w-xl text-lg text-paper/70 leading-relaxed">
+          Tell us what you&rsquo;re trying to build. We&rsquo;ll tell you which parts of the stack
+          belong in it.
+        </p>
+        <div className="mt-10 flex flex-wrap items-center gap-4">
+          <BookAuditButton
+            className="inline-flex items-center gap-2 bg-fire text-paper border-2 border-paper px-6 py-4 mono text-sm uppercase tracking-[0.2em] hover:bg-volt hover:text-ink hover:border-volt transition-colors"
           >
-            Ask about your stack <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-          </a>
+            Book a diagnostic call <span>→</span>
+          </BookAuditButton>
+          <Link
+            href="/use-cases"
+            className="inline-flex items-center gap-2 border-2 border-paper/30 px-6 py-4 mono text-sm uppercase tracking-[0.2em] hover:border-paper hover:bg-paper/5 transition-colors"
+          >
+            Explore Revlyn&rsquo;s capabilities <span>→</span>
+          </Link>
         </div>
       </div>
     </section>
