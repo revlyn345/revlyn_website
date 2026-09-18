@@ -81,7 +81,7 @@ function Wrap({
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   01 — HERO. Editorial split. Stats as pure typography, not cards.
+   01 - HERO. Editorial split. Stats as pure typography, not cards.
    ══════════════════════════════════════════════════════════════════ */
 function Hero() {
   const stats: [string, string][] = [
@@ -105,11 +105,20 @@ function Hero() {
               An embedded team of senior HubSpot operators who build, manage and continuously improve the system your
               revenue team runs on.
             </p>
+            <p className="mt-4 mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+              CRM · RevOps · Automation · Reporting · Data · Integrations · AI
+            </p>
             <div className="mt-10 flex flex-wrap gap-4">
-              <SectionCta label="Talk to a HubSpot Expert" />
-              <a href="#scope" className="border border-ink px-6 py-4 display text-lg hover:bg-bone transition-colors">
-                Build your scope
+              <a
+                href="#scope"
+                className="group border border-ink bg-fire text-paper px-7 py-4 display text-lg inline-flex items-center gap-3 hover:bg-orange-600 transition-colors"
+              >
+                Build Your Revlyn Team
+                <span className="inline-block group-hover:translate-x-1 transition-transform" aria-hidden="true">→</span>
               </a>
+              <BookCallButton className="border border-ink px-6 py-4 display text-lg hover:bg-bone transition-colors">
+                Talk to a HubSpot Expert
+              </BookCallButton>
             </div>
           </div>
           <div>
@@ -118,7 +127,7 @@ function Hero() {
         </div>
       </div>
 
-      {/* Stats — full-width strip, pure typography, integrated not boxed */}
+      {/* Stats: full-width strip, pure typography, integrated not boxed */}
       <div className="relative mt-16 border-t border-ink/10">
         <div className="max-w-[1200px] mx-auto grid grid-cols-2 sm:grid-cols-4">
           {stats.map(([v, l], i) => (
@@ -134,15 +143,15 @@ function Hero() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   02 — WHAT REVLYN OWNS. True split-screen: title pinned left,
-   capability rows run down the right. No kicker here — the section
+   02 - WHAT REVLYN OWNS. True split-screen: title pinned left,
+   capability rows run down the right. No kicker here, the section
    opens straight on the big statement instead, to break the rhythm.
    ══════════════════════════════════════════════════════════════════ */
 function WhatWeOwn() {
   const rows = [
     { n: "01", t: "CRM", d: "Architecture / Data / Governance" },
-    { n: "02", t: "Automation", d: "Workflows / Routing / Integrations" },
-    { n: "03", t: "RevOps", d: "Pipeline / Reporting / Forecasting" },
+    { n: "02", t: "RevOps", d: "Pipeline / Reporting / Forecasting" },
+    { n: "03", t: "Automation", d: "Workflows / Routing / Integrations" },
     { n: "04", t: "AI", d: "Agents / Enrichment / Intelligent workflows" },
   ];
   return (
@@ -171,7 +180,7 @@ function WhatWeOwn() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   03 — THE CHALLENGE. A real connected diagram, not three columns.
+   03 - THE CHALLENGE. A real connected diagram, not three columns.
    Vertical spine with actual connecting lines linking each stage.
    ══════════════════════════════════════════════════════════════════ */
 function TheChallenge() {
@@ -203,7 +212,7 @@ function TheChallenge() {
         <div className="relative border-t border-paper/15 pt-10 pb-14 md:border-t-0 md:border-l md:border-r md:border-paper/15 md:px-10 md:pt-0 md:pb-0">
           <p className="mono text-[10px] uppercase tracking-[0.18em] text-fire mb-5">What's missing</p>
           <ul className="space-y-2.5 text-lg text-paper/90 display">
-            {["Architecture", "Execution", "Maintenance", "Optimization", "Capacity"].map((i) => <li key={i}>{i}</li>)}
+            {["Messy CRM", "Manual processes", "Unreliable reporting", "Broken automation", "No one owns improvement"].map((i) => <li key={i}>{i}</li>)}
           </ul>
           <div
             className={`absolute left-0 bottom-0 w-px bg-paper/20 transition-all duration-700 delay-150 md:left-auto md:right-0 md:top-1/2 md:bottom-auto md:h-px md:w-10 md:-translate-y-1/2 ${
@@ -220,22 +229,24 @@ function TheChallenge() {
           </p>
         </div>
       </div>
+
+      <p className="mt-14 display text-xl md:text-2xl text-fire">That&rsquo;s the gap Revlyn fills.</p>
     </Wrap>
   );
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   04 — CAPABILITIES. Opens on an oversized number, not a kicker.
+   04 - CAPABILITIES. Opens on an oversized number, not a kicker.
    ══════════════════════════════════════════════════════════════════ */
 function Capabilities() {
   const rows = [
-    ["CRM", "We own the object model, data quality, governance and permissions, every week."],
-    ["Sales Hub", "Pipelines, deal stages, routing and forecasting stay maintained, not just configured once."],
-    ["Marketing Hub", "Campaigns, nurture, lead scoring and attribution, kept running as your motion changes."],
+    ["CRM & Data", "We own the object model, data quality, governance and permissions, every week."],
+    ["Revenue Operations", "Pipeline, lifecycle, routing and forecasting stay maintained, not just configured once."],
+    ["Sales Operations", "Deal process, sales automation and enablement, kept running as your motion changes."],
+    ["Marketing Operations", "Campaigns, nurture, lead scoring and attribution, kept running as your motion changes."],
     ["Automation", "Workflows evolve with your business process. We're the ones who catch when they drift."],
-    ["Reporting", "Board-ready dashboards we keep accurate, not a pile of charts nobody maintains."],
-    ["Data", "Ongoing cleansing, deduplication, enrichment. Data quality is a standing job, not a one-time clean."],
-    ["Lead Generation", "Routing stays tuned as your ICP and team change. We own that upkeep."],
+    ["Analytics & Reporting", "Board-ready dashboards we keep accurate, not a pile of charts nobody maintains."],
+    ["AI", "Research, enrichment, qualification and intelligence, built into the workflows you already run."],
     ["Connected Systems", "Your CRM stays synced with the rest of your stack. We watch the integrations, not just wire them."],
   ];
   return (
@@ -243,7 +254,7 @@ function Capabilities() {
       <div className="flex items-end justify-between gap-6 flex-wrap">
         <span className="display text-7xl md:text-8xl text-ink/10 leading-none select-none">08</span>
         <h2 className="display text-3xl md:text-5xl leading-[1.05] max-w-md text-right md:text-right">
-          Everything HubSpot needs, owned on an ongoing basis.
+          What Revlyn can own.
         </h2>
       </div>
       <div className="mt-12 border-t border-ink">
@@ -263,8 +274,23 @@ function Capabilities() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   05 — AUTOMATION. Vertical flow diagrams with real connecting
-   lines, distinct from Lead Generation's horizontal treatment later.
+   TRANSITION. A single short line, full-width, no section number.
+   Deliberately tiny, a breath between two dense sections, not a
+   section of its own.
+   ══════════════════════════════════════════════════════════════════ */
+function Transition({ text }: { text: string }) {
+  return (
+    <div className="relative border-b-2 border-ink bg-paper">
+      <div className="max-w-[1200px] mx-auto px-6 py-10">
+        <p className="display text-2xl md:text-3xl text-ink/60">{text}</p>
+      </div>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   05 - AUTOMATION. Vertical flow diagrams with real connecting
+   lines, distinct from Revenue Workflow's horizontal treatment later.
    ══════════════════════════════════════════════════════════════════ */
 function VerticalFlow({ steps }: { steps: string[] }) {
   const { ref, inView } = useInView<HTMLOListElement>();
@@ -289,20 +315,25 @@ function VerticalFlow({ steps }: { steps: string[] }) {
 function AutomationDetail() {
   return (
     <Wrap tone="dark" pad="py-24 md:py-32">
-      <div className="grid gap-14 md:grid-cols-[0.7fr_1fr_1fr]">
+      <div className="max-w-2xl">
+        <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire mb-5">05 / Automation</p>
+        <h2 className="display text-3xl md:text-4xl leading-[1.05] text-paper">
+          Built around your actual process.
+        </h2>
+      </div>
+
+      <div className="mt-14 grid gap-14 md:grid-cols-3">
         <div>
-          <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire mb-5">05 / Automation</p>
-          <h2 className="display text-3xl md:text-4xl leading-[1.05] text-paper">
-            Built around your actual process.
-          </h2>
-        </div>
-        <div>
-          <p className="mono text-[10px] uppercase tracking-[0.16em] text-paper/40 mb-6">Lead automation</p>
+          <p className="mono text-[10px] uppercase tracking-[0.16em] text-paper/40 mb-6">Lead Intelligence</p>
           <VerticalFlow steps={["New Lead", "Enrich", "Qualify", "Route", "Notify"]} />
         </div>
         <div>
-          <p className="mono text-[10px] uppercase tracking-[0.16em] text-paper/40 mb-6">Deal automation</p>
+          <p className="mono text-[10px] uppercase tracking-[0.16em] text-paper/40 mb-6">Deal Automation</p>
           <VerticalFlow steps={["Stage Change", "Update", "Create Task", "Notify", "Next Action"]} />
+        </div>
+        <div>
+          <p className="mono text-[10px] uppercase tracking-[0.16em] text-paper/40 mb-6">Pipeline Intelligence</p>
+          <VerticalFlow steps={["Deal Inactivity", "Risk Detection", "Rep Notification", "Manager Alert", "Forecast Update"]} />
         </div>
       </div>
 
@@ -318,14 +349,23 @@ function AutomationDetail() {
   );
 }
 
+
 /* ══════════════════════════════════════════════════════════════════
-   06 — REPORTING. Dashboard dominant (~62%), questions as large
-   editorial statements. No kicker/heading formula — opens on the
+   07 - REPORTING. Dashboard dominant (~62%), questions as large
+   editorial statements. No kicker/heading formula, opens on the
    dashboard directly, heading is small and sits beside the questions.
    ══════════════════════════════════════════════════════════════════ */
 function ReportingSection() {
   const chart = [48, 62, 55, 81, 74, 97];
   const max = Math.max(...chart);
+  const questions = [
+    "How much pipeline is real?",
+    "Where is conversion breaking?",
+    "Which deals need attention?",
+    "Where is revenue coming from?",
+    "What's likely to close?",
+    "Where are we losing revenue?",
+  ];
   return (
     <Wrap tone="bone" pad="py-20 md:py-28">
       <div className="grid gap-14 lg:grid-cols-[1.7fr_1fr] items-start">
@@ -348,14 +388,15 @@ function ReportingSection() {
           <p className="mt-4 text-xs text-muted-foreground">A sample view of the kind of reporting we build. Built around your real numbers, not ours.</p>
         </div>
         <div>
-          <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire mb-8">06 / Reporting</p>
-          <ul className="space-y-8">
-            {["How much pipeline do we have?", "Where are deals getting stuck?", "Can we trust the forecast?"].map((q) => (
-              <li key={q} className="display text-xl md:text-2xl leading-snug border-b border-ink/10 pb-6 last:border-b-0">
+          <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire mb-6">07 / Reporting</p>
+          <ul className="space-y-5">
+            {questions.map((q) => (
+              <li key={q} className="display text-lg md:text-xl leading-snug border-b border-ink/10 pb-4 last:border-b-0">
                 {q}
               </li>
             ))}
           </ul>
+          <p className="mt-6 display text-lg text-fire">Trusted data → better decisions.</p>
         </div>
       </div>
     </Wrap>
@@ -363,7 +404,7 @@ function ReportingSection() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   07 — INTEGRATIONS. Clean technical architecture diagram, centered
+   08 - INTEGRATIONS. Clean technical architecture diagram, centered
    and full-bleed, minimal surrounding copy.
    ══════════════════════════════════════════════════════════════════ */
 function IntegrationsTree() {
@@ -402,7 +443,7 @@ function Integrations() {
     <Wrap texture pad="py-20 md:py-28">
       <div className="flex flex-wrap items-end justify-between gap-6 mb-14">
         <h2 className="display text-3xl md:text-5xl leading-[1.05] max-w-lg">HubSpot shouldn't operate alone.</h2>
-        <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire">07 / Integrations</p>
+        <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire">08 / Integrations</p>
       </div>
       <IntegrationsTree />
     </Wrap>
@@ -410,7 +451,7 @@ function Integrations() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   08 — DATA MANAGEMENT. Large black space, numbered vertical system.
+   09 - DATA MANAGEMENT. Large black space, numbered vertical system.
    ══════════════════════════════════════════════════════════════════ */
 function DataManagement() {
   const steps = ["Messy Portal", "Clean", "Standardise", "Govern", "Reliable CRM"];
@@ -419,7 +460,7 @@ function DataManagement() {
     <Wrap tone="dark" pad="py-28 md:py-40">
       <div className="grid gap-16 md:grid-cols-2">
         <div>
-          <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire mb-6">08 / Data management</p>
+          <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire mb-6">09 / Data management</p>
           <h2 className="display max-w-sm text-3xl md:text-5xl leading-[1.05] text-paper">Bad data creates bad decisions.</h2>
           <p className="mt-6 max-w-xs text-paper/50 text-sm">We improve the quality and structure of your HubSpot database.</p>
         </div>
@@ -440,23 +481,32 @@ function DataManagement() {
           ))}
         </div>
       </div>
+      <div className="mt-14 flex flex-wrap gap-x-8 gap-y-3 border-t border-paper/15 pt-8">
+        {["Duplicates", "Missing owners", "Broken lifecycle stages", "Incorrect properties", "Unreliable attribution"].map((t) => (
+          <span key={t} className="mono text-[11px] uppercase tracking-[0.12em] text-paper/50">{t}</span>
+        ))}
+      </div>
     </Wrap>
   );
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   09 — LEAD GENERATION. Statement left, vertical numbered flow
+   10 - REVENUE WORKFLOW. Statement left, vertical numbered flow
    right, deliberately different composition from Automation above.
    ══════════════════════════════════════════════════════════════════ */
-function LeadGeneration() {
-  const steps = ["Target", "Data", "Outreach", "Capture", "Qualify", "Route", "Nurture", "Report"];
+function RevenueWorkflow() {
+  const steps = ["Acquire", "Capture", "Qualify", "Route", "Sell", "Expand", "Retain", "Report"];
   return (
     <Wrap tone="bone" pad="py-24 md:py-32">
       <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
           <h2 className="display text-4xl md:text-5xl leading-[0.98] max-w-xs">
-            Connect lead generation to the revenue system.
+            The revenue workflow, connected end to end.
           </h2>
+          <p className="mt-6 max-w-xs text-sm text-muted-foreground leading-relaxed">
+            Revlyn connects the revenue workflow to HubSpot so every stage has data, ownership and automation
+            behind it.
+          </p>
         </div>
         <div>
           <div className="grid grid-cols-2 gap-x-10 gap-y-6 sm:grid-cols-4">
@@ -477,28 +527,36 @@ function LeadGeneration() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   10 — IMPLEMENTATION VS SERVICE. HaaS side visually heavier.
+   11 - IMPLEMENTATION VS OPTIMIZATION VS SERVICE. HaaS side visually heavier.
    ══════════════════════════════════════════════════════════════════ */
 function ImplementationVsHaas() {
   return (
     <Wrap id="how-it-works" pad="py-20 md:py-28">
       <h2 className="display max-w-2xl text-3xl md:text-5xl leading-[1.05] mb-14">
-        Implementation gets you live. Revlyn keeps you moving.
+        Which Revlyn service do you need?
       </h2>
-      <div className="grid border border-ink md:grid-cols-2">
+      <div className="grid border border-ink md:grid-cols-3">
         <div className="p-8 md:p-10">
           <p className="mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground mb-4">Implementation</p>
           <h3 className="display text-2xl">Build the foundation.</h3>
           <ul className="mt-5 space-y-2 text-sm text-muted-foreground">
-            {["Configure", "Migrate", "Train", "Launch"].map((i) => <li key={i}>{i}</li>)}
+            {["New HubSpot", "Migration", "New CRM architecture", "New revenue system"].map((i) => <li key={i}>{i}</li>)}
+          </ul>
+          <p className="mt-8 mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Project ends.</p>
+        </div>
+        <div className="p-8 md:p-10 border-t border-ink md:border-t-0 md:border-l">
+          <p className="mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground mb-4">Optimization</p>
+          <h3 className="display text-2xl">Fix the system you already have.</h3>
+          <ul className="mt-5 space-y-2 text-sm text-muted-foreground">
+            {["Messy portal", "Broken workflows", "Poor data", "Reporting problems", "Low adoption", "CRM debt"].map((i) => <li key={i}>{i}</li>)}
           </ul>
           <p className="mt-8 mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">Project ends.</p>
         </div>
         <div className="p-8 md:p-10 bg-ink text-paper border-t border-ink md:border-t-0 md:border-l">
           <p className="mono text-[10px] uppercase tracking-[0.16em] text-fire mb-4">HubSpot as a Service</p>
-          <h3 className="display text-2xl">Operate the system.</h3>
+          <h3 className="display text-2xl">Operate and continuously improve it.</h3>
           <ul className="mt-5 space-y-2 text-sm text-paper/70">
-            {["Build", "Maintain", "Optimize", "Adapt"].map((i) => <li key={i}>{i}</li>)}
+            {["Ongoing CRM ownership", "RevOps execution", "Automation", "Reporting", "Data", "AI"].map((i) => <li key={i}>{i}</li>)}
           </ul>
           <p className="mt-8 mono text-[11px] uppercase tracking-[0.16em] text-fire">The system evolves.</p>
         </div>
@@ -508,7 +566,7 @@ function ImplementationVsHaas() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   11 — SUPPORT VS SERVICE. Full-screen editorial moment. Huge type.
+   12 - SUPPORT VS SERVICE. Full-screen editorial moment. Huge type.
    ══════════════════════════════════════════════════════════════════ */
 function SupportVsService() {
   return (
@@ -532,7 +590,7 @@ function SupportVsService() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   12 — WHO IT'S FOR. Four large rows, generous whitespace.
+   13 - WHO IT'S FOR. Four large rows, generous whitespace.
    ══════════════════════════════════════════════════════════════════ */
 function WhoItsFor() {
   const rows = [
@@ -541,9 +599,10 @@ function WhoItsFor() {
     ["RevOps teams", "You have strategy covered. You need more execution capacity."],
     ["Complex portals", "Your portal has grown faster than its architecture can handle."],
   ];
+  
   return (
     <Wrap tone="bone" pad="py-24 md:py-32">
-      <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire mb-6">12 / Who it's for</p>
+      <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire mb-6">13 / Who it's for</p>
       <div className="border-t border-ink">
         {rows.map(([t, d], i) => (
           <div key={t} className="group grid gap-2 border-b border-ink py-9 transition-colors hover:bg-paper/50 sm:grid-cols-[3rem_1fr_1.4fr_2rem] sm:items-baseline sm:gap-8">
@@ -554,12 +613,14 @@ function WhoItsFor() {
           </div>
         ))}
       </div>
+
+      
     </Wrap>
   );
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   13 — WHY REVLYN. The manifesto. Asymmetric, oversized numbers.
+   14 - WHY REVLYN. The manifesto. Asymmetric, oversized numbers.
    ══════════════════════════════════════════════════════════════════ */
 function WhyRevlyn() {
   const items = [
@@ -570,11 +631,9 @@ function WhyRevlyn() {
   ];
   return (
     <Wrap tone="dark" pad="py-28 md:py-40">
-      <h2 className="display max-w-xl text-5xl md:text-7xl leading-[0.94] text-paper">
-        One team.
-        <br />
-        Everything HubSpot.
-      </h2>
+      <h2 className="display text-4xl md:text-6xl leading-[1.05] text-paper md:whitespace-nowrap">
+  One team. Everything HubSpot.
+</h2>
       <div className="mt-20 border-t border-paper/15">
         {items.map(([t, d], i) => (
           <div
@@ -592,14 +651,17 @@ function WhyRevlyn() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   14 — SCOPE BUILDER. Integrated directly, no wrapping card.
+   15 - SCOPE BUILDER. Integrated directly, no wrapping card.
    ══════════════════════════════════════════════════════════════════ */
 function Scope() {
   return (
     <Wrap id="scope" texture pad="py-20 md:py-28">
       <div className="flex flex-wrap items-end justify-between gap-6 mb-12">
-        <h2 className="display text-3xl md:text-5xl leading-[1.05] max-w-lg">Build your HubSpot scope.</h2>
-        <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire">14 / Scope</p>
+        <div>
+          <h2 className="display text-3xl md:text-5xl leading-[1.05] max-w-lg">Choose what you want Revlyn to own.</h2>
+          
+        </div>
+        <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire">15 / Scope</p>
       </div>
       <ScopeBuilder />
     </Wrap>
@@ -607,13 +669,16 @@ function Scope() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   15 — PRICING. Scope factors, not fixed tiers.
+   16 - PRICING. Scope factors, not fixed tiers.
    ══════════════════════════════════════════════════════════════════ */
 function Pricing() {
   const factors = [
     ["Portal complexity", "How many hubs are live, how much legacy configuration, how much needs untangling first."],
     ["Team size", "How many people touch HubSpot day to day, and how many need reporting visibility."],
     ["Hubs in use", "Marketing, Sales, Service, or all three, each adds its own ongoing surface area."],
+    ["Connected systems", "Every integration is another surface we watch, not just wire once."],
+    ["Request volume", "How much day-to-day change and support work actually comes through."],
+    ["Automation & AI requirements", "How much of the workflow and intelligence layer needs to be built and maintained."],
     ["Operating cadence", "Weekly check-ins are standard. Some teams need daily; some need less."],
   ];
   return (
@@ -641,7 +706,7 @@ function Pricing() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   16 — FAQ. Minimal. No cards, no shadows.
+   17 - FAQ. Minimal. No cards, no shadows.
    ══════════════════════════════════════════════════════════════════ */
 function FaqSection() {
   const faqs: string[][] = [
@@ -661,7 +726,7 @@ function FaqSection() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   17 — FINAL CTA. Black, grid texture, dramatic.
+   18 - FINAL CTA. Black, grid texture, dramatic.
    ══════════════════════════════════════════════════════════════════ */
 function FinalCta() {
   return (
@@ -675,13 +740,19 @@ function FinalCta() {
           behind your revenue team.
         </h2>
         <p className="mt-7 max-w-md text-paper/55 text-sm leading-relaxed">
-          Not another HubSpot consultant. The team that operates, improves and evolves your system, every week.
+          An embedded team that keeps improving your system, every week.
         </p>
         <div className="mt-12 flex flex-wrap gap-4">
-          <SectionCta label="Talk to a HubSpot Expert" />
-          <a href="#scope" className="border border-paper/30 text-paper px-6 py-4 display text-lg hover:bg-paper/10 transition-colors">
-            Build your scope →
+          <a
+            href="#scope"
+            className="group border border-fire bg-fire text-paper px-7 py-4 display text-lg inline-flex items-center gap-3 hover:bg-orange-600 transition-colors"
+          >
+            Build Your Revlyn Team
+            <span className="inline-block group-hover:translate-x-1 transition-transform" aria-hidden="true">→</span>
           </a>
+          <BookCallButton className="border border-paper/30 text-paper px-6 py-4 display text-lg hover:bg-paper/10 transition-colors">
+            Talk to a HubSpot Expert
+          </BookCallButton>
         </div>
       </div>
     </section>
@@ -698,11 +769,13 @@ export default function HubSpotAsAServiceClient() {
       <WhatWeOwn />
       <TheChallenge />
       <Capabilities />
+      <Transition text="Then we make the system work." />
       <AutomationDetail />
+      
       <ReportingSection />
       <Integrations />
       <DataManagement />
-      <LeadGeneration />
+      <RevenueWorkflow />
       <ImplementationVsHaas />
       <SupportVsService />
       <WhoItsFor />

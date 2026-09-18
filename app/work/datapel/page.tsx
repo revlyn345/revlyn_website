@@ -52,14 +52,13 @@ export default function DatapelCase() {
 
               <h1
                 data-reveal
-                className="display text-[clamp(2.2rem,5.6vw,4.8rem)] leading-[0.92] tracking-[-0.045em]"
+                className="display text-[clamp(1.8rem,4.4vw,2.9rem)] leading-[1.05] tracking-[-0.03em]"
               >
-                Datapel took lead conversion from{" "}
-                <span className="inline-block bg-ink text-paper px-2 py-0.5 -rotate-1">19%</span>{" "}
-                to{" "}
-                <span className="inline-block bg-fire text-paper px-2 py-0.5 rotate-1">68%</span>.
+                Datapel took lead conversions
                 <br />
-                <span className="text-ink/60">Two weeks. One rebuild.</span>
+                from 19% to 68%.
+                <br />
+                Two weeks. One rebuild.
               </h1>
 
               <p data-reveal data-reveal-delay="0.15" className="mt-8 max-w-xl text-lg leading-snug text-ink/80">
@@ -183,9 +182,7 @@ export default function DatapelCase() {
               Three years of use without a defined process. Every symptom below traces back to one
               missing thing: nobody had ever agreed what a stage meant.
             </p>
-            <div className="mt-6 mono text-[10px] tracking-[0.16em] text-ink/45">
-              ARTIFACT · SYMPTOM BOARD
-            </div>
+            
           </div>
 
           <div className="md:col-span-8">
@@ -286,7 +283,7 @@ export default function DatapelCase() {
             </div>
             <div className="text-sm">
               <div className="font-semibold">Peter Rocke</div>
-              <div className="mono text-[11px] text-paper/70">Datapel · named reference on file</div>
+              <div className="mono text-[11px] text-paper/70">Datapel</div>
             </div>
           </div>
         </div>
@@ -559,13 +556,7 @@ function PortalStateBoard() {
           </li>
         ))}
       </ul>
-      <div className="mt-5 border-t-2 border-ink pt-4 flex items-start gap-3 bg-volt/30 -mx-5 -mb-5 md:-mx-6 md:-mb-6 px-5 md:px-6 pb-5 md:pb-6">
-        <span className="display text-3xl text-fire leading-none">?</span>
-        <div className="text-[14px] text-ink/85 leading-relaxed">
-          Three questions nobody could answer from the CRM:{" "}
-          <em>how many real leads do we have, where is each deal, and what should a rep do next.</em>
-        </div>
-      </div>
+      
     </div>
   );
 }
@@ -596,11 +587,7 @@ function AuditCoverageCard() {
           </div>
         ))}
       </div>
-      <div className="mt-5 text-[13px] text-ink/75 leading-relaxed border-l-4 border-fire pl-4 py-1">
-        For each object we documented what it was <em>supposed</em> to represent, what it{" "}
-        <em>actually</em> contained, and which source created or modified it. The output was not a
-        cleanup list. It was the reason the portal had drifted.
-      </div>
+      
     </div>
   );
 }
@@ -636,10 +623,7 @@ function DefinitionsDoc() {
         ))}
       </ol>
 
-      <div className="px-5 py-3 border-t-2 border-ink bg-ink text-paper flex items-center justify-between mono text-[10px]">
-        <span className="text-paper/70">Every step agreed before anything was built</span>
-        <span className="text-fire">→ action plan · then two-week build</span>
-      </div>
+      
     </div>
   );
 }
@@ -729,10 +713,7 @@ function RepSessionsCard() {
           </li>
         ))}
       </ul>
-      <div className="px-5 py-3 border-t-2 border-ink bg-volt flex items-center justify-between mono text-[10px]">
-        <span className="text-ink">Each session shipped changes back into the portal</span>
-        <span className="text-ink font-bold">Reps stopped routing around the CRM</span>
-      </div>
+      
     </div>
   );
 }

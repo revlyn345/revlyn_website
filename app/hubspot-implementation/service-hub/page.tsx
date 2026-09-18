@@ -867,7 +867,7 @@ export default function ServiceHub() {
               </div>
               <p className="mt-8 max-w-[560px] text-lg md:text-xl text-ink/70 leading-relaxed" data-reveal data-reveal-delay="0.15">
                 Tickets that route themselves. SLAs that actually hold. A knowledge base that deflects the boring
-                stuff. And a health score CS, sales, and product all trust — before the invoice bounces. Wired
+                stuff. And a health score CS, sales, and product all trust before the invoice bounces. Wired
                 end-to-end in six weeks by an operator who has done it a dozen times.
               </p>
               <div className="mt-10 flex flex-wrap gap-3" data-stagger>
@@ -901,7 +901,7 @@ export default function ServiceHub() {
                   </div>
                 ))}
               </div>
-              <p className="mt-3 mono text-[9px] uppercase tracking-[0.1em] text-ink/35">Illustrative example figures</p>
+             
             </div>
 
             {/* Right: the live queue itself, one frame, not nested UI chrome */}
@@ -1134,7 +1134,7 @@ export default function ServiceHub() {
             13 · Ready when you are
           </div>
           <h2 className="font-display text-5xl md:text-7xl tracking-[-0.045em] leading-[0.98] max-w-[900px]" data-split>
-            A Service Hub that keeps customers — and expands them.
+            A Service Hub that keeps customers and expands them.
           </h2>
           <p className="mt-6 max-w-[580px] text-paper/70 leading-relaxed text-lg" data-reveal>
             Send us your portal, your ticket volume, and the account you are most worried about. We come back with a

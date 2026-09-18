@@ -66,9 +66,7 @@ function Hero() {
             portal. Four days later, you get a written report about what's actually broken, what
             to fix first, and roughly how long it'll take.
           </p>
-          <p className="mt-3 text-[15px] text-ink/55 max-w-[560px]">
-            That's it. No demo, no discovery call, no 40-slide deck about "digital transformation."
-          </p>
+          
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <BookAuditButton data-magnetic="14"
@@ -86,18 +84,7 @@ function Hero() {
             </a>
           </div>
 
-          {/* handwritten operator note */}
-          <div className="mt-14 max-w-[540px] relative">
-            <div className="absolute -left-3 top-0 bottom-0 w-0.5 bg-fire/70" />
-            <p className="pl-5 text-[15px] text-ink/70 leading-relaxed italic">
-              "The first ten portals I opened this year all had the same three problems. None of the
-              teams knew. Fixing them is usually a week's work. Finding them is the hard part.
-              That's what the audit is for."
-            </p>
-            <div className="pl-5 mt-3 text-[12px] text-ink/50">
-              - Arjun, HubSpot operator since 2016
-            </div>
-          </div>
+          
         </div>
 
         <div className="lg:col-span-5" data-reveal data-reveal-delay="0.15">
@@ -337,13 +324,7 @@ function Why() {
           ))}
         </div>
 
-        <div className="mt-14 flex items-start gap-4 max-w-[720px]" data-reveal>
-          <span className="text-2xl mt-0.5">👋</span>
-          <p className="text-[15px] text-ink/60 leading-relaxed">
-            If two or more of these landed, the audit will pay for itself. And since it's free,
-            that's a low bar.
-          </p>
-        </div>
+        
       </div>
     </section>
   );

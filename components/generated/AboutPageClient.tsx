@@ -297,9 +297,6 @@ function StrikeTeam() {
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-ink/10 group-hover:bg-transparent transition-colors duration-500" />
-              <div className="absolute bottom-2 left-2 mono text-[9px] uppercase tracking-widest bg-paper border border-ink px-1.5 py-0.5">
-                Portrait · {String(i + 1).padStart(3, "0")}
-              </div>
             </div>
 
             <p

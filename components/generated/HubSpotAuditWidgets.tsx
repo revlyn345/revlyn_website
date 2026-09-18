@@ -131,10 +131,7 @@ export function SampleFinding() {
           </div>
         </div>
 
-        <p className="mt-8 text-[14px] text-ink/50 max-w-[720px]">
-          <span className="mono text-[10px] uppercase tracking-widest text-ink/35">Illustrative example.</span>{" "}
-          Your real report is built from your actual portal, ranked by what is costing you the most first.
-        </p>
+        
       </div>
     </section>
   );

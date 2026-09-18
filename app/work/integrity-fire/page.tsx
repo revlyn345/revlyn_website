@@ -126,9 +126,7 @@ function FieldServiceBoard() {
           <span className="text-ink/85">{r.field}</span>
         </div>
       ))}
-      <div className="border-t-2 border-ink bg-bone px-4 py-3 mono text-[11px] text-ink/70 min-w-[560px]">
-        A CRM built only for desk-based selling misses half of how this company makes money.
-      </div>
+      
     </div>
   );
 }
@@ -276,43 +274,7 @@ function CommissionFlow() {
 }
 
 /* PROCESS · service hours + areas breakdown */
-function ContractBreakdown() {
-  const areas = [
-    { area: "Fire alarm", hours: 42, pct: 34 },
-    { area: "Sprinkler", hours: 36, pct: 29 },
-    { area: "Extinguishers", hours: 22, pct: 18 },
-    { area: "Backflow", hours: 14, pct: 11 },
-    { area: "Emergency lighting", hours: 10, pct: 8 },
-  ];
-  return (
-    <div className="brutal-border bg-paper">
-      <div className="border-b-2 border-ink bg-ink text-paper px-4 py-3 flex items-center justify-between">
-        <div className="mono text-[10px] tracking-[0.18em]">Contract, broken down</div>
-        <div className="mono text-[10px] tracking-[0.18em] text-volt">Hours and areas</div>
-      </div>
-      <div className="p-5 space-y-3">
-        {areas.map((a) => (
-          <div key={a.area} className="group grid grid-cols-2 gap-2 md:grid-cols-[170px_1fr_70px] md:items-center md:gap-4">
-            <span className="text-[13px] font-medium">{a.area}</span>
-            <span className="mono text-[11px] tabular-nums text-ink/70 text-right md:hidden">{a.hours} hrs</span>
-            <div className="col-span-2 md:col-span-1 h-3 bg-ink/10 overflow-hidden">
-              <div
-                className="h-full bg-fire transition-all duration-500 group-hover:bg-ink"
-                style={{ width: `${a.pct}%` }}
-              />
-            </div>
-            <span className="hidden md:block mono text-[11px] tabular-nums text-ink/70 text-right">{a.hours} hrs</span>
-          </div>
-        ))}
-      </div>
-      <div className="border-t-2 border-ink bg-bone px-4 py-3 text-[12px] text-ink/75 leading-relaxed">
-        The problem every field-service company has and few solve: the service team does not know
-        what the sales team actually sold. Break the amount into hours and areas, and what sales
-        sells and what service delivers finally describe the same thing.
-      </div>
-    </div>
-  );
-}
+
 
 /* PROCESS · renewals */
 function RenewalsLoop() {
@@ -448,15 +410,13 @@ export default function IntegrityFireCase() {
 
               <h1
                 data-reveal
-                className="display text-[clamp(2.2rem,5.6vw,4.8rem)] leading-[0.92] tracking-[-0.045em]"
+                className="display text-[clamp(1.8rem,4.4vw,2.9rem)] leading-[1.05] tracking-[-0.03em]"
               >
-                A{" "}
-                <span className="inline-block bg-volt text-ink px-2 py-0.5 -rotate-1">busy</span>{" "}
-                HubSpot turned into an{" "}
-                <span className="inline-block bg-fire text-paper px-2 py-0.5 rotate-1">
-                  operating system
-                </span>
-                .
+                A busy HubSpot turned
+                <br />
+                into an operating
+                <br />
+                System.
               </h1>
 
               <p data-reveal data-reveal-delay="0.15" className="mt-6 max-w-xl text-[17px] leading-snug text-ink/80">
@@ -486,9 +446,7 @@ export default function IntegrityFireCase() {
                   height={1408}
                   className="w-full h-[420px] lg:h-[520px] object-cover"
                 />
-                <figcaption className="border-t-2 border-paper/15 px-4 py-3 mono text-[10px] tracking-[0.16em] text-paper/60">
-                  Inspection, service and renewals across Colorado
-                </figcaption>
+                
               </figure>
             </div>
 
@@ -625,7 +583,7 @@ export default function IntegrityFireCase() {
           </div>
           <div className="md:col-span-8 min-w-0 grid gap-6">
             <CommissionFlow />
-            <ContractBreakdown />
+            
             <RenewalsLoop />
           </div>
         </div>

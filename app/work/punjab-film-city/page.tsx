@@ -301,7 +301,7 @@ export default function PunjabFilmCityCase() {
 
               <p data-reveal data-reveal-delay="0.15" className="mt-8 max-w-xl text-lg leading-snug text-ink/80">
                 From a website booking enquiry to sales follow-up, marketing and customer
-                management — all connected in one system, instead of five separate ones.
+                management all connected in one system, instead of five separate ones.
               </p>
 
               <div className="mt-8 flex flex-wrap gap-3">
@@ -358,7 +358,7 @@ export default function PunjabFilmCityCase() {
             <p>
               The problem was that the booking process, CRM, marketing and calling process needed
               to work together much more closely. Revlyn was brought in to build that system, and
-              we ended up building much more than a booking form — the booking system, the CRM,
+              we ended up building much more than a booking form the booking system, the CRM,
               the marketing connection and the tele-sales setup, all connected inside Zoho.
             </p>
             <div className="mt-8">
@@ -442,7 +442,7 @@ export default function PunjabFilmCityCase() {
             </p>
             <p>
               The important thing here was that the booking wasn&rsquo;t treated as an isolated
-              website submission. It became the starting point of the sales process — the enquiry
+              website submission. It became the starting point of the sales process the enquiry
               enters the CRM as a proper customer record, not something a rep has to retype.
             </p>
           </div>
@@ -552,10 +552,7 @@ export default function PunjabFilmCityCase() {
               customer and their enquiry, make the call, follow up and continue managing the
               opportunity from the same environment.
             </p>
-            <p className="mt-6 max-w-xl border-l-2 border-fire pl-5 text-base leading-relaxed text-ink">
-              You don&rsquo;t want the customer relationship to live inside one salesperson&rsquo;s
-              phone. You want the business to own the relationship.
-            </p>
+            
           </div>
           <div className="md:col-span-4">
             <Figure
@@ -688,7 +685,7 @@ export default function PunjabFilmCityCase() {
             </h2>
             <p className="mt-4 text-ink/70 max-w-xl">
               If your enquiries, sales team and marketing are running as separate processes, we can
-              connect them the same way — on HubSpot, Zoho, or whatever your team already runs on.
+              connect them the same way on HubSpot, Zoho, or whatever your team already runs on.
             </p>
           </div>
           <BookCallButton className="inline-flex items-center gap-3 brutal-border bg-ink text-paper px-6 py-4 display text-xl brutal-shadow-fire hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[5px_5px_0_0_var(--color-fire)] transition-all">

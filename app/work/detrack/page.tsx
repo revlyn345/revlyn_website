@@ -103,9 +103,7 @@ function StackBoard() {
           <span className="text-ink/80">{r.note}</span>
         </div>
       ))}
-      <div className="border-t-2 border-ink bg-bone px-4 py-3 mono text-[11px] text-ink/70 min-w-[560px]">
-        The same company existed in more than one place. Every report carried a quiet asterisk.
-      </div>
+      
     </div>
   );
 }
@@ -140,11 +138,7 @@ function DedupeVisual() {
           </div>
         ))}
       </div>
-      <div className="mt-6 pt-4 border-t border-ink/10 text-[12px] text-ink/70 leading-relaxed">
-        Duplicates are silent. Every report undercounts, every workflow can fire twice, and no one
-        knows the picture is partial. So the record base gets deduped first, then enriched. In that
-        order, not the other way around.
-      </div>
+      
     </div>
   );
 }
@@ -382,14 +376,13 @@ export default function DetrackCase() {
 
               <h1
                 data-reveal
-                className="display text-[clamp(2.2rem,5.6vw,4.8rem)] leading-[0.92] tracking-[-0.045em]"
+                className="display text-[clamp(1.8rem,4.4vw,2.9rem)] leading-[1.05] tracking-[-0.03em]"
               >
-                A HubSpot rebuilt for{" "}
-                <span className="inline-block bg-volt text-ink px-2 py-0.5 -rotate-1">clarity</span>{" "}
-                and{" "}
-                <span className="inline-block bg-fire text-paper px-2 py-0.5 rotate-1">scale</span>.
+                A HubSpot rebuilt for clarity and scale.
                 <br />
-                <span className="text-ink/60">Not more features. Less doubt.</span>
+                Not more features,
+                <br />
+                but less doubt.
               </h1>
 
               <p data-reveal data-reveal-delay="0.15" className="mt-8 max-w-xl text-lg leading-snug text-ink/80">

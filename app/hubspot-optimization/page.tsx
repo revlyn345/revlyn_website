@@ -127,9 +127,7 @@ function Hero() {
           <p className="mt-6 max-w-xl text-lg md:text-xl text-ink/75 leading-relaxed">
             Every portal drifts. A growing team typically adds three to five workflows a quarter, and after eighteen months there's more automation than any one person can hold in their head. That's a healthy sign your business moved, not a failure of setup. We spend a week inside your instance to learn what each layer was protecting, then rebuild only the parts that need to be trusted again.
           </p>
-          <p className="mt-4 max-w-xl text-base text-ink/60 leading-relaxed">
-            No rip and replace. No four month re-architecture. Your history stays, your integrations stay, and reps keep working through the change.
-          </p>
+          
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <BookAuditButton

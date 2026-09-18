@@ -1869,58 +1869,21 @@ function TalkToUs() {
 function TalkToUsMeetings() {
   const MEETINGS_URL = "https://meetings.hubspot.com/rishabh52/discovery-call-with-revlyn";
 
-  useEffect(() => {
-    let cancelled = false;
-
-    function tryCreate() {
-      const hbspt = (window as any).hbspt;
-      if (hbspt?.meetings?.create) {
-        hbspt.meetings.create();
-        return true;
-      }
-      return false;
-    }
-
-    // Already loaded from an earlier mount/navigation? Create immediately.
-    if (tryCreate()) return;
-
-    const existing = document.querySelector<HTMLScriptElement>(
-      'script[src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"]',
-    );
-
-    const startPolling = () => {
-      let attempts = 0;
-      const interval = setInterval(() => {
-        attempts++;
-        if (cancelled) {
-          clearInterval(interval);
-          return;
-        }
-        if (tryCreate() || attempts > 50) {
-          clearInterval(interval);
-        }
-      }, 100);
-    };
-
-    if (!existing) {
-      const script = document.createElement("script");
-      script.src = "https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js";
-      script.async = true;
-      script.onload = () => tryCreate();
-      document.body.appendChild(script);
-      startPolling();
-    } else {
-      startPolling();
-    }
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
+  // Plain iframe instead of HubSpot's Meetings Embed JS SDK. The SDK scans the
+  // DOM for `.meetings-iframe-container` elements and initializes once, which
+  // works fine on a traditional full page load but doesn't reliably
+  // re-initialize on Next.js client-side navigation (the "needs a refresh"
+  // symptom). An iframe has no such state: it loads its src whenever it's
+  // mounted, whether that's the first paint or a client-navigated remount.
   return (
     <div className="border border-ink/10 shadow-xl">
-      <div className="meetings-iframe-container" data-src={`${MEETINGS_URL}?embed=true`} />
+      <iframe
+        src={`${MEETINGS_URL}?embed=true`}
+        title="Book a discovery call with Revlyn"
+        className="w-full"
+        style={{ height: 660, border: "none" }}
+        loading="lazy"
+      />
     </div>
   );
 }
