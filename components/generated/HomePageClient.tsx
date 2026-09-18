@@ -87,7 +87,6 @@ export default function HomePageClient() {
       
         
         <LiveDashboard />
-        <FunnelVisual />
       </section>
 
       {/* ══ ACT IV · THE METHOD ═══════════════════════════════ */}
@@ -1929,15 +1928,17 @@ function TalkToUsMeetings() {
 /* ─────────────────────────────  SECTION HEADER  ───────────────────────────── */
 function SectionHeader({
   n, label, title, light = false,
-}: { n: string; label: string; title: string; light?: boolean }) {
+}: { n?: string; label?: string; title: string; light?: boolean }) {
   return (
     <div>
-      <div className="flex items-center gap-3 mono">
-        <span className={`brutal-border ${light ? "bg-volt text-ink border-paper" : "bg-ink text-paper"} px-2 py-1`}>§{n}</span>
-        <span className={light ? "text-paper/70" : "text-muted-foreground"}>{label}</span>
-        <span className="flex-1 h-[2px] bg-current opacity-30" />
-      </div>
-      <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] mt-6 max-w-4xl">{title}</h2>
+      {(n || label) && (
+        <div className="flex items-center gap-3 mono">
+          {n && <span className={`brutal-border ${light ? "bg-volt text-ink border-paper" : "bg-ink text-paper"} px-2 py-1`}>§{n}</span>}
+          {label && <span className={light ? "text-paper/70" : "text-muted-foreground"}>{label}</span>}
+          <span className="flex-1 h-[2px] bg-current opacity-30" />
+        </div>
+      )}
+      <h2 className={`display text-[clamp(2.25rem,5.5vw,4.5rem)] max-w-4xl ${(n || label) ? "mt-6" : ""}`}>{title}</h2>
     </div>
   );
 }
@@ -1949,75 +1950,6 @@ function SectionHeader({
 
 /* ─────────────────────────────  MACRO SHOT  ───────────────────────────── */
 
-
-/* ─────────────────────────────  FUNNEL VISUAL  ───────────────────────────── */
-function FunnelVisual() {
-  const stages = [
-    ["ATTRACT", "SEO · ADS · PLG"],
-    ["QUALIFY", "ICP · SCORE · SLA"],
-    ["CONVERT", "DEMO · DEAL DESK"],
-    ["EXPAND", "CS SIGNAL · UPSELL"],
-    ["RENEW", "USAGE · RENEWAL"],
-  ];
-
-  return (
-    <section className="bg-paper py-20 lg:py-24">
-      <div className="max-w-7xl mx-auto px-6">
-        <SectionHeader
-          n="07.B"
-          label="The full picture"
-          title="Your funnel, from first click to renewal."
-        />
-
-        <p className="max-w-3xl mt-5 text-lg leading-8 text-muted-foreground">
-          Every stage is instrumented in the warehouse. Every dashboard
-          is powered by one schema. Every anomaly is routed to an owner,
-          not a group chat.
-        </p>
-
-        {/* Funnel Image */}
-
-        <div className="mt-12 rounded-[28px] overflow-hidden bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)] p-4">
-
-          <img
-            src={funnelViz}
-            alt="Instrumented revenue funnel diagram from awareness to renewal"
-            className="w-full h-auto object-contain"
-            loading="lazy"
-          />
-
-        </div>
-
-        {/* Funnel Stages */}
-
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-
-          {stages.map(([title, subtitle], index) => (
-
-            <div
-              key={title}
-              className="rounded-2xl bg-white p-5 shadow-sm border border-black/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-            >
-              <div className="mono text-[10px] uppercase tracking-[0.25em] text-fire">
-                Stage {String(index + 1).padStart(2, "0")}
-              </div>
-
-              <h3 className="display text-xl mt-3 text-ink">
-                {title}
-              </h3>
-
-              <p className="mt-2 text-sm text-muted-foreground leading-6">
-                {subtitle}
-              </p>
-            </div>
-
-          ))}
-
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ─────────────────────────────  INDUSTRIES  ───────────────────────────── */
 type Industry = {
@@ -2414,15 +2346,8 @@ function LiveDashboard() {
         className="max-w-7xl mx-auto px-6"
       >
         <SectionHeader
-          n="03.C"
-          label="Your dashboard"
           title="A CRM your team will actually trust."
         />
-
-        <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
-          Same data, better structure. Every stage, deal and rep has
-          one owner, one next action and one source of truth.
-        </p>
 
         {/* Dashboard */}
 

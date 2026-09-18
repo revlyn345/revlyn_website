@@ -86,8 +86,8 @@ function Wrap({
 function Hero() {
   const stats: [string, string][] = [
     ["Weekly", "Operating cadence"],
-    ["8", "Areas of ownership"],
-    ["1", "Team, not a ticket queue"],
+    ["8 areas", "Across HubSpot operations"],
+    ["One team", "Not a ticket queue"],
     ["Ongoing", "Not a fixed-term project"],
   ];
   return (
@@ -149,8 +149,8 @@ function WhatWeOwn() {
     <Wrap tone="bone" pad="py-24 md:py-32">
       <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
         <div className="lg:sticky lg:top-24 lg:self-start">
-          <h2 className="display text-4xl md:text-5xl leading-[1] max-w-sm">What Revlyn owns in your HubSpot.</h2>
-          <p className="mt-5 max-w-xs text-sm text-muted-foreground">A complete operating capability, not just support.</p>
+          <h2 className="display text-4xl md:text-5xl leading-[1] max-w-sm">One team owning the system end to end.</h2>
+          
         </div>
         <div className="border-t border-ink">
           {rows.map((r) => (
