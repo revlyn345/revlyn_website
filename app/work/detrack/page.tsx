@@ -666,10 +666,7 @@ export default function DetrackCase() {
             ))}
           </div>
 
-          <p className="mt-8 text-[14px] text-ink/70 max-w-3xl italic">
-            Each stage depends on the one before it. Skipping ahead is what leaves most SaaS CRMs in
-            the state this one started in.
-          </p>
+          
         </div>
       </section>
 

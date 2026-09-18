@@ -208,9 +208,7 @@ function JourneyStages() {
           </div>
         ))}
       </div>
-      <div className="border-t-2 border-ink px-4 py-3 mono text-[11px] text-ink/70 min-w-[720px] md:min-w-0">
-        Fire safety sales move fast against compliance deadlines. Loose stages cannot hold that.
-      </div>
+      
     </div>
   );
 }
@@ -299,9 +297,7 @@ function RenewalsLoop() {
           </div>
         ))}
       </div>
-      <div className="border-t-2 border-ink px-4 py-3 mono text-[11px] bg-ink/5 min-w-[640px] md:min-w-0">
-        Annual inspection customers were being missed because the trigger was calculated by hand.
-      </div>
+      
     </div>
   );
 }
@@ -343,10 +339,7 @@ function DataIntegrityPanel() {
           </span>
         </div>
       ))}
-      <div className="border-t-2 border-ink px-4 py-3 mono text-[11px] text-ink/70 bg-bone min-w-[640px]">
-        A missing field gets fixed by the person who owns it, close to when it happened, instead of
-        surfacing as a broken report months later.
-      </div>
+     
     </div>
   );
 }
@@ -377,9 +370,7 @@ function MinimumDataLadder() {
           </div>
         ))}
       </div>
-      <div className="border-t-2 border-paper/20 px-4 py-3 mono text-[11px] text-paper/70">
-        Know the least a record must contain to be trustworthy, and you can enforce it.
-      </div>
+      
     </div>
   );
 }

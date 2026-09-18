@@ -310,7 +310,7 @@ export default function AusformingCase() {
             </div>
             <div className="text-sm">
               <div className="font-semibold">Sahil Naqvi</div>
-              <div className="mono text-[11px] text-paper/70">Ausforming · named reference on file</div>
+              <div className="mono text-[11px] text-paper/70">Ausforming</div>
             </div>
           </div>
         </div>
@@ -585,14 +585,7 @@ function StartingInventory() {
           </li>
         ))}
       </ul>
-      <div className="mt-5 border-t-2 border-ink pt-4 flex items-start gap-3 bg-volt/30 -mx-5 -mb-5 md:-mx-6 md:-mb-6 px-5 md:px-6 pb-5 md:pb-6">
-        <span className="display text-3xl text-fire leading-none">?</span>
-        <div className="text-[14px] text-ink/85 leading-relaxed">
-          A greenfield build has no cleanup and no legacy, but nothing to lean on either. The order
-          you build things in decides whether the pieces connect into one system, or end up as four
-          tools that each hold a different version of the truth.
-        </div>
-      </div>
+      
     </div>
   );
 }
@@ -609,7 +602,7 @@ function TargetingDoc() {
     <div className="brutal-border bg-paper text-ink overflow-hidden">
       <div className="flex flex-wrap items-center justify-between gap-2 px-5 py-3 border-b-2 border-ink bg-volt">
         <div className="mono text-[10px] tracking-[0.16em] text-ink min-w-0">
-          TARGETING · v1.0 · AUSFORMING × REVLYN
+          TARGETING AUSFORMING × REVLYN
         </div>
         <div className="mono text-[10px] text-ink/70 shrink-0">AGREED · BEFORE ANY TOOL</div>
       </div>
@@ -628,10 +621,7 @@ function TargetingDoc() {
         ))}
       </ol>
 
-      <div className="px-5 py-3 border-t-2 border-ink bg-ink text-paper flex items-center justify-between mono text-[10px]">
-        <span className="text-paper/70">Right target, right message, right person</span>
-        <span className="text-fire">→ Target Account List</span>
-      </div>
+      
     </div>
   );
 }
@@ -705,11 +695,7 @@ function StackDiagram() {
           </li>
         ))}
       </ol>
-      <div className="mt-5 text-[13px] text-ink/75 leading-relaxed border-l-4 border-fire pl-4 py-1">
-        A prospect who receives a cold email on Monday, ignores it, visits the site on Wednesday,
-        and fills out a form on Friday shows up in HubSpot as one contact with one connected story.
-        The BDR picking that contact up sees the whole picture and can act on it.
-      </div>
+      
     </div>
   );
 }
@@ -745,10 +731,7 @@ function SlaFlow() {
           </li>
         ))}
       </ol>
-      <div className="px-5 py-3 border-t-2 border-ink bg-volt flex flex-wrap items-center justify-between gap-2 mono text-[10px]">
-        <span className="text-ink min-w-0">Nothing leaks between reply and booking</span>
-        <span className="text-ink font-bold shrink-0">&gt;50% of replies become discovery calls</span>
-      </div>
+      
     </div>
   );
 }
@@ -789,11 +772,7 @@ function GatedPipeline() {
           </li>
         ))}
       </ol>
-      <div className="px-5 py-4 border-t-2 border-ink bg-volt/40 grid md:grid-cols-3 gap-3 text-[13px] text-ink/85 leading-relaxed">
-        <div><span className="display text-lg text-fire">Real</span> forecasts. Stage placement means something concrete.</div>
-        <div><span className="display text-lg text-fire">Visible</span> blockages. Stuck deals surface early, not in the last week of the quarter.</div>
-        <div><span className="display text-lg text-fire">Proactive</span> selling. Support arrives where it is needed, while there is still time to act.</div>
-      </div>
+      
     </div>
   );
 }
