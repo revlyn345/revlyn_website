@@ -146,10 +146,7 @@ function Hero() {
 
       <div className="max-w-[1400px] mx-auto px-6 pt-14 md:pt-20 pb-16 md:pb-24 grid md:grid-cols-12 gap-10 items-end relative">
         <div className="md:col-span-7">
-          <div className="inline-flex items-center gap-3 mono text-xs tracking-[0.22em] uppercase border border-ink/15 px-3 py-1.5">
-            <span className="w-2 h-2 rounded-full bg-fire animate-pulse" />
-            By the time you land here, you've already opened ten of these tabs
-          </div>
+          
           <h1 className="mt-6 display text-[clamp(2.6rem,7.5vw,7rem)] leading-[0.92] tracking-tight">
             So let's skip
             <br />
@@ -210,12 +207,7 @@ function Hero() {
               width={1600}
               height={2000}
             />
-            <div className="absolute top-4 left-4 bg-volt border border-ink px-3 py-1.5 mono text-[10px] tracking-widest uppercase">
-              Blueprint · v1.4
-            </div>
-            <div className="absolute bottom-4 right-4 bg-fire text-paper border border-ink px-3 py-1.5 mono text-[10px] tracking-widest uppercase">
-              Live in 42 days
-            </div>
+            
           </div>
         </div>
       </div>

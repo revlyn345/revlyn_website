@@ -3,6 +3,19 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import {
+  MessageCircle,
+  Search,
+  ShieldCheck,
+  Image as ImageIcon,
+  Zap,
+  Plug,
+  Fingerprint,
+  Smartphone,
+  Target,
+  ArrowRight,
+} from "lucide-react";
+
 const heroEngine = "/hero-engine.jpg";
 const deskOperator = "/desk-operator.jpg";
 const engineMacro = "/engine-macro.jpg";
@@ -68,26 +81,25 @@ export default function HomePageClient() {
       {/* ══ ACT I · THE HOOK ══════════════════════════════════ */}
       <section id="act-0" data-act>
         <Hero />
-        
+       
 
-        <LogoWall />
+        <Problem />
       </section>
 
       {/* ══ ACT II · THE DIAGNOSIS ════════════════════════════ */}
       <section id="act-1" data-act>
        
-        <Problem />
+        <LogoWall />
         <RevenueEngineDiagram />
-        
+       
       </section>
 
       {/* ══ ACT III · THE ENGINE ══════════════════════════════ */}
       <section id="act-2" data-act>
-        
-      
-        
+       
+     
+       
         <LiveDashboard />
-        <FunnelVisual />
       </section>
 
       {/* ══ ACT IV · THE METHOD ═══════════════════════════════ */}
@@ -101,12 +113,17 @@ export default function HomePageClient() {
 
       {/* ══ ACT V · THE PROOF ═════════════════════════════════ */}
       <section id="act-4" data-act>
-        
+       
         <CaseStories />
       </section>
       <IndustriesSection />
+     
+      {/* ══ NEW SECTIONS ══════════════════════════════════════ */}
+      <AddOnServices />
+      <WhyYouNeed />
+      {/* ══════════════════════════════════════════════════════ */}
 
-      {/* ══ ACT VI · THE TEAM ════════════════════════════ */}
+      {/* ══ ACT VI · THE TEAM ════════════════════════════════ */}
       <section id="act-5" data-act>
         <TeamStrip />
       </section>
@@ -160,7 +177,7 @@ function ChapterDivider({
               </span>
             </div>
 
-            <h2 className="font-display text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] tracking-[-0.03em] text-ink">
+            <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl">
               {title}
             </h2>
 
@@ -384,7 +401,7 @@ function Problem() {
   ];
 
   const disconnectedList = [
-    "Tools and data don’t connect",
+    "Tools and data don't connect",
     "Different processes across teams",
     "Limited visibility into performance",
     "Manual work and constant handoffs",
@@ -406,10 +423,9 @@ function Problem() {
         {/* Heading */}
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-14">
           <div className="lg:col-span-6">
-            <h2 className="display text-[clamp(2.25rem,5vw,4rem)] leading-[1.15] tracking-[-0.03em] overflow-visible [clip-path:none!important]">
-              Bring your revenue
-              <br />
-              operation together.
+            <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl">
+              Bring your revenue operation{" "}
+              <span className="text-fire">together<span className="text-ink">.</span></span>
             </h2>
           </div>
 
@@ -426,137 +442,115 @@ function Problem() {
         <div className="grid lg:grid-cols-2 gap-6">
 
           {/* ============================================================
-              TODAY — DISCONNECTED
+              TODAY · DISCONNECTED
           ============================================================ */}
-          <div className="relative rounded-2xl border-2 border-ink/10 bg-white/60 p-6 md:p-8">
+        <div className="relative rounded-2xl border-2 border-ink/10 bg-white/60 p-5 sm:p-6 md:p-8">
 
-            {/* Arrow pointing to connected card */}
-            <div className="hidden lg:flex absolute top-1/2 -right-[32px] -translate-y-1/2 z-20 items-center justify-center">
-              <span className="text-fire text-4xl leading-none font-light">
-                →
-              </span>
-            </div>
+  {/* Arrow pointing to connected card - desktop only, safely positioned inside */}
+  <div className="hidden lg:flex absolute top-1/2 -right-4 -translate-y-1/2 z-20 items-center justify-center w-8 h-8 rounded-full bg-white border border-ink/10 shadow-sm">
+    <span className="text-fire text-lg leading-none">→</span>
+  </div>
 
-            {/* Card header */}
-            <div className="flex items-center justify-between mono text-[10px] uppercase tracking-[0.2em] text-ink/40 mb-10">
-              <span>TODAY</span>
-              <span>DISCONNECTED</span>
-            </div>
+  {/* Card header */}
+  <div className="flex items-center justify-between mono text-[10px] uppercase tracking-[0.2em] text-ink/40 mb-8 sm:mb-10">
+    <span>TODAY</span>
+    <span>DISCONNECTED</span>
+  </div>
 
-            {/* ==========================================================
-                NODE GRAPH
-            ========================================================== */}
-            <div className="relative w-full aspect-[2/1]">
+  {/* ==========================================================
+      NODE GRAPH - desktop: 2×2 grid with SVG lines
+      mobile: vertical stack with simple dashed connectors
+  ========================================================== */}
 
-              {/* Connection lines */}
-              <svg
-                viewBox="0 0 400 200"
-                className="absolute inset-0 w-full h-full pointer-events-none"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-              >
-                <defs>
-                  <style>{`
-                    .prob-dash {
-                      stroke: rgba(10, 10, 10, 0.25);
-                      stroke-width: 1.2;
-                      stroke-dasharray: 6 6;
-                      fill: none;
-                    }
-                  `}</style>
-                </defs>
+  {/* Desktop (≥ md) */}
+  <div className="hidden md:block relative w-full aspect-[2/1]">
+    <svg
+      viewBox="0 0 400 200"
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <defs>
+        <style>{`
+          .prob-dash {
+            stroke: rgba(10, 10, 10, 0.25);
+            stroke-width: 1.2;
+            stroke-dasharray: 6 6;
+            fill: none;
+          }
+        `}</style>
+      </defs>
 
-                {/* HubSpot ↔ Processes */}
-                <path
-                  className="prob-dash"
-                  d="M 100 48 C 145 18, 255 18, 300 48"
-                />
+      <path className="prob-dash" d="M 100 48 C 145 18, 255 18, 300 48" />
+      <path className="prob-dash" d="M 100 55 C 55 78, 55 122, 100 148" />
+      <path className="prob-dash" d="M 105 55 C 155 82, 245 118, 295 148" />
+      <path className="prob-dash" d="M 295 55 C 245 82, 155 118, 105 148" />
+      <path className="prob-dash" d="M 300 55 C 345 78, 345 122, 300 148" />
+      <path className="prob-dash" d="M 100 148 C 145 178, 255 178, 300 148" />
+    </svg>
 
-                {/* HubSpot ↔ Reporting */}
-                <path
-                  className="prob-dash"
-                  d="M 100 55 C 55 78, 55 122, 100 148"
-                />
-
-                {/* HubSpot ↔ Automation */}
-                <path
-                  className="prob-dash"
-                  d="M 105 55 C 155 82, 245 118, 295 148"
-                />
-
-                {/* Processes ↔ Reporting */}
-                <path
-                  className="prob-dash"
-                  d="M 295 55 C 245 82, 155 118, 105 148"
-                />
-
-                {/* Processes ↔ Automation */}
-                <path
-                  className="prob-dash"
-                  d="M 300 55 C 345 78, 345 122, 300 148"
-                />
-
-                {/* Reporting ↔ Automation */}
-                <path
-                  className="prob-dash"
-                  d="M 100 148 C 145 178, 255 178, 300 148"
-                />
-              </svg>
-
-              {/* ========================================================
-                  NODE GRID
-              ======================================================== */}
-              <div className="relative grid grid-cols-2 gap-x-8 gap-y-4 h-full items-start">
-
-                {nodes.map((n) => (
-                  <div
-                    key={n.label}
-                    className="flex flex-col items-center text-center gap-3"
-                  >
-
-                    {/* Node circle */}
-                    <div className="w-16 h-16 rounded-full border-2 border-ink/25 flex items-center justify-center bg-white relative z-10">
-                      <svg
-                        viewBox="0 0 24 24"
-                        className="w-7 h-7 fill-ink/50"
-                      >
-                        {n.icon}
-                      </svg>
-                    </div>
-
-                    {/* Node text */}
-                    <div>
-                      <div className="font-medium text-ink">
-                        {n.label}
-                      </div>
-
-                      <div className="text-xs text-ink/50 mt-0.5 max-w-[140px]">
-                        {n.noteDisconnected}
-                      </div>
-                    </div>
-
-                  </div>
-                ))}
-
-              </div>
-            </div>
-
-            {/* Disconnected problems */}
-            <ul className="mt-10 pt-6 border-t border-ink/10 space-y-2.5">
-              {disconnectedList.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-center gap-2 text-sm text-ink/70"
-                >
-                  <span className="text-fire shrink-0">✕</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
+    <div className="relative grid grid-cols-2 gap-x-8 gap-y-4 h-full items-start">
+      {nodes.map((n) => (
+        <div key={n.label} className="flex flex-col items-center text-center gap-3">
+          <div className="w-16 h-16 rounded-full border-2 border-ink/25 flex items-center justify-center bg-white relative z-10">
+            <svg viewBox="0 0 24 24" className="w-7 h-7 fill-ink/50">
+              {n.icon}
+            </svg>
           </div>
+          <div>
+            <div className="font-medium text-ink">{n.label}</div>
+            <div className="text-xs text-ink/50 mt-0.5 max-w-[140px]">
+              {n.noteDisconnected}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {/* Mobile (< md) - vertical stack with dashed connectors */}
+  <ul className="md:hidden flex flex-col">
+    {nodes.map((n, i) => (
+      <li key={n.label} className="relative flex flex-col items-center text-center">
+        {/* Node circle */}
+        <div className="w-14 h-14 rounded-full border-2 border-ink/25 flex items-center justify-center bg-white relative z-10">
+          <svg viewBox="0 0 24 24" className="w-6 h-6 fill-ink/50">
+            {n.icon}
+          </svg>
+        </div>
+
+        {/* Node text */}
+        <div className="mt-3">
+          <div className="font-medium text-ink text-sm">{n.label}</div>
+          <div className="text-xs text-ink/50 mt-0.5 max-w-[220px]">
+            {n.noteDisconnected}
+          </div>
+        </div>
+
+        {/* Dashed connector to next node (except last) */}
+        {i < nodes.length - 1 && (
+          <div className="h-6 w-px border-l border-dashed border-ink/25 my-1" aria-hidden />
+        )}
+      </li>
+    ))}
+  </ul>
+
+  {/* Disconnected problems */}
+  <ul className="mt-8 sm:mt-10 pt-6 border-t border-ink/10 space-y-2.5">
+    {disconnectedList.map((item) => (
+      <li
+        key={item}
+        className="flex items-center gap-2 text-sm text-ink/70"
+      >
+        <span className="text-fire shrink-0">✕</span>
+        {item}
+      </li>
+    ))}
+  </ul>
+</div>
 
           {/* ============================================================
-              WITH REVLYN — CONNECTED
+              WITH REVLYN · CONNECTED
           ============================================================ */}
           <div className="rounded-2xl bg-ink text-paper p-6 md:p-8">
 
@@ -939,11 +933,12 @@ function RevenueEngineDiagram() {
             <span className="mono text-[11px] md:text-[12px] tracking-[0.22em] text-fire uppercase">
               HOW REVENUE ENGINEERING WORKS
             </span>
-            
+           
           </div>
 
-          <h2 className="display text-[clamp(2.1rem,4.2vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-white">
-            One connected system behind your revenue team.
+          <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl text-white">
+            One connected system behind your{" "}
+            <span className="text-fire">revenue team<span className="text-white">.</span></span>
           </h2>
 
           <p className="mt-5 text-[16px] md:text-[17px] text-white/50 leading-relaxed max-w-xl">
@@ -1726,44 +1721,151 @@ function Proof() {
       tag: "CRM & Data",
       title: "Keep HubSpot clean and structured.",
       body: "We manage properties, pipelines, lifecycle stages, permissions and data quality so your CRM stays usable as the business evolves.",
-      accent: "bg-volt",
+      variant: "cream" as const,
     },
     {
       tag: "Sales & Marketing Operations",
       title: "Build the processes your teams actually need.",
       body: "Lead routing, workflows, automation, campaigns, sales processes and handoffs are built around how your teams work.",
-      accent: "bg-fire text-paper",
+      variant: "fire" as const,
     },
     {
       tag: "Reporting & Improvement",
       title: "Keep the portal moving with the business.",
       body: "We manage dashboards, integrations, reporting and ongoing changes so HubSpot doesn't become another internal backlog.",
-      accent: "bg-ink text-paper",
+      variant: "ink" as const,
     },
   ];
 
+  const variantStyles = {
+    cream: {
+      card: "bg-cream border-ink/10 text-ink",
+      tag: "text-fire",
+      title: "text-ink",
+      body: "text-ink/60",
+      index: "text-ink/15",
+      rule: "bg-fire/40",
+    },
+    fire: {
+      card: "bg-fire border-fire text-paper",
+      tag: "text-paper/70",
+      title: "text-paper",
+      body: "text-paper/80",
+      index: "text-paper/25",
+      rule: "bg-paper/40",
+    },
+    ink: {
+      card: "bg-ink border-ink text-paper",
+      tag: "text-fire",
+      title: "text-paper",
+      body: "text-paper/65",
+      index: "text-paper/15",
+      rule: "bg-fire/60",
+    },
+  };
+
   return (
-    <section id="proof" className="bg-bone">
-      <div className="max-w-[1400px] mx-auto px-6 py-20">
-        <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] max-w-4xl">
-          HubSpot should make your revenue team easier to run.
-        </h2>
-        <p className="mt-6 max-w-6xl text-lg leading-relaxed text-ink/70">
-          As your business grows, HubSpot gets more complex. Pipelines change, workflows pile up, data gets messy,
-          and reporting stops telling the full story. We manage and improve your HubSpot so your teams can keep
-          working from a system they trust.
-        </p>
-        <div className="mt-12 grid md:grid-cols-3 gap-6">
-          {cards.map((c, i) => (
-            <article
-              key={i}
-              className={`${c.accent} p-6 flex flex-col shadow-md hover:shadow-lg transition-shadow`}
-            >
-              <div className="mono text-xs opacity-80">0{i + 1} · {c.tag}</div>
-              <div className="mt-6 display text-2xl md:text-3xl leading-tight">{c.title}</div>
-              <p className="mt-4 text-base leading-snug">{c.body}</p>
-            </article>
-          ))}
+    <section id="proof" className="bg-sand border-b border-ink/10">
+      <div className="max-w-[1280px] mx-auto px-6 py-24 md:py-32">
+
+        {/* ── Section header ─────────────────────────────── */}
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-16">
+          <div className="lg:col-span-7">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-fire">
+                What we manage
+              </span>
+            </div>
+            <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl">
+              HubSpot should make your revenue team{" "}
+              <span className="text-fire">easier to run<span className="text-ink">.</span></span>
+            </h2>
+          </div>
+
+          <div className="lg:col-span-5 flex items-end">
+            <p className="text-lg leading-relaxed text-ink/60 max-w-lg">
+              As your business grows, HubSpot gets more complex. Pipelines
+              change, workflows pile up, data gets messy, and reporting stops
+              telling the full story. We manage and improve your HubSpot so
+              your teams can keep working from a system they trust.
+            </p>
+          </div>
+        </div>
+
+        {/* ── Cards ──────────────────────────────────────── */}
+        <div className="grid md:grid-cols-3 gap-5">
+          {cards.map((c, i) => {
+            const v = variantStyles[c.variant];
+            return (
+              <article
+                key={i}
+                className={`
+                  group relative rounded-2xl border p-7 md:p-8 flex flex-col
+                  transition-all duration-300 hover:-translate-y-1
+                  ${v.card}
+                `}
+              >
+                {/* Index watermark */}
+                <div
+                  className={`
+                    absolute top-5 right-6 font-display text-5xl leading-none
+                    tracking-[-0.04em] select-none pointer-events-none
+                    ${v.index}
+                  `}
+                >
+                  0{i + 1}
+                </div>
+
+                {/* Tag + rule */}
+                <div className="flex items-center gap-3 mb-8">
+                  <span
+                    className={`
+                      font-mono text-[10px] uppercase tracking-[0.22em]
+                      ${v.tag}
+                    `}
+                  >
+                    {c.tag}
+                  </span>
+                </div>
+
+                <div className={`h-px w-10 mb-7 ${v.rule}`} />
+
+                {/* Title */}
+                <h3
+                  className={`
+                    font-display text-[clamp(1.5rem,2.4vw,1.75rem)] leading-[1.15]
+                    tracking-[-0.02em] ${v.title}
+                  `}
+                >
+                  {c.title}
+                </h3>
+
+                {/* Body */}
+                <p
+                  className={`
+                    mt-4 text-[15px] leading-relaxed ${v.body}
+                  `}
+                >
+                  {c.body}
+                </p>
+
+                {/* Bottom accent line on hover */}
+                <div
+                  className={`
+                    mt-auto pt-8 flex items-center gap-2
+                    font-mono text-[10px] uppercase tracking-[0.2em]
+                    transition-all duration-300
+                    opacity-0 -translate-x-1
+                    group-hover:opacity-100 group-hover:translate-x-0
+                    ${v.tag}
+                  `}
+                >
+                  <span>→</span>
+                  <span>Learn more</span>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -1929,15 +2031,17 @@ function TalkToUsMeetings() {
 /* ─────────────────────────────  SECTION HEADER  ───────────────────────────── */
 function SectionHeader({
   n, label, title, light = false,
-}: { n: string; label: string; title: string; light?: boolean }) {
+}: { n?: string; label?: string; title: string; light?: boolean }) {
   return (
     <div>
-      <div className="flex items-center gap-3 mono">
-        <span className={`brutal-border ${light ? "bg-volt text-ink border-paper" : "bg-ink text-paper"} px-2 py-1`}>§{n}</span>
-        <span className={light ? "text-paper/70" : "text-muted-foreground"}>{label}</span>
-        <span className="flex-1 h-[2px] bg-current opacity-30" />
-      </div>
-      <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] mt-6 max-w-4xl">{title}</h2>
+      {(n || label) && (
+        <div className="flex items-center gap-3 mono">
+          {n && <span className={`brutal-border ${light ? "bg-volt text-ink border-paper" : "bg-ink text-paper"} px-2 py-1`}>§{n}</span>}
+          {label && <span className={light ? "text-paper/70" : "text-muted-foreground"}>{label}</span>}
+          <span className="flex-1 h-[2px] bg-current opacity-30" />
+        </div>
+      )}
+      <h2 className={`display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl ${(n || label) ? "mt-6" : ""}`}>{title}</h2>
     </div>
   );
 }
@@ -1949,75 +2053,6 @@ function SectionHeader({
 
 /* ─────────────────────────────  MACRO SHOT  ───────────────────────────── */
 
-
-/* ─────────────────────────────  FUNNEL VISUAL  ───────────────────────────── */
-function FunnelVisual() {
-  const stages = [
-    ["ATTRACT", "SEO · ADS · PLG"],
-    ["QUALIFY", "ICP · SCORE · SLA"],
-    ["CONVERT", "DEMO · DEAL DESK"],
-    ["EXPAND", "CS SIGNAL · UPSELL"],
-    ["RENEW", "USAGE · RENEWAL"],
-  ];
-
-  return (
-    <section className="bg-paper py-20 lg:py-24">
-      <div className="max-w-7xl mx-auto px-6">
-        <SectionHeader
-          n="07.B"
-          label="The full picture"
-          title="Your funnel, from first click to renewal."
-        />
-
-        <p className="max-w-3xl mt-5 text-lg leading-8 text-muted-foreground">
-          Every stage is instrumented in the warehouse. Every dashboard
-          is powered by one schema. Every anomaly is routed to an owner,
-          not a group chat.
-        </p>
-
-        {/* Funnel Image */}
-
-        <div className="mt-12 rounded-[28px] overflow-hidden bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)] p-4">
-
-          <img
-            src={funnelViz}
-            alt="Instrumented revenue funnel diagram from awareness to renewal"
-            className="w-full h-auto object-contain"
-            loading="lazy"
-          />
-
-        </div>
-
-        {/* Funnel Stages */}
-
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-
-          {stages.map(([title, subtitle], index) => (
-
-            <div
-              key={title}
-              className="rounded-2xl bg-white p-5 shadow-sm border border-black/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-            >
-              <div className="mono text-[10px] uppercase tracking-[0.25em] text-fire">
-                Stage {String(index + 1).padStart(2, "0")}
-              </div>
-
-              <h3 className="display text-xl mt-3 text-ink">
-                {title}
-              </h3>
-
-              <p className="mt-2 text-sm text-muted-foreground leading-6">
-                {subtitle}
-              </p>
-            </div>
-
-          ))}
-
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ─────────────────────────────  INDUSTRIES  ───────────────────────────── */
 type Industry = {
@@ -2145,7 +2180,7 @@ function IndustriesSection() {
 
         <div className="mt-10 brutal-border bg-ink text-paper p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-5">
           <div>
-            
+           
             <p className="display text-2xl md:text-3xl tracking-[-0.02em] leading-tight max-w-xl">
               We also have experience in vertical B2B, dev tools, healthtech, manufacturing and many more.
             </p>
@@ -2159,14 +2194,174 @@ function IndustriesSection() {
   );
 }
 
+/* ─────────────────────────────  ADD-ON SERVICES  ───────────────────────────── */
+function AddOnServices() {
+  const services = [
+    {
+      icon: <MessageCircle className="w-6 h-6" />,
+      title: "Conversational Lead Capture",
+      desc: "Chat, forms and bot flows wired straight into HubSpot. Every conversation becomes a scored, owned, followable contact not a lost inbox thread.",
+    },
+    {
+      icon: <Search className="w-6 h-6" />,
+      title: "Revenue Attribution",
+      desc: "Multi-touch attribution across ads, outbound, PLG and referrals. Finally know which motion sourced, influenced and closed each deal.",
+    },
+    {
+      icon: <ShieldCheck className="w-6 h-6" />,
+      title: "Data Governance & Compliance",
+      desc: "GDPR-ready consent, field-level permissions, audit trails and dedupe rules. A CRM your legal and ops teams can actually sign off on.",
+    },
+    {
+      icon: <ImageIcon className="w-6 h-6" />,
+      title: "Sales Enablement Assets",
+      desc: "Battle cards, deal briefs, call summaries and proposal templates generated from your CRM data reps stop rebuilding context every call.",
+    },
+    {
+      icon: <Zap className="w-6 h-6" />,
+      title: "Workflow Automation",
+      desc: "Lead routing, lifecycle triggers, SLA escalations and enrichment running quietly in the background so your team stops doing robot work.",
+    },
+    {
+      icon: <Plug className="w-6 h-6" />,
+      title: "Stack Integrations",
+      desc: "Warehouse, billing, product analytics, outreach and AI tools connected to HubSpot one clean data spine instead of a patchwork of syncs.",
+    },
+  ];
+
+  return (
+    <section className="border-b-2 border-ink bg-paper">
+      <div className="max-w-[1400px] mx-auto px-6 py-20 md:py-28">
+        {/* Header */}
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-16">
+          <div className="lg:col-span-7">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-ink/60">
+                Plug-in modules
+              </span>
+            </div>
+            <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl">
+              Add-on <span className="text-fire">services<span className="text-ink">.</span></span>
+            </h2>
+          </div>
+        </div>
+
+        {/* Grid */}
+        <div className="grid md:grid-cols-2 gap-x-12 gap-y-14">
+          {services.map((s, i) => (
+            <div key={i} className="flex gap-5 group">
+              <div
+                className="shrink-0 w-12 h-12 rounded-full border-2 border-fire/30 bg-fire/10 text-fire grid place-items-center transition-transform group-hover:-translate-y-0.5"
+              >
+                {s.icon}
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-baseline gap-3 mb-2">
+                  <span className="font-mono text-[10px] text-ink/30 tabular-nums">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="display text-2xl leading-tight">{s.title}</h3>
+                </div>
+                <p className="text-ink/60 leading-relaxed">{s.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Footer strip */}
+        <div className="mt-16 pt-8 border-t border-ink/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-ink/50">
+            Mix · match · stack with any engagement
+          </p>
+          <BookCallButton className="inline-flex items-center gap-2 bg-ink text-paper px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] hover:bg-ink/80 transition-colors self-start sm:self-auto">
+            Scope an add-on <span>→</span>
+          </BookCallButton>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────  WHY YOU NEED  ───────────────────────────── */
+function WhyYouNeed() {
+  const features = [
+    {
+      icon: <Fingerprint className="w-6 h-6" />,
+      title: "One CRM, Actually Trusted",
+      desc: "Every team works from the same clean, complete record. No spreadsheets, no side pipelines, no 'which number is right?' meetings.",
+    },
+    {
+      icon: <Zap className="w-6 h-6" />,
+      title: "Faster Speed-to-Lead",
+      desc: "Instant routing, enrichment and SLA escalation. Leads reach the right owner in seconds not hours while intent is still warm.",
+    },
+    {
+      icon: <Smartphone className="w-6 h-6" />,
+      title: "Visibility Into Every Motion",
+      desc: "Attribution, forecast and pipeline reporting that leadership can open on Monday and act on before the week starts.",
+    },
+    {
+      icon: <Target className="w-6 h-6" />,
+      title: "Compounding Revenue Ops",
+      desc: "Every workflow, agent and dashboard we ship stays in the system so your engine gets sharper each quarter instead of resetting.",
+    },
+  ];
+
+  return (
+    <section className="border-b-2 border-ink bg-paper">
+      <div className="max-w-[1400px] mx-auto px-6 py-20 md:py-28">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left Content */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-ink/60">
+                Why teams choose us
+              </span>
+            </div>
+            <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl mb-6">
+              Why revenue teams need{" "}
+              <span className="text-fire">revenue engineering<span className="text-ink">.</span></span>
+            </h2>
+            <p className="text-lg text-ink/70 leading-relaxed mb-8 max-w-lg">
+              Revenue engineering isn't about buying more tools. It's about
+              wiring the ones you already own into one system your teams can
+              trust, measure and grow with.
+            </p>
+            <BookCallButton className="inline-flex items-center gap-2 rounded-full bg-ink text-paper px-8 py-4 font-semibold text-base hover:bg-ink/80 transition-colors">
+              START GROWING TODAY <ArrowRight className="w-4 h-4" />
+            </BookCallButton>
+          </div>
+
+          {/* Right Cards */}
+          <div className="grid sm:grid-cols-2 gap-6">
+            {features.map((f, i) => (
+              <div
+                key={i}
+                className="p-8 rounded-2xl bg-white border border-ink/5 shadow-sm hover:shadow-lg transition-shadow"
+              >
+                <div className="w-12 h-12 rounded-lg bg-fire/10 text-fire grid place-items-center mb-6">
+                  {f.icon}
+                </div>
+                <h3 className="display text-xl mb-3 leading-tight">{f.title}</h3>
+                <p className="text-ink/60 leading-relaxed text-sm">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─────────────────────────────  TEAM STRIP  ───────────────────────────── */
 function TeamStrip() {
   return (
     <section className="border-b-2 border-ink bg-[#F8F8F6]">
       <div className="max-w-[1400px] mx-auto px-6 py-20 grid md:grid-cols-12 gap-10 items-center">
         <div className="md:col-span-5">
-          <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] max-w-4xl">
-            Senior operators. On your team
+          <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl">
+            Senior operators. On your{" "}
+            <span className="text-fire">team<span className="text-ink">.</span></span>
           </h2>
           <p className="mt-6 text-lg leading-relaxed">
             Work directly with experienced HubSpot and RevOps operators who know your business and stay close to the work.
@@ -2294,20 +2489,21 @@ const CLIENT_LOGOS: ClientLogo[] = [
   { name: "Sparkle", href: "https://sparkle.life/", src: sparkleLogo, tag: "Consumer", geo: "India", scope: "D2C + CRM", outcome: "PLG loops and activation funnel" },
 ];
 function LogoWall() {
-  
+ 
 
   return (
     <section className="border-b-2 border-ink bg-[#000000] relative overflow-hidden">
       <div className="max-w-[1360px] mx-auto px-6 md:px-10 pt-20 md:pt-28 pb-14 md:pb-16">
         <div className="grid md:grid-cols-12 gap-x-8 gap-y-6 items-end">
           <div className="md:col-span-9">
-            
-            <h2 className="display mt-6 text-[clamp(2rem,4.4vw,3.25rem)] leading-[1.1] tracking-[-0.025em] text-white">
-              A few teams we have worked with.
+           
+            <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl text-white">
+              A few teams we have worked{" "}
+              <span className="text-fire">with<span className="text-white">.</span></span>
             </h2>
           </div>
           <div className="md:col-span-3 md:text-right">
-            
+           
           </div>
         </div>
       </div>
@@ -2328,7 +2524,7 @@ function LogoWall() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={c.name}
-                
+               
                 className="group/logo relative shrink-0 flex items-center gap-3 px-3 py-2 transition-transform duration-300 ease-out hover:scale-105"
               >
                 <span className="mono text-[9px] tracking-[0.24em] text-white/30 tabular-nums group-hover/logo:text-fire transition-colors duration-300">
@@ -2367,24 +2563,22 @@ function LogoWall() {
 
 /* ─────────────────────────────  LIVE DASHBOARD (animated overlays)  ───────────────────────────── */
 function LiveDashboard() {
-  const [count, setCount] = useState({
-    pipe: 0,
-    deals: 0,
-    conv: 0,
-  });
-
+  const [count, setCount] = useState({ pipe: 0, deals: 0, conv: 0 });
+  const [bars, setBars] = useState<number[]>(Array(12).fill(0));
   const ref = useRef<HTMLDivElement>(null);
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) return;
+        if (!entry.isIntersecting || hasAnimated.current) return;
+        hasAnimated.current = true;
 
         let frame = 0;
+        const targetBars = [40, 55, 35, 70, 50, 85, 65, 90, 75, 95, 80, 100];
 
         const id = setInterval(() => {
           frame++;
-
           const progress = Math.min(frame / 40, 1);
           const ease = 1 - Math.pow(1 - progress, 3);
 
@@ -2394,136 +2588,273 @@ function LiveDashboard() {
             conv: +(16.3 * ease).toFixed(1),
           });
 
+          setBars(targetBars.map((h) => h * ease));
+
           if (progress >= 1) clearInterval(id);
         }, 30);
       },
-      {
-        threshold: 0.3,
-      }
+      { threshold: 0.25 }
     );
 
     if (ref.current) io.observe(ref.current);
-
     return () => io.disconnect();
   }, []);
 
   return (
-    <section className="bg-gradient-to-b from-paper to-bone py-20 lg:py-24">
-      <div
-        ref={ref}
-        className="max-w-7xl mx-auto px-6"
-      >
-        <SectionHeader
-          n="03.C"
-          label="Your dashboard"
-          title="A CRM your team will actually trust."
-        />
+    <section className="bg-paper border-b border-ink/10">
+      <div ref={ref} className="max-w-[1280px] mx-auto px-6 py-24 md:py-32">
 
-        
+        {/* ── Section header ─────────────────────────────── */}
+        <div className="flex items-center gap-3 mb-5">
+          <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-fire">
+            Inside the system
+          </span>
+        </div>
 
-        {/* Dashboard */}
-
-        <div className="relative mt-14">
-
-          <div className="overflow-hidden rounded-[30px] shadow-[0_25px_80px_rgba(0,0,0,.15)]">
-
-            <img
-              src={dashboardMockup}
-              alt="CRM Dashboard"
-              className="w-full object-cover"
-            />
-
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-14">
+          <div className="lg:col-span-7">
+            <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl">
+              A CRM your team will{" "}
+              <span className="text-fire">actually trust<span className="text-ink">.</span></span>
+            </h2>
           </div>
+          <div className="lg:col-span-5 flex items-end">
+            <p className="text-lg leading-relaxed text-ink/60 max-w-md">
+              One source of truth. Live pipeline. Every deal, every owner, every
+              next step visible in a single view your whole revenue team can
+              work from.
+            </p>
+          </div>
+        </div>
 
-          {/* Bottom Badge */}
+        {/* ── Dashboard UI (built in code, no image) ─────── */}
+        <div className="relative">
+          <div className="rounded-2xl border border-ink/10 bg-ink overflow-hidden shadow-[0_30px_80px_-30px_rgba(0,0,0,0.4)]">
 
-          <div className="absolute left-8 bottom-8 hidden lg:block">
-
-            <div className="rounded-2xl bg-white/95 backdrop-blur-md px-5 py-3 shadow-xl">
-
-              <p className="mono text-[10px] tracking-[0.25em] uppercase text-fire">
-                Next Action
-              </p>
-
-              <p className="mt-1 font-semibold">
-                Sarah J. → Demo Scheduled
-              </p>
-
+            {/* Top bar - window chrome */}
+            <div className="flex items-center gap-3 px-5 py-3.5 border-b border-white/10">
+              <div className="flex gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
+              </div>
+              <div className="ml-4 font-mono text-[10px] tracking-[0.2em] text-white/40 uppercase">
+                revlyn / revenue-os / dashboard
+              </div>
+              <div className="ml-auto flex items-center gap-2 font-mono text-[10px] text-white/40">
+                <span>Live</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-fire animate-pulse" />
+              </div>
             </div>
 
+            {/* Body - sidebar + main panel */}
+            <div className="grid grid-cols-12 gap-0">
+
+              {/* Sidebar */}
+              <aside className="hidden md:block col-span-2 border-r border-white/10 p-5">
+                <div className="font-mono text-[9px] tracking-[0.2em] text-white/30 uppercase mb-4">
+                  Navigation
+                </div>
+                <ul className="space-y-3 font-mono text-[11px]">
+                  {[
+                    "Overview",
+                    "Pipeline",
+                    "Accounts",
+                    "Reports",
+                    "Automations",
+                    "Settings",
+                  ].map((item, i) => (
+                    <li
+                      key={item}
+                      className={`flex items-center gap-2 transition-colors ${
+                        i === 0 ? "text-white" : "text-white/40 hover:text-white/70"
+                      }`}
+                    >
+                      <span
+                        className={`w-1 h-1 rounded-full ${
+                          i === 0 ? "bg-fire" : "bg-white/30"
+                        }`}
+                      />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+
+              {/* Main panel */}
+              <div className="col-span-12 md:col-span-10 p-6 md:p-8">
+
+                {/* Panel header */}
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <div className="font-display text-xl text-white tracking-[-0.02em]">
+                      Pipeline Overview
+                    </div>
+                    <div className="font-mono text-[10px] text-white/40 mt-1 tracking-[0.15em] uppercase">
+                      Last 30 days · All teams
+                    </div>
+                  </div>
+                  <div className="hidden sm:flex items-center gap-2 font-mono text-[10px] text-white/40">
+                    <span className="px-2 py-1 rounded border border-white/15">7d</span>
+                    <span className="px-2 py-1 rounded bg-fire text-paper">30d</span>
+                    <span className="px-2 py-1 rounded border border-white/15">90d</span>
+                  </div>
+                </div>
+
+                {/* Chart row */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+                  {/* Bar chart */}
+                  <div className="lg:col-span-2 rounded-xl border border-white/10 bg-white/[0.02] p-5">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <div className="font-mono text-[10px] tracking-[0.2em] text-white/40 uppercase">
+                          Pipeline value
+                        </div>
+                        <div className="font-display text-3xl text-white tracking-[-0.02em] mt-2">
+                          ${count.pipe}M
+                        </div>
+                      </div>
+                      <div className="font-mono text-[10px] text-fire tracking-[0.1em]">
+                        +24.3%
+                      </div>
+                    </div>
+                    <div className="flex items-end gap-1.5 h-28">
+                      {bars.map((h, i) => (
+                        <div
+                          key={i}
+                          className="flex-1 rounded-t bg-fire/60 hover:bg-fire transition-colors"
+                          style={{ height: `${h}%`, minHeight: "2px" }}
+                        />
+                      ))}
+                    </div>
+                    <div className="flex justify-between mt-3 font-mono text-[9px] text-white/30 tracking-[0.1em]">
+                      <span>W1</span>
+                      <span>W4</span>
+                      <span>W8</span>
+                      <span>W12</span>
+                    </div>
+                  </div>
+
+                  {/* Win rate card */}
+                  <div className="rounded-xl border border-white/10 bg-white/[0.02] p-5 flex flex-col justify-between">
+                    <div>
+                      <div className="font-mono text-[10px] tracking-[0.2em] text-white/40 uppercase mb-4">
+                        Win rate
+                      </div>
+                      <div className="font-display text-3xl text-white tracking-[-0.02em]">
+                        {count.conv}
+                        <span className="text-xl text-white/50">%</span>
+                      </div>
+                    </div>
+                    <div className="mt-6">
+                      <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
+                        <div
+                          className="h-full bg-fire rounded-full transition-all duration-1000 ease-out"
+                          style={{ width: `${count.conv * 4}%` }}
+                        />
+                      </div>
+                      <div className="font-mono text-[10px] text-white/40 mt-3">
+                        +5.8 pts vs baseline
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom stat row */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+                  <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
+                    <div className="font-mono text-[10px] tracking-[0.2em] text-white/40 uppercase">
+                      Deals
+                    </div>
+                    <div className="font-display text-2xl text-white mt-2">
+                      {count.deals}
+                    </div>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
+                    <div className="font-mono text-[10px] tracking-[0.2em] text-white/40 uppercase">
+                      Avg cycle
+                    </div>
+                    <div className="font-display text-2xl text-white mt-2">
+                      22d
+                    </div>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
+                    <div className="font-mono text-[10px] tracking-[0.2em] text-white/40 uppercase">
+                      Next action
+                    </div>
+                    <div className="text-sm text-white mt-2 truncate">
+                      Sarah J. → Demo
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Alert */}
+          {/* Floating badge - bottom left */}
+          <div className="absolute left-8 bottom-8 hidden lg:block pointer-events-none">
+            <div className="rounded-xl bg-white px-5 py-3 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.3)] border border-ink/10">
+              <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-fire">
+                Next Action
+              </p>
+              <p className="mt-1 font-semibold text-sm text-ink">
+                Sarah J. → Demo Scheduled
+              </p>
+            </div>
+          </div>
 
-          <div className="absolute top-8 right-8 hidden xl:block">
-
-            <div className="rounded-xl bg-fire text-paper px-4 py-3 shadow-lg">
-
-              <div className="mono text-[10px] tracking-[0.2em] uppercase opacity-80">
+          {/* Floating alert - top right */}
+          <div className="absolute top-8 right-8 hidden xl:block pointer-events-none">
+            <div className="rounded-xl bg-fire text-paper px-4 py-3 shadow-[0_10px_30px_-10px_rgba(255,85,51,0.6)]">
+              <div className="font-mono text-[10px] tracking-[0.2em] uppercase opacity-80">
                 Alert
               </div>
-
               <div className="mt-1 text-sm font-medium">
                 Prospecting → Qualification Drop
               </div>
-
             </div>
-
           </div>
-
         </div>
 
-        {/* Stats */}
-
+        {/* ── Stat cards below dashboard ──────────────────── */}
         <div className="mt-10 grid gap-5 md:grid-cols-3">
 
-          <div className="rounded-3xl bg-white p-7 shadow-lg">
-
-            <div className="mono text-[11px] tracking-[0.25em] uppercase text-fire">
+          <div className="rounded-2xl bg-white border border-ink/10 p-7 transition-all hover:-translate-y-1">
+            <div className="font-mono text-[11px] tracking-[0.25em] uppercase text-fire">
               Pipeline
             </div>
-
-            <div className="display mt-3 text-5xl">
+            <div className="font-display mt-3 text-5xl tracking-[-0.03em]">
               ${count.pipe}M
             </div>
-
-            <div className="mt-3 text-sm text-muted-foreground">
+            <div className="mt-3 text-sm text-ink/50">
               +24.3% compared to last 30 days
             </div>
-
           </div>
 
-          <div className="rounded-3xl bg-volt p-7 shadow-lg">
-
-            <div className="mono text-[11px] tracking-[0.25em] uppercase">
+          <div className="rounded-2xl bg-cream border border-ink/10 p-7 transition-all hover:-translate-y-1">
+            <div className="font-mono text-[11px] tracking-[0.25em] uppercase text-ink/50">
               Deals
             </div>
-
-            <div className="display mt-3 text-5xl">
+            <div className="font-display mt-3 text-5xl tracking-[-0.03em]">
               {count.deals}
             </div>
-
-            <div className="mt-3 text-sm">
+            <div className="mt-3 text-sm text-ink/50">
               Average cycle reduced to 22 days
             </div>
-
           </div>
 
-          <div className="rounded-3xl bg-ink p-7 text-paper shadow-lg">
-
-            <div className="mono text-[11px] tracking-[0.25em] uppercase text-paper/60">
+          <div className="rounded-2xl bg-ink p-7 text-paper transition-all hover:-translate-y-1">
+            <div className="font-mono text-[11px] tracking-[0.25em] uppercase text-paper/50">
               Win Rate
             </div>
-
-            <div className="display mt-3 text-5xl">
+            <div className="font-display mt-3 text-5xl tracking-[-0.03em]">
               {count.conv}
               <span className="text-3xl">%</span>
             </div>
-
-            <div className="mt-3 text-sm text-paper/60">
+            <div className="mt-3 text-sm text-paper/50">
               +5.8 percentage points vs baseline
             </div>
-
           </div>
 
         </div>
@@ -2542,15 +2873,15 @@ function Playbook() {
         <div className="md:col-span-7 order-2 md:order-1">
           <div className="brutal-border brutal-shadow overflow-hidden bg-ink relative">
             <img
-              src={playbookDesk}
-              alt="Revenue growth playbook on a strategist's desk with sticky notes"
+              src="/playbook-desk.jpg"
+              alt="Open revenue operations playbook on a desk with sticky notes and a laptop"
               className="w-full h-auto block"
               loading="lazy"
               width={1600}
               height={1008}
             />
 
-            <div className="absolute top-4 left-4 brutal-border bg-volt text-ink px-3 py-2 mono text-[10px] brutal-shadow rotate-[-3deg]">
+            <div className="absolute top-4 left-4 brutal-border bg-fire text-paper px-3 py-2 mono text-[10px] brutal-shadow rotate-[-3deg]">
               PLAYBOOK · Q3 EDITION
             </div>
           </div>
@@ -2560,8 +2891,8 @@ function Playbook() {
         <div className="md:col-span-5 order-1 md:order-2">
           <div className="mono text-fire">// DELIVERABLE</div>
 
-          <h2 className="display text-[clamp(2rem,4.5vw,3.75rem)] mt-3">
-            A real <span className="bg-volt px-2">playbook.</span>
+          <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl mt-3">
+            A real <span className="text-fire">playbook<span className="text-ink">.</span></span>
           </h2>
 
           <p className="mt-6 text-lg leading-snug">
@@ -2605,12 +2936,15 @@ function CaseStories() {
   return (
     <section className="border-b-2 border-ink bg-ink text-paper">
       <div className="max-w-[1400px] mx-auto px-6 py-20">
+
+        {/* Section eyebrow */}
         
-        <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] mt-6 max-w-4xl text-paper">
-          Three systems. <span className="text-fire">Three stories.</span>
+
+        <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl mt-6 text-paper">
+          Three systems. <span className="text-fire">Three stories<span className="text-paper">.</span></span>
         </h2>
 
-        {/* Feature story with photo */}
+        {/* ── Feature story with photo ───────────────────── */}
         <div className="mt-14 grid md:grid-cols-12 gap-10 items-start">
           <div className="md:col-span-5">
             <div className="brutal-border border-paper overflow-hidden brutal-shadow-fire">
@@ -2625,11 +2959,13 @@ function CaseStories() {
             </div>
             
           </div>
+
           <div className="md:col-span-7">
-            <div className="mono text-fire text-xs">CASE 01 / 03 </div>
+            <div className="mono text-fire text-xs">CASE 01 / 03</div>
             <h3 className="display text-4xl md:text-5xl mt-3">
               "We had 40 reps and no clear read on which motion was working."
             </h3>
+
             <div className="mt-8 brutal-border border-paper bg-[color:#141414] p-6">
               <DayTimelineVisual
                 beats={[
@@ -2653,12 +2989,13 @@ function CaseStories() {
               ))}
             </div>
 
-            <blockquote className="mt-8 brutal-border border-paper bg-volt text-ink p-6 relative">
+            {/* Pull quote - was bg-volt, now fire-tinted on ink */}
+            <blockquote className="mt-8 brutal-border border-paper bg-fire/10 text-paper p-6 relative">
               <div className="display text-2xl leading-tight">
                 "Revlyn didn't sell us a strategy. They rebuilt the system and handed it back. It still runs. That's the whole story."
               </div>
-              <div className="mono text-xs mt-4">
-                , M. ANDERSON · CEO · SERIES B SAAS
+              <div className="mono text-xs mt-4 text-paper/70">
+                - M. ANDERSON · CEO · SERIES B SAAS
               </div>
               <span className="absolute -top-3 -left-3 brutal-border bg-fire text-paper mono text-[10px] px-2 py-1 rotate-[-4deg]">
                 VERIFIED
@@ -2667,7 +3004,7 @@ function CaseStories() {
           </div>
         </div>
 
-        {/* Two secondary stories */}
+        {/* ── Two secondary stories ──────────────────────── */}
         <div className="mt-16 grid md:grid-cols-2 gap-6">
           {[
             {
@@ -2675,28 +3012,47 @@ function CaseStories() {
               title: "Mid-market fintech drowning in manual routing",
               d1: "Every lead touched by three humans before a rep saw it. Speed-to-lead 6 hours. Conversion suffering.",
               d2: "Wired an AI qualifier + owner-routing engine into HubSpot. Fallback SLAs. Slack pings, not group chats.",
-              stats: [["-62%", "MANUAL"], ["6h → 4m", "SPEED-TO-LEAD"], ["+2.4×", "PIPELINE"]],
+              stats: [
+                ["-62%", "MANUAL"],
+                ["6h → 4m", "SPEED-TO-LEAD"],
+                ["+2.4×", "PIPELINE"],
+              ],
               bg: "bg-fire",
               accent: "text-paper",
+              statBg: "bg-paper",
+              statText: "text-ink",
             },
             {
               tag: "CASE 03 / 03",
-              title: "DevTools Y-C , forecasts nobody believed",
+              title: "DevTools Y-C - forecasts nobody believed",
               d1: "Board meeting was a coin toss. Reps sandbagged. CS didn't see churn signals. AI experiments stuck in the sandbox.",
               d2: "Rebuilt on Snowflake + a real MTA model. Two AI agents shipped in weeks 8-10. Forecast variance < 4%.",
-              stats: [["<4%", "FORECAST VAR"], ["-47%", "REP RAMP"], ["+38%", "NRR"]],
-              bg: "bg-volt",
-              accent: "text-ink",
+              stats: [
+                ["<4%", "FORECAST VAR"],
+                ["-47%", "REP RAMP"],
+                ["+38%", "NRR"],
+              ],
+              bg: "bg-[#141414]",
+              accent: "text-paper",
+              statBg: "bg-fire",
+              statText: "text-paper",
             },
           ].map((c) => (
-            <article key={c.tag} className={`brutal-border border-paper p-6 md:p-8 ${c.bg} ${c.accent}`}>
-              <div className="mono text-xs mb-3">{c.tag}</div>
+            <article
+              key={c.tag}
+              className={`brutal-border border-paper p-6 md:p-8 ${c.bg} ${c.accent}`}
+            >
+              <div className="mono text-xs mb-3 opacity-80">{c.tag}</div>
               <h4 className="display text-2xl md:text-3xl">{c.title}</h4>
               <p className="mt-4 leading-relaxed opacity-90">{c.d1}</p>
               <p className="mt-3 leading-relaxed opacity-90">{c.d2}</p>
+
               <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-2">
                 {c.stats.map(([k, v]) => (
-                  <div key={k} className="brutal-border border-current p-2 bg-paper text-ink">
+                  <div
+                    key={k}
+                    className={`brutal-border border-current p-2 ${c.statBg} ${c.statText}`}
+                  >
                     <div className="display text-lg">{k}</div>
                     <div className="mono text-[9px]">{v}</div>
                   </div>
@@ -2756,11 +3112,10 @@ function Engagements() {
       <div className="max-w-[1400px] mx-auto px-6 py-20 md:py-28">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 mb-14">
           <div className="lg:col-span-6">
-        
-            <h2 className="display text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.05] tracking-[-0.03em]">
-              Everything you need to
-              <br />
-              run HubSpot better.
+       
+            <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl">
+              Everything you need to run{" "}
+              <span className="text-fire">HubSpot better<span className="text-ink">.</span></span>
             </h2>
           </div>
           <div className="lg:col-span-6 flex items-end">
@@ -2849,7 +3204,10 @@ function FAQ() {
         <div className="grid md:grid-cols-12 gap-8 mb-12">
           <div className="md:col-span-5">
             <div className="mono text-xs mb-4 opacity-60">FAQ</div>
-            <h2 className="display text-5xl md:text-6xl leading-[0.95]">Questions we get, before the first call.</h2>
+            <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl">
+              Questions we get, before the{" "}
+              <span className="text-fire first">first call<span className="text-ink">.</span></span>
+            </h2>
             <p className="mt-6 text-base leading-snug text-ink/70">
               If you have one we haven't answered, bring it to the diagnostic. We'd rather over-answer than under-scope.
             </p>
