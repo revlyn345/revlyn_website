@@ -198,10 +198,7 @@ function Hero() {
           {/* Plaque: the formula */}
           <div data-reveal data-reveal-delay="0.25" className="lg:col-span-4">
             <div className="brutal-border bg-volt p-5 shadow-[10px_10px_0_0_var(--color-ink)] transition-transform duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[14px_14px_0_0_var(--color-ink)]">
-              <div className="flex items-center justify-between text-[10px] mono uppercase tracking-[0.22em] mb-5">
-                <span className="border border-ink bg-paper px-2 py-0.5">The formula</span>
-                <span className="tabular-nums">Rev · Today</span>
-              </div>
+              
               <div className="space-y-2">
                 <div className="border-2 border-ink bg-paper p-3">
                   <div className="display text-xl leading-none">HubSpot</div>
@@ -283,10 +280,7 @@ function WhyPartnershipsMatter() {
               <span className="text-paper/60">your revenue system.</span>
             </h2>
           </div>
-          <div className="hidden md:block mono text-[11px] uppercase tracking-[0.22em] text-paper/50 text-right">
-            04 · Reasons<br />
-            <span className="text-fire">Verifiable</span>
-          </div>
+          
         </div>
 
         <div className="grid md:grid-cols-2 gap-0 border-2 border-paper/20">
@@ -333,10 +327,7 @@ function PartnersLedger() {
               <span className="text-fire">More when the system calls for it<span className="text-ink">.</span></span>
             </h2>
           </div>
-          <div className="hidden md:block mono text-[11px] uppercase tracking-[0.22em] text-ink/50 text-right">
-            Hover to open<br />
-            <span className="text-fire">Click to read</span>
-          </div>
+          
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
@@ -576,10 +567,7 @@ function RestOfStack() {
         <div data-reveal data-reveal-delay="0.25" className="relative mt-10 brutal-border bg-ink text-paper p-6 md:p-10 flex flex-col md:flex-row md:items-center justify-between gap-6 overflow-hidden">
           <span aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.08]" style={{ backgroundImage: "repeating-linear-gradient(45deg, #ffeb3b 0 2px, transparent 2px 14px)" }} />
           <div className="relative">
-            <p className="mono text-[11px] uppercase tracking-[0.22em] text-volt mb-2 flex items-center gap-2">
-              <span className="inline-block h-px w-6 bg-volt" />
-              Not on the ledger?
-            </p>
+            
             <p className="display text-2xl md:text-3xl tracking-[-0.02em] leading-tight max-w-2xl">
               Salesforce, Segment, Clay, Gong, we work with them when the build calls for it.
               We just refuse to badge what we cannot staff with a senior.

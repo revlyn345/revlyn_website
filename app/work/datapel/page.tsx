@@ -218,8 +218,7 @@ export default function DatapelCase() {
         />
         <div className="relative max-w-[1400px] mx-auto px-6 py-16 grid md:grid-cols-12 gap-10">
           <div className="md:col-span-4">
-            <div className="mono text-[11px] tracking-[0.2em] text-fire">CHAPTER 04</div>
-            <h2 className="display text-3xl md:text-4xl mt-2 tracking-tight text-paper">
+            <h2 className="display text-3xl md:text-4xl tracking-tight text-paper">
               Definitions before settings
             </h2>
             <p className="mt-4 text-sm text-paper/70 leading-relaxed max-w-sm">
@@ -385,13 +384,7 @@ export default function DatapelCase() {
 /* ─────────────────────── Chapter heading ─────────────────────── */
 function ChapterHead({ num, title }: { num: string; title: string }) {
   return (
-    <>
-      <div className="flex items-center gap-3">
-        <span className="mono text-[11px] tracking-[0.2em] text-fire">CHAPTER {num}</span>
-        <span className="h-px flex-1 bg-fire/30" />
-      </div>
-      <h2 className="display text-3xl md:text-4xl mt-3 tracking-tight leading-tight">{title}</h2>
-    </>
+    <h2 className="display text-3xl md:text-4xl tracking-tight leading-tight">{title}</h2>
   );
 }
 
@@ -415,7 +408,7 @@ function ConversionChartCard() {
       <div className="flex items-center justify-between px-4 py-2.5 border-b-2 border-ink bg-ink text-paper">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-fire animate-pulse" />
-          <span className="mono text-[10px] tracking-[0.14em]">LEAD CONVERSION · DATAPEL</span>
+          <span className="mono text-[10px] tracking-[0.14em]">DATAPEL</span>
         </div>
         <span className="mono text-[10px] text-paper/60">MoM · %</span>
       </div>
@@ -536,7 +529,7 @@ function PortalStateBoard() {
       <div className="flex items-center justify-between mono text-[10px] tracking-[0.14em] text-ink/50 mb-5 pb-3 border-b border-ink/15">
         <span className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-fire" />
-          FIG.02 · SYMPTOM BOARD
+          SYMPTOM BOARD
         </span>
         <span>DATAPEL / OPENING POSITION</span>
       </div>
@@ -576,7 +569,7 @@ function AuditCoverageCard() {
   return (
     <div className="brutal-border bg-paper p-5 md:p-6">
       <div className="flex items-center justify-between mono text-[10px] tracking-[0.14em] text-ink/50 mb-5 pb-3 border-b border-ink/15">
-        <span>FIG.03 · AUDIT COVERAGE</span>
+        <span>AUDIT COVERAGE</span>
         <span>DATAPEL / WEEK 0</span>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
@@ -604,7 +597,7 @@ function DefinitionsDoc() {
     <div className="brutal-border bg-paper text-ink overflow-hidden">
       <div className="flex items-center justify-between px-5 py-3 border-b-2 border-ink bg-volt">
         <div className="mono text-[10px] tracking-[0.16em] text-ink">
-          DEFINITIONS · v1.0 · DATAPEL × REVLYN
+          DATAPEL × REVLYN
         </div>
         <div className="mono text-[10px] text-ink/70">SIGNED OFF · WEEK 1</div>
       </div>

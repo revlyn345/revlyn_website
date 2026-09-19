@@ -50,9 +50,7 @@ export function OptMoment() {
     <section className="relative border-b border-ink/10 bg-bone/60">
       <div className="max-w-[1400px] mx-auto px-6 py-24 md:py-32">
         <div className="max-w-3xl mb-16">
-          <div className="mono text-[11px] tracking-[0.22em] uppercase text-ink/50 mb-4">
-            Chapter 01 / How portals drift
-          </div>
+          
           <h2 className="display text-[clamp(2rem,5vw,4.25rem)] leading-[0.95] tracking-tight">
             The portal didn't break.
             <br />
@@ -212,9 +210,7 @@ export function OptRehab() {
     <section data-no-premium className="relative border-b border-ink/10 bg-paper">
       <div className="max-w-[1400px] mx-auto px-6 pt-24 md:pt-32 pb-16 md:pb-24">
         <div className="max-w-3xl mb-16">
-          <div className="mono text-[11px] tracking-[0.22em] uppercase text-ink/50 mb-4">
-            Chapter 02 / Four weeks, watched
-          </div>
+          
           <h2 className="display text-[clamp(2rem,5vw,4.25rem)] leading-[0.95] tracking-tight">
             The portal cleans up
             <br />
@@ -434,9 +430,7 @@ export function OptArtifacts() {
     <section className="relative border-b border-ink/10 bg-ink text-paper">
       <div className="max-w-[1400px] mx-auto px-6 py-24 md:py-32">
         <div className="max-w-3xl mb-16">
-          <div className="mono text-[11px] tracking-[0.22em] uppercase text-paper/50 mb-4">
-            Chapter 03 / What you walk away with
-          </div>
+          
           <h2 className="display text-[clamp(2rem,5vw,4.25rem)] leading-[0.95] tracking-tight">
             Six artifacts,
             <br />

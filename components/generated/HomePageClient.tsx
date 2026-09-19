@@ -70,13 +70,13 @@ export default function HomePageClient() {
         <Hero />
         
 
-        <Problem />
+        <LogoWall />
       </section>
 
       {/* ══ ACT II · THE DIAGNOSIS ════════════════════════════ */}
       <section id="act-1" data-act>
        
-        <LogoWall />
+        <Problem />
         <RevenueEngineDiagram />
         
       </section>
@@ -87,6 +87,7 @@ export default function HomePageClient() {
       
         
         <LiveDashboard />
+        <FunnelVisual />
       </section>
 
       {/* ══ ACT IV · THE METHOD ═══════════════════════════════ */}
@@ -425,7 +426,7 @@ function Problem() {
         <div className="grid lg:grid-cols-2 gap-6">
 
           {/* ============================================================
-              TODAY · DISCONNECTED
+              TODAY — DISCONNECTED
           ============================================================ */}
           <div className="relative rounded-2xl border-2 border-ink/10 bg-white/60 p-6 md:p-8">
 
@@ -555,7 +556,7 @@ function Problem() {
           </div>
 
           {/* ============================================================
-              WITH REVLYN · CONNECTED
+              WITH REVLYN — CONNECTED
           ============================================================ */}
           <div className="rounded-2xl bg-ink text-paper p-6 md:p-8">
 
@@ -1869,21 +1870,58 @@ function TalkToUs() {
 function TalkToUsMeetings() {
   const MEETINGS_URL = "https://meetings.hubspot.com/rishabh52/discovery-call-with-revlyn";
 
-  // Plain iframe instead of HubSpot's Meetings Embed JS SDK. The SDK scans the
-  // DOM for `.meetings-iframe-container` elements and initializes once, which
-  // works fine on a traditional full page load but doesn't reliably
-  // re-initialize on Next.js client-side navigation (the "needs a refresh"
-  // symptom). An iframe has no such state: it loads its src whenever it's
-  // mounted, whether that's the first paint or a client-navigated remount.
+  useEffect(() => {
+    let cancelled = false;
+
+    function tryCreate() {
+      const hbspt = (window as any).hbspt;
+      if (hbspt?.meetings?.create) {
+        hbspt.meetings.create();
+        return true;
+      }
+      return false;
+    }
+
+    // Already loaded from an earlier mount/navigation? Create immediately.
+    if (tryCreate()) return;
+
+    const existing = document.querySelector<HTMLScriptElement>(
+      'script[src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"]',
+    );
+
+    const startPolling = () => {
+      let attempts = 0;
+      const interval = setInterval(() => {
+        attempts++;
+        if (cancelled) {
+          clearInterval(interval);
+          return;
+        }
+        if (tryCreate() || attempts > 50) {
+          clearInterval(interval);
+        }
+      }, 100);
+    };
+
+    if (!existing) {
+      const script = document.createElement("script");
+      script.src = "https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js";
+      script.async = true;
+      script.onload = () => tryCreate();
+      document.body.appendChild(script);
+      startPolling();
+    } else {
+      startPolling();
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <div className="border border-ink/10 shadow-xl">
-      <iframe
-        src={`${MEETINGS_URL}?embed=true`}
-        title="Book a discovery call with Revlyn"
-        className="w-full"
-        style={{ height: 660, border: "none" }}
-        loading="lazy"
-      />
+      <div className="meetings-iframe-container" data-src={`${MEETINGS_URL}?embed=true`} />
     </div>
   );
 }
@@ -1891,17 +1929,15 @@ function TalkToUsMeetings() {
 /* ─────────────────────────────  SECTION HEADER  ───────────────────────────── */
 function SectionHeader({
   n, label, title, light = false,
-}: { n?: string; label?: string; title: string; light?: boolean }) {
+}: { n: string; label: string; title: string; light?: boolean }) {
   return (
     <div>
-      {(n || label) && (
-        <div className="flex items-center gap-3 mono">
-          {n && <span className={`brutal-border ${light ? "bg-volt text-ink border-paper" : "bg-ink text-paper"} px-2 py-1`}>§{n}</span>}
-          {label && <span className={light ? "text-paper/70" : "text-muted-foreground"}>{label}</span>}
-          <span className="flex-1 h-[2px] bg-current opacity-30" />
-        </div>
-      )}
-      <h2 className={`display text-[clamp(2.25rem,5.5vw,4.5rem)] max-w-4xl ${(n || label) ? "mt-6" : ""}`}>{title}</h2>
+      <div className="flex items-center gap-3 mono">
+        <span className={`brutal-border ${light ? "bg-volt text-ink border-paper" : "bg-ink text-paper"} px-2 py-1`}>§{n}</span>
+        <span className={light ? "text-paper/70" : "text-muted-foreground"}>{label}</span>
+        <span className="flex-1 h-[2px] bg-current opacity-30" />
+      </div>
+      <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] mt-6 max-w-4xl">{title}</h2>
     </div>
   );
 }
@@ -1913,6 +1949,75 @@ function SectionHeader({
 
 /* ─────────────────────────────  MACRO SHOT  ───────────────────────────── */
 
+
+/* ─────────────────────────────  FUNNEL VISUAL  ───────────────────────────── */
+function FunnelVisual() {
+  const stages = [
+    ["ATTRACT", "SEO · ADS · PLG"],
+    ["QUALIFY", "ICP · SCORE · SLA"],
+    ["CONVERT", "DEMO · DEAL DESK"],
+    ["EXPAND", "CS SIGNAL · UPSELL"],
+    ["RENEW", "USAGE · RENEWAL"],
+  ];
+
+  return (
+    <section className="bg-paper py-20 lg:py-24">
+      <div className="max-w-7xl mx-auto px-6">
+        <SectionHeader
+          n="07.B"
+          label="The full picture"
+          title="Your funnel, from first click to renewal."
+        />
+
+        <p className="max-w-3xl mt-5 text-lg leading-8 text-muted-foreground">
+          Every stage is instrumented in the warehouse. Every dashboard
+          is powered by one schema. Every anomaly is routed to an owner,
+          not a group chat.
+        </p>
+
+        {/* Funnel Image */}
+
+        <div className="mt-12 rounded-[28px] overflow-hidden bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)] p-4">
+
+          <img
+            src={funnelViz}
+            alt="Instrumented revenue funnel diagram from awareness to renewal"
+            className="w-full h-auto object-contain"
+            loading="lazy"
+          />
+
+        </div>
+
+        {/* Funnel Stages */}
+
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+
+          {stages.map(([title, subtitle], index) => (
+
+            <div
+              key={title}
+              className="rounded-2xl bg-white p-5 shadow-sm border border-black/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+            >
+              <div className="mono text-[10px] uppercase tracking-[0.25em] text-fire">
+                Stage {String(index + 1).padStart(2, "0")}
+              </div>
+
+              <h3 className="display text-xl mt-3 text-ink">
+                {title}
+              </h3>
+
+              <p className="mt-2 text-sm text-muted-foreground leading-6">
+                {subtitle}
+              </p>
+            </div>
+
+          ))}
+
+        </div>
+      </div>
+    </section>
+  );
+}
 
 /* ─────────────────────────────  INDUSTRIES  ───────────────────────────── */
 type Industry = {
@@ -2309,8 +2414,12 @@ function LiveDashboard() {
         className="max-w-7xl mx-auto px-6"
       >
         <SectionHeader
+          n="03.C"
+          label="Your dashboard"
           title="A CRM your team will actually trust."
         />
+
+        
 
         {/* Dashboard */}
 
@@ -2496,11 +2605,7 @@ function CaseStories() {
   return (
     <section className="border-b-2 border-ink bg-ink text-paper">
       <div className="max-w-[1400px] mx-auto px-6 py-20">
-        <div className="flex items-center gap-3 mono">
-          <span className="brutal-border bg-volt text-ink px-2 py-1">§06.5</span>
-          <span className="text-paper/60">CLIENT STORIES</span>
-          <span className="flex-1 h-[2px] bg-paper/30" />
-        </div>
+        
         <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] mt-6 max-w-4xl text-paper">
           Three systems. <span className="text-fire">Three stories.</span>
         </h2>
@@ -2518,12 +2623,10 @@ function CaseStories() {
                 height={1408}
               />
             </div>
-            <div className="mt-4 mono text-xs text-paper/60">
-              M. ANDERSON · CEO · SERIES B SAAS · NYC
-            </div>
+            
           </div>
           <div className="md:col-span-7">
-            <div className="mono text-fire text-xs">CASE 01 / 03 · CHAPTER I</div>
+            <div className="mono text-fire text-xs">CASE 01 / 03 </div>
             <h3 className="display text-4xl md:text-5xl mt-3">
               "We had 40 reps and no clear read on which motion was working."
             </h3>

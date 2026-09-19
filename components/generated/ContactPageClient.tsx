@@ -56,10 +56,7 @@ function Hero() {
           {/* Right: dossier plaque */}
           <div className="lg:col-span-4">
             <div className="relative brutal-border bg-volt p-5 shadow-[10px_10px_0_0_var(--color-ink)]">
-              <div className="flex items-center justify-between text-[10px] mono uppercase tracking-[0.22em] mb-4">
-                <span className="border border-ink bg-paper px-2 py-0.5">Dossier · 002</span>
-                <span>Rev. Today</span>
-              </div>
+              
               <svg viewBox="0 0 200 200" className="w-full h-auto" aria-hidden="true">
                 <defs>
                   <pattern id="cgrid" width="10" height="10" patternUnits="userSpaceOnUse">
@@ -175,12 +172,8 @@ function ContactForm() {
             <div className="space-y-6">
               {/* Ledger card */}
               <div className="brutal-border bg-ink text-paper p-6 md:p-8 relative overflow-hidden">
-                <div className="absolute top-0 right-0 mono text-[10px] uppercase tracking-[0.22em] bg-volt text-ink px-2 py-1 border-l-2 border-b-2 border-ink">
-                  Direct
-                </div>
-                <p className="mono text-[11px] uppercase tracking-[0.22em] text-fire mb-6">
-                  Direct Channels · No gatekeepers
-                </p>
+                
+                
                 <ul className="divide-y divide-paper/15">
                   {[
                     { k: "EMAIL", v: "info@revlyn.io", href: "mailto:info@revlyn.io" },

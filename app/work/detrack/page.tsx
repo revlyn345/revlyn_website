@@ -26,10 +26,7 @@ export const metadata: Metadata = {
 
 function ChapterHead({ num, title }: { num: string; title: string }) {
   return (
-    <div>
-      <div className="mono text-[11px] tracking-[0.2em] text-fire">CHAPTER {num}</div>
-      <h2 className="display text-3xl md:text-4xl mt-2 tracking-tight leading-[1.05]">{title}</h2>
-    </div>
+    <h2 className="display text-3xl md:text-4xl tracking-tight leading-[1.05]">{title}</h2>
   );
 }
 
@@ -44,7 +41,7 @@ function StackSchematic() {
   return (
     <div className="brutal-border bg-paper p-5">
       <div className="flex items-center justify-between mono text-[10px] tracking-[0.16em] text-ink/60 border-b border-ink/15 pb-3">
-        <span>ARTIFACT · THE ORDER OF OPERATIONS</span>
+        <span>THE ORDER OF OPERATIONS</span>
         <span className="text-fire">4 STAGES · FIXED SEQUENCE</span>
       </div>
 
@@ -220,7 +217,7 @@ function SyncMap() {
   return (
     <div className="brutal-border bg-paper p-6">
       <div className="flex items-center justify-between mono text-[10px] tracking-[0.16em] text-ink/60 border-b border-ink/15 pb-3 mb-6">
-        <span>ARTIFACT · INTEGRATION MAP</span>
+        <span>INTEGRATION MAP</span>
         <span className="text-fire">EVERY SYNC LOGGED · ONE AUTHORITATIVE SOURCE</span>
       </div>
 
@@ -522,8 +519,7 @@ export default function DetrackCase() {
         />
         <div className="relative max-w-[1400px] mx-auto px-6 py-16 grid md:grid-cols-12 gap-10">
           <div className="md:col-span-4">
-            <div className="mono text-[11px] tracking-[0.2em] text-fire">CHAPTER 04</div>
-            <h2 className="display text-3xl md:text-4xl mt-2 tracking-tight leading-[1.05]">
+            <h2 className="display text-3xl md:text-4xl tracking-tight leading-[1.05]">
               Stage two, structure that holds
             </h2>
             <p className="mt-4 text-sm text-paper/70 leading-relaxed max-w-sm">

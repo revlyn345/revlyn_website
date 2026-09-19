@@ -82,13 +82,7 @@ const journey = [
 
 function ChapterHead({ num, title }: { num: string; title: string }) {
   return (
-    <>
-      <div className="flex items-center gap-3">
-        <span className="mono text-[11px] tracking-[0.2em] text-fire">CHAPTER {num}</span>
-        <span className="h-px flex-1 bg-fire/30" />
-      </div>
-      <h2 className="display text-3xl md:text-4xl mt-3 tracking-tight leading-tight">{title}</h2>
-    </>
+    <h2 className="display text-3xl md:text-4xl tracking-tight leading-tight">{title}</h2>
   );
 }
 
@@ -372,10 +366,6 @@ export default function PunjabFilmCityCase() {
       <section className="border-b-2 border-ink bg-ink text-paper relative overflow-hidden">
         <div className="absolute inset-0 stripes opacity-[0.04] pointer-events-none" />
         <div className="relative max-w-[1400px] mx-auto px-6 py-16">
-          <div className="flex items-center gap-3 mb-8">
-            <span className="mono text-[11px] tracking-[0.2em] text-fire">CHAPTER 02</span>
-            <span className="h-px flex-1 bg-paper/15" />
-          </div>
           <h2 className="display text-3xl md:text-4xl tracking-tight leading-tight">
             The activity was happening. The connection wasn&rsquo;t.
           </h2>
@@ -607,10 +597,6 @@ export default function PunjabFilmCityCase() {
       {/* ══════════════════════ WHAT WE BUILT ══════════════════════ */}
       <section className="border-b-2 border-ink bg-ink text-paper">
         <div className="max-w-[1400px] mx-auto px-6 py-16">
-          <div className="flex items-center gap-3 mb-8">
-            <span className="mono text-[11px] tracking-[0.2em] text-fire">CHAPTER 08</span>
-            <span className="h-px flex-1 bg-paper/15" />
-          </div>
           <h2 className="display text-3xl md:text-4xl tracking-tight leading-tight">
             Much more than connecting a few applications.
           </h2>

@@ -673,9 +673,7 @@ function Reviews() {
             </span>
           </a>
 
-          <span className="mono text-[11px] uppercase tracking-[0.2em] text-paper/50">
-            reviews shown · 5.0 average
-          </span>
+          
         </div>
       </div>
     </section>
@@ -715,7 +713,7 @@ function WhyUs() {
               HubSpot has thousands of partners
             </p>
 
-            <h2 className="display text-5xl md:text-7xl leading-[0.9] tracking-[-0.04em]">
+            <h2 className="display text-6xl md:text-7xl leading-[0.9] tracking-[-0.04em]">
               Four reasons teams pick us
               <br />
               <span className="text-ink/45">out of the directory.</span>

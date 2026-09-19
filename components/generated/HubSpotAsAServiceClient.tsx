@@ -96,7 +96,7 @@ function Hero() {
       <div className="relative mx-auto max-w-[1200px] px-6 pt-20 pb-0 lg:pt-28">
         <div className="grid gap-16 lg:grid-cols-[1.05fr_1fr] lg:items-start">
           <div>
-            <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire mb-7">Managed HubSpot Operations</p>
+            
             <h1 className="display text-5xl leading-[0.92] md:text-7xl">HubSpot as a Service</h1>
             <p className="mt-7 max-w-lg text-xl leading-snug text-ink md:text-2xl">
               Your HubSpot team, without hiring one.
@@ -316,7 +316,7 @@ function AutomationDetail() {
   return (
     <Wrap tone="dark" pad="py-24 md:py-32">
       <div className="max-w-2xl">
-        <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire mb-5">05 / Automation</p>
+        
         <h2 className="display text-3xl md:text-4xl leading-[1.05] text-paper">
           Built around your actual process.
         </h2>
@@ -388,7 +388,7 @@ function ReportingSection() {
           <p className="mt-4 text-xs text-muted-foreground">A sample view of the kind of reporting we build. Built around your real numbers, not ours.</p>
         </div>
         <div>
-          <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire mb-6">07 / Reporting</p>
+          
           <ul className="space-y-5">
             {questions.map((q) => (
               <li key={q} className="display text-lg md:text-xl leading-snug border-b border-ink/10 pb-4 last:border-b-0">
@@ -443,7 +443,7 @@ function Integrations() {
     <Wrap texture pad="py-20 md:py-28">
       <div className="flex flex-wrap items-end justify-between gap-6 mb-14">
         <h2 className="display text-3xl md:text-5xl leading-[1.05] max-w-lg">HubSpot shouldn't operate alone.</h2>
-        <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire">08 / Integrations</p>
+        
       </div>
       <IntegrationsTree />
     </Wrap>
@@ -460,7 +460,7 @@ function DataManagement() {
     <Wrap tone="dark" pad="py-28 md:py-40">
       <div className="grid gap-16 md:grid-cols-2">
         <div>
-          <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire mb-6">09 / Data management</p>
+          
           <h2 className="display max-w-sm text-3xl md:text-5xl leading-[1.05] text-paper">Bad data creates bad decisions.</h2>
           <p className="mt-6 max-w-xs text-paper/50 text-sm">We improve the quality and structure of your HubSpot database.</p>
         </div>
@@ -602,7 +602,7 @@ function WhoItsFor() {
   
   return (
     <Wrap tone="bone" pad="py-24 md:py-32">
-      <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire mb-6">13 / Who it's for</p>
+      <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire mb-6"> Who it's for</p>
       <div className="border-t border-ink">
         {rows.map(([t, d], i) => (
           <div key={t} className="group grid gap-2 border-b border-ink py-9 transition-colors hover:bg-paper/50 sm:grid-cols-[3rem_1fr_1.4fr_2rem] sm:items-baseline sm:gap-8">
@@ -661,7 +661,7 @@ function Scope() {
           <h2 className="display text-3xl md:text-5xl leading-[1.05] max-w-lg">Choose what you want Revlyn to own.</h2>
           
         </div>
-        <p className="mono text-[11px] uppercase tracking-[0.2em] text-fire">15 / Scope</p>
+        
       </div>
       <ScopeBuilder />
     </Wrap>

@@ -96,7 +96,7 @@ export default function AusformingCase() {
         <div className="relative max-w-[1400px] mx-auto px-6 py-12">
           <div className="flex items-baseline justify-between mb-8 border-b border-paper/15 pb-4">
             <div className="mono text-[11px] tracking-[0.2em] text-fire">THE SCOREBOARD</div>
-            <div className="mono text-[10px] text-paper/50">MEASURED · STEADY STATE</div>
+            
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
@@ -222,8 +222,7 @@ export default function AusformingCase() {
         />
         <div className="relative max-w-[1400px] mx-auto px-6 py-16 grid md:grid-cols-12 gap-10">
           <div className="md:col-span-4">
-            <div className="mono text-[11px] tracking-[0.2em] text-fire">CHAPTER 04</div>
-            <h2 className="display text-3xl md:text-4xl mt-2 tracking-tight text-paper">
+            <h2 className="display text-3xl md:text-4xl tracking-tight text-paper">
               The list, then two ways of working it
             </h2>
             <p className="mt-4 text-sm text-paper/70 leading-relaxed max-w-sm">
@@ -260,8 +259,7 @@ export default function AusformingCase() {
         <div className="absolute -right-20 -top-20 w-[400px] h-[400px] rounded-full bg-volt opacity-20 blur-[80px] pointer-events-none" />
         <div className="relative max-w-[1400px] mx-auto px-6 py-16 grid md:grid-cols-12 gap-10">
           <div className="md:col-span-4">
-            <div className="mono text-[11px] tracking-[0.2em] text-paper/80">CHAPTER 06</div>
-            <h2 className="display text-3xl md:text-4xl mt-2 tracking-tight text-paper">
+            <h2 className="display text-3xl md:text-4xl tracking-tight text-paper">
               What happens when someone replies
             </h2>
             <p className="mt-4 text-sm text-paper/80 leading-relaxed max-w-sm">
@@ -480,13 +478,7 @@ function VideoTestimonial() {
 /* ─────────────────────── Chapter heading ─────────────────────── */
 function ChapterHead({ num, title }: { num: string; title: string }) {
   return (
-    <>
-      <div className="flex items-center gap-3">
-        <span className="mono text-[11px] tracking-[0.2em] text-fire">CHAPTER {num}</span>
-        <span className="h-px flex-1 bg-fire/30" />
-      </div>
-      <h2 className="display text-3xl md:text-4xl mt-3 tracking-tight leading-tight">{title}</h2>
-    </>
+    <h2 className="display text-3xl md:text-4xl tracking-tight leading-tight">{title}</h2>
   );
 }
 
@@ -570,7 +562,7 @@ function StartingInventory() {
       <div className="flex items-center justify-between mono text-[10px] tracking-[0.14em] text-ink/50 mb-5 pb-3 border-b border-ink/15">
         <span className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-fire" />
-          FIG.01 · STARTING INVENTORY
+          STARTING INVENTORY
         </span>
         <span>AUSFORMING / DAY 0</span>
       </div>
@@ -677,7 +669,7 @@ function StackDiagram() {
   return (
     <div className="brutal-border bg-paper p-5 md:p-6">
       <div className="flex items-center justify-between mono text-[10px] tracking-[0.14em] text-ink/50 mb-5 pb-3 border-b border-ink/15">
-        <span>FIG.03 · STACK MAP</span>
+        <span>STACK MAP</span>
         <span>ONE SOURCE OF TRUTH · HUBSPOT OWNS THE RECORD</span>
       </div>
       <ol className="grid md:grid-cols-4 gap-3">

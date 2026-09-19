@@ -102,10 +102,7 @@ function Hero() {
 
       <div className="max-w-[1400px] mx-auto px-6 pt-14 md:pt-20 pb-16 md:pb-24 grid md:grid-cols-12 gap-10 items-end relative">
         <div className="md:col-span-7">
-          <div className="inline-flex items-center gap-3 mono text-xs tracking-[0.22em] uppercase border border-ink/15 px-3 py-1.5">
-            <span className="w-2 h-2 rounded-full bg-fire animate-pulse" />
-            The portal you already own, made to behave
-          </div>
+          
           <h1 className="mt-6 display text-[clamp(2.6rem,7.5vw,7rem)] leading-[0.92] tracking-tight">
             The HubSpot you have,
             <br />
@@ -168,12 +165,8 @@ function Hero() {
               width={1600}
               height={2000}
             />
-            <div className="absolute top-4 left-4 bg-volt border border-ink px-3 py-1.5 mono text-[10px] tracking-widest uppercase">
-              Audit · v2.1
-            </div>
-            <div className="absolute bottom-4 right-4 bg-fire text-paper border border-ink px-3 py-1.5 mono text-[10px] tracking-widest uppercase">
-              Typically 4-6 weeks
-            </div>
+            
+            
           </div>
         </div>
       </div>
@@ -215,33 +208,37 @@ function Promise() {
   ];
   return (
     <section className="border-b border-ink/10 py-20 md:py-28">
-      <div className="max-w-[1400px] mx-auto px-6">
-        <div className="grid md:grid-cols-12 gap-8 items-end mb-14">
-          <div className="md:col-span-4">
-            <div className="mono text-xs tracking-widest text-fire">01 · WHAT YOU GET</div>
-          </div>
-          <div className="md:col-span-8">
-            <h2 className="display text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-tight">
-              The same portal.
-              <br />
-              A very different Monday.
-            </h2>
-          </div>
+  <div className="max-w-[1400px] mx-auto px-6">
+    
+    <div className="mb-14">
+      <h2 className="display text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-tight max-w-[900px]">
+        The same portal.
+        <br />
+        A very different Monday.
+      </h2>
+    </div>
+
+    <div className="border-t border-ink">
+      {items.map((it) => (
+        <div
+          key={it.k}
+          className="grid gap-3 border-b border-ink py-8 md:grid-cols-[4rem_1.4fr_1.6fr] md:items-center md:gap-8"
+        >
+          <span className="mono text-xs text-fire">{it.k}</span>
+
+          <h3 className="display text-xl md:text-2xl leading-tight">
+            {it.h}
+          </h3>
+
+          <p className="text-ink/70 leading-relaxed text-sm">
+            {it.p}
+          </p>
         </div>
-        <div className="border-t border-ink">
-          {items.map((it) => (
-            <div
-              key={it.k}
-              className="grid gap-3 border-b border-ink py-8 md:grid-cols-[4rem_1.4fr_1.6fr] md:items-center md:gap-8"
-            >
-              <span className="mono text-xs text-fire">{it.k}</span>
-              <h3 className="display text-xl md:text-2xl leading-tight">{it.h}</h3>
-              <p className="text-ink/70 leading-relaxed text-sm">{it.p}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+      ))}
+    </div>
+
+  </div>
+</section>
   );
 }
 
@@ -266,10 +263,8 @@ function AuditSurface() {
         }}
       />
       <div className="max-w-[1400px] mx-auto px-6 relative">
-        <div className="grid md:grid-cols-12 gap-8 items-end mb-14">
-          <div className="md:col-span-4">
-            <div className="mono text-xs tracking-widest text-fire">02 · AUDIT SURFACE</div>
-          </div>
+        <div className="mb-14">
+          
           <div className="md:col-span-8">
             <h2 className="display text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-tight">
               The eight places<br />portals quietly break.
@@ -494,7 +489,7 @@ function Blueprint() {
     >
       <div className="max-w-[1400px] mx-auto px-6 grid md:grid-cols-12 gap-10 items-center relative">
         <div className="md:col-span-5">
-          <div className="mono text-xs tracking-widest text-fire">04 · THE FINDINGS DOC</div>
+          
           <h2 className="mt-4 display text-[clamp(2rem,4.5vw,3.5rem)] leading-[0.98] tracking-tight">
             Every fix,<br />on one page.
           </h2>
@@ -533,9 +528,7 @@ function Blueprint() {
               width={1600}
               height={1000}
             />
-            <div className="absolute top-4 left-4 bg-volt border border-ink px-3 py-1.5 rounded mono text-[10px] tracking-widest uppercase">
-              Findings · v2.1 · signed
-            </div>
+            
           </div>
         </div>
       </div>
@@ -556,10 +549,8 @@ function Levers() {
   return (
     <section className="py-20 md:py-28 border-b border-ink/10">
       <div className="max-w-[1400px] mx-auto px-6">
-        <div className="grid md:grid-cols-12 gap-8 items-end mb-14">
-          <div className="md:col-span-4">
-            <div className="mono text-xs tracking-widest text-fire">05 · LEVERS WE PULL</div>
-          </div>
+        <div className="mb-14">
+          
           <div className="md:col-span-8">
             <h2 className="display text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-tight">
               Not a rebuild.<br />A precise repair.
@@ -606,10 +597,8 @@ function DataFlow() {
         }}
       />
       <div className="max-w-[1400px] mx-auto px-6 relative">
-        <div className="grid md:grid-cols-12 gap-8 items-end mb-14">
-          <div className="md:col-span-4">
-            <div className="mono text-xs tracking-widest text-fire">06 · WHAT WE RE-ROUTE</div>
-          </div>
+        <div className="mb-14">
+          
           <div className="md:col-span-8">
             <h2 className="display text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-tight text-paper">
               From noise on one side,<br />to signal on the other.
@@ -751,10 +740,8 @@ function BeforeAfter() {
   return (
     <section className="py-20 md:py-28 border-b border-ink/10">
       <div className="max-w-[1400px] mx-auto px-6">
-        <div className="grid md:grid-cols-12 gap-8 items-end mb-14">
-          <div className="md:col-span-4">
-            <div className="mono text-xs tracking-widest text-fire">07 · BEFORE / AFTER</div>
-          </div>
+        <div className="mb-14">
+          
           <div className="md:col-span-8">
             <h2 className="display text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-tight">
               What changes in 4 weeks.
@@ -822,10 +809,8 @@ function WhoItsFor() {
       className="py-20 md:py-28 border-b border-ink/10 relative bg-bone"
     >
       <div className="max-w-[1400px] mx-auto px-6 relative">
-        <div className="grid md:grid-cols-12 gap-8 items-end mb-14">
-          <div className="md:col-span-4">
-            <div className="mono text-xs tracking-widest text-fire">08 · FIT</div>
-          </div>
+        <div className="mb-14">
+          
           <div className="md:col-span-8">
             <h2 className="display text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-tight">
               Right fit, wrong fit,<br />we'd rather say it upfront.
@@ -916,7 +901,7 @@ function FAQ() {
     <section className="py-20 md:py-28 border-b border-ink/10">
       <div className="max-w-[1400px] mx-auto px-6 grid md:grid-cols-12 gap-10">
         <div className="md:col-span-4">
-          <div className="mono text-xs tracking-widest text-fire">09 · QUESTIONS</div>
+          
           <h2 className="mt-4 display text-[clamp(2rem,4vw,3rem)] leading-[0.98] tracking-tight">
             The things<br />people ask us.
           </h2>

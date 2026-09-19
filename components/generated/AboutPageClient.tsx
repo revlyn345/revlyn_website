@@ -255,9 +255,7 @@ function StrikeTeam() {
       <div className="max-w-[1400px] mx-auto">
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
         <div>
-          <p className="mono text-xs uppercase tracking-[0.28em] mb-3 text-ink/50">
-            Strike team · direct access
-          </p>
+          
           <h2
             className="display text-[clamp(1.8rem,4vw,3.2rem)] font-extrabold tracking-[-0.02em] leading-[1.1]"
             style={{ fontFamily: "'Inter Tight', Inter, sans-serif" }}
