@@ -102,17 +102,14 @@ function RhythmStrip() {
         <div className="flex items-baseline justify-between gap-6 mb-10">
           <div>
             <p className="mono text-[11px] uppercase tracking-[0.22em] text-fire mb-3">
-              The spine · What every problem shares
+              What every problem shares
             </p>
             <h2 className="display text-3xl md:text-5xl tracking-[-0.035em] leading-[0.95] max-w-2xl">
               Four beats that don&rsquo;t change,<br />
               <span className="text-paper/60">no matter the problem.</span>
             </h2>
           </div>
-          <div className="hidden md:block mono text-[11px] uppercase tracking-[0.22em] text-paper/50 text-right">
-            04 · Beats<br />
-            <span className="text-fire">Always on</span>
-          </div>
+          
         </div>
         <div className="grid md:grid-cols-4 gap-0 border-2 border-paper/20">
           {beats.map((b, i) => (
@@ -353,7 +350,7 @@ function SymptomToSystem() {
   return (
     <section className="border-b-2 border-ink bg-bone/40 relative">
       <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24 relative">
-        <p className="mono text-[11px] uppercase tracking-[0.22em] text-fire mb-3">04 · Diagnosis</p>
+        
         <h2 className="display text-3xl md:text-5xl tracking-[-0.035em] leading-[0.95] max-w-3xl">
           From symptom to system.
         </h2>
@@ -416,7 +413,7 @@ function OperatingSystem() {
     <section className="border-b-2 border-ink bg-ink text-paper relative overflow-hidden">
       <div className="absolute inset-0 stripes opacity-[0.05] pointer-events-none" />
       <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24 relative">
-        <p className="mono text-[11px] uppercase tracking-[0.22em] text-fire mb-3">05 · The system</p>
+        
         <h2 className="display text-3xl md:text-5xl tracking-[-0.035em] leading-[0.95] max-w-2xl">
           Different problem.<br />
           <span className="text-paper/60">Same operating system.</span>
@@ -461,7 +458,7 @@ function StartingPoint() {
   return (
     <section id="start" className="border-b-2 border-ink bg-paper relative">
       <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-24 relative">
-        <p className="mono text-[11px] uppercase tracking-[0.22em] text-fire mb-3">06 · Entry points</p>
+        
         <h2 className="display text-3xl md:text-5xl tracking-[-0.035em] leading-[0.95] max-w-2xl mb-12">
           Where should we start?
         </h2>
@@ -504,9 +501,7 @@ function WeekInside() {
       <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-20 relative">
         <div className="flex items-baseline justify-between gap-6 mb-10">
           <div>
-            <p className="mono text-[11px] uppercase tracking-[0.22em] text-fire mb-3">
-              07 · The week
-            </p>
+            
             <h2 className="display text-3xl md:text-5xl tracking-[-0.035em] leading-[0.95] max-w-2xl">
               A week inside the system.
             </h2>
@@ -542,7 +537,7 @@ function FitCheck() {
   return (
     <section className="border-b-2 border-ink bg-bone/40 relative">
       <div className="max-w-[1400px] mx-auto px-6 py-16 md:py-20 relative">
-        <p className="mono text-[11px] uppercase tracking-[0.22em] text-fire mb-3">08 · Not sure yet</p>
+        
         <h2 className="display text-3xl md:text-4xl tracking-[-0.035em] leading-[0.98] max-w-2xl">
           You don&rsquo;t need to know the answer yet.
         </h2>
