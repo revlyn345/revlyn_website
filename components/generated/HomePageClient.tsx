@@ -3204,9 +3204,9 @@ function FAQ() {
         <div className="grid md:grid-cols-12 gap-8 mb-12">
           <div className="md:col-span-5">
             <div className="mono text-xs mb-4 opacity-60">FAQ</div>
-            <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl">
+            <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[1.08] max-w-5xl">
               Questions we get, before the{" "}
-              <span className="text-fire first">first call<span className="text-ink">.</span></span>
+              <span className="text-fire">first call<span className="text-ink">.</span></span>
             </h2>
             <p className="mt-6 text-base leading-snug text-ink/70">
               If you have one we haven't answered, bring it to the diagnostic. We'd rather over-answer than under-scope.
