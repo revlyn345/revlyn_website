@@ -69,7 +69,7 @@ const RESOURCES_GROUPS = [
     id: "work",
     label: "Work",
     title: "Client Work",
-    blurb: "Real systems, real outcomes — what we've shipped and what changed.",
+    blurb: "Real systems, real outcomes - what we've shipped and what changed.",
     links: [
       { label: "Ausforming", to: "/work/ausforming", note: "GTM engine from zero · 50%+ reply-to-call" },
       { label: "Detrack", to: "/work/detrack", note: "SaaS stack simplification" },
@@ -95,6 +95,61 @@ const MAIN_LINKS = [
   { label: "Contact", to: "/contact" },
 ];
 
+/* ───────────────────  MULTI-COLOR ACCENT PALETTE  ─────────────────── */
+
+const CARD_ACCENTS = [
+  {
+    title: "text-[#23B5D3]",
+    border: "border-[#23B5D3]/30",
+    iconBg: "bg-[#23B5D3]",
+    iconText: "text-white",
+    arcColor: "text-[#23B5D3]/20",
+    cardBg: "bg-[#23B5D3]/[0.02]",
+  },
+  {
+    title: "text-[#F4A261]",
+    border: "border-[#F4A261]/30",
+    iconBg: "bg-[#F4A261]",
+    iconText: "text-white",
+    arcColor: "text-[#F4A261]/20",
+    cardBg: "bg-[#F4A261]/[0.02]",
+  },
+  {
+    title: "text-[#6C63FF]",
+    border: "border-[#6C63FF]/30",
+    iconBg: "bg-[#6C63FF]",
+    iconText: "text-white",
+    arcColor: "text-[#6C63FF]/20",
+    cardBg: "bg-[#6C63FF]/[0.02]",
+  },
+  {
+    title: "text-[#2A9D8F]",
+    border: "border-[#2A9D8F]/30",
+    iconBg: "bg-[#2A9D8F]",
+    iconText: "text-white",
+    arcColor: "text-[#2A9D8F]/20",
+    cardBg: "bg-[#2A9D8F]/[0.02]",
+  },
+  {
+    title: "text-[#E76F51]",
+    border: "border-[#E76F51]/30",
+    iconBg: "bg-[#E76F51]",
+    iconText: "text-white",
+    arcColor: "text-[#E76F51]/20",
+    cardBg: "bg-[#E76F51]/[0.02]",
+  },
+  {
+    title: "text-[#8338EC]",
+    border: "border-[#8338EC]/30",
+    iconBg: "bg-[#8338EC]",
+    iconText: "text-white",
+    arcColor: "text-[#8338EC]/20",
+    cardBg: "bg-[#8338EC]/[0.02]",
+  },
+];
+
+const getAccent = (index: number) => CARD_ACCENTS[index % CARD_ACCENTS.length];
+
 /* ─────────────────────────────  COMPONENT  ───────────────────────────── */
 
 export function Nav() {
@@ -106,8 +161,8 @@ export function Nav() {
   const [mobileImplOpen, setMobileImplOpen] = useState(false);
 
   // Refs
-  const navAreaRef = useRef<HTMLElement>(null);      // entire nav (triggers + panel)
-  const panelRef = useRef<HTMLDivElement>(null);      // the shared mega panel
+  const navAreaRef = useRef<HTMLElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const pathname = usePathname();
@@ -266,50 +321,45 @@ export function Nav() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {current.links.map((link) => {
+            {current.links.map((link, index) => {
               const isActive = link.to === pathname || pathname?.startsWith(link.to);
+              const accent = getAccent(index);
+
               return (
                 <Link
                   key={link.to}
                   href={link.to}
-                  // No onClick that closes the menu — let Next.js navigate first,
-                  // then the pathname effect closes the menu.
                   className={`group/card relative overflow-hidden rounded-2xl border p-5 transition-all duration-200 ${
                     isActive
-                      ? "border-fire/40 bg-fire/[0.03]"
-                      : "border-ink/10 bg-paper hover:border-ink/25 hover:-translate-y-0.5 hover:shadow-[0_15px_35px_-20px_rgba(10,10,10,0.35)]"
+                      ? `${accent.border} ${accent.cardBg}`
+                      : `border-ink/10 bg-paper hover:border-ink/25 hover:-translate-y-0.5 hover:shadow-[0_15px_35px_-20px_rgba(10,10,10,0.35)]`
                   }`}
                 >
-                  <svg
-                    aria-hidden
-                    className="absolute inset-0 w-full h-full opacity-[0.35] text-ink/15 pointer-events-none"
-                  >
-                    <defs>
-                      <pattern id={`dots-${link.to.replace(/\//g, "-")}`} width="14" height="14" patternUnits="userSpaceOnUse">
-                        <circle cx="1" cy="1" r="1" fill="currentColor" />
-                      </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill={`url(#dots-${link.to.replace(/\//g, "-")})`} />
-                  </svg>
-
+                  {/* Decorative arc — dynamic color */}
                   <svg
                     aria-hidden
                     viewBox="0 0 60 60"
-                    className="absolute -right-2 -bottom-2 w-16 h-16 text-fire/25 pointer-events-none"
+                    className={`absolute -right-2 -bottom-2 w-16 h-16 pointer-events-none ${accent.arcColor}`}
                   >
                     <path d="M60 0 A60 60 0 0 1 0 60 L0 60 Z" fill="currentColor" />
                   </svg>
 
                   <div className="relative flex items-start justify-between gap-4 pointer-events-none">
                     <div className="min-w-0">
-                      <div className="display text-[19px] leading-tight text-ink tracking-[-0.01em]">
+                      <div className={`display text-[19px] leading-tight tracking-[-0.01em] ${accent.title}`}>
                         {link.label}
                       </div>
                       <p className="mt-1.5 text-[13px] leading-snug text-ink/60">
                         {link.note}
                       </p>
                     </div>
-                    <span className="shrink-0 w-7 h-7 rounded-full border border-ink/15 bg-paper grid place-items-center text-ink/70 transition-all duration-200 group-hover/card:bg-fire group-hover/card:text-paper group-hover/card:border-fire">
+                    <span
+                      className={`shrink-0 w-7 h-7 rounded-full border grid place-items-center transition-all duration-200 ${
+                        isActive
+                          ? `${accent.iconBg} ${accent.iconText} ${accent.border}`
+                          : `border-ink/15 bg-paper text-ink/70 group-hover/card:${accent.iconBg} group-hover/card:${accent.iconText} group-hover/card:${accent.border}`
+                      }`}
+                    >
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M7 17L17 7M9 7h8v8" />
                       </svg>

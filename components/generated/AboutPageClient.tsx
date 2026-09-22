@@ -4,6 +4,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { BookCallButton } from "@/components/BookCallButton";
 import { Footer } from "@/components/Footer";
+import {
+  Image as ImageIcon,
+  Zap,
+  Plug,
+  Fingerprint,
+  Smartphone,
+  Target,
+  ArrowRight,
+} from "lucide-react";
 // TODO: source "revlyn-wordmark.png" is a Lovable-hosted logo asset, not migrated.
 const revlynWordmark = "/logos/revlyn-wordmark.png";
 
@@ -17,6 +26,7 @@ export default function AboutPageClient() {
           <Origin />
           <Manifesto />
           <StrikeTeam />
+           <WhyYouNeed />
           <ClosingSpread />
         </div>
       </div>
@@ -255,7 +265,9 @@ function StrikeTeam() {
       <div className="max-w-[1400px] mx-auto">
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
         <div>
-          
+          <p className="mono text-xs uppercase tracking-[0.28em] mb-3 text-ink/50">
+            Strike team · direct access
+          </p>
           <h2
             className="display text-[clamp(1.8rem,4vw,3.2rem)] font-extrabold tracking-[-0.02em] leading-[1.1]"
             style={{ fontFamily: "'Inter Tight', Inter, sans-serif" }}
@@ -295,6 +307,9 @@ function StrikeTeam() {
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-ink/10 group-hover:bg-transparent transition-colors duration-500" />
+              <div className="absolute bottom-2 left-2 mono text-[9px] uppercase tracking-widest bg-paper border border-ink px-1.5 py-0.5">
+                Portrait · {String(i + 1).padStart(3, "0")}
+              </div>
             </div>
 
             <p
@@ -338,6 +353,76 @@ function Row({ k, v }: { k: string; v: string }) {
   );
 }
 
+/* ─────────────────────────────  WHY YOU NEED  ───────────────────────────── */
+function WhyYouNeed() {
+  const features = [
+    {
+      icon: <Fingerprint className="w-6 h-6" />,
+      title: "One CRM, Actually Trusted",
+      desc: "Every team works from the same clean, complete record. No spreadsheets, no side pipelines, no 'which number is right?' meetings.",
+    },
+    {
+      icon: <Zap className="w-6 h-6" />,
+      title: "Faster Speed-to-Lead",
+      desc: "Instant routing, enrichment and SLA escalation. Leads reach the right owner in seconds - not hours - while intent is still warm.",
+    },
+    {
+      icon: <Smartphone className="w-6 h-6" />,
+      title: "Visibility Into Every Motion",
+      desc: "Attribution, forecast and pipeline reporting that leadership can open on Monday and act on before the week starts.",
+    },
+    {
+      icon: <Target className="w-6 h-6" />,
+      title: "Compounding Revenue Ops",
+      desc: "Every workflow, agent and dashboard we ship stays in the system - so your engine gets sharper each quarter instead of resetting.",
+    },
+  ];
+
+  return (
+    <section className="p-8 md:p-16 border-b-2 border-ink bg-paper">
+      <div className="max-w-[1400px] mx-auto px-6 py-20 md:py-28">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left Content */}
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-ink/60">
+                Why teams choose us
+              </span>
+            </div>
+            <h2 className="display text-[clamp(2.25rem,5.5vw,4.5rem)] tracking-[-0.035em] leading-[0.95] max-w-5xl mb-6">
+              Why revenue teams need{" "}
+              <span className="text-fire">revenue engineering<span className="text-ink">.</span></span>
+            </h2>
+            <p className="text-lg text-ink/70 leading-relaxed mb-8 max-w-lg">
+              Revenue engineering isn't about buying more tools. It's about
+              wiring the ones you already own into one system your teams can
+              trust, measure and grow with.
+            </p>
+            <BookCallButton className="inline-flex items-center gap-2 rounded-full bg-ink text-paper px-8 py-4 font-semibold text-base hover:bg-ink/80 transition-colors">
+              START GROWING TODAY <ArrowRight className="w-4 h-4" />
+            </BookCallButton>
+          </div>
+
+          {/* Right Cards */}
+          <div className="grid sm:grid-cols-2 gap-6">
+            {features.map((f, i) => (
+              <div
+                key={i}
+                className="p-8 rounded-2xl bg-white border border-ink/5 shadow-sm hover:shadow-lg transition-shadow"
+              >
+                <div className="w-12 h-12 rounded-lg bg-fire/10 text-fire grid place-items-center mb-6">
+                  {f.icon}
+                </div>
+                <h3 className="display text-xl mb-3 leading-tight">{f.title}</h3>
+                <p className="text-ink/60 leading-relaxed text-sm">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 /* ─────────────────  CLOSING CTA  ───────────────── */
 function ClosingSpread() {
@@ -379,5 +464,3 @@ function ClosingSpread() {
     </section>
   );
 }
-
-/* ─────────────────────────────  FOOTER  ───────────────────────────── */
