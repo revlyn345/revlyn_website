@@ -114,6 +114,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "manifest", href: "/site.webmanifest" },
     ],
   }),
+  // Let Vercel's CDN keep a copy of each page for 5 minutes near the visitor.
+  headers: () => ({ "Cache-Control": "public, max-age=0, s-maxage=300, stale-while-revalidate=86400" }),
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
@@ -142,11 +144,13 @@ function RootShell({ children }: { children: ReactNode }) {
     </html>
   );
 }
-
+let hasNavigated = false;
 function PageTransition({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
 
   useEffect(() => {
+    const firstLoad = !hasNavigated;
+    hasNavigated = true;
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -167,7 +171,7 @@ function PageTransition({ children }: { children: ReactNode }) {
     const start = window.setTimeout(() => {
       observeAll();
       mutation.observe(document.body, { childList: true, subtree: true });
-    }, 400);
+    }, firstLoad ? 400 : 0);
     return () => {
       window.clearTimeout(start);
       observer.disconnect();
