@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { breadcrumbSchema, faqSchema } from "../../lib/seo";
 import { ArrowUpRight, Bot, Check, Database, Radar, RefreshCw, ShieldCheck, Workflow } from "lucide-react";
-const bitscaleLogo = "/images/partners/bitscale-logo.svg";
+const bitscaleLogo = "/images/partners/bitscale-logo.webp";
 
 export const Route = createFileRoute("/partnerships/bitscale")({
   head: () => ({

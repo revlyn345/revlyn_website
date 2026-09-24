@@ -25,6 +25,7 @@ import {
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import logo from "../../assets/revlyn-logo.webp";
+import { BookCallButton } from "@/components/BookCallButton";
 
 type MenuName = "services" | "industries" | "resources" | "company";
 
@@ -80,9 +81,9 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <a href="https://meetings.hubspot.com/rishabh52/discovery-call-with-revlyn" target="_blank" rel="noopener noreferrer" className="hidden items-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-bold text-cream shadow-tactile-ink transition-all hover:translate-y-0.5 hover:shadow-tactile-ink-sm sm:inline-flex">
+          <BookCallButton className="hidden items-center gap-2 rounded-xl bg-ink px-5 py-3 text-sm font-bold text-cream transition-colors hover:bg-grape sm:inline-flex">
             Book a call <ArrowUpRight size={17} aria-hidden="true" />
-          </a>
+          </BookCallButton>
           <Button type="button" variant="outline" size="icon" aria-label={mobileOpen ? "Close menu" : "Open menu"} aria-expanded={mobileOpen} onClick={() => setMobileOpen((value) => !value)} className="size-11 rounded-xl border-2 border-ink/10 bg-cream text-ink hover:bg-sun/40 lg:hidden">
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </Button>
@@ -145,7 +146,7 @@ export function Navbar() {
               </div>
             </div>
           </div>
-          <a href="https://meetings.hubspot.com/rishabh52/discovery-call-with-revlyn" target="_blank" rel="noopener noreferrer" className="mt-4 flex items-center justify-center gap-2 rounded-2xl bg-ink px-5 py-4 font-bold text-cream">Book a call <ArrowUpRight size={18} /></a>
+          <BookCallButton onClick={() => setMobileOpen(false)} className="mt-4 flex items-center justify-center gap-2 rounded-2xl bg-ink px-5 py-4 font-bold text-cream">Book a call <ArrowUpRight size={18} /></BookCallButton>
         </nav>
       ) : null}
     </header>

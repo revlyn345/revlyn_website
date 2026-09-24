@@ -148,11 +148,11 @@ function Index() {
               {[
                 ["Lead", "bg-sun"],
                 ["Context", "bg-mint"],
-                ["Follow-up", "bg-brand text-cream"],
-                ["Growth", "bg-grape text-cream"],
+                ["Follow-up", "bg-brand"],
+                ["Growth", "bg-grape"],
               ].map(([label, tone], index) => (
                 <div key={label} className="relative z-10 flex w-16 flex-col items-center gap-3 sm:w-24">
-                  <div className={`grid size-11 place-items-center rounded-full border-4 border-cream font-display text-sm font-bold shadow-lg animate-pulse-ring ${tone}`} style={{ animationDelay: `${index * 0.5}s` }}>{index + 1}</div>
+                  <div className={`grid size-11 place-items-center rounded-full border-4 border-cream font-display text-sm font-bold text-ink shadow-lg animate-pulse-ring ${tone}`} style={{ animationDelay: `${index * 0.5}s` }}>{index + 1}</div>
                   <p className="text-xs font-bold text-ink/65 sm:text-sm">{label}</p>
                 </div>
               ))}

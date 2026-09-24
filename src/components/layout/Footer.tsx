@@ -17,7 +17,7 @@ const socialLinks = [
 export function Footer() {
   return (
     <footer className="relative z-10 overflow-hidden rounded-t-[3.5rem] bg-ink text-cream sm:rounded-t-[6rem]">
-      <div aria-hidden="true" className="absolute inset-0 bg-dots text-cream/10" />
+      
       <div aria-hidden="true" className="absolute -left-24 -top-24 size-72 rounded-full bg-brand/25 blur-3xl" />
       <div aria-hidden="true" className="absolute -bottom-28 right-0 size-72 rounded-full bg-mint/15 blur-3xl" />
       <div className="relative mx-auto max-w-[92rem] px-5 pb-10 pt-16 sm:px-8 sm:pt-20">
