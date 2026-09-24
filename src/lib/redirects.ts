@@ -1,0 +1,21 @@
+// 301 redirects from the old Next.js site's URLs to their pages on this site,
+// so Google rankings and old links carry over. Applied on Vercel (see vite.config.ts).
+// "/**" matches everything under a path.
+export const legacyRedirects: Record<string, string> = {
+  "/hubspot-implementation": "/hubspot/implementation",
+  "/hubspot-implementation/**": "/hubspot/implementation",
+  "/hubspot-as-a-service": "/hubspot/managed",
+  "/hubspot-optimization": "/hubspot/managed",
+  "/hubspot-audit": "/revops/audit",
+  "/partners": "/partnerships",
+  "/partners/hubspot": "/partnerships/hubspot",
+  "/partners/bitscale": "/partnerships/bitscale",
+  "/work": "/case-studies",
+  "/work/**": "/case-studies",
+  "/use-cases": "/industries",
+  "/use-cases/saas": "/industries/b2b-saas",
+  "/faqs": "/faq",
+  "/cookies": "/privacy",
+  "/security": "/privacy",
+  "/auto-seo-agent": "/services",
+};

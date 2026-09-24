@@ -1,0 +1,186 @@
+[
+  {
+    "path": "/",
+    "priority": "1.0"
+  },
+  {
+    "path": "/about",
+    "priority": "0.7"
+  },
+  {
+    "path": "/approach",
+    "priority": "0.7"
+  },
+  {
+    "path": "/blog",
+    "priority": "0.7"
+  },
+  {
+    "path": "/blog/how-to-clean-crm-data-before-migration",
+    "priority": "0.7"
+  },
+  {
+    "path": "/blog/why-crm-adoption-fails",
+    "priority": "0.7"
+  },
+  {
+    "path": "/book-a-call",
+    "priority": "0.9"
+  },
+  {
+    "path": "/case-studies",
+    "priority": "0.7"
+  },
+  {
+    "path": "/compare",
+    "priority": "0.7"
+  },
+  {
+    "path": "/compare/hubspot-vs-pipedrive",
+    "priority": "0.8"
+  },
+  {
+    "path": "/compare/hubspot-vs-salesforce",
+    "priority": "0.8"
+  },
+  {
+    "path": "/compare/hubspot-vs-zoho",
+    "priority": "0.8"
+  },
+  {
+    "path": "/contact",
+    "priority": "0.9"
+  },
+  {
+    "path": "/crm-implementation",
+    "priority": "0.9"
+  },
+  {
+    "path": "/faq",
+    "priority": "0.7"
+  },
+  {
+    "path": "/how-we-work",
+    "priority": "0.7"
+  },
+  {
+    "path": "/hubspot",
+    "priority": "0.9"
+  },
+  {
+    "path": "/hubspot/automation",
+    "priority": "0.8"
+  },
+  {
+    "path": "/hubspot/implementation",
+    "priority": "0.8"
+  },
+  {
+    "path": "/hubspot/integrations",
+    "priority": "0.8"
+  },
+  {
+    "path": "/hubspot/managed",
+    "priority": "0.8"
+  },
+  {
+    "path": "/hubspot/migration",
+    "priority": "0.8"
+  },
+  {
+    "path": "/hubspot/onboarding",
+    "priority": "0.8"
+  },
+  {
+    "path": "/hubspot/reporting",
+    "priority": "0.8"
+  },
+  {
+    "path": "/hubspot/training",
+    "priority": "0.8"
+  },
+  {
+    "path": "/industries",
+    "priority": "0.7"
+  },
+  {
+    "path": "/industries/b2b-saas",
+    "priority": "0.8"
+  },
+  {
+    "path": "/industries/consulting",
+    "priority": "0.8"
+  },
+  {
+    "path": "/industries/d2c-ecommerce",
+    "priority": "0.8"
+  },
+  {
+    "path": "/industries/field-services",
+    "priority": "0.8"
+  },
+  {
+    "path": "/partnerships",
+    "priority": "0.7"
+  },
+  {
+    "path": "/partnerships/bitscale",
+    "priority": "0.7"
+  },
+  {
+    "path": "/partnerships/hubspot",
+    "priority": "0.7"
+  },
+  {
+    "path": "/privacy",
+    "priority": "0.3"
+  },
+  {
+    "path": "/resources",
+    "priority": "0.7"
+  },
+  {
+    "path": "/revops",
+    "priority": "0.9"
+  },
+  {
+    "path": "/revops/alignment",
+    "priority": "0.8"
+  },
+  {
+    "path": "/revops/audit",
+    "priority": "0.8"
+  },
+  {
+    "path": "/revops/data-architecture",
+    "priority": "0.8"
+  },
+  {
+    "path": "/revops/handoff",
+    "priority": "0.8"
+  },
+  {
+    "path": "/revops/pipeline",
+    "priority": "0.8"
+  },
+  {
+    "path": "/revops/reporting",
+    "priority": "0.8"
+  },
+  {
+    "path": "/revops/retainer",
+    "priority": "0.8"
+  },
+  {
+    "path": "/revops/stack",
+    "priority": "0.8"
+  },
+  {
+    "path": "/services",
+    "priority": "0.9"
+  },
+  {
+    "path": "/terms",
+    "priority": "0.3"
+  }
+]

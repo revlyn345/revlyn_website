@@ -1,0 +1,27 @@
+# Roadmap
+
+- [x] Expand the homepage into a detailed CRM journey.
+- [x] Create and select a connected-relationships Grownue logo.
+- [x] Replace the website logo and favicon.
+- [x] Verify desktop, mobile, navigation, contact action, and diagnostics.
+- [x] Redesign the hero with a two-line headline and a more expressive color background.
+- [x] Create a dedicated Our Approach page (/approach) and link it from the homepage header, mobile menu, and footer.
+- [x] Add a "What is CRM Implementation?" guide page (/crm-implementation) and link it from all headers and footers.
+- [x] Expand the CRM implementation guide with detailed content and five native, responsive diagrams.
+- [x] Remove eyebrow labels and em dashes across the website.
+- [x] Complete the website with Services, About, Contact, Privacy, and Terms pages, then add a detailed colourful shared header and footer.
+- [x] Add premium motion: scroll reveals, tactile interactions, hero ambience, and page transitions.
+- [x] Add How We Work transparency page and honest new-agency FAQs.
+- [ ] Add LinkedIn link once the real LinkedIn URL is provided.
+- [x] Add HubSpot Gold Partner page, badge, and HubSpot services across the site.
+- [x] Rebrand the website to Revlyn with a new continuous-loop logo and matching favicon.
+- [x] Reposition Revlyn around HubSpot and RevOps for growing, distributed revenue teams.
+- [x] Add a Partnerships hub and a dedicated Bitscale partnership page.
+- [x] Add brand-style RevOps diagrams (disconnected teams, connected system) and a branded og share image across main pages.
+- [x] Add HubSpot screenshots once an anonymized screenshot is provided.
+- [x] Add team photos once real photos are provided.
+- [x] Reorganize navigation: move Approach under Company and add Resources with Guides, Blogs, and Case Studies.
+- [x] Complete the blog overview and publish two practical Revlyn articles.
+- [x] Add an FAQ page, a free resources page with three printable checklists, and HubSpot comparison guides.
+- [x] Complete dedicated Consulting, D2C and e-commerce, and Field Services industry pages and connect navigation.
+- [x] Replace contact email with info@revlyn.io site-wide and embed the HubSpot discovery-call scheduler on the contact page.
