@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { breadcrumbSchema } from "../lib/seo";
 import { ArrowUpRight, BookOpen, Download, Newspaper, PackageOpen } from "lucide-react";
+import { BookCallButton } from "@/components/BookCallButton";
 
 export const Route = createFileRoute("/resources")({
   head: () => ({
@@ -104,7 +105,7 @@ function ResourcesPage() {
         <div className="rounded-[3rem] bg-ink p-10 text-center text-cream sm:p-16">
           <h2 className="font-display text-4xl font-bold sm:text-6xl">Checklists done, project next?</h2>
           <p className="mx-auto mt-5 max-w-xl text-lg text-cream/65">If the readiness list raised more questions than it answered, a free first call is a good place to bring them.</p>
-          <a href="https://meetings.hubspot.com/rishabh52/discovery-call-with-revlyn" target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-sun px-8 py-4 font-bold text-ink shadow-tactile-ink transition-all hover:translate-y-0.5 hover:shadow-tactile-ink-sm">Book a call <ArrowUpRight size={19} aria-hidden="true" /></a>
+          <BookCallButton className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-sun px-8 py-4 font-bold text-ink shadow-tactile-ink transition-all hover:translate-y-0.5 hover:shadow-tactile-ink-sm">Book a call <ArrowUpRight size={19} aria-hidden="true" /></BookCallButton>
         </div>
       </section>
     </main>

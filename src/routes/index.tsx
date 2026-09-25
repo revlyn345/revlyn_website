@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { HubSpotBadge } from "../components/HubSpotBadge";
+import { CrmRevOpsDiagram } from "../components/diagrams/CrmRevOpsDiagram";
+import { Workflow as ProcessIcon, Database as DataIcon, Bot as AutomationIcon, ChartNoAxesCombined as MeasureIcon } from "lucide-react";
 import agentAgenturLogo from "../assets/customers/agent-agentur.webp";
 import ausformingLogo from "../assets/customers/ausforming.webp";
 import capLogo from "../assets/customers/classical-academic-press.webp";
@@ -96,10 +98,10 @@ function Index() {
   ];
 
   const engineeringTiles = [
-    ["01", "Process design", "Stages, ownership, and handoffs defined so work moves without depending on memory.", "bg-sun", "text-ink/70"],
-    ["02", "Data architecture", "One clean customer record that every team can depend on.", "bg-mint", "text-ink/70"],
-    ["03", "Automation", "Follow-ups, routing, and routine steps run on rules, not reminders.", "bg-grape text-cream", "text-cream/80"],
-    ["04", "Measurement", "Dashboards that show pipeline health and what needs attention.", "bg-brand text-cream", "text-cream/80"],
+    { number: "01", title: "Process design", copy: "Stages, ownership, and handoffs defined so work moves without depending on memory.", tone: "bg-sun", copyTone: "text-ink/70", icon: ProcessIcon },
+    { number: "02", title: "Data architecture", copy: "One clean customer record that every team can depend on.", tone: "bg-mint", copyTone: "text-ink/70", icon: DataIcon },
+    { number: "03", title: "Automation", copy: "Follow-ups, routing, and routine steps run on rules, not reminders.", tone: "bg-grape text-cream", copyTone: "text-cream/80", icon: AutomationIcon },
+    { number: "04", title: "Measurement", copy: "Dashboards that show pipeline health and what needs attention.", tone: "bg-brand text-cream", copyTone: "text-cream/80", icon: MeasureIcon },
   ];
 
   const customers: { name: string; url: string; img?: string }[] = [
@@ -287,17 +289,24 @@ function Index() {
               </p>
             </div>
             <p className="reveal mt-8 max-w-2xl text-lg leading-relaxed text-ink/65">
-              Software alone does not create revenue. We engineer the system around it — the process, the data, the automation, and the numbers — so your team's effort compounds instead of leaking.
+              Software alone does not create revenue. We engineer the system around it the process, the data, the automation, and the numbers so your team's effort compounds instead of leaking.
             </p>
+            <div className="reveal mt-12 rounded-[2.5rem] border-2 border-ink/5 bg-cream/60 p-4 shadow-sm sm:p-8" style={{ transitionDelay: "0.1s" }}>
+              <CrmRevOpsDiagram className="h-auto w-full" />
+            </div>
             <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {engineeringTiles.map(([number, title, copy, tone, copyTone], index) => (
-                <div key={title} className={`reveal ${index % 2 === 1 ? "lg:mt-10" : ""}`} style={{ transitionDelay: `${index * 0.1}s` }}>
-                  <article className={`flex min-h-[22rem] flex-col justify-between rounded-[2.5rem] border-2 border-ink p-6 shadow-tactile-ink ${tone}`}>
-                    <span className="font-display text-4xl font-bold opacity-40" aria-hidden="true">{number}</span>
+              {engineeringTiles.map(({ number, title, copy, tone, copyTone, icon: Icon }, index) => (
+                <div key={title} className="reveal" style={{ transitionDelay: `${index * 0.1}s` }}>
+                  <article className={`flex h-full min-h-[22rem] flex-col justify-between rounded-[2.5rem] border-2 border-ink p-6 shadow-tactile-ink ${tone}`}>
+                    <div className="flex items-start justify-between">
+                      <span className="grid size-14 place-items-center rounded-2xl border-2 border-ink bg-cream text-ink" aria-hidden="true"><Icon size={26} strokeWidth={2.2} /></span>
+                      <span className="font-display text-4xl font-bold opacity-40" aria-hidden="true">{number}</span>
+                    </div>
                     <div>
                       <h3 className="font-display text-2xl font-bold sm:text-3xl">{title}</h3>
                       <p className={`mt-3 font-semibold leading-relaxed ${copyTone}`}>{copy}</p>
                     </div>
+                    
                   </article>
                 </div>
               ))}

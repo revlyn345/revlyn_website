@@ -200,10 +200,10 @@ function CrmImplementationPage() {
             <SectionHeading title="Implementation is a loop, not a one-time installation." copy="A useful CRM moves through five connected phases. Improvement feeds new learning back into discovery as the business changes." />
             <figure aria-labelledby="lifecycle-title" className="mt-12">
               <figcaption id="lifecycle-title" className="sr-only">Five-phase CRM implementation lifecycle</figcaption>
-              <div className="grid gap-3 lg:grid-cols-5">
+              <div className="grid gap-3 lg:grid-cols-5 lg:gap-6">
                 {phases.map((phase, index) => (
-                  <div key={phase.title} className="relative flex lg:block">
-                    <article className="w-full rounded-[2rem] border-2 border-ink/10 bg-background p-6">
+                  <div key={phase.title} className="relative flex flex-col">
+                    <article className="flex h-full w-full flex-col rounded-[2rem] border-2 border-ink/10 bg-background p-6">
                       <div className={`grid size-12 place-items-center rounded-2xl font-display text-sm font-bold ${phase.tone}`}>{phase.number}</div>
                       <h3 className="mt-5 font-display text-2xl font-bold">{phase.title}</h3>
                       <p className="mt-2 min-h-12 text-sm leading-relaxed text-ink/60">{phase.summary}</p>
@@ -211,7 +211,7 @@ function CrmImplementationPage() {
                         {phase.outputs.map((output) => <li key={output} className="flex gap-2 text-sm text-ink/70"><Check size={15} className="mt-0.5 shrink-0 text-brand" aria-hidden="true" />{output}</li>)}
                       </ul>
                     </article>
-                    {index < phases.length - 1 ? <div aria-hidden="true" className="grid shrink-0 place-items-center px-1 text-ink/30 lg:absolute lg:-right-4 lg:top-8 lg:z-10 lg:px-0"><ArrowDown className="lg:hidden" size={18} /><ArrowRight className="hidden lg:block" size={18} /></div> : null}
+                    {index < phases.length - 1 ? <div aria-hidden="true" className="grid shrink-0 place-items-center pt-3 text-ink/30 lg:absolute lg:-right-6 lg:top-10 lg:z-10 lg:w-6 lg:pt-0"><ArrowDown className="lg:hidden" size={18} /><ArrowRight className="hidden lg:block" size={18} /></div> : null}
                   </div>
                 ))}
               </div>

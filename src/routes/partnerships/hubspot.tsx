@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { breadcrumbSchema } from "../../lib/seo";
 import { ArrowUpRight, Check, Compass, GraduationCap, LifeBuoy, Settings2, ShieldCheck } from "lucide-react";
+import { BookCallButton } from "@/components/BookCallButton";
 const hubspotBadge = "/images/partners/hubspot-gold-badge.svg";
 
 export const Route = createFileRoute("/partnerships/hubspot")({
@@ -54,6 +55,6 @@ function HubSpotPartnershipPage() {
       <div className="rounded-[3rem] border-2 border-ink/10 bg-background p-8 sm:p-10"><h2 className="font-display text-4xl font-bold">What it does not mean.</h2><p className="mt-6 text-lg leading-relaxed text-ink/65">We will not push extra hubs or seats you do not need. HubSpot remains responsible for its product, licences, pricing, and terms. If HubSpot is not the right fit, we will say so. Our <Link to="/compare" className="font-bold text-brand underline-offset-4 hover:underline">comparison guides</Link> are a good place to start.</p></div>
     </div></section>
 
-    <section className="reveal mx-auto max-w-6xl px-5 pb-24 sm:px-6"><div className="rounded-[3rem] bg-ink p-10 text-center text-cream sm:p-16"><h2 className="font-display text-4xl font-bold sm:text-6xl">Get more out of HubSpot.</h2><p className="mx-auto mt-5 max-w-xl text-lg text-cream/65">Tell us what your portal needs to do. We will tell you where to start.</p><a href="https://meetings.hubspot.com/rishabh52/discovery-call-with-revlyn" target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-sun px-8 py-4 font-bold text-ink shadow-tactile-ink transition-all hover:translate-y-0.5 hover:shadow-tactile-ink-sm">Book a call <ArrowUpRight size={19}/></a></div></section>
+    <section className="reveal mx-auto max-w-6xl px-5 pb-24 sm:px-6"><div className="rounded-[3rem] bg-ink p-10 text-center text-cream sm:p-16"><h2 className="font-display text-4xl font-bold sm:text-6xl">Get more out of HubSpot.</h2><p className="mx-auto mt-5 max-w-xl text-lg text-cream/65">Tell us what your portal needs to do. We will tell you where to start.</p><BookCallButton className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-sun px-8 py-4 font-bold text-ink shadow-tactile-ink transition-all hover:translate-y-0.5 hover:shadow-tactile-ink-sm">Book a call <ArrowUpRight size={19}/></BookCallButton></div></section>
   </main>;
 }

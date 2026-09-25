@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { breadcrumbSchema } from "../../lib/seo";
 import { ArrowUpRight, Scale, ShieldCheck } from "lucide-react";
+import { BookCallButton } from "@/components/BookCallButton";
 
 export const Route = createFileRoute("/compare/")({
   head: () => ({
@@ -83,7 +84,7 @@ function ComparePage() {
         <div className="mx-auto max-w-4xl px-5 text-center sm:px-6">
           <h2 className="font-display text-4xl font-bold sm:text-6xl">Still torn after reading?</h2>
           <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink/70">Bring your process, team shape, and tool list to a free first call. We will tell you which platform fits, including when the answer is not HubSpot.</p>
-          <a href="https://meetings.hubspot.com/rishabh52/discovery-call-with-revlyn" target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-ink px-8 py-4 font-bold text-cream shadow-tactile-ink transition-all hover:translate-y-0.5 hover:shadow-tactile-ink-sm">Book a call <ArrowUpRight size={19} aria-hidden="true" /></a>
+          <BookCallButton className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-ink px-8 py-4 font-bold text-cream shadow-tactile-ink transition-all hover:translate-y-0.5 hover:shadow-tactile-ink-sm">Book a call <ArrowUpRight size={19} aria-hidden="true" /></BookCallButton>
         </div>
       </section>
     </main>

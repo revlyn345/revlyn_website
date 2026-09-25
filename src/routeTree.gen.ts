@@ -14,7 +14,6 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as ApproachRouteImport } from './routes/approach'
 import { Route as BlogRouteRouteImport } from './routes/blog/route'
 import { Route as BookACallRouteImport } from './routes/book-a-call'
-import { Route as CaseStudiesRouteImport } from './routes/case-studies'
 import { Route as CompareRouteRouteImport } from './routes/compare/route'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CrmImplementationRouteImport } from './routes/crm-implementation'
@@ -33,6 +32,11 @@ import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as BlogHowToCleanCrmDataBeforeMigrationRouteImport } from './routes/blog/how-to-clean-crm-data-before-migration'
 import { Route as BlogWhyCrmAdoptionFailsRouteImport } from './routes/blog/why-crm-adoption-fails'
+import { Route as CaseStudiesIndexRouteImport } from './routes/case-studies/index'
+import { Route as CaseStudiesAusformingRouteImport } from './routes/case-studies/ausforming'
+import { Route as CaseStudiesDatapelRouteImport } from './routes/case-studies/datapel'
+import { Route as CaseStudiesIntegrityFireSafetyRouteImport } from './routes/case-studies/integrity-fire-safety'
+import { Route as CaseStudiesPunjabFilmCityRouteImport } from './routes/case-studies/punjab-film-city'
 import { Route as CompareIndexRouteImport } from './routes/compare/index'
 import { Route as CompareHubspotVsPipedriveRouteImport } from './routes/compare/hubspot-vs-pipedrive'
 import { Route as CompareHubspotVsSalesforceRouteImport } from './routes/compare/hubspot-vs-salesforce'
@@ -87,11 +91,6 @@ const BlogRouteRoute = BlogRouteRouteImport.update({
 const BookACallRoute = BookACallRouteImport.update({
   id: '/book-a-call',
   path: '/book-a-call',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CaseStudiesRoute = CaseStudiesRouteImport.update({
-  id: '/case-studies',
-  path: '/case-studies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompareRouteRoute = CompareRouteRouteImport.update({
@@ -185,6 +184,33 @@ const BlogWhyCrmAdoptionFailsRoute = BlogWhyCrmAdoptionFailsRouteImport.update({
   path: '/why-crm-adoption-fails',
   getParentRoute: () => BlogRouteRoute,
 } as any)
+const CaseStudiesIndexRoute = CaseStudiesIndexRouteImport.update({
+  id: '/case-studies/',
+  path: '/case-studies/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaseStudiesAusformingRoute = CaseStudiesAusformingRouteImport.update({
+  id: '/case-studies/ausforming',
+  path: '/case-studies/ausforming',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaseStudiesDatapelRoute = CaseStudiesDatapelRouteImport.update({
+  id: '/case-studies/datapel',
+  path: '/case-studies/datapel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaseStudiesIntegrityFireSafetyRoute =
+  CaseStudiesIntegrityFireSafetyRouteImport.update({
+    id: '/case-studies/integrity-fire-safety',
+    path: '/case-studies/integrity-fire-safety',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CaseStudiesPunjabFilmCityRoute =
+  CaseStudiesPunjabFilmCityRouteImport.update({
+    id: '/case-studies/punjab-film-city',
+    path: '/case-studies/punjab-film-city',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const CompareIndexRoute = CompareIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -349,7 +375,6 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/approach': typeof ApproachRoute
   '/book-a-call': typeof BookACallRoute
-  '/case-studies': typeof CaseStudiesRoute
   '/contact': typeof ContactRoute
   '/crm-implementation': typeof CrmImplementationRoute
   '/faq': typeof FaqRoute
@@ -362,6 +387,10 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/how-to-clean-crm-data-before-migration': typeof BlogHowToCleanCrmDataBeforeMigrationRoute
   '/blog/why-crm-adoption-fails': typeof BlogWhyCrmAdoptionFailsRoute
+  '/case-studies/ausforming': typeof CaseStudiesAusformingRoute
+  '/case-studies/datapel': typeof CaseStudiesDatapelRoute
+  '/case-studies/integrity-fire-safety': typeof CaseStudiesIntegrityFireSafetyRoute
+  '/case-studies/punjab-film-city': typeof CaseStudiesPunjabFilmCityRoute
   '/compare/hubspot-vs-pipedrive': typeof CompareHubspotVsPipedriveRoute
   '/compare/hubspot-vs-salesforce': typeof CompareHubspotVsSalesforceRoute
   '/compare/hubspot-vs-zoho': typeof CompareHubspotVsZohoRoute
@@ -388,6 +417,7 @@ export interface FileRoutesByFullPath {
   '/revops/retainer': typeof RevopsRetainerRoute
   '/revops/stack': typeof RevopsStackRoute
   '/blog/': typeof BlogIndexRoute
+  '/case-studies/': typeof CaseStudiesIndexRoute
   '/compare/': typeof CompareIndexRoute
   '/hubspot/': typeof HubspotIndexRoute
   '/industries/': typeof IndustriesIndexRoute
@@ -399,7 +429,6 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/approach': typeof ApproachRoute
   '/book-a-call': typeof BookACallRoute
-  '/case-studies': typeof CaseStudiesRoute
   '/contact': typeof ContactRoute
   '/crm-implementation': typeof CrmImplementationRoute
   '/faq': typeof FaqRoute
@@ -412,6 +441,10 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/how-to-clean-crm-data-before-migration': typeof BlogHowToCleanCrmDataBeforeMigrationRoute
   '/blog/why-crm-adoption-fails': typeof BlogWhyCrmAdoptionFailsRoute
+  '/case-studies/ausforming': typeof CaseStudiesAusformingRoute
+  '/case-studies/datapel': typeof CaseStudiesDatapelRoute
+  '/case-studies/integrity-fire-safety': typeof CaseStudiesIntegrityFireSafetyRoute
+  '/case-studies/punjab-film-city': typeof CaseStudiesPunjabFilmCityRoute
   '/compare/hubspot-vs-pipedrive': typeof CompareHubspotVsPipedriveRoute
   '/compare/hubspot-vs-salesforce': typeof CompareHubspotVsSalesforceRoute
   '/compare/hubspot-vs-zoho': typeof CompareHubspotVsZohoRoute
@@ -438,6 +471,7 @@ export interface FileRoutesByTo {
   '/revops/retainer': typeof RevopsRetainerRoute
   '/revops/stack': typeof RevopsStackRoute
   '/blog': typeof BlogIndexRoute
+  '/case-studies': typeof CaseStudiesIndexRoute
   '/compare': typeof CompareIndexRoute
   '/hubspot': typeof HubspotIndexRoute
   '/industries': typeof IndustriesIndexRoute
@@ -456,7 +490,6 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/approach': typeof ApproachRoute
   '/book-a-call': typeof BookACallRoute
-  '/case-studies': typeof CaseStudiesRoute
   '/contact': typeof ContactRoute
   '/crm-implementation': typeof CrmImplementationRoute
   '/faq': typeof FaqRoute
@@ -469,6 +502,10 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/how-to-clean-crm-data-before-migration': typeof BlogHowToCleanCrmDataBeforeMigrationRoute
   '/blog/why-crm-adoption-fails': typeof BlogWhyCrmAdoptionFailsRoute
+  '/case-studies/ausforming': typeof CaseStudiesAusformingRoute
+  '/case-studies/datapel': typeof CaseStudiesDatapelRoute
+  '/case-studies/integrity-fire-safety': typeof CaseStudiesIntegrityFireSafetyRoute
+  '/case-studies/punjab-film-city': typeof CaseStudiesPunjabFilmCityRoute
   '/compare/hubspot-vs-pipedrive': typeof CompareHubspotVsPipedriveRoute
   '/compare/hubspot-vs-salesforce': typeof CompareHubspotVsSalesforceRoute
   '/compare/hubspot-vs-zoho': typeof CompareHubspotVsZohoRoute
@@ -495,6 +532,7 @@ export interface FileRoutesById {
   '/revops/retainer': typeof RevopsRetainerRoute
   '/revops/stack': typeof RevopsStackRoute
   '/blog/': typeof BlogIndexRoute
+  '/case-studies/': typeof CaseStudiesIndexRoute
   '/compare/': typeof CompareIndexRoute
   '/hubspot/': typeof HubspotIndexRoute
   '/industries/': typeof IndustriesIndexRoute
@@ -514,7 +552,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/approach'
     | '/book-a-call'
-    | '/case-studies'
     | '/contact'
     | '/crm-implementation'
     | '/faq'
@@ -527,6 +564,10 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog/how-to-clean-crm-data-before-migration'
     | '/blog/why-crm-adoption-fails'
+    | '/case-studies/ausforming'
+    | '/case-studies/datapel'
+    | '/case-studies/integrity-fire-safety'
+    | '/case-studies/punjab-film-city'
     | '/compare/hubspot-vs-pipedrive'
     | '/compare/hubspot-vs-salesforce'
     | '/compare/hubspot-vs-zoho'
@@ -553,6 +594,7 @@ export interface FileRouteTypes {
     | '/revops/retainer'
     | '/revops/stack'
     | '/blog/'
+    | '/case-studies/'
     | '/compare/'
     | '/hubspot/'
     | '/industries/'
@@ -564,7 +606,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/approach'
     | '/book-a-call'
-    | '/case-studies'
     | '/contact'
     | '/crm-implementation'
     | '/faq'
@@ -577,6 +618,10 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog/how-to-clean-crm-data-before-migration'
     | '/blog/why-crm-adoption-fails'
+    | '/case-studies/ausforming'
+    | '/case-studies/datapel'
+    | '/case-studies/integrity-fire-safety'
+    | '/case-studies/punjab-film-city'
     | '/compare/hubspot-vs-pipedrive'
     | '/compare/hubspot-vs-salesforce'
     | '/compare/hubspot-vs-zoho'
@@ -603,6 +648,7 @@ export interface FileRouteTypes {
     | '/revops/retainer'
     | '/revops/stack'
     | '/blog'
+    | '/case-studies'
     | '/compare'
     | '/hubspot'
     | '/industries'
@@ -620,7 +666,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/approach'
     | '/book-a-call'
-    | '/case-studies'
     | '/contact'
     | '/crm-implementation'
     | '/faq'
@@ -633,6 +678,10 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog/how-to-clean-crm-data-before-migration'
     | '/blog/why-crm-adoption-fails'
+    | '/case-studies/ausforming'
+    | '/case-studies/datapel'
+    | '/case-studies/integrity-fire-safety'
+    | '/case-studies/punjab-film-city'
     | '/compare/hubspot-vs-pipedrive'
     | '/compare/hubspot-vs-salesforce'
     | '/compare/hubspot-vs-zoho'
@@ -659,6 +708,7 @@ export interface FileRouteTypes {
     | '/revops/retainer'
     | '/revops/stack'
     | '/blog/'
+    | '/case-studies/'
     | '/compare/'
     | '/hubspot/'
     | '/industries/'
@@ -677,7 +727,6 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ApproachRoute: typeof ApproachRoute
   BookACallRoute: typeof BookACallRoute
-  CaseStudiesRoute: typeof CaseStudiesRoute
   ContactRoute: typeof ContactRoute
   CrmImplementationRoute: typeof CrmImplementationRoute
   FaqRoute: typeof FaqRoute
@@ -687,6 +736,11 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
+  CaseStudiesAusformingRoute: typeof CaseStudiesAusformingRoute
+  CaseStudiesDatapelRoute: typeof CaseStudiesDatapelRoute
+  CaseStudiesIntegrityFireSafetyRoute: typeof CaseStudiesIntegrityFireSafetyRoute
+  CaseStudiesPunjabFilmCityRoute: typeof CaseStudiesPunjabFilmCityRoute
+  CaseStudiesIndexRoute: typeof CaseStudiesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -724,13 +778,6 @@ declare module '@tanstack/react-router' {
       path: '/book-a-call'
       fullPath: '/book-a-call'
       preLoaderRoute: typeof BookACallRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/case-studies': {
-      id: '/case-studies'
-      path: '/case-studies'
-      fullPath: '/case-studies'
-      preLoaderRoute: typeof CaseStudiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/compare': {
@@ -858,6 +905,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/blog/why-crm-adoption-fails'
       preLoaderRoute: typeof BlogWhyCrmAdoptionFailsRouteImport
       parentRoute: typeof BlogRouteRoute
+    }
+    '/case-studies/': {
+      id: '/case-studies/'
+      path: '/case-studies'
+      fullPath: '/case-studies/'
+      preLoaderRoute: typeof CaseStudiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case-studies/ausforming': {
+      id: '/case-studies/ausforming'
+      path: '/case-studies/ausforming'
+      fullPath: '/case-studies/ausforming'
+      preLoaderRoute: typeof CaseStudiesAusformingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case-studies/datapel': {
+      id: '/case-studies/datapel'
+      path: '/case-studies/datapel'
+      fullPath: '/case-studies/datapel'
+      preLoaderRoute: typeof CaseStudiesDatapelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case-studies/integrity-fire-safety': {
+      id: '/case-studies/integrity-fire-safety'
+      path: '/case-studies/integrity-fire-safety'
+      fullPath: '/case-studies/integrity-fire-safety'
+      preLoaderRoute: typeof CaseStudiesIntegrityFireSafetyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case-studies/punjab-film-city': {
+      id: '/case-studies/punjab-film-city'
+      path: '/case-studies/punjab-film-city'
+      fullPath: '/case-studies/punjab-film-city'
+      preLoaderRoute: typeof CaseStudiesPunjabFilmCityRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/compare/': {
       id: '/compare/'
@@ -1211,7 +1293,6 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ApproachRoute: ApproachRoute,
   BookACallRoute: BookACallRoute,
-  CaseStudiesRoute: CaseStudiesRoute,
   ContactRoute: ContactRoute,
   CrmImplementationRoute: CrmImplementationRoute,
   FaqRoute: FaqRoute,
@@ -1221,6 +1302,11 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
+  CaseStudiesAusformingRoute: CaseStudiesAusformingRoute,
+  CaseStudiesDatapelRoute: CaseStudiesDatapelRoute,
+  CaseStudiesIntegrityFireSafetyRoute: CaseStudiesIntegrityFireSafetyRoute,
+  CaseStudiesPunjabFilmCityRoute: CaseStudiesPunjabFilmCityRoute,
+  CaseStudiesIndexRoute: CaseStudiesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

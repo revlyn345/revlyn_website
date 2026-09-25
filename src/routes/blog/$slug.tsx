@@ -1,14 +1,9 @@
-// Blog posts published in WordPress (cms.revlyn.io) render here at
-// https://revlyn.io/blog/<slug>. The content pipeline links to exactly this
-// URL, so the address must stay the same.
-//
-// The two hand-written posts (why-crm-adoption-fails and
-// how-to-clean-crm-data-before-migration) have their own files and win over
-// this route automatically.
+
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { fetchBlogPost } from "../../lib/blog.functions";
 import { absoluteUrl, breadcrumbSchema, OG_IMAGE, SITE_URL } from "../../lib/seo";
+import { BookCallButton } from "@/components/BookCallButton";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
@@ -140,9 +135,9 @@ function WordPressArticle() {
             <p className="mt-4 max-w-2xl text-lg leading-relaxed text-cream/70">
               Tell us what feels messy today. A first conversation is for understanding your situation, not pushing a package.
             </p>
-            <Link to="/book-a-call" className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-sun px-7 py-4 font-bold text-ink">
+            <BookCallButton className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-sun px-7 py-4 font-bold text-ink">
               Book a discovery call <ArrowUpRight size={18} aria-hidden="true" />
-            </Link>
+            </BookCallButton>
           </div>
         </section>
       </article>
