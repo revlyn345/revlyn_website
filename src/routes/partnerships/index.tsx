@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { breadcrumbSchema } from "../../lib/seo";
 import { ArrowUpRight, Check, DatabaseZap, Handshake, ShieldCheck } from "lucide-react";
 const hubspotBadge = "/images/partners/hubspot-gold-badge.svg";
-const bitscaleLogo = "/images/partners/bitscale-logo.svg";
+const bitscaleLogo = "/images/partners/bitscale-logo.webp";
 
 export const Route = createFileRoute("/partnerships/")({
   head: () => ({
