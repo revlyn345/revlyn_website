@@ -349,3 +349,13 @@
 .wp-content .faq-plus { flex-shrink: 0; font-size: 1.6rem; line-height: 1; color: var(--brand); transition: transform 0.2s; }
 .wp-content details[open] .faq-plus { transform: rotate(45deg); }
 .wp-content details > p { margin-top: 0.8rem; }
+
+/* ─── HubSpot meetings calendar: fit the card, no sideways scrolling ─── */
+.meetings-iframe-container {
+  overflow: hidden;
+}
+.meetings-iframe-container iframe {
+  display: block;
+  width: 100% !important;
+  min-width: 0 !important;
+}
