@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { fetchBlogPost } from "../../lib/blog.functions";
 import { absoluteUrl, breadcrumbSchema, OG_IMAGE, SITE_URL } from "../../lib/seo";
 import { BookCallButton } from "@/components/BookCallButton";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
@@ -128,7 +129,7 @@ function WordPressArticle() {
             </aside>
           )}
         </div>
-
+        <NewsletterSignup source="Blog post" />
         <section className="mx-auto max-w-4xl px-5 pb-24 sm:px-6">
           <div className="rounded-[2.5rem] bg-ink p-8 text-cream sm:p-12">
             <h2 className="font-display text-3xl font-bold sm:text-4xl">Want a second pair of eyes on your CRM?</h2>

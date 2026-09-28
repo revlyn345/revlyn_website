@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { breadcrumbSchema } from "../../lib/seo";
 import { fetchBlogPosts } from "../../lib/blog.functions";
 import { ArrowUpRight, BookOpen, Database, Users } from "lucide-react";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 export const Route = createFileRoute("/blog/")({
   // Posts published in WordPress (cms.revlyn.io). If WordPress is down this is
@@ -108,6 +109,7 @@ function BlogPage() {
           <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-ink px-6 py-4 font-bold text-cream shadow-tactile-ink transition-all hover:translate-y-1 hover:shadow-tactile-ink-sm">Contact Revlyn <ArrowUpRight size={18} aria-hidden="true" /></Link>
         </div>
       </section>
+    <NewsletterSignup source="Blog" />  
     </main>
   );
 }
