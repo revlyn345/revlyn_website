@@ -3,7 +3,6 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { fetchBlogPost } from "../../lib/blog.functions";
 import { absoluteUrl, breadcrumbSchema, OG_IMAGE, SITE_URL } from "../../lib/seo";
-import { BookCallButton } from "@/components/BookCallButton";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 function formatDate(iso: string) {
@@ -130,17 +129,7 @@ function WordPressArticle() {
           )}
         </div>
         <NewsletterSignup source="Blog post" />
-        <section className="mx-auto max-w-4xl px-5 pb-24 sm:px-6">
-          <div className="rounded-[2.5rem] bg-ink p-8 text-cream sm:p-12">
-            <h2 className="font-display text-3xl font-bold sm:text-4xl">Want a second pair of eyes on your CRM?</h2>
-            <p className="mt-4 max-w-2xl text-lg leading-relaxed text-cream/70">
-              Tell us what feels messy today. A first conversation is for understanding your situation, not pushing a package.
-            </p>
-            <BookCallButton className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-sun px-7 py-4 font-bold text-ink">
-              Book a discovery call <ArrowUpRight size={18} aria-hidden="true" />
-            </BookCallButton>
-          </div>
-        </section>
+        
       </article>
     </main>
   );

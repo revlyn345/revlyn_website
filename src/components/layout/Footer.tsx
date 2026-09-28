@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 import logo from "../../assets/revlyn-logo-dark.webp";
 import { HubSpotBadge } from "../HubSpotBadge";
+import { FooterNewsletter } from "../NewsletterSignup";
 
 const footerLink = "text-cream/65 transition-colors hover:text-sun";
 
@@ -28,7 +29,8 @@ export function Footer() {
           <nav aria-label="Company links"><p className="font-bold text-sun">Company</p><ul className="mt-5 space-y-3"><li><Link to="/approach" className={footerLink}>Our approach</Link></li><li><Link to="/about" className={footerLink}>About Revlyn</Link></li><li><Link to="/how-we-work" className={footerLink}>How we work</Link></li><li><Link to="/partnerships" className={footerLink}>Partnerships</Link></li><li><Link to="/contact" className={footerLink}>Contact</Link></li><li><Link to="/" hash="why" className={footerLink}>Why Revlyn</Link></li></ul></nav>
           <nav aria-label="Legal links"><p className="font-bold text-grape">Legal</p><ul className="mt-5 space-y-3"><li><Link to="/privacy" className={footerLink}>Privacy</Link></li><li><Link to="/terms" className={footerLink}>Terms</Link></li></ul></nav>
         </div>
-        <ul aria-label="Social links" className="mt-10 flex items-center gap-3">
+        <div className="mt-12 flex flex-col-reverse gap-8 border-t border-cream/10 pt-10 md:flex-row md:items-end md:justify-between">
+        <ul aria-label="Social links" className="flex items-center gap-3">
           {socialLinks.map(({ label, href, Icon }) => (
             <li key={label}>
               <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" aria-label={label} title={label} className="inline-flex size-10 items-center justify-center rounded-full border border-cream/15 text-cream/65 transition-colors hover:border-sun hover:text-sun">
@@ -37,6 +39,8 @@ export function Footer() {
             </li>
           ))}
         </ul>
+        <FooterNewsletter />
+        </div>
         <div className="mt-10 flex flex-col justify-between gap-3 border-t border-cream/10 pt-8 text-sm text-cream/40 sm:flex-row"><p>Remote-first · © 2026 Revlyn. All rights reserved.</p><p>Made for teams that grow.</p></div>
       </div>
     </footer>

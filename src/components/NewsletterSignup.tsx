@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { ArrowUpRight, Check, Loader2, Mail } from "lucide-react";
+import { ArrowUpRight, Check, Loader2 } from "lucide-react";
 
 const PORTAL_ID = "50824762";
 const NEWSLETTER_FORM_ID = "456b13be-b003-4d41-86d6-cc5aab83bfd0";
@@ -11,7 +11,7 @@ function getHubspotCookie() {
   return document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/)?.[1];
 }
 
-export function NewsletterSignup({ source = "Website" }: { source?: string }) {
+function useNewsletterSignup(source: string) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
@@ -55,6 +55,12 @@ export function NewsletterSignup({ source = "Website" }: { source?: string }) {
     }
   }
 
+  return { email, setEmail, status, setStatus, message, handleSubmit };
+}
+
+export function NewsletterSignup({ source = "Website" }: { source?: string }) {
+  const { email, setEmail, status, setStatus, message, handleSubmit } = useNewsletterSignup(source);
+
   return (
     <section className="mx-auto max-w-6xl px-5 py-16 sm:px-6 sm:py-20" aria-labelledby="newsletter-title">
       <div className="relative overflow-hidden rounded-[2.5rem] border-2 border-ink bg-ink p-7 text-cream shadow-tactile-ink sm:rounded-[3rem] sm:p-12">
@@ -63,10 +69,8 @@ export function NewsletterSignup({ source = "Website" }: { source?: string }) {
 
         <div className="relative grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-sun px-4 py-2 text-sm font-bold text-ink">
-              <Mail size={16} aria-hidden="true" /> Revlyn field notes
-            </span>
-            <h2 id="newsletter-title" className="mt-6 font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
+            
+            <h2 id="newsletter-title" className="font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
               Practical CRM notes, <span className="text-sun">once a month.</span>
             </h2>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-cream/70">
@@ -117,5 +121,50 @@ export function NewsletterSignup({ source = "Website" }: { source?: string }) {
         </div>
       </div>
     </section>
+  );
+}
+
+/** Compact version for the dark footer. */
+export function FooterNewsletter() {
+  const { email, setEmail, status, setStatus, message, handleSubmit } = useNewsletterSignup("Footer");
+
+  return (
+    <div className="w-full max-w-md">
+      <p className="font-bold text-sun">Get Revlyn field notes</p>
+      <p className="mt-1 text-sm text-cream/55">Practical CRM notes, once a month. Unsubscribe any time.</p>
+      {status === "success" ? (
+        <p className="mt-4 inline-flex items-center gap-2 rounded-2xl bg-mint/15 px-4 py-3 font-bold text-mint" role="status">
+          <Check size={18} aria-hidden="true" /> You are on the list.
+        </p>
+      ) : (
+        <form onSubmit={handleSubmit} noValidate className="mt-4">
+          <div className="flex gap-2 rounded-2xl border border-cream/15 bg-cream/5 p-1.5 focus-within:border-sun">
+            <label htmlFor="footer-newsletter-email" className="sr-only">Work email</label>
+            <input
+              id="footer-newsletter-email"
+              type="email"
+              name="email"
+              autoComplete="email"
+              required
+              placeholder="you@company.com"
+              value={email}
+              onChange={(e) => { setEmail(e.target.value); if (status === "error") setStatus("idle"); }}
+              disabled={status === "loading"}
+              aria-invalid={status === "error"}
+              className="min-w-0 flex-1 bg-transparent px-3 text-cream outline-none placeholder:text-cream/35 disabled:opacity-60"
+            />
+            <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-xl bg-sun px-4 py-2.5 text-sm font-bold text-ink transition-colors hover:bg-cream disabled:opacity-70"
+            >
+              {status === "loading" ? <Loader2 size={16} className="animate-spin" aria-hidden="true" /> : <>Subscribe <ArrowUpRight size={16} aria-hidden="true" /></>}
+            </button>
+          </div>
+          {status === "error" && <p className="mt-2 text-sm font-bold text-brand" role="alert">{message}</p>}
+        </form>
+      )}
+    </div>
   );
 }
