@@ -23,6 +23,7 @@ import { Route as HubspotRouteRouteImport } from './routes/hubspot/route'
 import { Route as IndustriesRouteRouteImport } from './routes/industries/route'
 import { Route as PartnershipsRouteRouteImport } from './routes/partnerships/route'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as RenewalsAutomationGuideRouteImport } from './routes/renewals-automation-guide'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as RevopsRouteRouteImport } from './routes/revops/route'
 import { Route as ServicesRouteImport } from './routes/services'
@@ -136,6 +137,11 @@ const PartnershipsRouteRoute = PartnershipsRouteRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RenewalsAutomationGuideRoute = RenewalsAutomationGuideRouteImport.update({
+  id: '/renewals-automation-guide',
+  path: '/renewals-automation-guide',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResourcesRoute = ResourcesRouteImport.update({
@@ -380,6 +386,7 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/how-we-work': typeof HowWeWorkRoute
   '/privacy': typeof PrivacyRoute
+  '/renewals-automation-guide': typeof RenewalsAutomationGuideRoute
   '/resources': typeof ResourcesRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -434,6 +441,7 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/how-we-work': typeof HowWeWorkRoute
   '/privacy': typeof PrivacyRoute
+  '/renewals-automation-guide': typeof RenewalsAutomationGuideRoute
   '/resources': typeof ResourcesRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -495,6 +503,7 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/how-we-work': typeof HowWeWorkRoute
   '/privacy': typeof PrivacyRoute
+  '/renewals-automation-guide': typeof RenewalsAutomationGuideRoute
   '/resources': typeof ResourcesRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -557,6 +566,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/how-we-work'
     | '/privacy'
+    | '/renewals-automation-guide'
     | '/resources'
     | '/services'
     | '/sitemap.xml'
@@ -611,6 +621,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/how-we-work'
     | '/privacy'
+    | '/renewals-automation-guide'
     | '/resources'
     | '/services'
     | '/sitemap.xml'
@@ -671,6 +682,7 @@ export interface FileRouteTypes {
     | '/faq'
     | '/how-we-work'
     | '/privacy'
+    | '/renewals-automation-guide'
     | '/resources'
     | '/services'
     | '/sitemap.xml'
@@ -732,6 +744,7 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   HowWeWorkRoute: typeof HowWeWorkRoute
   PrivacyRoute: typeof PrivacyRoute
+  RenewalsAutomationGuideRoute: typeof RenewalsAutomationGuideRoute
   ResourcesRoute: typeof ResourcesRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -841,6 +854,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/renewals-automation-guide': {
+      id: '/renewals-automation-guide'
+      path: '/renewals-automation-guide'
+      fullPath: '/renewals-automation-guide'
+      preLoaderRoute: typeof RenewalsAutomationGuideRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/resources': {
@@ -1298,6 +1318,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   HowWeWorkRoute: HowWeWorkRoute,
   PrivacyRoute: PrivacyRoute,
+  RenewalsAutomationGuideRoute: RenewalsAutomationGuideRoute,
   ResourcesRoute: ResourcesRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,

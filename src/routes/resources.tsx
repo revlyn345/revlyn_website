@@ -46,6 +46,7 @@ const downloads = [
 
 const reading = [
   { to: "/crm-implementation", icon: BookOpen, tone: "bg-mint", title: "What is CRM implementation?", copy: "The full guide: what good implementation covers, common failure patterns, and a readiness checklist." },
+  { to: "/renewals-automation-guide", icon: BookOpen, tone: "bg-sun", title: "How to automate renewals in HubSpot", copy: "A step by step setup so every closed won deal gets a renewal decision and a timely renewal deal." },
   { to: "/blog/why-crm-adoption-fails", icon: Newspaper, tone: "bg-sun", title: "Why CRM adoption fails after launch", copy: "The four predictable reasons teams stop using a CRM, and the habits that prevent them." },
   { to: "/blog/how-to-clean-crm-data-before-migration", icon: BookOpen, tone: "bg-brand text-cream", title: "How to clean CRM data before migration", copy: "A practical process for deciding what to move, standardising it, and reconciling the result." },
 ];
