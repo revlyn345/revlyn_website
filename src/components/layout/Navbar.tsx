@@ -12,6 +12,7 @@ import {
   Handshake,
   HelpCircle,
   Menu,
+  Megaphone,
   Newspaper,
   PackageOpen,
   RouteIcon,
@@ -33,7 +34,7 @@ const menuButton = "flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-sm fon
 const mobileSummary = "flex cursor-pointer list-none items-center justify-between px-5 py-4 font-bold text-ink [&::-webkit-details-marker]:hidden";
 const panelLink = "group flex items-start gap-3 rounded-2xl p-3 transition-colors hover:bg-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand";
 
-function MenuItem({ to, hash, icon: Icon, tone, title, copy, close }: { to: "/services" | "/revops" | "/industries" | "/industries/b2b-saas" | "/industries/consulting" | "/industries/d2c-ecommerce" | "/industries/field-services" | "/about" | "/contact" | "/how-we-work" | "/hubspot" | "/hubspot/managed" | "/crm-implementation" | "/partnerships" | "/approach" | "/blog" | "/case-studies" | "/compare" | "/resources" | "/faq"; hash?: string; icon: typeof Zap; tone: string; title: string; copy: string; close: () => void }) {
+function MenuItem({ to, hash, icon: Icon, tone, title, copy, close }: { to: "/services" | "/revops" | "/industries" | "/industries/b2b-saas" | "/industries/consulting" | "/industries/d2c-ecommerce" | "/industries/field-services" | "/about" | "/contact" | "/how-we-work" | "/hubspot" | "/hubspot/managed" | "/crm-implementation" | "/partnerships" | "/approach" | "/blog" | "/case-studies" | "/compare" | "/resources" | "/faq" | "/news"; hash?: string; icon: typeof Zap; tone: string; title: string; copy: string; close: () => void }) {
   return (
     <Link to={to} {...(hash ? { hash } : {})} onClick={close} className={panelLink} activeProps={{ className: "bg-cream" }}>
       <span className={`grid size-10 shrink-0 place-items-center rounded-xl ${tone}`}><Icon size={19} aria-hidden="true" /></span>
@@ -69,7 +70,7 @@ export function Navbar() {
             </button>
           </div>
           <div className="relative">
-            <button type="button" onClick={() => toggle("resources")} aria-expanded={openMenu === "resources"} className={`${menuButton} ${pathname === "/crm-implementation" || pathname === "/blog" || pathname === "/case-studies" || pathname === "/compare" || pathname === "/resources" || pathname === "/faq" ? "bg-background text-mint shadow-sm" : ""}`}>
+            <button type="button" onClick={() => toggle("resources")} aria-expanded={openMenu === "resources"} className={`${menuButton} ${pathname === "/crm-implementation" || pathname === "/blog" || pathname === "/case-studies" || pathname === "/compare" || pathname === "/resources" || pathname === "/faq" || pathname === "/news" ? "bg-background text-mint shadow-sm" : ""}`}>
               Resources <ChevronDown size={15} className={openMenu === "resources" ? "rotate-180" : ""} />
             </button>
           </div>
@@ -122,6 +123,7 @@ export function Navbar() {
                   <MenuItem to="/crm-implementation" icon={BookOpen} tone="bg-mint" title="Guides" copy="Detailed, visual guidance for better CRM decisions." close={close} />
                   <MenuItem to="/blog" icon={Newspaper} tone="bg-sun" title="Blogs" copy="Practical thinking on CRM and revenue systems." close={close} />
                   <MenuItem to="/case-studies" icon={FileCheck2} tone="bg-brand text-cream" title="Case studies" copy="Evidence-led stories shared with client approval." close={close} />
+                  <MenuItem to="/news" icon={Megaphone} tone="bg-sun" title="News" copy="Official announcements and milestones from Revlyn." close={close} />
                   <MenuItem to="/compare" icon={GitCompare} tone="bg-grape text-cream" title="Platform comparisons" copy="HubSpot vs Salesforce and Pipedrive, compared plainly." close={close} />
                   <MenuItem to="/resources" icon={PackageOpen} tone="bg-sun" title="Free resources" copy="Printable checklists for readiness, migration, and adoption." close={close} />
                   <MenuItem to="/faq" icon={HelpCircle} tone="bg-mint" title="FAQ" copy="Straight answers about working with us and HubSpot." close={close} />
@@ -161,6 +163,7 @@ export function Navbar() {
                 <MenuItem to="/crm-implementation" icon={BookOpen} tone="bg-mint" title="Guides" copy="Detailed visual guidance" close={() => setMobileOpen(false)} />
                 <MenuItem to="/blog" icon={Newspaper} tone="bg-sun" title="Blogs" copy="Practical CRM thinking" close={() => setMobileOpen(false)} />
                 <MenuItem to="/case-studies" icon={FileCheck2} tone="bg-brand text-cream" title="Case studies" copy="Evidence-led client stories" close={() => setMobileOpen(false)} />
+                <MenuItem to="/news" icon={Megaphone} tone="bg-sun" title="News" copy="Announcements and milestones" close={() => setMobileOpen(false)} />
                 <MenuItem to="/compare" icon={GitCompare} tone="bg-grape text-cream" title="Platform comparisons" copy="HubSpot vs the rest, plainly" close={() => setMobileOpen(false)} />
                 <MenuItem to="/resources" icon={PackageOpen} tone="bg-sun" title="Free resources" copy="Printable CRM checklists" close={() => setMobileOpen(false)} />
                 <MenuItem to="/faq" icon={HelpCircle} tone="bg-mint" title="FAQ" copy="Straight answers" close={() => setMobileOpen(false)} />

@@ -56,6 +56,8 @@ import { Route as IndustriesB2bSaasRouteImport } from './routes/industries/b2b-s
 import { Route as IndustriesConsultingRouteImport } from './routes/industries/consulting'
 import { Route as IndustriesD2cEcommerceRouteImport } from './routes/industries/d2c-ecommerce'
 import { Route as IndustriesFieldServicesRouteImport } from './routes/industries/field-services'
+import { Route as NewsIndexRouteImport } from './routes/news/index'
+import { Route as NewsHubspotGoldPartnerRouteImport } from './routes/news/hubspot-gold-partner'
 import { Route as PartnershipsIndexRouteImport } from './routes/partnerships/index'
 import { Route as PartnershipsBitscaleRouteImport } from './routes/partnerships/bitscale'
 import { Route as PartnershipsHubspotRouteImport } from './routes/partnerships/hubspot'
@@ -309,6 +311,16 @@ const IndustriesFieldServicesRoute = IndustriesFieldServicesRouteImport.update({
   path: '/field-services',
   getParentRoute: () => IndustriesRouteRoute,
 } as any)
+const NewsIndexRoute = NewsIndexRouteImport.update({
+  id: '/news/',
+  path: '/news/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsHubspotGoldPartnerRoute = NewsHubspotGoldPartnerRouteImport.update({
+  id: '/news/hubspot-gold-partner',
+  path: '/news/hubspot-gold-partner',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PartnershipsIndexRoute = PartnershipsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -413,6 +425,7 @@ export interface FileRoutesByFullPath {
   '/industries/consulting': typeof IndustriesConsultingRoute
   '/industries/d2c-ecommerce': typeof IndustriesD2cEcommerceRoute
   '/industries/field-services': typeof IndustriesFieldServicesRoute
+  '/news/hubspot-gold-partner': typeof NewsHubspotGoldPartnerRoute
   '/partnerships/bitscale': typeof PartnershipsBitscaleRoute
   '/partnerships/hubspot': typeof PartnershipsHubspotRoute
   '/revops/alignment': typeof RevopsAlignmentRoute
@@ -428,6 +441,7 @@ export interface FileRoutesByFullPath {
   '/compare/': typeof CompareIndexRoute
   '/hubspot/': typeof HubspotIndexRoute
   '/industries/': typeof IndustriesIndexRoute
+  '/news/': typeof NewsIndexRoute
   '/partnerships/': typeof PartnershipsIndexRoute
   '/revops/': typeof RevopsIndexRoute
 }
@@ -468,6 +482,7 @@ export interface FileRoutesByTo {
   '/industries/consulting': typeof IndustriesConsultingRoute
   '/industries/d2c-ecommerce': typeof IndustriesD2cEcommerceRoute
   '/industries/field-services': typeof IndustriesFieldServicesRoute
+  '/news/hubspot-gold-partner': typeof NewsHubspotGoldPartnerRoute
   '/partnerships/bitscale': typeof PartnershipsBitscaleRoute
   '/partnerships/hubspot': typeof PartnershipsHubspotRoute
   '/revops/alignment': typeof RevopsAlignmentRoute
@@ -483,6 +498,7 @@ export interface FileRoutesByTo {
   '/compare': typeof CompareIndexRoute
   '/hubspot': typeof HubspotIndexRoute
   '/industries': typeof IndustriesIndexRoute
+  '/news': typeof NewsIndexRoute
   '/partnerships': typeof PartnershipsIndexRoute
   '/revops': typeof RevopsIndexRoute
 }
@@ -530,6 +546,7 @@ export interface FileRoutesById {
   '/industries/consulting': typeof IndustriesConsultingRoute
   '/industries/d2c-ecommerce': typeof IndustriesD2cEcommerceRoute
   '/industries/field-services': typeof IndustriesFieldServicesRoute
+  '/news/hubspot-gold-partner': typeof NewsHubspotGoldPartnerRoute
   '/partnerships/bitscale': typeof PartnershipsBitscaleRoute
   '/partnerships/hubspot': typeof PartnershipsHubspotRoute
   '/revops/alignment': typeof RevopsAlignmentRoute
@@ -545,6 +562,7 @@ export interface FileRoutesById {
   '/compare/': typeof CompareIndexRoute
   '/hubspot/': typeof HubspotIndexRoute
   '/industries/': typeof IndustriesIndexRoute
+  '/news/': typeof NewsIndexRoute
   '/partnerships/': typeof PartnershipsIndexRoute
   '/revops/': typeof RevopsIndexRoute
 }
@@ -593,6 +611,7 @@ export interface FileRouteTypes {
     | '/industries/consulting'
     | '/industries/d2c-ecommerce'
     | '/industries/field-services'
+    | '/news/hubspot-gold-partner'
     | '/partnerships/bitscale'
     | '/partnerships/hubspot'
     | '/revops/alignment'
@@ -608,6 +627,7 @@ export interface FileRouteTypes {
     | '/compare/'
     | '/hubspot/'
     | '/industries/'
+    | '/news/'
     | '/partnerships/'
     | '/revops/'
   fileRoutesByTo: FileRoutesByTo
@@ -648,6 +668,7 @@ export interface FileRouteTypes {
     | '/industries/consulting'
     | '/industries/d2c-ecommerce'
     | '/industries/field-services'
+    | '/news/hubspot-gold-partner'
     | '/partnerships/bitscale'
     | '/partnerships/hubspot'
     | '/revops/alignment'
@@ -663,6 +684,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/hubspot'
     | '/industries'
+    | '/news'
     | '/partnerships'
     | '/revops'
   id:
@@ -709,6 +731,7 @@ export interface FileRouteTypes {
     | '/industries/consulting'
     | '/industries/d2c-ecommerce'
     | '/industries/field-services'
+    | '/news/hubspot-gold-partner'
     | '/partnerships/bitscale'
     | '/partnerships/hubspot'
     | '/revops/alignment'
@@ -724,6 +747,7 @@ export interface FileRouteTypes {
     | '/compare/'
     | '/hubspot/'
     | '/industries/'
+    | '/news/'
     | '/partnerships/'
     | '/revops/'
   fileRoutesById: FileRoutesById
@@ -753,7 +777,9 @@ export interface RootRouteChildren {
   CaseStudiesDatapelRoute: typeof CaseStudiesDatapelRoute
   CaseStudiesIntegrityFireSafetyRoute: typeof CaseStudiesIntegrityFireSafetyRoute
   CaseStudiesPunjabFilmCityRoute: typeof CaseStudiesPunjabFilmCityRoute
+  NewsHubspotGoldPartnerRoute: typeof NewsHubspotGoldPartnerRoute
   CaseStudiesIndexRoute: typeof CaseStudiesIndexRoute
+  NewsIndexRoute: typeof NewsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1087,6 +1113,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndustriesFieldServicesRouteImport
       parentRoute: typeof IndustriesRouteRoute
     }
+    '/news/': {
+      id: '/news/'
+      path: '/news'
+      fullPath: '/news/'
+      preLoaderRoute: typeof NewsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/news/hubspot-gold-partner': {
+      id: '/news/hubspot-gold-partner'
+      path: '/news/hubspot-gold-partner'
+      fullPath: '/news/hubspot-gold-partner'
+      preLoaderRoute: typeof NewsHubspotGoldPartnerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/partnerships/': {
       id: '/partnerships/'
       path: '/'
@@ -1327,7 +1367,9 @@ const rootRouteChildren: RootRouteChildren = {
   CaseStudiesDatapelRoute: CaseStudiesDatapelRoute,
   CaseStudiesIntegrityFireSafetyRoute: CaseStudiesIntegrityFireSafetyRoute,
   CaseStudiesPunjabFilmCityRoute: CaseStudiesPunjabFilmCityRoute,
+  NewsHubspotGoldPartnerRoute: NewsHubspotGoldPartnerRoute,
   CaseStudiesIndexRoute: CaseStudiesIndexRoute,
+  NewsIndexRoute: NewsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

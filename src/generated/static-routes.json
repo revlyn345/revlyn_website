@@ -136,6 +136,14 @@
     "priority": "0.8"
   },
   {
+    "path": "/news",
+    "priority": "0.7"
+  },
+  {
+    "path": "/news/hubspot-gold-partner",
+    "priority": "0.7"
+  },
+  {
     "path": "/partnerships",
     "priority": "0.7"
   },
