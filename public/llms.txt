@@ -1,0 +1,84 @@
+# Revlyn
+
+> Revlyn is a HubSpot Gold Solutions Partner and revenue operations (RevOps) consultancy. We help growing B2B revenue teams design, implement, migrate, automate, and report on their CRM, then make sure the team actually uses it. Our approach is "revenue engineering": process first, then data, automation, and measurement, built on HubSpot.
+
+Key facts:
+
+- Company: Revlyn (https://revlyn.io)
+- Partner status: HubSpot Gold Solutions Partner (since 15 July 2026)
+- What we do: HubSpot onboarding and implementation, CRM migration to HubSpot, HubSpot automation and workflows, integrations, reporting and dashboards, training and adoption, ongoing HubSpot as a Service retainers, and revenue operations consulting
+- Who we work with: growing companies, typically B2B SaaS, consulting firms, D2C and e-commerce brands, and field service businesses
+- Where: remote-first team with an office in Gurugram, India, working with clients in India, Australia, the United States, and Europe
+- Technology partners: HubSpot (Gold Solutions Partner) and Bitscale (CRM data enrichment and GTM workflows)
+- How engagements start: a free discovery call, then a small, clearly scoped first phase with pricing in writing; clients can pause or stop after any phase
+- Contact: info@revlyn.io, or book a call at https://revlyn.io/book-a-call
+
+## Services
+
+- [All CRM services](https://revlyn.io/services): CRM strategy, implementation, data, automation, integrations, reporting, and adoption
+- [HubSpot Gold Partner services](https://revlyn.io/hubspot): overview of all HubSpot services
+- [HubSpot implementation](https://revlyn.io/hubspot/implementation): process architecture, data, automation, integrations, reporting, and adoption, built in stages you review
+- [HubSpot onboarding](https://revlyn.io/hubspot/onboarding): process mapping, pipelines, properties, data, automation, training, and launch
+- [CRM migration to HubSpot](https://revlyn.io/hubspot/migration): from spreadsheets or another CRM, with field mapping, dedupe rules, and test imports
+- [HubSpot automation and workflows](https://revlyn.io/hubspot/automation): lead routing, follow-up sequences, tasks, and handoffs with clear owners
+- [HubSpot integrations](https://revlyn.io/hubspot/integrations): website, lead sources, WhatsApp, calling, and business tools
+- [HubSpot reporting and dashboards](https://revlyn.io/hubspot/reporting): pipeline health, activity, deal ageing, lead sources, and data quality
+- [HubSpot training and adoption](https://revlyn.io/hubspot/training): role-based training in your own portal and adoption reviews after go-live
+- [HubSpot as a Service](https://revlyn.io/hubspot/managed): ongoing retainer where Revlyn acts as your extended HubSpot and RevOps team
+
+## Revenue operations
+
+- [Revenue operations overview](https://revlyn.io/revops): one system for marketing, sales, and service
+- [Revenue process audit](https://revlyn.io/revops/audit): traces one customer journey end to end to find where leads and deals leak
+- [Pipeline and lifecycle design](https://revlyn.io/revops/pipeline): agreed stages, lifecycle definitions, and handoff rules
+- [CRM and data architecture](https://revlyn.io/revops/data-architecture): one record per customer, shared field definitions, dedupe and hygiene rules
+- [Marketing to sales alignment](https://revlyn.io/revops/alignment): qualified lead definition, routing, and follow-up expectations
+- [Sales to service handoff](https://revlyn.io/revops/handoff): what sales promised reaches the delivery team
+- [Revenue reporting and forecasting](https://revlyn.io/revops/reporting): shared dashboards and a weekly and monthly review rhythm
+- [Tech stack consolidation](https://revlyn.io/revops/stack): fewer, connected tools instead of duplicate spreadsheets and apps
+- [Ongoing RevOps retainer](https://revlyn.io/revops/retainer): a fractional revenue operator after the build
+
+## Industries
+
+- [CRM by industry](https://revlyn.io/industries)
+- [B2B SaaS](https://revlyn.io/industries/b2b-saas): trial pipelines, account records past closed-won, and renewals
+- [Consulting firms](https://revlyn.io/industries/consulting): pursuits, proposals, delivery handoffs, and repeat engagements
+- [D2C and e-commerce](https://revlyn.io/industries/d2c-ecommerce): enquiries, service history, and repeat purchases
+- [Field services](https://revlyn.io/industries/field-services): enquiries, site assessments, quotes, and contract follow-up
+
+## Case studies (client-approved results)
+
+- [All case studies](https://revlyn.io/case-studies)
+- [Integrity Fire Safety](https://revlyn.io/case-studies/integrity-fire-safety): HubSpot rebuilt from scratch with a Test and Inspect to Renewals pipeline; pipeline up 25%, closure rate up 20%
+- [Ausforming](https://revlyn.io/case-studies/ausforming): from spreadsheets to one HubSpot system; discovery call bookings up 20%, email engagement up 30%
+- [Punjab Film City](https://revlyn.io/case-studies/punjab-film-city): Zoho Creator booking system with Zoho CRM; bookings up 20%, manual work down 40%
+- [Datapel](https://revlyn.io/case-studies/datapel): a reporting request that became a full HubSpot audit and a clear lead to cash system
+
+## Guides and comparisons
+
+- [What is CRM implementation?](https://revlyn.io/crm-implementation): visual guide to process design, migration, integrations, automation, adoption, and measurement
+- [How to automate renewals in HubSpot](https://revlyn.io/renewals-automation-guide): step by step renewals automation setup
+- [HubSpot vs Salesforce](https://revlyn.io/compare/hubspot-vs-salesforce)
+- [HubSpot vs Pipedrive](https://revlyn.io/compare/hubspot-vs-pipedrive)
+- [HubSpot vs Zoho CRM](https://revlyn.io/compare/hubspot-vs-zoho)
+- [Why CRM adoption fails after launch](https://revlyn.io/blog/why-crm-adoption-fails)
+- [How to clean CRM data before migration](https://revlyn.io/blog/how-to-clean-crm-data-before-migration)
+- [Free CRM checklists](https://revlyn.io/resources): readiness, data cleaning before migration, and adoption after launch
+- [Blog](https://revlyn.io/blog): articles on CRM, HubSpot, RevOps, data, automation, and adoption
+
+## Company
+
+- [About Revlyn](https://revlyn.io/about)
+- [Our approach](https://revlyn.io/approach): understand, simplify, connect, improve
+- [How we work](https://revlyn.io/how-we-work): first conversation, scoping, pricing, and what we promise
+- [FAQ](https://revlyn.io/faq): working with Revlyn, pricing and scope, migration, and adoption
+- [HubSpot partnership](https://revlyn.io/partnerships/hubspot)
+- [Bitscale partnership](https://revlyn.io/partnerships/bitscale)
+- [News: Revlyn is a HubSpot Gold Solutions Partner](https://revlyn.io/news/hubspot-gold-partner)
+- [Contact](https://revlyn.io/contact)
+
+## Optional
+
+- [Sitemap](https://revlyn.io/sitemap.xml): every page and blog post
+- [Privacy policy](https://revlyn.io/privacy)
+- [Website terms](https://revlyn.io/terms)
