@@ -1,12 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { NewsletterSignup } from "@/components/NewsletterSignup";
 import { breadcrumbSchema } from "../../lib/seo";
 import { fetchBlogPosts } from "../../lib/blog.functions";
 import { ArrowUpRight, BookOpen, Database, Users } from "lucide-react";
-import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 export const Route = createFileRoute("/blog/")({
   // Posts published in WordPress (cms.revlyn.io). If WordPress is down this is
   // an empty list, and the page still shows the two hand-written articles.
+  // Keep loaded data for 5 minutes so going back and forth is instant.
+  staleTime: 5 * 60_000,
   loader: async () => ({ posts: await fetchBlogPosts() }),
   headers: () => ({ "Cache-Control": "public, max-age=0, s-maxage=60, stale-while-revalidate=600" }),
   head: () => ({
@@ -31,15 +33,27 @@ function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
 }
 
+type Card = { key: string; slug: string; title: string; excerpt: string; category?: string | undefined; readingTime: number; date?: string | undefined; featuredImage?: string | null | undefined };
+
+// Hand-written articles that live in this codebase (not in WordPress).
+const handWritten: Card[] = [
+  { key: "why-crm-adoption-fails", slug: "why-crm-adoption-fails", title: "Why CRM adoption fails after launch.", excerpt: "The warning signs, underlying causes, and operating habits that help a CRM become part of daily work.", category: "CRM adoption", readingTime: 6 },
+  { key: "how-to-clean-crm-data-before-migration", slug: "how-to-clean-crm-data-before-migration", title: "How to clean CRM data before migration.", excerpt: "A four-stage process for deciding what to move, creating consistent rules, and testing before launch.", category: "CRM data", readingTime: 7 },
+];
+
 function BlogPage() {
   const { posts } = Route.useLoaderData();
+  // WordPress returns posts newest first.
+  const wp: Card[] = posts.map((p) => ({ key: String(p.id), slug: p.slug, title: p.title, excerpt: p.excerpt, category: p.categories[0], readingTime: p.readingTime, date: p.date, featuredImage: p.featuredImage }));
+  const featured = wp.slice(0, 2);
+  const rest = featured.length > 0 ? [...wp.slice(2), ...handWritten] : [];
   return (
     <main>
       <section className="relative mx-auto grid min-h-[50vh] max-w-[92rem] content-center overflow-hidden rounded-b-[3.5rem] bg-mint/30 px-5 py-20 sm:px-8 sm:py-24 lg:rounded-b-[6rem]">
         <div aria-hidden="true" className="absolute inset-0 bg-dots text-ink/10" />
         <div className="relative mx-auto w-full max-w-6xl">
           <h1 className="max-w-5xl font-display text-5xl font-bold leading-none sm:text-7xl lg:text-8xl">Useful thinking for better revenue systems.</h1>
-          <p className="mt-7 max-w-2xl text-lg leading-relaxed text-ink/70 sm:text-xl">Practical notes on CRM, HubSpot, revenue operations, data, automation, and adoption.</p>
+          <p className="mt-7 max-w-2xl text-lg leading-relaxed text-ink/70 sm:text-xl">Practical notes from the Revlyn team on CRM, HubSpot, revenue operations, data, automation, and adoption. Written from the work we do as a HubSpot Gold Solutions Partner for growing revenue teams.</p>
         </div>
       </section>
 
@@ -49,34 +63,45 @@ function BlogPage() {
           <p className="font-bold text-ink/45">{posts.length + 2} articles</p>
         </div>
 
+        {/* The two newest WordPress posts. If WordPress is unreachable, the two
+            hand-written articles are shown here instead. */}
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          <article className="group flex min-h-[29rem] flex-col overflow-hidden rounded-[2.5rem] bg-ink p-8 text-cream shadow-sm transition-transform duration-300 hover:-translate-y-2 sm:p-10">
-            <div className="flex items-center justify-between gap-4"><span className="rounded-full bg-mint px-4 py-2 text-sm font-bold text-ink">CRM adoption</span><span className="text-sm font-bold text-cream/45">6 min read</span></div>
-            <div className="mt-auto pt-20"><Users size={34} className="text-mint" aria-hidden="true" /><h2 className="mt-6 font-display text-4xl font-bold leading-tight">Why CRM adoption fails after launch.</h2><p className="mt-4 max-w-xl leading-relaxed text-cream/65">The warning signs, underlying causes, and operating habits that help a CRM become part of daily work.</p><Link to="/blog/why-crm-adoption-fails" className="mt-7 inline-flex items-center gap-2 font-bold text-sun">Read article <ArrowUpRight size={18} aria-hidden="true" /></Link></div>
-          </article>
-
-          <article className="group flex min-h-[29rem] flex-col overflow-hidden rounded-[2.5rem] bg-sun p-8 shadow-sm transition-transform duration-300 hover:-translate-y-2 sm:p-10">
-            <div className="flex items-center justify-between gap-4"><span className="rounded-full bg-background/70 px-4 py-2 text-sm font-bold">CRM data</span><span className="text-sm font-bold text-ink/45">7 min read</span></div>
-            <div className="mt-auto pt-20"><Database size={34} className="text-grape" aria-hidden="true" /><h2 className="mt-6 font-display text-4xl font-bold leading-tight">How to clean CRM data before migration.</h2><p className="mt-4 max-w-xl leading-relaxed text-ink/65">A four-stage process for deciding what to move, creating consistent rules, and testing before launch.</p><Link to="/blog/how-to-clean-crm-data-before-migration" className="mt-7 inline-flex items-center gap-2 font-bold text-grape">Read article <ArrowUpRight size={18} aria-hidden="true" /></Link></div>
-          </article>
+          {(featured.length > 0 ? featured : handWritten).map((item, i) => {
+            const dark = i === 0;
+            return (
+              <article key={item.key} className={`group relative flex min-h-[29rem] flex-col overflow-hidden rounded-[2.5rem] p-8 shadow-sm transition-transform duration-300 hover:-translate-y-2 sm:p-10 ${dark ? "bg-ink text-cream" : "bg-sun text-ink"}`}>
+                <div className="flex items-center justify-between gap-4">
+                  {item.category ? <span className={`rounded-full px-4 py-2 text-sm font-bold ${dark ? "bg-mint text-ink" : "bg-background/70"}`}>{item.category}</span> : <span />}
+                  <span className={`text-sm font-bold ${dark ? "text-cream/45" : "text-ink/45"}`}>{item.readingTime} min read{item.date ? ` · ${formatDate(item.date)}` : ""}</span>
+                </div>
+                <div className="mt-auto pt-20">
+                  {dark ? <Users size={34} className="text-mint" aria-hidden="true" /> : <Database size={34} className="text-grape" aria-hidden="true" />}
+                  <h2 className="mt-6 font-display text-3xl font-bold leading-tight sm:text-4xl">
+                    <Link to="/blog/$slug" params={{ slug: item.slug }} className="after:absolute after:inset-0 focus:outline-none">{item.title}</Link>
+                  </h2>
+                  <p className={`mt-4 line-clamp-3 max-w-xl leading-relaxed ${dark ? "text-cream/65" : "text-ink/65"}`}>{item.excerpt}</p>
+                  <span className={`mt-8 inline-flex items-center gap-2 font-bold ${dark ? "text-sun" : "text-grape"}`}>Read article <ArrowUpRight size={18} aria-hidden="true" /></span>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
-      {posts.length > 0 && (
+      {rest.length > 0 && (
         <section className="mx-auto max-w-6xl px-5 pb-20 sm:px-6 sm:pb-24">
           <h2 className="font-display text-3xl font-bold sm:text-4xl">More from the blog.</h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post, i) => (
-              <article key={post.id} className={`group relative flex flex-col overflow-hidden rounded-[2rem] border-2 border-ink/10 ${cardTones[i % cardTones.length]} transition-transform duration-300 hover:-translate-y-1`}>
+            {rest.map((post, i) => (
+              <article key={post.key} className={`group relative flex flex-col overflow-hidden rounded-[2rem] border-2 border-ink/10 ${cardTones[i % cardTones.length]} transition-transform duration-300 hover:-translate-y-1`}>
                 {post.featuredImage && (
                   <img src={post.featuredImage} alt="" loading="lazy" width={600} height={315} className="aspect-[1.9/1] w-full object-cover" />
                 )}
                 <div className="flex flex-1 flex-col p-7">
                   <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-ink/55">
-                    {post.categories[0] && <span className="rounded-full bg-ink/5 px-3 py-1.5 text-ink">{post.categories[0]}</span>}
+                    {post.category && <span className="rounded-full bg-ink/5 px-3 py-1.5 text-ink">{post.category}</span>}
                     <span>{post.readingTime} min read</span>
-                    <span aria-hidden="true">·</span>
-                    <time dateTime={post.date}>{formatDate(post.date)}</time>
+                    {post.date && <><span aria-hidden="true">·</span><time dateTime={post.date}>{formatDate(post.date)}</time></>}
                   </div>
                   <h3 className="mt-5 font-display text-2xl font-bold leading-snug">
                     <Link to="/blog/$slug" params={{ slug: post.slug }} className="after:absolute after:inset-0 focus:outline-none">
@@ -109,7 +134,7 @@ function BlogPage() {
           <Link to="/contact" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-ink px-6 py-4 font-bold text-cream shadow-tactile-ink transition-all hover:translate-y-1 hover:shadow-tactile-ink-sm">Contact Revlyn <ArrowUpRight size={18} aria-hidden="true" /></Link>
         </div>
       </section>
-    <NewsletterSignup source="Blog" />  
+      <NewsletterSignup source="Blog" />
     </main>
   );
 }

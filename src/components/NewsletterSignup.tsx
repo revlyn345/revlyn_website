@@ -63,7 +63,7 @@ export function NewsletterSignup({ source = "Website" }: { source?: string }) {
 
   return (
     <section className="mx-auto max-w-6xl px-5 py-16 sm:px-6 sm:py-20" aria-labelledby="newsletter-title">
-      <div className="relative overflow-hidden rounded-[2.5rem] border-2 border-ink bg-ink p-7 text-cream shadow-tactile-ink sm:rounded-[3rem] sm:p-12">
+      <div className="relative overflow-hidden rounded-[2.5rem] bg-ink p-7 text-cream sm:rounded-[3rem] sm:p-12">
         <div aria-hidden="true" className="absolute -right-16 -top-20 size-64 rounded-full bg-sun/30 blur-3xl" />
         <div aria-hidden="true" className="absolute -bottom-24 -left-10 size-64 rounded-full bg-mint/25 blur-3xl" />
 

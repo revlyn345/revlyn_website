@@ -1,12 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BookCallButton } from "@/components/BookCallButton";
-import { breadcrumbSchema } from "../../lib/seo";
+import { articleSchema, breadcrumbSchema } from "../../lib/seo";
 import { ArrowLeft, ArrowUpRight, CalendarCheck, Globe, MailCheck, Puzzle, Route as RouteIcon, Table2 } from "lucide-react";
 import ausformingLogo from "../../assets/customers/ausforming.webp";
 
 export const Route = createFileRoute("/case-studies/ausforming")({
   head: () => ({
     meta: [
+      { "script:ld+json": articleSchema({ headline: "Ausforming: From Spreadsheets to a Connected HubSpot System", description: "How Ausforming replaced spreadsheet-led operations with a HubSpot system covering website, CRM, events, and outreach, and saw a 20% lift in discovery call bookings.", path: "/case-studies/ausforming", datePublished: "2026-09-25" }) },
+      { property: "article:published_time", content: "2026-09-25" },
       { "script:ld+json": breadcrumbSchema([{ name: "Case studies", path: "/case-studies" }, { name: "Ausforming", path: "/case-studies/ausforming" }]) },
       { title: "Ausforming: From Spreadsheets to a Connected HubSpot System | Revlyn" },
       { name: "description", content: "How Ausforming replaced spreadsheet-led operations with a HubSpot system covering website, CRM, events, and outreach, and saw a 20% lift in discovery call bookings." },

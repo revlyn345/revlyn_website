@@ -1,16 +1,4 @@
-// Headless WordPress data layer.
-//
-// WordPress (hosted on Hostinger, e.g. at https://cms.revlyn.io) is used
-// purely as a content backend here — nobody visits it directly. These
-// helpers call its built-in REST API (no plugin required) and normalize the
-// response into simple shapes the Next.js blog pages can render with the
-// site's own design system.
-//
-// Ported from the previous Next.js site (revlyn_website/lib/wordpress.ts).
-// Only call these from server code (see src/lib/blog.functions.ts).
-//
-// Set WORDPRESS_API_URL in Vercel → Project Settings → Environment Variables
-// if WordPress ever moves. Default: https://cms.revlyn.io
+
 
 const WORDPRESS_API_URL = (process.env["WORDPRESS_API_URL"] ?? "https://cms.revlyn.io").replace(/\/$/, "");
 
@@ -303,7 +291,26 @@ function restructureFaqSection(html: string): string {
  * order/count that was never actually authored.
  */
 const LEADING_NUMBER_RE = /^(\s*\d+\.\s*)/;
-
+function normalizeHeadingLevels(html: string): string {
+  let out = html.replace(
+    /^\s*<h([3-6])\b[^>]*>([\s\S]*?)<\/h\1>/i,
+    (_m, _level, inner) => `<p class="wp-subtitle">${inner}</p>`,
+  );
+  let previous = 1;
+  const stack: number[] = [];
+  out = out.replace(/<(\/?)h([1-6])\b([^>]*)>/gi, (_m, closing: string, levelText: string, attrs: string) => {
+    if (closing) {
+      const level = stack.pop() ?? Number(levelText);
+      return `</h${level}>`;
+    }
+    let level = Math.max(2, Number(levelText));
+    if (level > previous + 1) level = previous + 1;
+    previous = level;
+    stack.push(level);
+    return `<h${level}${attrs}>`;
+  });
+  return out;
+}
 function extractHeadingsAndTagContent(html: string): {
   html: string;
   headings: WPHeading[];
@@ -442,7 +449,7 @@ export async function getPostBySlug(slug: string): Promise<WPPost | null> {
     const post = res.data[0];
     if (!post) return null;
 
-    const withFaqAccordion = restructureFaqSection(post.content.rendered);
+    const withFaqAccordion = restructureFaqSection(normalizeHeadingLevels(post.content.rendered));
     const { html, headings } = extractHeadingsAndTagContent(withFaqAccordion);
 
     return {

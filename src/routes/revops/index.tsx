@@ -93,7 +93,7 @@ function RevOpsPage() { return <main id="top">
     <div aria-hidden="true" className="absolute -left-24 top-8 size-80 rounded-full bg-brand/15 blur-3xl animate-glow-soft" />
     <div aria-hidden="true" className="absolute -right-20 bottom-0 size-96 rounded-full bg-mint/40 blur-3xl animate-glow-soft" style={{ animationDelay: "1.8s" }} />
     <div className="relative mx-auto max-w-5xl">
-      <span className="inline-flex size-16 place-items-center rounded-[1.25rem] bg-ink text-sun shadow-tactile-ink animate-rise-in"><RevOpsMark size={30} /></span>
+      <span className="inline-grid size-16 place-items-center rounded-[1.25rem] bg-ink text-sun animate-rise-in"><RevOpsMark size={30} /></span>
       <h1 className="mt-7 font-display text-5xl font-bold leading-none sm:text-7xl lg:text-[6rem] animate-rise-in" style={{ animationDelay: "0.12s" }}>Your revenue,<br/>run as <span className="text-brand">one</span> <span className="text-grape">operation.</span></h1>
       <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-ink/70 sm:text-xl animate-rise-in" style={{ animationDelay: "0.24s" }}>Revenue operations connects your marketing, sales, and service work into one system: shared process, shared data, and numbers every team agrees on.</p>
       <div className="mt-9 flex flex-wrap justify-center gap-4 animate-rise-in" style={{ animationDelay: "0.36s" }}>

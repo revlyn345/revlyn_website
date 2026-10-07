@@ -303,6 +303,7 @@
 }
 .wp-content h4 { margin-top: 1.6em; font-weight: 700; color: var(--ink); }
 .wp-content .rv-h2-number { color: var(--brand); }
+.wp-content .wp-subtitle { font-size: 1.35rem; font-weight: 700; line-height: 1.45; color: var(--ink); }
 .wp-content a { color: var(--grape); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .wp-content a:hover { text-decoration: none; }
 .wp-content strong { color: var(--ink); }

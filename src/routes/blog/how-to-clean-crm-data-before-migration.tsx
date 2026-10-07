@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { breadcrumbSchema } from "../../lib/seo";
+import { breadcrumbSchema, howToSchema } from "../../lib/seo";
 import { ArrowLeft, ArrowUpRight, Archive, Check, Database, ListChecks, ShieldCheck } from "lucide-react";
 
 const stages = [
@@ -21,6 +21,14 @@ const questions = [
 export const Route = createFileRoute("/blog/how-to-clean-crm-data-before-migration")({
   head: () => ({
     meta: [
+      {
+        "script:ld+json": howToSchema({
+          name: "How to clean CRM data before migration",
+          description: "A practical process for deciding what CRM data to move, standardising it, resolving duplicates, and testing and reconciling the import.",
+          path: "/blog/how-to-clean-crm-data-before-migration",
+          steps: stages.map((s) => ({ name: s.title, text: s.copy })),
+        }),
+      },
       { title: "How to Clean CRM Data Before Migration | Revlyn" },
       { name: "description", content: "A practical process for deciding what CRM data to move, standardising fields, resolving duplicates, testing imports, and reconciling results." },
       { property: "og:title", content: "How to Clean CRM Data Before Migration | Revlyn" },

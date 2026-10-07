@@ -1,12 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BookCallButton } from "@/components/BookCallButton";
-import { breadcrumbSchema } from "../../lib/seo";
+import { articleSchema, breadcrumbSchema } from "../../lib/seo";
 import { ArrowLeft, ArrowUpRight, CalendarCheck, CreditCard, Inbox, MessageCircle, RefreshCw, TrendingDown, Users } from "lucide-react";
 import punjabFilmCityLogo from "../../assets/customers/punjab-film-city.svg";
 
 export const Route = createFileRoute("/case-studies/punjab-film-city")({
   head: () => ({
     meta: [
+      { "script:ld+json": articleSchema({ headline: "Punjab Film City: A Booking System That Runs Itself on Zoho", description: "How Punjab Film City replaced manual enquiry handling with a Zoho Creator booking system and Zoho CRM, lifting bookings by 20% and cutting manual work by 40%.", path: "/case-studies/punjab-film-city", datePublished: "2026-09-25" }) },
+      { property: "article:published_time", content: "2026-09-25" },
       { "script:ld+json": breadcrumbSchema([{ name: "Case studies", path: "/case-studies" }, { name: "Punjab Film City", path: "/case-studies/punjab-film-city" }]) },
       { title: "Punjab Film City: A Booking System That Runs Itself on Zoho | Revlyn" },
       { name: "description", content: "How Punjab Film City replaced manual enquiry handling with a Zoho Creator booking system and Zoho CRM, lifting bookings by 20% and cutting manual work by 40%." },

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BookCallButton } from "@/components/BookCallButton";
-import { breadcrumbSchema } from "../../lib/seo";
+import { articleSchema, breadcrumbSchema } from "../../lib/seo";
 import { ArrowLeft, ArrowUpRight, CalendarClock, ClipboardList, Link2, TrendingUp, Wrench } from "lucide-react";
 import integrityLogo from "../../assets/customers/integrity-fire-safety.webp";
 const iraPhoto = "/images/case-studies/ira-coleman.jpg";
@@ -8,6 +8,8 @@ const iraPhoto = "/images/case-studies/ira-coleman.jpg";
 export const Route = createFileRoute("/case-studies/integrity-fire-safety")({
   head: () => ({
     meta: [
+      { "script:ld+json": articleSchema({ headline: "Integrity Fire Safety: A HubSpot Rebuilt From Scratch", description: "How Integrity Fire Safety replaced a confused HubSpot setup with a documented Test and Inspect to Renewals pipeline, lifting pipeline by 25% and closure rate by 20%.", path: "/case-studies/integrity-fire-safety", datePublished: "2026-09-25" }) },
+      { property: "article:published_time", content: "2026-09-25" },
       { "script:ld+json": breadcrumbSchema([{ name: "Case studies", path: "/case-studies" }, { name: "Integrity Fire Safety", path: "/case-studies/integrity-fire-safety" }]) },
       { title: "Integrity Fire Safety: A HubSpot Rebuilt From Scratch | Revlyn" },
       { name: "description", content: "How Integrity Fire Safety replaced a confused HubSpot setup with a documented Test and Inspect to Renewals pipeline, lifting pipeline by 25% and closure rate by 20%." },

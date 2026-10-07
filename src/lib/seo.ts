@@ -18,27 +18,54 @@ export const absoluteUrl = (path = "/") =>
 
 export const organizationSchema = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
+  "@type": "Organization",
   "@id": `${SITE_URL}/#organization`,
   name: SITE_NAME,
   url: `${SITE_URL}/`,
-  logo: `${SITE_URL}/icon-512.png`,
+  logo: {
+    "@type": "ImageObject",
+    "@id": `${SITE_URL}/#logo`,
+    url: `${SITE_URL}/icon-512.png`,
+    contentUrl: `${SITE_URL}/icon-512.png`,
+    width: 512,
+    height: 512,
+    caption: SITE_NAME,
+  },
   image: OG_IMAGE,
   email: CONTACT_EMAIL,
   description:
-    "Revlyn is a HubSpot Gold Solutions Partner and RevOps consultancy helping growing revenue teams implement, migrate, automate and report on their CRM.",
-  areaServed: ["Worldwide", "United States", "Australia", "India", "United Kingdom"],
+    "Revlyn is a HubSpot Gold Solutions Partner and revenue operations consultancy helping growing revenue teams implement, migrate, automate, and report on their CRM.",
+  slogan: "Grow your pipeline, not your spreadsheet.",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Gurugram",
+    addressRegion: "Haryana",
+    addressCountry: "IN",
+  },
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      email: CONTACT_EMAIL,
+      url: `${SITE_URL}/book-a-call`,
+      availableLanguage: ["English"],
+      areaServed: ["IN", "AU", "US", "GB"],
+    },
+  ],
+  areaServed: ["India", "Australia", "United States", "United Kingdom", "Europe"],
   knowsAbout: [
     "HubSpot",
+    "HubSpot implementation",
     "CRM implementation",
     "CRM migration",
     "Revenue operations",
     "Sales pipeline design",
     "Marketing automation",
     "CRM reporting",
+    "Zoho CRM",
   ],
-  // Add your LinkedIn and other official profiles here so Google can connect them to Revlyn.
-  sameAs: [] as string[],
+  // Official profiles. Add more (YouTube, X, G2, Clutch, HubSpot directory) when they exist.
+  sameAs: ["https://www.linkedin.com/company/revlynhq/"],
 };
 
 export const websiteSchema = {
@@ -87,6 +114,75 @@ export function faqSchema(items: { q: string; a: string }[]) {
       "@type": "Question",
       name: q,
       acceptedAnswer: { "@type": "Answer", text: a },
+    })),
+  };
+}
+
+
+/** Article / case study schema with author, publisher and dates, so search
+ *  engines and AI answer engines can verify who wrote it and how recent it is. */
+export function articleSchema({
+  headline,
+  description,
+  path,
+  datePublished,
+  dateModified = datePublished,
+  image = OG_IMAGE,
+  type = "Article",
+}: {
+  headline: string;
+  description: string;
+  path: string;
+  datePublished: string;
+  dateModified?: string;
+  image?: string;
+  type?: "Article" | "BlogPosting" | "NewsArticle";
+}) {
+  const url = absoluteUrl(path);
+  return {
+    "@context": "https://schema.org",
+    "@type": type,
+    headline,
+    description,
+    url,
+    mainEntityOfPage: url,
+    image,
+    datePublished,
+    dateModified,
+    inLanguage: "en",
+    author: { "@type": "Organization", name: SITE_NAME, url: `${SITE_URL}/` },
+    publisher: { "@id": `${SITE_URL}/#organization` },
+  };
+}
+
+export function howToSchema({
+  name,
+  description,
+  path,
+  steps,
+  image = OG_IMAGE,
+}: {
+  name: string;
+  description: string;
+  path: string;
+  steps: { name: string; text: string; anchor?: string }[];
+  image?: string;
+}) {
+  const url = absoluteUrl(path);
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name,
+    description,
+    url,
+    image,
+    inLanguage: "en",
+    step: steps.map((step, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: step.name,
+      text: step.text,
+      url: step.anchor ? `${url}#${step.anchor}` : url,
     })),
   };
 }

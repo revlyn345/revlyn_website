@@ -1,12 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BookCallButton } from "@/components/BookCallButton";
-import { breadcrumbSchema } from "../../lib/seo";
+import { articleSchema, breadcrumbSchema } from "../../lib/seo";
 import { ArrowLeft, ArrowUpRight, ClipboardList, Database, Layers, PhoneCall, TrendingUp, Wrench } from "lucide-react";
 import datapelLogo from "../../assets/customers/datapel.svg";
 
 export const Route = createFileRoute("/case-studies/datapel")({
   head: () => ({
     meta: [
+      { "script:ld+json": articleSchema({ headline: "Datapel: From a Reporting Fix to a Clear Lead to Cash System", description: "How a few reporting requests uncovered bad data, led to a full HubSpot audit, and ended with a clear lead to cash system, a churn pipeline, and Dialpad mapped to HubSpot for Datapel.", path: "/case-studies/datapel", datePublished: "2026-09-25" }) },
+      { property: "article:published_time", content: "2026-09-25" },
       { "script:ld+json": breadcrumbSchema([{ name: "Case studies", path: "/case-studies" }, { name: "Datapel", path: "/case-studies/datapel" }]) },
       { title: "Datapel: From a Reporting Fix to a Clear Lead to Cash System | Revlyn" },
       { name: "description", content: "How a few reporting requests uncovered bad data, led to a full HubSpot audit, and ended with a clear lead to cash system, a churn pipeline, and Dialpad mapped to HubSpot for Datapel." },

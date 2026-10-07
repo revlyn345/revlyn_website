@@ -1,11 +1,24 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { breadcrumbSchema } from "../../lib/seo";
+import { absoluteUrl, breadcrumbSchema } from "../../lib/seo";
 import { ArrowUpRight, Scale, ShieldCheck } from "lucide-react";
 import { BookCallButton } from "@/components/BookCallButton";
 
 export const Route = createFileRoute("/compare/")({
   head: () => ({
     meta: [
+      {
+        "script:ld+json": {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "CRM platform comparisons",
+          itemListElement: guides.map((g, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: g.title,
+            url: absoluteUrl(g.to),
+          })),
+        },
+      },
       { title: "CRM Platform Comparisons | Revlyn" },
       { name: "description", content: "Plain, factual comparisons between HubSpot and the platforms it is most often weighed against, written to help you decide." },
       { property: "og:title", content: "CRM Platform Comparisons | Revlyn" },

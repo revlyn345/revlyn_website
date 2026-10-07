@@ -2,7 +2,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { fetchBlogPost } from "../../lib/blog.functions";
-import { absoluteUrl, breadcrumbSchema, OG_IMAGE, SITE_URL } from "../../lib/seo";
+import { absoluteUrl, breadcrumbSchema, howToSchema, OG_IMAGE, SITE_URL } from "../../lib/seo";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
 
 function formatDate(iso: string) {
@@ -52,6 +52,25 @@ export const Route = createFileRoute("/blog/$slug")({
           },
         },
         { "script:ld+json": breadcrumbSchema([{ name: "Blog", path: "/blog" }, { name: post.title, path: `/blog/${post.slug}` }]) },
+        // "How to ..." posts also get step-by-step (HowTo) data, built from the post's section headings.
+        ...(/^how to\b/i.test(post.title)
+          ? [
+              {
+                "script:ld+json": howToSchema({
+                  name: post.title,
+                  description: post.excerpt,
+                  path: `/blog/${post.slug}`,
+                  image,
+                  steps: post.headings
+                    .filter((h) => !/faq|frequently asked|conclusion|final thoughts/i.test(h.text))
+                    .map((h) => {
+                      const name = h.text.replace(/^\d+[.)]\s*/, "");
+                      return { name, text: name, anchor: h.id };
+                    }),
+                }),
+              },
+            ]
+          : []),
       ],
       links: [{ rel: "canonical", href: url }],
     };
@@ -93,7 +112,7 @@ function WordPressArticle() {
             <h1 className="mt-6 max-w-4xl font-display text-4xl font-bold leading-tight sm:text-6xl">{post.title}</h1>
             {post.excerpt && <p className="mt-7 max-w-3xl text-xl leading-relaxed text-ink/70">{post.excerpt}</p>}
             <p className="mt-8 text-sm font-bold text-ink/55">
-              By {post.author.name} · <time dateTime={post.date}>{formatDate(post.date)}</time>
+              By {post.author.name}, Revlyn · <time dateTime={post.date}>{formatDate(post.date)}</time>
             </p>
           </div>
         </header>
@@ -128,6 +147,15 @@ function WordPressArticle() {
             </aside>
           )}
         </div>
+        <aside aria-label="About Revlyn" className="mx-auto max-w-6xl px-5 sm:px-6">
+          <div className="flex flex-col gap-5 rounded-[2rem] border-2 border-ink/10 bg-background p-6 sm:flex-row sm:items-center sm:p-8">
+            <img src="/icon-192.png" alt="" width={56} height={56} className="size-14 shrink-0 rounded-2xl" />
+            <p className="leading-relaxed text-ink/70">
+              <strong className="text-ink">About Revlyn.</strong> Revlyn is a HubSpot Gold Solutions Partner and RevOps consultancy. We help growing revenue teams design, implement, and improve CRM systems their people actually use.{" "}
+              <Link to="/services" className="font-bold text-grape underline underline-offset-4 hover:no-underline">See how Revlyn works</Link>
+            </p>
+          </div>
+        </aside>
         <NewsletterSignup source="Blog post" />
         
       </article>

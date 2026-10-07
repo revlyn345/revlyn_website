@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { breadcrumbSchema } from "../lib/seo";
+import { breadcrumbSchema, howToSchema } from "../lib/seo";
 import { BookCallButton } from "@/components/BookCallButton";
 import { ArrowDown, ArrowUpRight, Check, CircleCheck, CircleX, RefreshCcw, Settings2, Workflow } from "lucide-react";
 
@@ -8,6 +8,14 @@ const URL = "https://revlyn.io/renewals-automation-guide";
 export const Route = createFileRoute("/renewals-automation-guide")({
   head: () => ({
     meta: [
+      {
+        "script:ld+json": howToSchema({
+          name: "How to automate renewals in HubSpot",
+          description: "Step by step setup so every closed won deal gets a renewal decision and a timely renewal deal in HubSpot.",
+          path: "/renewals-automation-guide",
+          steps: steps.map((s) => ({ name: s.title, text: [s.copy, ...(s.list ?? [])].join(" ") })),
+        }),
+      },
       { "script:ld+json": breadcrumbSchema([{ name: "Free resources", path: "/resources" }, { name: "Automate renewals in HubSpot", path: "/renewals-automation-guide" }]) },
       { title: "How to Automate Renewals in HubSpot: Step by Step Guide | Revlyn" },
       { name: "description", content: "A detailed, step by step guide to setting up renewals automation in HubSpot: the closed won renewal prompt, conditional fields, auto created renewal deals, and a nurture path for no renewal deals." },
