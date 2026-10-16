@@ -313,7 +313,7 @@ function Index() {
             </div>
           </div>
         </section>
-
+        
         <section id="services" className="scroll-mt-8 py-20 sm:py-28">
           <div className="mx-auto max-w-6xl px-5 sm:px-6">
             <div className="reveal mb-12 grid gap-5 md:grid-cols-2 md:items-end">

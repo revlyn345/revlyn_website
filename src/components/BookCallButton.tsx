@@ -15,17 +15,20 @@ export function BookCallButton({ className, children }: { className?: string; ch
           {children}
         </button>
       </DialogTrigger>
-      <DialogContent className="max-h-[92vh] w-[calc(100%-1.5rem)] max-w-4xl overflow-hidden rounded-[2rem] border-2 border-ink/10 bg-cream p-0 sm:rounded-[2rem]">
-        <div className="px-6 pb-2 pt-6 pr-14 sm:px-8 sm:pt-8">
-          <DialogTitle className="font-display text-2xl font-bold sm:text-3xl">Book a discovery call</DialogTitle>
-          <DialogDescription className="mt-1 text-ink/65">Pick a time that suits you. You will get a confirmation straight away.</DialogDescription>
+      {/* Fixed height that fits the screen; the calendar fills the rest and scrolls inside itself. */}
+      <DialogContent className="flex h-[92dvh] max-h-[92dvh] w-[calc(100%-1rem)] max-w-4xl flex-col gap-0 overflow-hidden rounded-[2rem] border-2 border-ink/10 bg-cream p-0 sm:h-[85vh] sm:rounded-[2rem]">
+        <div className="shrink-0 px-5 pb-3 pr-14 pt-5 sm:px-8 sm:pb-4 sm:pt-8">
+          <DialogTitle className="font-display text-xl font-bold sm:text-3xl">Book a discovery call</DialogTitle>
+          <DialogDescription className="sr-only sm:not-sr-only sm:mt-1 sm:block sm:text-ink/65">
+            Pick a time that suits you. You will get a confirmation straight away.
+          </DialogDescription>
         </div>
         {/* Only load the calendar once the popup is opened, so pages stay fast. */}
         {open && (
           <iframe
             src={MEETING_URL}
             title="Book a discovery call with Revlyn"
-            className="h-[70vh] min-h-[560px] w-full border-0 bg-background"
+            className="min-h-0 w-full flex-1 border-0 bg-background"
           />
         )}
       </DialogContent>

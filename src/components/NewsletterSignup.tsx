@@ -67,8 +67,8 @@ export function NewsletterSignup({ source = "Website" }: { source?: string }) {
         <div aria-hidden="true" className="absolute -right-16 -top-20 size-64 rounded-full bg-sun/30 blur-3xl" />
         <div aria-hidden="true" className="absolute -bottom-24 -left-10 size-64 rounded-full bg-mint/25 blur-3xl" />
 
-        <div className="relative grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <div>
+        <div className="relative grid grid-cols-1 gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div className="min-w-0">
             
             <h2 id="newsletter-title" className="font-display text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl">
               Practical CRM notes, <span className="text-sun">once a month.</span>
@@ -78,7 +78,7 @@ export function NewsletterSignup({ source = "Website" }: { source?: string }) {
             </p>
           </div>
 
-          <div className="rounded-[2rem] border border-cream/10 bg-cream/5 p-5 backdrop-blur sm:p-7">
+          <div className="min-w-0 rounded-[2rem] border border-cream/10 bg-cream/5 p-5 backdrop-blur sm:p-7">
             {status === "success" ? (
               <div className="flex items-start gap-4" role="status">
                 <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-mint text-ink"><Check size={24} aria-hidden="true" /></span>
