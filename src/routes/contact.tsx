@@ -30,7 +30,7 @@ function ContactPage() { return <main id="top">
         </BookCallButton>
 
         {/* Laptops and desktops: the calendar right on the page. */}
-        <div className="hidden w-full overflow-hidden rounded-[2.5rem] border-2 border-ink/5 bg-background p-6 shadow-2xl lg:block">
+        <div className="mx-auto hidden w-full max-w-[28rem] overflow-hidden rounded-[2.5rem] border-2 border-ink/5 bg-background p-6 shadow-2xl lg:block">
           <MeetingsEmbed />
         </div>
       </div>
