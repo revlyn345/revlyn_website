@@ -21,6 +21,7 @@ import { Route as FaqRouteImport } from './routes/faq'
 import { Route as HowWeWorkRouteImport } from './routes/how-we-work'
 import { Route as HubspotRouteRouteImport } from './routes/hubspot/route'
 import { Route as IndustriesRouteRouteImport } from './routes/industries/route'
+import { Route as LifeAtRevlynRouteImport } from './routes/life-at-revlyn'
 import { Route as PartnershipsRouteRouteImport } from './routes/partnerships/route'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RenewalsAutomationGuideRouteImport } from './routes/renewals-automation-guide'
@@ -129,6 +130,11 @@ const HubspotRouteRoute = HubspotRouteRouteImport.update({
 const IndustriesRouteRoute = IndustriesRouteRouteImport.update({
   id: '/industries',
   path: '/industries',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LifeAtRevlynRoute = LifeAtRevlynRouteImport.update({
+  id: '/life-at-revlyn',
+  path: '/life-at-revlyn',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PartnershipsRouteRoute = PartnershipsRouteRouteImport.update({
@@ -397,6 +403,7 @@ export interface FileRoutesByFullPath {
   '/crm-implementation': typeof CrmImplementationRoute
   '/faq': typeof FaqRoute
   '/how-we-work': typeof HowWeWorkRoute
+  '/life-at-revlyn': typeof LifeAtRevlynRoute
   '/privacy': typeof PrivacyRoute
   '/renewals-automation-guide': typeof RenewalsAutomationGuideRoute
   '/resources': typeof ResourcesRoute
@@ -454,6 +461,7 @@ export interface FileRoutesByTo {
   '/crm-implementation': typeof CrmImplementationRoute
   '/faq': typeof FaqRoute
   '/how-we-work': typeof HowWeWorkRoute
+  '/life-at-revlyn': typeof LifeAtRevlynRoute
   '/privacy': typeof PrivacyRoute
   '/renewals-automation-guide': typeof RenewalsAutomationGuideRoute
   '/resources': typeof ResourcesRoute
@@ -518,6 +526,7 @@ export interface FileRoutesById {
   '/crm-implementation': typeof CrmImplementationRoute
   '/faq': typeof FaqRoute
   '/how-we-work': typeof HowWeWorkRoute
+  '/life-at-revlyn': typeof LifeAtRevlynRoute
   '/privacy': typeof PrivacyRoute
   '/renewals-automation-guide': typeof RenewalsAutomationGuideRoute
   '/resources': typeof ResourcesRoute
@@ -583,6 +592,7 @@ export interface FileRouteTypes {
     | '/crm-implementation'
     | '/faq'
     | '/how-we-work'
+    | '/life-at-revlyn'
     | '/privacy'
     | '/renewals-automation-guide'
     | '/resources'
@@ -640,6 +650,7 @@ export interface FileRouteTypes {
     | '/crm-implementation'
     | '/faq'
     | '/how-we-work'
+    | '/life-at-revlyn'
     | '/privacy'
     | '/renewals-automation-guide'
     | '/resources'
@@ -703,6 +714,7 @@ export interface FileRouteTypes {
     | '/crm-implementation'
     | '/faq'
     | '/how-we-work'
+    | '/life-at-revlyn'
     | '/privacy'
     | '/renewals-automation-guide'
     | '/resources'
@@ -767,6 +779,7 @@ export interface RootRouteChildren {
   CrmImplementationRoute: typeof CrmImplementationRoute
   FaqRoute: typeof FaqRoute
   HowWeWorkRoute: typeof HowWeWorkRoute
+  LifeAtRevlynRoute: typeof LifeAtRevlynRoute
   PrivacyRoute: typeof PrivacyRoute
   RenewalsAutomationGuideRoute: typeof RenewalsAutomationGuideRoute
   ResourcesRoute: typeof ResourcesRoute
@@ -866,6 +879,13 @@ declare module '@tanstack/react-router' {
       path: '/industries'
       fullPath: '/industries'
       preLoaderRoute: typeof IndustriesRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/life-at-revlyn': {
+      id: '/life-at-revlyn'
+      path: '/life-at-revlyn'
+      fullPath: '/life-at-revlyn'
+      preLoaderRoute: typeof LifeAtRevlynRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/partnerships': {
@@ -1357,6 +1377,7 @@ const rootRouteChildren: RootRouteChildren = {
   CrmImplementationRoute: CrmImplementationRoute,
   FaqRoute: FaqRoute,
   HowWeWorkRoute: HowWeWorkRoute,
+  LifeAtRevlynRoute: LifeAtRevlynRoute,
   PrivacyRoute: PrivacyRoute,
   RenewalsAutomationGuideRoute: RenewalsAutomationGuideRoute,
   ResourcesRoute: ResourcesRoute,

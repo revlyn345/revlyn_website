@@ -7,6 +7,7 @@ import {
   Building2,
   ChevronDown,
   Compass,
+  Coffee,
   GitCompare,
   HeartHandshake,
   Handshake,
@@ -34,7 +35,7 @@ const menuButton = "flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-sm fon
 const mobileSummary = "flex cursor-pointer list-none items-center justify-between px-5 py-4 font-bold text-ink [&::-webkit-details-marker]:hidden";
 const panelLink = "group flex items-start gap-3 rounded-2xl p-3 transition-colors hover:bg-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand";
 
-function MenuItem({ to, hash, icon: Icon, tone, title, copy, close }: { to: "/services" | "/revops" | "/industries" | "/industries/b2b-saas" | "/industries/consulting" | "/industries/d2c-ecommerce" | "/industries/field-services" | "/about" | "/contact" | "/how-we-work" | "/hubspot" | "/hubspot/managed" | "/crm-implementation" | "/partnerships" | "/approach" | "/blog" | "/case-studies" | "/compare" | "/resources" | "/faq" | "/news"; hash?: string; icon: typeof Zap; tone: string; title: string; copy: string; close: () => void }) {
+function MenuItem({ to, hash, icon: Icon, tone, title, copy, close }: { to: "/services" | "/revops" | "/industries" | "/industries/b2b-saas" | "/industries/consulting" | "/industries/d2c-ecommerce" | "/industries/field-services" | "/about" | "/contact" | "/how-we-work" | "/life-at-revlyn" | "/hubspot" | "/hubspot/managed" | "/crm-implementation" | "/partnerships" | "/approach" | "/blog" | "/case-studies" | "/compare" | "/resources" | "/faq" | "/news"; hash?: string; icon: typeof Zap; tone: string; title: string; copy: string; close: () => void }) {
   return (
     <Link to={to} {...(hash ? { hash } : {})} onClick={close} className={panelLink} activeProps={{ className: "bg-cream" }}>
       <span className={`grid size-10 shrink-0 place-items-center rounded-xl ${tone}`}><Icon size={19} aria-hidden="true" /></span>
@@ -75,7 +76,7 @@ export function Navbar() {
             </button>
           </div>
           <div className="relative">
-            <button type="button" onClick={() => toggle("company")} aria-expanded={openMenu === "company"} className={`${menuButton} ${pathname === "/approach" || pathname === "/about" || pathname === "/how-we-work" || pathname.startsWith("/partnerships") ? "bg-background text-brand shadow-sm" : ""}`}>
+            <button type="button" onClick={() => toggle("company")} aria-expanded={openMenu === "company"} className={`${menuButton} ${pathname === "/approach" || pathname === "/about" || pathname === "/how-we-work" || pathname === "/life-at-revlyn" || pathname.startsWith("/partnerships") ? "bg-background text-brand shadow-sm" : ""}`}>
               Company <ChevronDown size={15} className={openMenu === "company" ? "rotate-180" : ""} />
             </button>
           </div>
@@ -117,6 +118,7 @@ export function Navbar() {
                   <MenuItem to="/approach" icon={Compass} tone="bg-sun" title="Our approach" copy="Understand, simplify, connect, and improve." close={close} />
                   <MenuItem to="/about" icon={Users} tone="bg-grape text-cream" title="About Revlyn" copy="Our mission, point of view, and approach to connected revenue teams." close={close} />
                   <MenuItem to="/how-we-work" icon={ShieldCheck} tone="bg-mint" title="How we work" copy="First call, scoping, pricing, and what we will never promise." close={close} />
+                  <MenuItem to="/life-at-revlyn" icon={Coffee} tone="bg-brand text-cream" title="Life at Revlyn" copy="How we work together and what we care about." close={close} />
                   <MenuItem to="/partnerships" icon={Handshake} tone="bg-sun" title="Partnerships" copy="Technology partners that support connected CRM and revenue systems." close={close} />
                 </> : null}
                 {openMenu === "resources" ? <>
@@ -175,6 +177,7 @@ export function Navbar() {
                 <MenuItem to="/approach" icon={Compass} tone="bg-sun" title="Our approach" copy="How we build useful systems" close={() => setMobileOpen(false)} />
                 <MenuItem to="/about" icon={Users} tone="bg-grape text-cream" title="About Revlyn" copy="Mission and principles" close={() => setMobileOpen(false)} />
                 <MenuItem to="/how-we-work" icon={ShieldCheck} tone="bg-mint" title="How we work" copy="Scoping, pricing, and promises" close={() => setMobileOpen(false)} />
+                <MenuItem to="/life-at-revlyn" icon={Coffee} tone="bg-brand text-cream" title="Life at Revlyn" copy="The team and how we work" close={() => setMobileOpen(false)} />
                 <MenuItem to="/partnerships" icon={Handshake} tone="bg-sun" title="Partnerships" copy="Our technology partners" close={() => setMobileOpen(false)} />
               </div>
             </details>
