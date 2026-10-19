@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Coffee, FileText, Globe, MessagesSquare } from "lucide-react";
 import { breadcrumbSchema } from "../lib/seo";
 
-// Team photo lives in public/images/ so it is served from revlyn.io.
 const teamPhoto = "/images/life-at-revlyn-team.webp";
 
 export const Route = createFileRoute("/life-at-revlyn")({ head: () => ({ meta: [
@@ -42,7 +41,7 @@ function LifeAtRevlynPage() { return <main id="top">
   <section className="reveal border-y-2 border-ink/10 bg-grape/10 py-20 sm:py-28"><div className="mx-auto max-w-6xl px-5 sm:px-6">
     <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
       <h2 className="font-display text-4xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:col-span-8">Things that happen <span className="text-brand">a lot here.</span></h2>
-      <p className="font-bold text-ink/60 lg:col-span-4">No promises, no pitch. Just patterns.</p>
+      
     </div>
     <div className="mt-12 grid gap-6 md:grid-cols-2">
       {[[MessagesSquare, "bg-sun", "Strong opinions, held politely", "Whether a lifecycle stage should be a property or a pipeline is an internal debate we have never fully settled. We keep the arguments friendly and write the outcome down."],
