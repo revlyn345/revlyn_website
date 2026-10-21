@@ -50,7 +50,7 @@ function HubSpotAutomationPage() { return <main id="top">
     <div aria-hidden="true" className="absolute -left-24 top-8 size-80 rounded-full bg-grape/15 blur-3xl animate-glow-soft" />
     <div aria-hidden="true" className="absolute -right-20 bottom-0 size-96 rounded-full bg-mint/25 blur-3xl animate-glow-soft" style={{ animationDelay: "1.8s" }} />
     <div className="relative mx-auto max-w-5xl">
-      <HubSpotBadge className="animate-rise-in" />
+      <HubSpotBadge size="lg" className="animate-rise-in" />
       <h1 className="mt-7 font-display text-5xl font-bold leading-none sm:text-7xl lg:text-[6rem] animate-rise-in" style={{ animationDelay: "0.12s" }}>You sell.<br/><span className="text-brand">HubSpot</span> <span className="text-grape">remembers.</span></h1>
       <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-ink/70 sm:text-xl animate-rise-in" style={{ animationDelay: "0.24s" }}>Routing, follow-ups, tasks, and handoffs, automated in HubSpot around how your revenue team actually works. Each workflow with a clear purpose, trigger, owner, and exception path.</p>
       <div className="mt-9 flex flex-wrap justify-center gap-4 animate-rise-in" style={{ animationDelay: "0.36s" }}>
@@ -130,7 +130,7 @@ function HubSpotAutomationPage() { return <main id="top">
   </div></section>
 
   <section className="reveal mx-auto max-w-6xl px-5 pb-24 sm:px-6"><div className="rounded-[3rem] bg-ink p-10 text-center text-cream sm:p-16">
-    <HubSpotBadge dark />
+    <HubSpotBadge dark size="lg" />
     <h2 className="mt-6 font-display text-4xl font-bold sm:text-6xl">Put the repetition down.</h2>
     <p className="mx-auto mt-5 max-w-xl text-lg text-cream/65">Tell us which routines eat your team's week. The first conversation is free and genuinely useful, whether or not we work together.</p>
     <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-sun px-8 py-4 font-bold text-ink shadow-tactile-ink transition-all hover:translate-y-0.5 hover:shadow-tactile-ink-sm">Book a first call <ArrowUpRight size={19} /></Link>

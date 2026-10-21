@@ -29,7 +29,7 @@ function HubSpotPage() { return <main id="top">
     <div aria-hidden="true" className="absolute -left-24 top-8 size-80 rounded-full bg-brand/20 blur-3xl animate-glow-soft" />
     <div aria-hidden="true" className="absolute -right-20 bottom-0 size-96 rounded-full bg-grape/15 blur-3xl animate-glow-soft" style={{ animationDelay: "1.8s" }} />
     <div className="relative mx-auto max-w-5xl">
-      <HubSpotBadge className="animate-rise-in" />
+      <HubSpotBadge size="lg" className="animate-rise-in" />
       <h1 className="mt-7 font-display text-5xl font-bold leading-none sm:text-7xl lg:text-[6rem] animate-rise-in" style={{ animationDelay: "0.12s" }}>HubSpot, built<br/><span className="text-brand">for real</span> <span className="text-grape">growth.</span></h1>
       <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-ink/70 sm:text-xl animate-rise-in" style={{ animationDelay: "0.24s" }}>Revlyn is a HubSpot Gold Partner. We help growing teams implement, migrate to, and get real value from HubSpot, built around the way their teams actually sell.</p>
       <div className="mt-9 flex flex-wrap justify-center gap-4 animate-rise-in" style={{ animationDelay: "0.36s" }}>
@@ -84,7 +84,7 @@ function HubSpotPage() { return <main id="top">
   </div></section>
 
   <section className="reveal mx-auto max-w-6xl px-5 pb-24 sm:px-6"><div className="rounded-[3rem] bg-ink p-10 text-center text-cream sm:p-16">
-    <HubSpotBadge dark />
+    <HubSpotBadge dark size="lg" />
     <h2 className="mt-6 font-display text-4xl font-bold sm:text-6xl">Put HubSpot to work.</h2>
     <p className="mx-auto mt-5 max-w-xl text-lg text-cream/65">Tell us where you are with HubSpot today and what a better working week should look like.</p>
     <Link to="/contact" className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-sun px-8 py-4 font-bold text-ink shadow-tactile-ink transition-all hover:translate-y-0.5 hover:shadow-tactile-ink-sm">Start a conversation <ArrowUpRight size={19} /></Link>
