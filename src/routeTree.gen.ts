@@ -20,6 +20,7 @@ import { Route as CrmImplementationRouteImport } from './routes/crm-implementati
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as HowWeWorkRouteImport } from './routes/how-we-work'
 import { Route as HubspotRouteRouteImport } from './routes/hubspot/route'
+import { Route as HubspotAsAServiceRouteImport } from './routes/hubspot-as-a-service'
 import { Route as IndustriesRouteRouteImport } from './routes/industries/route'
 import { Route as LifeAtRevlynRouteImport } from './routes/life-at-revlyn'
 import { Route as PartnershipsRouteRouteImport } from './routes/partnerships/route'
@@ -125,6 +126,11 @@ const HowWeWorkRoute = HowWeWorkRouteImport.update({
 const HubspotRouteRoute = HubspotRouteRouteImport.update({
   id: '/hubspot',
   path: '/hubspot',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HubspotAsAServiceRoute = HubspotAsAServiceRouteImport.update({
+  id: '/hubspot-as-a-service',
+  path: '/hubspot-as-a-service',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndustriesRouteRoute = IndustriesRouteRouteImport.update({
@@ -403,6 +409,7 @@ export interface FileRoutesByFullPath {
   '/crm-implementation': typeof CrmImplementationRoute
   '/faq': typeof FaqRoute
   '/how-we-work': typeof HowWeWorkRoute
+  '/hubspot-as-a-service': typeof HubspotAsAServiceRoute
   '/life-at-revlyn': typeof LifeAtRevlynRoute
   '/privacy': typeof PrivacyRoute
   '/renewals-automation-guide': typeof RenewalsAutomationGuideRoute
@@ -461,6 +468,7 @@ export interface FileRoutesByTo {
   '/crm-implementation': typeof CrmImplementationRoute
   '/faq': typeof FaqRoute
   '/how-we-work': typeof HowWeWorkRoute
+  '/hubspot-as-a-service': typeof HubspotAsAServiceRoute
   '/life-at-revlyn': typeof LifeAtRevlynRoute
   '/privacy': typeof PrivacyRoute
   '/renewals-automation-guide': typeof RenewalsAutomationGuideRoute
@@ -526,6 +534,7 @@ export interface FileRoutesById {
   '/crm-implementation': typeof CrmImplementationRoute
   '/faq': typeof FaqRoute
   '/how-we-work': typeof HowWeWorkRoute
+  '/hubspot-as-a-service': typeof HubspotAsAServiceRoute
   '/life-at-revlyn': typeof LifeAtRevlynRoute
   '/privacy': typeof PrivacyRoute
   '/renewals-automation-guide': typeof RenewalsAutomationGuideRoute
@@ -592,6 +601,7 @@ export interface FileRouteTypes {
     | '/crm-implementation'
     | '/faq'
     | '/how-we-work'
+    | '/hubspot-as-a-service'
     | '/life-at-revlyn'
     | '/privacy'
     | '/renewals-automation-guide'
@@ -650,6 +660,7 @@ export interface FileRouteTypes {
     | '/crm-implementation'
     | '/faq'
     | '/how-we-work'
+    | '/hubspot-as-a-service'
     | '/life-at-revlyn'
     | '/privacy'
     | '/renewals-automation-guide'
@@ -714,6 +725,7 @@ export interface FileRouteTypes {
     | '/crm-implementation'
     | '/faq'
     | '/how-we-work'
+    | '/hubspot-as-a-service'
     | '/life-at-revlyn'
     | '/privacy'
     | '/renewals-automation-guide'
@@ -779,6 +791,7 @@ export interface RootRouteChildren {
   CrmImplementationRoute: typeof CrmImplementationRoute
   FaqRoute: typeof FaqRoute
   HowWeWorkRoute: typeof HowWeWorkRoute
+  HubspotAsAServiceRoute: typeof HubspotAsAServiceRoute
   LifeAtRevlynRoute: typeof LifeAtRevlynRoute
   PrivacyRoute: typeof PrivacyRoute
   RenewalsAutomationGuideRoute: typeof RenewalsAutomationGuideRoute
@@ -872,6 +885,13 @@ declare module '@tanstack/react-router' {
       path: '/hubspot'
       fullPath: '/hubspot'
       preLoaderRoute: typeof HubspotRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hubspot-as-a-service': {
+      id: '/hubspot-as-a-service'
+      path: '/hubspot-as-a-service'
+      fullPath: '/hubspot-as-a-service'
+      preLoaderRoute: typeof HubspotAsAServiceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/industries': {
@@ -1377,6 +1397,7 @@ const rootRouteChildren: RootRouteChildren = {
   CrmImplementationRoute: CrmImplementationRoute,
   FaqRoute: FaqRoute,
   HowWeWorkRoute: HowWeWorkRoute,
+  HubspotAsAServiceRoute: HubspotAsAServiceRoute,
   LifeAtRevlynRoute: LifeAtRevlynRoute,
   PrivacyRoute: PrivacyRoute,
   RenewalsAutomationGuideRoute: RenewalsAutomationGuideRoute,

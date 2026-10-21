@@ -4,7 +4,7 @@
 export const legacyRedirects: Record<string, string> = {
   "/hubspot-implementation": "/hubspot/implementation",
   "/hubspot-implementation/**": "/hubspot/implementation",
-  "/hubspot-as-a-service": "/hubspot/managed",
+
   "/hubspot-optimization": "/hubspot/managed",
   "/hubspot-audit": "/revops/audit",
   "/partners": "/partnerships",

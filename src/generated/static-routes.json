@@ -84,6 +84,10 @@
     "priority": "0.9"
   },
   {
+    "path": "/hubspot-as-a-service",
+    "priority": "0.7"
+  },
+  {
     "path": "/hubspot/automation",
     "priority": "0.8"
   },
@@ -134,6 +138,10 @@
   {
     "path": "/industries/field-services",
     "priority": "0.8"
+  },
+  {
+    "path": "/life-at-revlyn",
+    "priority": "0.7"
   },
   {
     "path": "/news",

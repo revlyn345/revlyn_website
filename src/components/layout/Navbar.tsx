@@ -35,7 +35,7 @@ const menuButton = "flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-sm fon
 const mobileSummary = "flex cursor-pointer list-none items-center justify-between px-5 py-4 font-bold text-ink [&::-webkit-details-marker]:hidden";
 const panelLink = "group flex items-start gap-3 rounded-2xl p-3 transition-colors hover:bg-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand";
 
-function MenuItem({ to, hash, icon: Icon, tone, title, copy, close }: { to: "/services" | "/revops" | "/industries" | "/industries/b2b-saas" | "/industries/consulting" | "/industries/d2c-ecommerce" | "/industries/field-services" | "/about" | "/contact" | "/how-we-work" | "/life-at-revlyn" | "/hubspot" | "/hubspot/managed" | "/crm-implementation" | "/partnerships" | "/approach" | "/blog" | "/case-studies" | "/compare" | "/resources" | "/faq" | "/news"; hash?: string; icon: typeof Zap; tone: string; title: string; copy: string; close: () => void }) {
+function MenuItem({ to, hash, icon: Icon, tone, title, copy, close }: { to: "/services" | "/revops" | "/industries" | "/industries/b2b-saas" | "/industries/consulting" | "/industries/d2c-ecommerce" | "/industries/field-services" | "/about" | "/contact" | "/how-we-work" | "/life-at-revlyn" | "/hubspot" | "/hubspot/managed" | "/hubspot-as-a-service" | "/crm-implementation" | "/partnerships" | "/approach" | "/blog" | "/case-studies" | "/compare" | "/resources" | "/faq" | "/news"; hash?: string; icon: typeof Zap; tone: string; title: string; copy: string; close: () => void }) {
   return (
     <Link to={to} {...(hash ? { hash } : {})} onClick={close} className={panelLink} activeProps={{ className: "bg-cream" }}>
       <span className={`grid size-10 shrink-0 place-items-center rounded-xl ${tone}`}><Icon size={19} aria-hidden="true" /></span>
@@ -102,7 +102,7 @@ export function Navbar() {
               </div>
               <div className="grid gap-1">
                 {openMenu === "services" ? <>
-                  <MenuItem to="/hubspot/managed" icon={HeartHandshake} tone="bg-brand/15 text-brand" title="HubSpot as a Service" copy="Your extended team: ongoing HubSpot and revenue engineering on a retainer." close={close} />
+                  <MenuItem to="/hubspot-as-a-service" icon={HeartHandshake} tone="bg-brand/15 text-brand" title="HubSpot as a Service" copy="Your extended team: ongoing HubSpot and revenue engineering on a retainer." close={close} />
                   <MenuItem to="/services" icon={RouteIcon} tone="bg-brand/15 text-brand" title="CRM services" copy="Explore strategy, setup, data, automation, integrations, and adoption." close={close} />
                   <MenuItem to="/revops" icon={Workflow} tone="bg-grape/15 text-grape" title="Revenue operations" copy="One connected operation across marketing, sales, and service." close={close} />
                   <MenuItem to="/hubspot" icon={Award} tone="bg-sun" title="HubSpot services" copy="Gold Partner help with onboarding, migration, and automation." close={close} />
@@ -143,7 +143,7 @@ export function Navbar() {
             <details name="mobile-menu" className="group rounded-2xl bg-brand/10 open:pb-2">
               <summary className={mobileSummary}><span className="text-brand">Services</span><ChevronDown size={18} className="transition-transform group-open:rotate-180" aria-hidden="true" /></summary>
               <div className="px-2">
-                <MenuItem to="/hubspot/managed" icon={HeartHandshake} tone="bg-brand text-cream" title="HubSpot as a Service" copy="Your extended team on a retainer" close={() => setMobileOpen(false)} />
+                <MenuItem to="/hubspot-as-a-service" icon={HeartHandshake} tone="bg-brand text-cream" title="HubSpot as a Service" copy="Your extended team on a retainer" close={() => setMobileOpen(false)} />
                 <MenuItem to="/services" icon={RouteIcon} tone="bg-brand text-cream" title="CRM services" copy="Strategy, systems, and adoption" close={() => setMobileOpen(false)} />
                 <MenuItem to="/revops" icon={Workflow} tone="bg-grape text-cream" title="Revenue operations" copy="One operation, three teams" close={() => setMobileOpen(false)} />
                 <MenuItem to="/hubspot" icon={Award} tone="bg-sun" title="HubSpot services" copy="Gold Partner onboarding and more" close={() => setMobileOpen(false)} />
