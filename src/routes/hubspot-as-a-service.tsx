@@ -5,7 +5,7 @@ import { HubSpotBadge } from "../components/HubSpotBadge";
 import { BookCallButton } from "@/components/BookCallButton";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "../lib/seo";
 
-// Media lives in public/ so it is served from revlyn.io (not Lovable).
+
 const heroVideo = "/videos/haas-hero.mp4";
 const problemImg = "/images/haas/haas-problem.webp";
 const solutionImg = "/images/haas/haas-solution.webp";
@@ -249,7 +249,7 @@ function HaasPage() {
         </div>
       </section>
 
-      <StoryNav />
+     
 
       {/* Act 1: the purchase */}
       <section id="act-1" className="reveal scroll-mt-24 py-20 sm:py-28"><div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-6 lg:grid-cols-2 lg:items-center">
