@@ -35,7 +35,7 @@ const menuButton = "flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-sm fon
 const mobileSummary = "flex cursor-pointer list-none items-center justify-between px-5 py-4 font-bold text-ink [&::-webkit-details-marker]:hidden";
 const panelLink = "group flex items-start gap-3 rounded-2xl p-3 transition-colors hover:bg-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand";
 
-function MenuItem({ to, hash, icon: Icon, tone, title, copy, close }: { to: "/services" | "/revops" | "/industries" | "/industries/b2b-saas" | "/industries/consulting" | "/industries/d2c-ecommerce" | "/industries/field-services" | "/about" | "/contact" | "/how-we-work" | "/life-at-revlyn" | "/hubspot" | "/hubspot/managed" | "/hubspot-as-a-service" | "/crm-implementation" | "/partnerships" | "/approach" | "/blog" | "/case-studies" | "/compare" | "/resources" | "/faq" | "/news"; hash?: string; icon: typeof Zap; tone: string; title: string; copy: string; close: () => void }) {
+function MenuItem({ to, hash, icon: Icon, tone, title, copy, close }: { to: "/services" | "/revops" | "/industries" | "/industries/b2b-saas" | "/industries/consulting" | "/industries/d2c-ecommerce" | "/industries/field-services" | "/about" | "/contact" | "/how-we-work" | "/life-at-revlyn" | "/hubspot" | "/hubspot/managed" | "/hubspot-as-a-service" | "/crm-implementation" | "/partnerships" | "/approach" | "/blog" | "/case-studies" | "/compare" | "/resources" | "/faq" | "/news" | "/hubiq"; hash?: string; icon: typeof Zap; tone: string; title: string; copy: string; close: () => void }) {
   return (
     <Link to={to} {...(hash ? { hash } : {})} onClick={close} className={panelLink} activeProps={{ className: "bg-cream" }}>
       <span className={`grid size-10 shrink-0 place-items-center rounded-xl ${tone}`}><Icon size={19} aria-hidden="true" /></span>
@@ -106,6 +106,7 @@ export function Navbar() {
                   <MenuItem to="/services" icon={RouteIcon} tone="bg-brand/15 text-brand" title="CRM services" copy="Explore strategy, setup, data, automation, integrations, and adoption." close={close} />
                   <MenuItem to="/revops" icon={Workflow} tone="bg-grape/15 text-grape" title="Revenue operations" copy="One connected operation across marketing, sales, and service." close={close} />
                   <MenuItem to="/hubspot" icon={Award} tone="bg-sun" title="HubSpot services" copy="Gold Partner help with onboarding, migration, and automation." close={close} />
+                  <MenuItem to="/hubiq" icon={Zap} tone="bg-mint" title="HubIQ free audit" copy="A free HubSpot audit, report in under 2 hours." close={close} />
                 </> : null}
                 {openMenu === "industries" ? <>
                   <MenuItem to="/industries" icon={Building2} tone="bg-mint" title="All industries" copy="See how Revlyn adapts CRM to different sales motions." close={close} />
@@ -147,6 +148,7 @@ export function Navbar() {
                 <MenuItem to="/services" icon={RouteIcon} tone="bg-brand text-cream" title="CRM services" copy="Strategy, systems, and adoption" close={() => setMobileOpen(false)} />
                 <MenuItem to="/revops" icon={Workflow} tone="bg-grape text-cream" title="Revenue operations" copy="One operation, three teams" close={() => setMobileOpen(false)} />
                 <MenuItem to="/hubspot" icon={Award} tone="bg-sun" title="HubSpot services" copy="Gold Partner onboarding and more" close={() => setMobileOpen(false)} />
+                <MenuItem to="/hubiq" icon={Zap} tone="bg-mint" title="HubIQ free audit" copy="Report in under 2 hours" close={() => setMobileOpen(false)} />
               </div>
             </details>
             <details name="mobile-menu" className="group rounded-2xl bg-mint/20 open:pb-2">

@@ -80,6 +80,10 @@
     "priority": "0.7"
   },
   {
+    "path": "/hubiq",
+    "priority": "0.7"
+  },
+  {
     "path": "/hubspot",
     "priority": "0.9"
   },

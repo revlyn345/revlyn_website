@@ -19,6 +19,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CrmImplementationRouteImport } from './routes/crm-implementation'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as HowWeWorkRouteImport } from './routes/how-we-work'
+import { Route as HubiqRouteImport } from './routes/hubiq'
 import { Route as HubspotRouteRouteImport } from './routes/hubspot/route'
 import { Route as HubspotAsAServiceRouteImport } from './routes/hubspot-as-a-service'
 import { Route as IndustriesRouteRouteImport } from './routes/industries/route'
@@ -121,6 +122,11 @@ const FaqRoute = FaqRouteImport.update({
 const HowWeWorkRoute = HowWeWorkRouteImport.update({
   id: '/how-we-work',
   path: '/how-we-work',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HubiqRoute = HubiqRouteImport.update({
+  id: '/hubiq',
+  path: '/hubiq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HubspotRouteRoute = HubspotRouteRouteImport.update({
@@ -409,6 +415,7 @@ export interface FileRoutesByFullPath {
   '/crm-implementation': typeof CrmImplementationRoute
   '/faq': typeof FaqRoute
   '/how-we-work': typeof HowWeWorkRoute
+  '/hubiq': typeof HubiqRoute
   '/hubspot-as-a-service': typeof HubspotAsAServiceRoute
   '/life-at-revlyn': typeof LifeAtRevlynRoute
   '/privacy': typeof PrivacyRoute
@@ -468,6 +475,7 @@ export interface FileRoutesByTo {
   '/crm-implementation': typeof CrmImplementationRoute
   '/faq': typeof FaqRoute
   '/how-we-work': typeof HowWeWorkRoute
+  '/hubiq': typeof HubiqRoute
   '/hubspot-as-a-service': typeof HubspotAsAServiceRoute
   '/life-at-revlyn': typeof LifeAtRevlynRoute
   '/privacy': typeof PrivacyRoute
@@ -534,6 +542,7 @@ export interface FileRoutesById {
   '/crm-implementation': typeof CrmImplementationRoute
   '/faq': typeof FaqRoute
   '/how-we-work': typeof HowWeWorkRoute
+  '/hubiq': typeof HubiqRoute
   '/hubspot-as-a-service': typeof HubspotAsAServiceRoute
   '/life-at-revlyn': typeof LifeAtRevlynRoute
   '/privacy': typeof PrivacyRoute
@@ -601,6 +610,7 @@ export interface FileRouteTypes {
     | '/crm-implementation'
     | '/faq'
     | '/how-we-work'
+    | '/hubiq'
     | '/hubspot-as-a-service'
     | '/life-at-revlyn'
     | '/privacy'
@@ -660,6 +670,7 @@ export interface FileRouteTypes {
     | '/crm-implementation'
     | '/faq'
     | '/how-we-work'
+    | '/hubiq'
     | '/hubspot-as-a-service'
     | '/life-at-revlyn'
     | '/privacy'
@@ -725,6 +736,7 @@ export interface FileRouteTypes {
     | '/crm-implementation'
     | '/faq'
     | '/how-we-work'
+    | '/hubiq'
     | '/hubspot-as-a-service'
     | '/life-at-revlyn'
     | '/privacy'
@@ -791,6 +803,7 @@ export interface RootRouteChildren {
   CrmImplementationRoute: typeof CrmImplementationRoute
   FaqRoute: typeof FaqRoute
   HowWeWorkRoute: typeof HowWeWorkRoute
+  HubiqRoute: typeof HubiqRoute
   HubspotAsAServiceRoute: typeof HubspotAsAServiceRoute
   LifeAtRevlynRoute: typeof LifeAtRevlynRoute
   PrivacyRoute: typeof PrivacyRoute
@@ -878,6 +891,13 @@ declare module '@tanstack/react-router' {
       path: '/how-we-work'
       fullPath: '/how-we-work'
       preLoaderRoute: typeof HowWeWorkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hubiq': {
+      id: '/hubiq'
+      path: '/hubiq'
+      fullPath: '/hubiq'
+      preLoaderRoute: typeof HubiqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hubspot': {
@@ -1397,6 +1417,7 @@ const rootRouteChildren: RootRouteChildren = {
   CrmImplementationRoute: CrmImplementationRoute,
   FaqRoute: FaqRoute,
   HowWeWorkRoute: HowWeWorkRoute,
+  HubiqRoute: HubiqRoute,
   HubspotAsAServiceRoute: HubspotAsAServiceRoute,
   LifeAtRevlynRoute: LifeAtRevlynRoute,
   PrivacyRoute: PrivacyRoute,

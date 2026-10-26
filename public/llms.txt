@@ -16,6 +16,9 @@ Key facts:
 ## Services
 
 - [All CRM services](https://revlyn.io/services): CRM strategy, implementation, data, automation, integrations, reporting, and adoption
+- [HubIQ free HubSpot audit](https://revlyn.io/hubiq): free HubSpot portal audit with a clear report in under 2 hours
+- [HubSpot as a Service](https://revlyn.io/hubspot-as-a-service): an outsourced HubSpot team on a monthly retainer, from $500/month
+- [Life at Revlyn](https://revlyn.io/life-at-revlyn): the team, how we work together, and what we care about
 - [HubSpot Gold Partner services](https://revlyn.io/hubspot): overview of all HubSpot services
 - [HubSpot implementation](https://revlyn.io/hubspot/implementation): process architecture, data, automation, integrations, reporting, and adoption, built in stages you review
 - [HubSpot onboarding](https://revlyn.io/hubspot/onboarding): process mapping, pipelines, properties, data, automation, training, and launch
