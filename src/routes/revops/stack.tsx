@@ -28,7 +28,7 @@ const verdicts = [
 
 const rules = [
   { title: "Process before the stack", tone: "bg-brand text-cream", copy: "The tool list is downstream of how work moves. We map the process first, then every tool either earns its place supporting it or is named for retirement." },
-  { title: "One home per data type", tone: "bg-mint", copy: "Customer records, payments, tickets: each kind of data has one system of record and one owner. Everything else views, never duplicates. This single rule prevents most of the mess." },
+  { title: "One home per data type", tone: "bg-mint", copy: "Customer records, payments, tickets: each kind of data has one system of record and one owner. Everything else views, never duplicates. This single rule prevents most of the clutter." },
   { title: "Enter information once", tone: "bg-sun", copy: "If a detail is typed into two systems, one of them is a copy that will drift. Data flows through connections, not through people re-typing between tabs." },
   { title: "A gate for new tools", tone: "bg-grape text-cream", copy: "Stacks regrow one well-intentioned app at a time. We leave behind a simple rule: a new tool must name the job it does and which existing record is its master." },
 ];
@@ -58,7 +58,7 @@ const mistakes = [
   { title: "The big-bang rip-out", copy: "Everything is replaced at once, and when the new system stumbles there is nothing to fall back on except a folder of exports. We retire in sequence, with the kept tools proven before the old ones close." },
   { title: "The ban nobody obeys", copy: "The spreadsheet is banned in a meeting and the work quietly continues there, now invisible. A tool retires when its job is covered somewhere better, never by decree." },
   { title: "Connecting everything to everything", copy: "Consolidation turns into integration sprawl: eight tools, fifteen connections, and one broken sync nobody notices for weeks. Fewer tools, wired simply, beats many tools wired cleverly." },
-  { title: "Buying the suite to solve it", copy: "A single giant platform is purchased before the process is defined, and the old mess is carried into it tool by tool. Software amplifies whatever it is given, including a mess." },
+  { title: "Buying the suite to solve it", copy: "A single giant platform is purchased before the process is defined, and the old clutter is carried into it tool by tool. Software amplifies whatever it is given, including clutter." },
 ];
 
 const faqs = [
@@ -98,7 +98,7 @@ function StackPage() { return <main id="top">
   </section>
 
   <section id="for" className="reveal scroll-mt-8 py-20 sm:py-28"><div className="mx-auto max-w-6xl px-5 sm:px-6">
-    <SectionHead title={<>Who this work<br/>is <span className="text-brand">for</span>.</>} copy="Nobody sets out to build a mess. It assembles one tool at a time, each bought for a good reason, until the connections run through people." />
+    <SectionHead title={<>Who this work<br/>is <span className="text-brand">for</span>.</>} copy="Nobody sets out to build clutter. It assembles one tool at a time, each bought for a good reason, until the connections run through people." />
     <div className="mt-16 grid items-start gap-6 md:grid-cols-2 lg:grid-cols-4">
       {audiences.map((a, i) => <article key={a.title} className={`flex min-h-80 flex-col justify-between gap-10 rounded-[2.5rem] border-2 border-ink p-8 shadow-tactile-ink transition-transform duration-300 hover:-translate-y-1.5 lg:min-h-[26rem] ${a.tone} ${i % 2 ? "lg:mt-10" : ""}`}>
         <h3 className="text-3xl font-bold leading-tight">{a.title}</h3>
@@ -185,7 +185,7 @@ function StackPage() { return <main id="top">
   </div></section>
 
   <section className="reveal py-20 sm:py-28"><div className="mx-auto max-w-6xl px-5 sm:px-6">
-    <SectionHead title={<>Where consolidation<br/>goes <span className="text-brand">wrong</span>.</>} copy="The four patterns behind tool cleanups that make the mess larger before it gets smaller." />
+    <SectionHead title={<>Where consolidation<br/>goes <span className="text-brand">wrong</span>.</>} copy="The four patterns behind tool cleanups that make the clutter larger before it gets smaller." />
     <div className="mt-16 grid gap-8 sm:grid-cols-2">
       {mistakes.map((m, i) => <article key={m.title} className={`rounded-[2.5rem] border-2 border-ink bg-background p-8 shadow-tactile-ink transition-transform duration-300 ${i % 2 ? "sm:rotate-1" : "sm:-rotate-1"}`}>
         <div className="grid size-12 place-items-center rounded-full bg-grape/15 text-grape"><X size={22} strokeWidth={3} /></div>

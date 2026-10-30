@@ -31,7 +31,7 @@ const rule = [
 ];
 
 const mistakes = [
-  { title: "Connecting before cleaning", copy: "Integrations amplify whatever they touch. Syncing a messy tool into HubSpot imports the mess every day, automatically. The order is always: clean, map, then connect." },
+  { title: "Connecting before cleaning", copy: "Integrations amplify whatever they touch. Syncing a cluttered tool into HubSpot imports the clutter every day, automatically. The order is always: clean, map, then connect." },
   { title: "Two-way sync without a decision", copy: "Syncing both directions because it is possible, without deciding which system wins when they disagree. That is how contact records get randomly overwritten. We make the direction an explicit choice." },
   { title: "Fragile workarounds presented as solutions", copy: "A chain of unofficial connectors and screen scrapers that works in a demo and breaks in a month. We tell you honestly what connects officially today and what would be a gamble." },
   { title: "Integrations nobody monitors", copy: "The sync that quietly stopped three months ago and nobody noticed until leads went missing. Every connection needs alerts and an owner, or it is a liability." },

@@ -17,7 +17,7 @@ const audiences = [
   { title: "The founder who feels the drag", tone: "bg-sun", copy: "Growth is happening, but it is harder than it should be. Enquiries come in, deals close, yet money and time keep disappearing somewhere between the teams. You want to see the somewhere." },
   { title: "The sales head who distrusts the pipeline", tone: "bg-background", copy: "The number in the CRM and the number in your head never match. Before you can fix forecasting, you need to know which deals are real and which are just sitting." },
   { title: "Teams where marketing and sales argue", tone: "bg-grape text-cream", copy: "Marketing says the leads were good, sales says they were not, and neither side has evidence. An audit replaces the argument with a shared picture of what actually happened to the last hundred enquiries." },
-  { title: "Anyone about to buy or switch a CRM", tone: "bg-background", copy: "The worst time to buy software is before you understand your own process. An audit first means the new tool is chosen and shaped around how work should move, not around how the mess currently looks." },
+  { title: "Anyone about to buy or switch a CRM", tone: "bg-background", copy: "The worst time to buy software is before you understand your own process. An audit first means the new tool is chosen and shaped around how work should move, not around how the clutter currently looks." },
 ];
 
 const journey = [
@@ -54,7 +54,7 @@ const mistakes = [
   { title: "Auditing the org chart, not the journey", copy: "Interviews about roles and responsibilities produce a report about structure. We trace actual customers instead, because that is where the leaks are." },
   { title: "Fixing everything at once", copy: "A list of thirty findings acted on together becomes thirty half-finished changes. The ranking matters more than the list." },
   { title: "Blaming people for process gaps", copy: "When a lead sits unanswered for two days, the cause is almost always a missing owner or rule, not a careless person. The audit finds the missing rule." },
-  { title: "Buying software to skip the thinking", copy: "A new tool purchased before the process is understood just moves the mess somewhere more expensive. Audit first, then choose." },
+  { title: "Buying software to skip the thinking", copy: "A new tool purchased before the process is understood just moves the clutter somewhere more expensive. Audit first, then choose." },
 ];
 
 const faqs = [

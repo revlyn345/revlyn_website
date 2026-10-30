@@ -128,7 +128,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="bg-cream">
         {children}
         <Scripts />
         {/* Google Analytics 4 and HubSpot tracking, carried over from the old site
@@ -191,7 +191,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen overflow-hidden bg-cream font-body text-ink">
+      <div className="min-h-screen overflow-x-clip font-body text-ink">
         <Navbar />
         <PageTransition>
           <Outlet />

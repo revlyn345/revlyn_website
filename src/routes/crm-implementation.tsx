@@ -68,7 +68,7 @@ const phases = [
 const failureReasons = [
   { title: "Tool-first thinking", copy: "Software is selected before the team agrees on the process. Configuration then follows the tool's defaults instead of the business." },
   { title: "Borrowed processes", copy: "A pipeline copied from another company ignores your market, languages, buying cycle, approval flow, and team structure." },
-  { title: "Messy data", copy: "Years of inconsistent spreadsheets are imported without rules. Duplicates and missing fields quickly destroy trust in reporting." },
+  { title: "Inconsistent data", copy: "Years of inconsistent spreadsheets are imported without rules. Duplicates and missing fields quickly destroy trust in reporting." },
   { title: "No adoption ownership", copy: "Go-live is treated as the finish line. Without managers reinforcing the new routines, the CRM quietly becomes optional." },
 ];
 

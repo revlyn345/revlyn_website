@@ -67,7 +67,7 @@ const honest = [
 ];
 
 const mistakes = [
-  { title: "Buying tools before process", copy: "The latest platform is purchased and the old mess is carried into it, one team at a time. We define the process first, because software amplifies whatever it is given." },
+  { title: "Buying tools before process", copy: "The latest platform is purchased and the old clutter is carried into it, one team at a time. We define the process first, because software amplifies whatever it is given." },
   { title: "Two teams, two truths", copy: "Marketing optimises its numbers, sales optimises theirs, and the company optimises neither. Fixed by shared definitions and one pipeline everyone reports from." },
   { title: "Automating a broken process", copy: "Automation applied to a fuzzy process just produces mistakes faster. We clean the steps before automating them, so the machine runs on something worth repeating." },
   { title: "Ops becomes admin work", copy: "RevOps handed to whoever has spare time, and it slowly becomes data entry and report pulling. It needs ownership, a mandate, and a seat where decisions happen." },

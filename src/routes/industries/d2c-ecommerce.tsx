@@ -50,7 +50,7 @@ const content: IndustryPageContent = {
     { question: "Does HubSpot replace Shopify or our marketplace tools?", answer: "No. Commerce platforms should continue to manage products, orders, payments, and fulfilment. The CRM uses selected context to support conversations and lifecycle actions." },
     { question: "Can WhatsApp conversations be included?", answer: "That depends on the provider and the connection it supports. We verify the actual path before promising it, then document any manual fallback." },
     { question: "Will every marketplace buyer become one customer record?", answer: "Not always. Marketplace privacy rules and limited identity data can prevent reliable matching. We make those boundaries visible rather than claiming a perfect customer view." },
-    { question: "Where should we start if the data is messy?", answer: "Start with one useful journey, often enquiry to purchase or purchase to service. Clean the identifiers and fields needed for that action before expanding." },
+    { question: "Where should we start if the data is cluttered?", answer: "Start with one useful journey, often enquiry to purchase or purchase to service. Clean the identifiers and fields needed for that action before expanding." },
   ],
   ctaTitle: "Make the next customer action visible.",
   ctaCopy: "Show us one customer journey across your store, conversations, and service tools. We will identify what should connect and what should stay where it is.",

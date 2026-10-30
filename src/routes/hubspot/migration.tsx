@@ -31,18 +31,18 @@ const steps = [
 ];
 
 const mistakes = [
-  { title: "Importing everything as-is", copy: "Years of duplicates and dead leads moved into a new CRM just recreate the old mess in an expensive new home. Cleaning before import is the cheaper order." },
+  { title: "Importing everything as-is", copy: "Years of duplicates and dead leads moved into a new CRM just recreate the old clutter in an expensive new home. Cleaning before import is the cheaper order." },
   { title: "Mapping fields on the fly", copy: "Deciding where each column goes while the import runs leads to the same information living in three different properties. We map every field on paper first, and you sign it off." },
   { title: "No test import", copy: "A full import that has never been tested on a sample is a gamble with your customer data. We never skip the sample, and we never go live before you have looked at real records yourself." },
   { title: "Two systems forever", copy: "Keeping the old CRM running just in case means the team never fully moves and data splits in two. We plan a firm cutover date and hold the old system read-only after it." },
 ];
 
 const faqs = [
-  { q: "How long does a migration take?", a: "It depends on how many sources of data you have and how clean they are. A single clean spreadsheet moves in days; a messy multi-tool history takes longer because the cleaning is the real work. We give you a realistic estimate after seeing your actual data, not before." },
+  { q: "How long does a migration take?", a: "It depends on how many sources of data you have and how clean they are. A single clean spreadsheet moves in days; a cluttered multi-tool history takes longer because the cleaning is the real work. We give you a realistic estimate after seeing your actual data, not before." },
   { q: "Will we lose any data in the move?", a: "That is exactly what the test import and count checks exist to prevent. After the full import, we reconcile record counts between the old system and HubSpot and report anything that did not match, with reasons. You verify before the old system is retired." },
   { q: "Can you migrate our notes, emails, and deal history too?", a: "In most cases yes: contacts, companies, deals, notes, and activity history can all be carried across. The exact scope depends on what your current tool exports, which we confirm in the inventory step before promising anything." },
   { q: "What happens to the old CRM after we move?", a: "We recommend keeping it accessible in read-only form for a while as an archive, but with a firm rule: no new entries go in there. One source of truth is the whole point of the exercise." },
-  { q: "Our data is really messy. Is that a problem?", a: "Messy data is the normal case, not the exception. The dedupe and cleaning step exists precisely for this, and we will tell you honestly what can be fixed automatically and what needs a human decision." },
+  { q: "Our data is really cluttered. Is that a problem?", a: "Inconsistent data is the normal case, not the exception. The dedupe and cleaning step exists precisely for this, and we will tell you honestly what can be fixed automatically and what needs a human decision." },
 ];
 
 function HubSpotMigrationPage() { return <main id="top">

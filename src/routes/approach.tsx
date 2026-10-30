@@ -237,7 +237,7 @@ function ApproachPage() {
           <div aria-hidden="true" className="absolute -right-10 -top-16 size-44 rounded-full bg-mint/30 blur-2xl" />
           <h2 className="relative mt-3 font-display text-4xl font-bold tracking-tight sm:text-6xl">Let's make CRM useful.</h2>
           <p className="relative mx-auto mt-4 max-w-lg text-lg text-cream/70">
-            Tell us what feels messy today. We'll map a clearer CRM path for your team.
+            Tell us what feels off today. We'll map a clearer CRM path for your team.
           </p>
           <a
             href="mailto:info@revlyn.io?subject=CRM consultation"

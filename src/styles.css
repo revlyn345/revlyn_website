@@ -350,3 +350,51 @@
 
 /* Progress bar in the homepage hero scenes */
 @keyframes grow { from { width: 0 } to { width: 100% } }
+
+
+/* Homepage 3D: sections fold up like cards laid on a table (scroll-driven where supported). */
+@keyframes fold-in {
+  from { transform: perspective(1400px) rotateX(14deg) translateY(60px) scale(0.96); opacity: 0.35; }
+  to { transform: none; opacity: 1; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fold-in > section {
+      transform-origin: 50% 0%;
+      animation: fold-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 28%;
+    }
+  }
+}
+
+/* Service rows flip forward on hover. */
+.reveal.is-visible.svc-flip { transform-origin: 50% 100%; transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.7s ease-out; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .reveal.is-visible.svc-flip:hover { transform: perspective(900px) rotateX(-9deg) translateZ(18px); }
+}
+
+/* FAQ answers open like a turning page. */
+@keyframes page-turn {
+  from { transform: perspective(900px) rotateX(-75deg); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.faq-turn[open] > p { transform-origin: 50% 0%; animation: page-turn 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* Faint circuit-board grid for light hero areas. */
+@utility bg-circuit {
+  background-image:
+    radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--ink) 10%, transparent) 1.2px, transparent 1.6px),
+    linear-gradient(color-mix(in oklab, var(--ink) 3.5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--ink) 3.5%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px, 48px 48px, 48px 48px;
+  background-position: -1px -1px, -1px -1px, -1px -1px;
+}
+
+/* Soft light glow for homepage hero and closing panels. */
+@utility bg-hero-glow {
+  background:
+    radial-gradient(55% 45% at 72% 18%, color-mix(in oklab, var(--brand) 10%, transparent), transparent 70%),
+    radial-gradient(40% 40% at 12% 88%, color-mix(in oklab, var(--mint) 9%, transparent), transparent 70%);
+}
+

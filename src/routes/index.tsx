@@ -1,14 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
+import { HeroDashboard3D } from "@/components/HeroDashboard3D";
 import { CrmRevOpsDiagram } from "../components/diagrams/CrmRevOpsDiagram";
 import { HubSpotBadge } from "../components/HubSpotBadge";
-import { HeroScenes } from "@/components/HeroScenes";
+import { ScrollBuild } from "@/components/ScrollBuild";
+import { CountUp, Tilt } from "@/components/effects";
+import { DepthScroll } from "@/components/DepthScroll";
 import { BookCallButton } from "@/components/BookCallButton";
 import { SITE_URL } from "../lib/seo";
 import { Workflow as ProcessIcon, Database as DataIcon, Bot as AutomationIcon, ChartNoAxesCombined as MeasureIcon } from "lucide-react";
 
 // Client photo is served from revlyn.io (public/images/case-studies/).
 const iraPhoto = "/images/case-studies/ira-coleman.jpg";
+
 import agentAgenturLogo from "../assets/customers/agent-agentur.webp";
 import ausformingLogo from "../assets/customers/ausforming.webp";
 import capLogo from "../assets/customers/classical-academic-press.webp";
@@ -149,7 +153,6 @@ function Index() {
   ];
 
   const results = [
-    { name: "Integrity Fire Safety Services", href: "/case-studies/integrity-fire-safety", stats: [["25%", "pipeline growth"], ["20%", "higher closure rate"]] },
     { name: "Ausforming", href: "/case-studies/ausforming", stats: [["20%", "more discovery call bookings"], ["30%", "higher email engagement"]] },
     { name: "Punjab Film City", href: "/case-studies/punjab-film-city", stats: [["20%", "more bookings"], ["40%", "less manual work"]] },
   ] as const;
@@ -184,6 +187,7 @@ function Index() {
     { number: "03", title: "Automation", copy: "Follow-ups, routing, and routine steps run on rules, not reminders.", tone: "bg-grape text-cream", copyTone: "text-cream/80", icon: AutomationIcon },
     { number: "04", title: "Measurement", copy: "Dashboards that show pipeline health and what needs attention.", tone: "bg-brand text-cream", copyTone: "text-cream/80", icon: MeasureIcon },
   ];
+
   const customers: { name: string; url: string; img?: string }[] = [
     { name: "Intuitive", url: "https://intuitive.ai/", img: intuitiveLogo },
     { name: "Runo", url: "https://runo.ai/", img: runoLogo },
@@ -200,210 +204,136 @@ function Index() {
   ];
 
   return (
-    <main id="top" className="bg-cream text-ink">
-        <section ref={heroRef} onPointerMove={(e) => { const r = e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty("--gx", `${e.clientX - r.left}px`); e.currentTarget.style.setProperty("--gy", `${e.clientY - r.top}px`); }} className="group/hero relative isolate mx-auto grid min-h-[calc(100vh-88px)] max-w-[92rem] content-center overflow-hidden rounded-b-[3.5rem] bg-ink px-5 pb-16 pt-14 text-center text-cream sm:px-6 lg:min-h-[780px] lg:rounded-b-[6rem]">
-          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,color-mix(in_oklab,var(--ink)_50%,transparent)_0%,color-mix(in_oklab,var(--ink)_85%,transparent)_70%,var(--ink)_100%)]" />
-          <HeroGlow />
-          <div aria-hidden="true" className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-ink to-transparent" />
+    <main id="top" className="fold-in text-ink">
+        <DepthScroll />
+        <section ref={heroRef} onPointerMove={(e) => { const r = e.currentTarget.getBoundingClientRect(); e.currentTarget.style.setProperty("--gx", `${e.clientX - r.left}px`); e.currentTarget.style.setProperty("--gy", `${e.clientY - r.top}px`); }} className="group/hero relative isolate mx-auto grid min-h-[calc(100vh-88px)] max-w-[92rem] content-center overflow-hidden rounded-b-[3.5rem] px-5 pb-16 pt-14 text-left text-ink sm:px-6 lg:min-h-[780px] lg:rounded-b-[6rem]">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-hero-glow" />
 
-          <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center">
-            <h1 className="w-full max-w-6xl font-display text-[2.05rem] font-bold leading-[0.96] tracking-tight min-[420px]:text-4xl sm:text-6xl md:text-7xl lg:text-[6rem] xl:text-[6.8rem] animate-rise-in">
+
+
+
+          <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 lg:grid-cols-[1fr_1fr]"><div className="flex flex-col items-start">
+            <h1 className="font-display text-[2.05rem] font-bold leading-[0.98] tracking-tight min-[420px]:text-4xl sm:text-6xl lg:text-[3.3rem] xl:text-[4.4rem] 2xl:text-[5.2rem] animate-rise-in">
               <span className="block whitespace-nowrap">Grow your <span className="text-brand">pipeline,</span></span>
-              <span className="block whitespace-nowrap">not your <span className="text-mint">spreadsheet.</span></span>
+              <span className="block whitespace-nowrap">not your <span className="text-ink/35">spreadsheet.</span></span>
             </h1>
-            <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-cream/75 sm:text-xl animate-rise-in" style={{ animationDelay: "0.15s" }}>
-              We combine HubSpot expertise and revenue engineering to build systems around the way your revenue team actually works.
+            <p className="mt-8 max-w-xl text-lg leading-relaxed text-ink/65 sm:text-xl animate-rise-in" style={{ animationDelay: "0.15s" }}>
+              From a fresh HubSpot implementation to rebuilding the portal you already have, we set up HubSpot around how you actually sell, then keep it running with RevOps, automation and reporting your revenue team can trust.
             </p>
-            <div className="mt-10 flex flex-wrap justify-center gap-3 animate-rise-in" style={{ animationDelay: "0.3s" }}>
-              <BookCallButton className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3 text-sm font-bold text-ink transition-all hover:bg-brand hover:text-cream">
+            <div className="mt-10 flex flex-wrap gap-3 animate-rise-in" style={{ animationDelay: "0.3s" }}>
+              <BookCallButton className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-bold text-cream transition-all hover:bg-brand">
                 Book a call <ArrowUpRight size={16} aria-hidden="true" />
               </BookCallButton>
-              <a href="#leak-check" className="inline-flex items-center rounded-full border border-cream/25 px-6 py-3 text-sm font-bold text-cream transition-all hover:border-cream/60">
+              <a href="#leak-check" className="inline-flex items-center rounded-full border border-ink/20 bg-background/70 px-6 py-3 text-sm font-bold text-ink backdrop-blur transition-all hover:border-ink/60">
                 Find your revenue leaks
               </a>
             </div>
-            <HeroScenes />
+            <a href="#build" className="mt-12 inline-flex items-center gap-2 text-sm font-bold text-ink/50 transition-colors hover:text-ink animate-rise-in" style={{ animationDelay: "0.45s" }}>Scroll and watch your spreadsheet become a system<ArrowDown size={18} className="animate-bounce" aria-hidden="true" /></a>
+          </div>
+          <div className="animate-rise-in px-6 py-10 sm:px-12" style={{ animationDelay: "0.3s" }}><HeroDashboard3D /></div>
           </div>
 
           <div aria-label="Teams we work with" className="relative z-10 mt-20 w-full overflow-hidden animate-rise-in [mask-image:linear-gradient(90deg,transparent,black_15%,black_85%,transparent)]" style={{ animationDelay: "0.6s" }}>
             <div className="flex w-max animate-marquee items-center gap-16">
               {[...customers, ...customers].filter((c) => c.img).map(({ name, img }, i) => (
-                <img key={`${name}-${i}`} src={img} alt={i < customers.length ? `${name} logo` : ""} aria-hidden={i >= customers.length} className="h-7 w-auto max-w-[9rem] object-contain opacity-60 brightness-0 invert" />
+                <img key={`${name}-${i}`} src={img} alt={i < customers.length ? `${name} logo` : ""} aria-hidden={i >= customers.length} className="h-7 w-auto max-w-[9rem] object-contain opacity-55" />
               ))}
             </div>
           </div>
         </section>
 
-
-        <section id="why" className="relative mx-auto mt-6 max-w-[92rem] scroll-mt-8 overflow-hidden rounded-[3.5rem] bg-ink py-24 text-cream sm:py-32 lg:rounded-[6rem]">
-          <div aria-hidden="true" className="absolute -right-24 top-24 size-80 rounded-full bg-mint/15 blur-3xl" />
-          <div className="relative mx-auto max-w-6xl px-5 sm:px-6">
-            <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
-              <div className="reveal">
-                <h2 className="mt-4 max-w-xl font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl lg:text-7xl">Your CRM exists. But the work lives <span className="text-mint">everywhere else.</span></h2>
-                <p className="mt-6 max-w-lg text-lg leading-relaxed text-cream/65">
-                  A CRM should connect the journey, not add another place your team has to update.
-                </p>
-              </div>
-              <div className="reveal rounded-[2.5rem] border border-cream/10 bg-cream/5 p-4 shadow-2xl backdrop-blur sm:p-5" style={{ transitionDelay: "0.15s" }}>
-                <div className="space-y-3">
-                  {problemCards.map(([title, copy], index) => (
-                    <div key={title} className="flex items-start gap-4 rounded-[1.75rem] border border-cream/10 bg-cream/5 p-5 transition-transform duration-300 hover:-translate-y-1">
-                      <div className={`grid size-11 shrink-0 place-items-center rounded-xl ${index === 1 ? "bg-brand/20" : "bg-mint/15"}`}>
-                        <X size={20} className="text-mint" aria-hidden="true" />
-                      </div>
-                      <div>
-                        <h3 className="font-display text-xl font-bold">{title}</h3>
-                        <p className="mt-1 leading-relaxed text-cream/60">{copy}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+        <section aria-labelledby="pains" className="py-20 sm:py-28">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6">
+            <h2 id="pains" data-depth="0.06" className="reveal max-w-3xl font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl">Sound familiar? Three ways HubSpot <span className="text-brand">quietly costs you.</span></h2>
+            <div className="mt-12 grid gap-5 md:grid-cols-3">
+              {problemCards.map(([t, c], i) => (
+                <Tilt key={t} className="rounded-[2rem]"><div className="reveal h-full rounded-[2rem] border border-ink/10 bg-background p-8" style={{ transitionDelay: `${i * 0.08}s` }}>
+                  <span className="grid size-10 place-items-center rounded-full bg-brand/10 text-brand"><X size={18} aria-hidden="true" /></span>
+                  <h3 className="mt-6 font-display text-2xl font-bold tracking-tight">{t}</h3>
+                  <p className="mt-3 leading-relaxed text-ink/60">{c}</p>
+                </div></Tilt>
+              ))}
             </div>
+            <a href="#build" className="mt-10 inline-flex items-center gap-2 text-sm font-bold text-ink/60 hover:text-brand">Watch how we fix it <ArrowDown size={16} aria-hidden="true" /></a>
           </div>
         </section>
-
-        <LeakCheck />
-
-        <section className="relative py-20 sm:py-28">
-          <div aria-hidden="true" className="absolute left-1/2 top-16 h-px w-[min(56rem,80vw)] -translate-x-1/2 bg-ink/10" />
-          <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-6 lg:grid-cols-[1fr_1fr] lg:items-center">
-            <div className="reveal relative mx-auto aspect-square w-full max-w-md rounded-[3rem] border border-ink/10 bg-background p-5 shadow-sm" aria-label="A connected customer journey from lead to loyal customer">
-              <div className="absolute left-1/2 top-1/2 size-[72%] -translate-x-1/2 -translate-y-1/2 rounded-full border border-ink/10 animate-[spin_50s_linear_infinite]" />
-              <div className="absolute left-1/2 top-1/2 grid size-36 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-[2rem] bg-brand text-center font-display text-xl font-bold text-cream shadow-brand">One clear<br />customer view</div>
+        <section aria-labelledby="what-is-revlyn" className="py-20 sm:py-28">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6">
+            <div className="reveal grid gap-6 md:grid-cols-[1fr_1fr] md:items-end">
+              <h2 data-depth="0.06" id="what-is-revlyn" className="font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl">What is <span className="text-brand">Revlyn?</span></h2>
+              <p className="max-w-md text-lg leading-relaxed text-ink/60 md:justify-self-end">A HubSpot partner that brings HubSpot expertise and revenue engineering together, so your CRM becomes the system your revenue team actually runs on.</p>
+            </div>
+            <div className="mt-14 grid gap-px overflow-hidden rounded-[2rem] border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
               {[
-                ["Lead", "left-0 top-[42%] bg-sun"],
-                ["Conversation", "right-0 top-[12%] bg-mint"],
-                ["Customer", "bottom-0 right-[16%] bg-grape text-cream"],
-              ].map(([label, position], index) => <div key={label} className={`absolute ${position} grid size-28 place-items-center rounded-[2rem] border border-ink/10 text-center font-display font-bold shadow-sm sm:size-32`} style={{ animationDelay: `${index * 1.2}s` }}>{label}</div>)}
+                { t: "What we run", items: ["HubSpot setup and rebuilds", "RevOps", "Automation and workflows", "Reporting", "HubSpot as a Service"] },
+                { t: "Where we run it", items: ["HubSpot, across every hub", "The tools around it, such as ServiceTrade and Dialpad"] },
+                { t: "Who it is for", items: ["Growing companies", "Distributed, remote revenue teams", "Teams who already pay for HubSpot and want more from it"] },
+                { t: "How you can check", items: ["HubSpot Gold Solutions Partner", "Published case studies", "A free HubIQ audit of your portal"] },
+              ].map(({ t, items }, i) => (
+                <div key={t} className="reveal bg-background p-7" style={{ transitionDelay: `${i * 0.06}s` }}>
+                  <h3 className="font-display text-xl font-bold">{t}</h3>
+                  <ul className="mt-5 space-y-3">
+                    {items.map((it) => (
+                      <li key={it} className="flex gap-2.5 text-ink/70"><Check size={18} className="mt-0.5 shrink-0 text-brand" aria-hidden="true" />{it}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
-            <div className="reveal" style={{ transitionDelay: "0.15s" }}>
-              <h2 className="mt-4 font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl lg:text-7xl">One connected journey. From first hello to long-term customer.</h2>
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink/65">Revlyn brings your customer data, conversations, tasks, and decisions into a system your whole team can trust.</p>
-              <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-                {journeyChecks.map((item, index) => (
-                  <li key={item} className="reveal flex items-start gap-3 rounded-2xl bg-background p-4 font-semibold shadow-sm transition-transform duration-300 hover:-translate-y-0.5" style={{ transitionDelay: `${0.25 + index * 0.08}s` }}><span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-mint"><Check size={14} /></span>{item}</li>
-                ))}
-              </ul>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link to="/about" className="inline-flex items-center gap-2 rounded-full border border-ink/20 px-5 py-2.5 text-sm font-bold transition-all hover:border-brand hover:text-brand">More about Revlyn <ArrowUpRight size={16} aria-hidden="true" /></Link>
+              <Link to="/hubiq" className="inline-flex items-center gap-2 rounded-full border border-ink/20 px-5 py-2.5 text-sm font-bold transition-all hover:border-brand hover:text-brand">Get the free audit <ArrowUpRight size={16} aria-hidden="true" /></Link>
             </div>
           </div>
         </section>
-
-        <section id="revenue-engineering" className="scroll-mt-8 py-20 sm:py-28">
-          <div className="mx-auto max-w-7xl px-5 sm:px-6">
-            <div className="reveal grid gap-6 lg:grid-cols-12 lg:items-end">
-              <h2 className="font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl lg:col-span-8 lg:text-7xl">
-                How Revlyn works: <span className="text-brand">revenue engineering.</span>
-              </h2>
-              <p className="font-bold leading-snug text-ink/60 lg:col-span-4 lg:text-xl">
-                Revenue should work like infrastructure: designed, connected, measured, and improved.
-              </p>
+        <div id="build" className="scroll-mt-0"><ScrollBuild /></div>
+        <section id="revenue-engineering" aria-labelledby="revenue-engineering-heading" className="scroll-mt-8 py-20 sm:py-28">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6">
+            <div className="reveal grid gap-6 md:grid-cols-2 md:items-end">
+              <h2 data-depth="0.06" id="revenue-engineering-heading" className="font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl">We practice <span className="text-brand">revenue engineering.</span></h2>
+              <p className="max-w-md text-lg leading-relaxed text-ink/60 md:justify-self-end">Four disciplines, applied together, so your CRM becomes the system your revenue team actually runs on.</p>
             </div>
-            <p className="reveal mt-8 max-w-2xl text-lg leading-relaxed text-ink/65">
-              Software alone does not create revenue. We engineer the system around it: the process, the data, the automation, and the numbers, so your team's effort compounds instead of leaking.
-            </p>
-            <div className="reveal mt-12 rounded-[2.5rem] border border-ink/10 bg-background p-4 shadow-sm sm:p-8" style={{ transitionDelay: "0.1s" }}>
-              <CrmRevOpsDiagram className="h-auto w-full" />
-            </div>
-            <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {engineeringTiles.map(({ number, title, copy, tone, copyTone, icon: Icon }, index) => (
-                <div key={title} className="reveal" style={{ transitionDelay: `${index * 0.1}s` }}>
-                  <article className={`flex h-full min-h-[22rem] flex-col justify-between rounded-[2.5rem] border border-ink/10 p-6 shadow-sm ${tone}`}>
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {engineeringTiles.map(({ number: num, title, copy, tone: tileBg, copyTone, icon: Icon }, i) => (
+                <Tilt key={title} className="rounded-[2rem]">
+                  <div className={`reveal h-full rounded-[2rem] border border-ink/10 p-7 ${tileBg}`} style={{ transitionDelay: `${i * 0.08}s` }}>
                     <div className="flex items-start justify-between">
                       <span className="grid size-14 place-items-center rounded-2xl border-2 border-ink bg-cream text-ink" aria-hidden="true"><Icon size={26} strokeWidth={2.2} /></span>
-                      <span className="font-display text-4xl font-bold opacity-40" aria-hidden="true">{number}</span>
+                      <p className={`font-display text-5xl font-bold tracking-[-0.04em] ${copyTone}`}>{num}</p>
                     </div>
-                    <div>
-                      <h3 className="font-display text-2xl font-bold sm:text-3xl">{title}</h3>
-                      <p className={`mt-3 font-semibold leading-relaxed ${copyTone}`}>{copy}</p>
-                    </div>
-                  </article>
-                </div>
+                    <h3 className="mt-4 font-display text-2xl font-bold tracking-tight">{title}</h3>
+                    <p className={`mt-3 leading-relaxed ${copyTone}`}>{copy}</p>
+                  </div>
+                </Tilt>
               ))}
             </div>
           </div>
         </section>
-
-
-        <section id="outcomes" className="relative overflow-hidden mx-auto max-w-[92rem] rounded-[3.5rem] bg-ink py-20 text-cream sm:rounded-[6rem] sm:py-28">
-          <div aria-hidden="true" className="absolute -left-24 top-10 size-96 rounded-full bg-brand/15 blur-3xl" />
-          <div className="relative mx-auto grid max-w-6xl gap-12 px-5 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
-            <div className="reveal">
-              <h2 className="mt-4 font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl lg:text-7xl">Less chasing.<br />More clarity.</h2>
-              <p className="mt-6 max-w-sm text-lg leading-relaxed text-cream/65">Picture a normal Monday once the system works.</p>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {outcomes.map(([Icon, title, copy], index) => {
-                const OutcomeIcon = Icon as typeof MessagesSquare;
-                return (
-                  <div key={title as string} className="reveal" style={{ transitionDelay: `${(index % 2) * 0.12}s` }}>
-                    <article className="h-full rounded-[2rem] border border-cream/10 bg-cream/5 p-6 backdrop-blur shadow-sm transition-transform duration-300 hover:-translate-y-1">
-                      <div className="flex items-center gap-4"><span className="font-display text-2xl font-bold text-cream/40">{["9:00", "11:00", "14:00", "17:00"][index]}</span><OutcomeIcon size={26} /></div>
-                      <h3 className="mt-5 font-display text-2xl font-bold">{title as string}</h3>
-                      <p className="mt-2 leading-relaxed text-cream/65">{copy as string}</p>
-                    </article>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        <section id="results" className="py-20 sm:py-28">
+        <section aria-labelledby="two-ideas" className="py-20 sm:py-28">
           <div className="mx-auto max-w-6xl px-5 sm:px-6">
-            <div className="reveal grid gap-5 md:grid-cols-2 md:items-end">
-              <h2 className="font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl">Not just a picture. <span className="text-brand">Real results.</span></h2>
-              <p className="max-w-sm text-lg leading-relaxed text-ink/60 md:justify-self-end">What changed for teams who made the shift with us.</p>
-            </div>
-            <div className="mt-14 border-t border-ink/15">
-              {results.map((r, index) => (
-                <Link key={r.name} to={r.href} className="reveal group grid items-center gap-6 border-b border-ink/15 py-10 transition-colors md:grid-cols-[1.1fr_1fr_1fr_auto] md:gap-10" style={{ transitionDelay: `${index * 0.08}s` }}>
-                  <div className="flex items-baseline gap-4">
-                    <span className="text-sm font-bold text-ink/35">0{index + 1}</span>
-                    <h3 className="font-display text-2xl font-bold tracking-tight transition-colors group-hover:text-brand">{r.name}</h3>
+            <h2 data-depth="0.06" id="two-ideas" className="reveal font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl">Two ideas behind how we work.</h2>
+            <div className="mt-12 grid gap-5 md:grid-cols-2">
+              {[
+                { t: "Process before platform.", c: "We map how your team really sells, serves, and renews before we touch a setting. Then HubSpot is built to match, so people use it instead of working around it.", to: "/how-we-work" as const, l: "How we work", tone: "bg-background" },
+                { t: "One owner for your HubSpot.", c: "A senior team looks after your portal every month, ships improvements, and tells you the next step. You should never have to chase us for it.", to: "/hubspot-as-a-service" as const, l: "HubSpot as a Service", tone: "bg-background" },
+              ].map(({ t, c, to, l, tone }, i) => (
+                <Tilt key={t} className="rounded-[2.5rem]"><Link to={to} className={`reveal group flex h-full flex-col justify-between rounded-[2.5rem] border border-ink/10 ${tone} p-8 sm:p-10`} style={{ transitionDelay: `${i * 0.08}s` }}>
+                  <div>
+                    <span className="text-sm font-bold text-ink/40">0{i + 1}</span>
+                    <h3 className="mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl">{t}</h3>
+                    <p className="mt-4 max-w-md text-lg leading-relaxed text-ink/65">{c}</p>
                   </div>
-                  {r.stats.map(([value, label]) => (
-                    <div key={label} className="flex items-baseline gap-3 md:block">
-                      <p className="font-display text-5xl font-bold tracking-[-0.04em] sm:text-6xl">{value}</p>
-                      <p className="text-sm font-semibold text-ink/55 md:mt-2">{label}</p>
-                    </div>
-                  ))}
-                  <span className="grid size-12 place-items-center rounded-full border border-ink/15 transition-all duration-300 group-hover:border-brand group-hover:bg-brand group-hover:text-cream" aria-label={`Read the ${r.name} story`}>
-                    <ArrowUpRight size={20} className="transition-transform group-hover:rotate-45" />
-                  </span>
-                </Link>
+                  <span className="mt-8 inline-flex items-center gap-2 text-sm font-bold transition-colors group-hover:text-brand">{l} <ArrowUpRight size={16} aria-hidden="true" /></span>
+                </Link></Tilt>
               ))}
             </div>
           </div>
         </section>
-
-        <section aria-label="What clients say" className="pb-20 sm:pb-28">
-          <div className="mx-auto max-w-6xl px-5 sm:px-6">
-            <figure className="reveal grid gap-10 rounded-[2.5rem] border border-ink/10 bg-background p-8 shadow-sm sm:rounded-[3rem] md:grid-cols-[auto_1fr] md:p-14">
-              <img src={iraPhoto} alt="Ira Coleman" loading="lazy" className="size-28 rounded-[1.75rem] object-cover sm:size-36" />
-              <div>
-                <blockquote className="font-display text-2xl font-bold leading-snug tracking-[-0.02em] sm:text-4xl">
-                  &ldquo;They didn&rsquo;t just configure tools, they built the underlying process first, so the CRM reflected how the business actually sold.&rdquo;
-                </blockquote>
-                <figcaption className="mt-8 flex flex-wrap items-center justify-between gap-4">
-                  <span><span className="block font-bold">Ira Coleman</span><span className="text-ink/60">Director of Services, Integrity Fire Safety Services</span></span>
-                  <Link to="/case-studies/integrity-fire-safety" className="inline-flex items-center gap-2 rounded-full border border-ink/20 px-5 py-2.5 text-sm font-bold transition-all hover:border-brand hover:text-brand">Read the story <ArrowUpRight size={16} aria-hidden="true" /></Link>
-                </figcaption>
-              </div>
-            </figure>
-            <Link to="/news/hubspot-gold-partner" className="reveal group mt-6 flex flex-col items-start justify-between gap-5 rounded-[2rem] bg-ink p-7 text-cream sm:flex-row sm:items-center sm:px-10">
-              <span className="flex items-center gap-5"><HubSpotBadge dark size="sm" /><span className="font-display text-xl font-bold tracking-tight">Official HubSpot Gold Partner since July 2026.</span></span>
-              <span className="inline-flex items-center gap-2 text-sm font-bold text-cream/70 transition-colors group-hover:text-brand">What it means <ArrowUpRight size={16} aria-hidden="true" /></span>
-            </Link>
-          </div>
-        </section>
-
         <section id="services" className="scroll-mt-8 py-20 sm:py-28">
           <div className="mx-auto max-w-6xl px-5 sm:px-6">
             <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
               <div className="reveal lg:sticky lg:top-28 lg:self-start">
-                <h2 className="font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl">Everything your CRM needs to work.</h2>
+                <h2 className="font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl">Everything HubSpot needs to stop being a very expensive address book.</h2>
                 <p className="mt-6 max-w-md text-lg leading-relaxed text-ink/60">Pick a focused improvement or bring us in for the complete journey, from structure to everyday adoption.</p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link to="/hubspot" className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-bold text-cream transition-all hover:bg-brand">See all HubSpot services <ArrowUpRight size={18} /></Link>
@@ -412,7 +342,7 @@ function Index() {
               </div>
               <div className="border-t border-ink/15">
                 {services.map(({ icon: Icon, fill, title, copy, href }, index) => (
-                  <Link key={title} to={href} className="reveal group grid grid-cols-[auto_1fr_auto] items-start gap-5 border-b border-ink/15 py-7 sm:gap-7" style={{ transitionDelay: `${index * 0.06}s` }}>
+                  <Link key={title} to={href} className="svc-flip reveal group grid grid-cols-[auto_1fr_auto] items-start gap-5 border-b border-ink/15 py-7 sm:gap-7" style={{ transitionDelay: `${index * 0.06}s` }}>
                     <span className={`grid size-12 place-items-center rounded-full border border-ink/10 bg-background transition-colors duration-300 ${fill} group-hover:text-cream`}>
                       <Icon size={20} aria-hidden="true" />
                     </span>
@@ -427,36 +357,137 @@ function Index() {
             </div>
           </div>
         </section>
-
-        <section id="about" className="py-20 sm:py-28">
+        <section aria-labelledby="platforms" className="py-20 sm:py-28">
           <div className="mx-auto max-w-6xl px-5 sm:px-6">
-            <div className="reveal relative overflow-hidden rounded-[2.5rem] bg-ink p-8 text-cream sm:rounded-[3rem] md:p-16">
-              <div aria-hidden="true" className="absolute -right-24 -top-24 size-80 rounded-full bg-brand/20 blur-3xl" />
-              <div className="relative grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-end">
-                <p className="font-display text-5xl font-bold leading-[0.98] tracking-[-0.03em] sm:text-7xl">Built here.<br /><span className="text-brand">Built for here.</span></p>
-                <p className="max-w-xl text-lg leading-relaxed text-cream/70">Revlyn has one focused mission: help growing companies turn CRM from software they own into a system their revenue teams use. We bring HubSpot expertise, revenue engineering, automation, and adoption together in one practical engagement.</p>
-              </div>
-              <div className="relative mt-14 grid gap-px overflow-hidden rounded-2xl bg-cream/10 sm:grid-cols-3">
-                {["Practical over complicated", "Process before platform", "Built around your team"].map((value, i) => (
-                  <div key={value} className="bg-ink p-6">
-                    <span className="text-sm font-bold text-mint">0{i + 1}</span>
-                    <p className="mt-3 font-display text-xl font-bold">{value}</p>
-                  </div>
-                ))}
-              </div>
+            <div className="reveal grid gap-6 md:grid-cols-2 md:items-end">
+              <h2 id="platforms" className="font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl">Where we do the work.</h2>
+              <p className="max-w-md text-lg leading-relaxed text-ink/60 md:justify-self-end">HubSpot sits at the centre. We connect the tools your team already relies on around it.</p>
+            </div>
+            <div className="mt-12 flex flex-wrap gap-3">
+              {["Marketing Hub", "Sales Hub", "Service Hub", "Operations Hub", "Content Hub", "ServiceTrade", "Dialpad"].map((n, i) => (
+                <span key={n} className={`reveal rounded-full border px-6 py-3 font-display text-lg font-bold ${i < 5 ? "border-brand/30 bg-background text-ink" : "border-ink/15 bg-background text-ink/70"}`} style={{ transitionDelay: `${i * 0.04}s` }}>{n}</span>
+              ))}
             </div>
           </div>
         </section>
-
+        <section aria-labelledby="plan" className="py-20 sm:py-28">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6">
+            <h2 id="plan" data-depth="0.06" className="reveal max-w-3xl font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl">Your first <span className="text-brand">90 days</span> with Revlyn.</h2>
+            <ol className="mt-12 grid gap-px overflow-hidden rounded-[2rem] border border-ink/10 bg-ink/10 md:grid-cols-4">
+              {[["Weeks 1 to 2", "Look", "A full audit of your portal and how your team really sells."], ["Weeks 3 to 6", "Rebuild", "Stages, ownership and one clean customer record."], ["Weeks 7 to 10", "Automate", "Follow-ups, routing and handoffs that run on rules."], ["Weeks 11 to 13", "Report", "Dashboards your leaders trust, and a team that uses them."]].map(([w, t, c], i) => (
+                <li key={t} className="reveal bg-background p-7" style={{ transitionDelay: `${i * 0.06}s` }}>
+                  <p className="text-sm font-bold text-ink/40">{w}</p>
+                  <h3 className="mt-3 font-display text-3xl font-bold tracking-tight">{t}</h3>
+                  <p className="mt-3 leading-relaxed text-ink/60">{c}</p>
+                </li>
+              ))}
+            </ol>
+            <p className="mt-4 text-sm text-ink/45">A typical shape. Your plan is agreed in writing before we start.</p>
+          </div>
+        </section>
+        <section id="results" className="py-20 sm:py-28">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6">
+            <div className="reveal grid gap-5 md:grid-cols-2 md:items-end">
+              <h2 data-depth="0.06" className="font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl">Numbers we are <span className="text-brand">allowed to brag about.</span></h2>
+              <p data-depth="0.02" className="max-w-sm text-lg leading-relaxed text-ink/60 md:justify-self-end">What changed for teams who made the shift with us.</p>
+            </div>
+            <div className="mt-14 border-t border-ink/15">
+              {results.map((r, index) => (
+                <Tilt key={r.name} max={3}><Link to={r.href} className="reveal group grid items-center gap-6 border-b border-ink/15 py-10 transition-colors md:grid-cols-[1.1fr_1fr_1fr_auto] md:gap-10" style={{ transitionDelay: `${index * 0.08}s` }}>
+                  <div className="flex items-baseline gap-4">
+                    <span className="text-sm font-bold text-ink/35">0{index + 1}</span>
+                    <h3 className="font-display text-2xl font-bold tracking-tight transition-colors group-hover:text-brand">{r.name}</h3>
+                  </div>
+                  {r.stats.map(([value, label]) => (
+                    <div key={label} className="flex items-baseline gap-3 md:block">
+                      <p className="font-display text-5xl font-bold tracking-[-0.04em] sm:text-6xl"><CountUp value={value} /></p>
+                      <p className="text-sm font-semibold text-ink/55 md:mt-2">{label}</p>
+                    </div>
+                  ))}
+                  <span className="grid size-12 place-items-center rounded-full border border-ink/15 transition-all duration-300 group-hover:border-brand group-hover:bg-brand group-hover:text-cream" aria-label={`Read the ${r.name} story`}>
+                    <ArrowUpRight size={20} className="transition-transform group-hover:rotate-45" />
+                  </span>
+                </Link></Tilt>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section aria-label="Featured case study" className="pb-20 sm:pb-28">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6">
+            <article className="reveal overflow-hidden rounded-[2.5rem] border border-ink/10 bg-background shadow-sm sm:rounded-[3rem]">
+              <div className="grid gap-10 p-8 md:p-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
+                <div>
+                  <h2 data-depth="0.06" className="font-display text-3xl font-bold leading-[1.05] tracking-[-0.03em] sm:text-5xl">Integrity Fire Safety rebuilt HubSpot around how they really sell.</h2>
+                  <div className="mt-10 grid gap-6 sm:grid-cols-3">
+                    {[["The problem", "A CRM that did not match the sales process, so the team worked around it."], ["What we did", "Mapped the process first, rebuilt HubSpot, and connected ServiceTrade."], ["What changed", "More pipeline and a higher closure rate, from one trusted system."]].map(([t, c]) => (
+                      <div key={t} className="border-t border-ink/10 pt-4">
+                        <h3 className="font-bold text-brand">{t}</h3>
+                        <p className="mt-2 text-sm leading-relaxed text-ink/60">{c}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="grid content-start gap-4">
+                  {[["25%", "pipeline growth"], ["20%", "higher closure rate"]].map(([v, l]) => (
+                    <Tilt key={l} className="rounded-[1.75rem]"><div className="rounded-[1.75rem] border border-ink/10 bg-cream p-6">
+                      <p className="font-display text-6xl font-bold tracking-[-0.04em] text-brand"><CountUp value={v!} /></p>
+                      <p className="mt-1 font-semibold text-ink/60">{l}</p>
+                    </div></Tilt>
+                  ))}
+                </div>
+              </div>
+              <figure className="grid gap-6 border-t border-ink/10 bg-cream p-8 sm:grid-cols-[auto_1fr] sm:items-center md:px-14">
+                <img src={iraPhoto} data-depth="0.05" alt="Ira Coleman" loading="lazy" className="size-20 rounded-[1.25rem] object-cover" />
+                <div className="flex flex-wrap items-end justify-between gap-6">
+                  <div>
+                    <blockquote className="max-w-2xl font-display text-xl font-bold leading-snug">&ldquo;They didn&rsquo;t just configure tools, they built the underlying process first, so the CRM reflected how the business actually sold.&rdquo;</blockquote>
+                    <figcaption className="mt-3 text-sm text-ink/55"><span className="font-bold text-ink">Ira Coleman</span>, Director of Services, Integrity Fire Safety Services</figcaption>
+                  </div>
+                  <Link to="/case-studies/integrity-fire-safety" className="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-bold text-cream transition-all hover:bg-brand">Read the full story <ArrowUpRight size={16} aria-hidden="true" /></Link>
+                </div>
+              </figure>
+            </article>
+            <Link to="/news/hubspot-gold-partner" className="reveal group mt-6 flex flex-col items-start justify-between gap-5 rounded-[2rem] border border-ink/10 bg-background p-7 sm:flex-row sm:items-center sm:px-10">
+              <span className="flex items-center gap-5"><HubSpotBadge size="sm" /><span className="font-display text-xl font-bold tracking-tight">Official HubSpot Gold Partner since July 2026.</span></span>
+              <span className="inline-flex items-center gap-2 text-sm font-bold text-ink/60 transition-colors group-hover:text-brand">What it means <ArrowUpRight size={16} aria-hidden="true" /></span>
+            </Link>
+          </div>
+        </section>
+        <section aria-labelledby="reviews" className="py-20 sm:py-28">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6">
+            <h2 id="reviews" className="reveal font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl">What clients say <span className="text-brand">when we are not in the room.</span></h2>
+            <figure className="reveal mt-12 rounded-[2.5rem] border border-ink/10 bg-background p-8 sm:p-12">
+              <blockquote className="font-display text-2xl font-bold leading-snug sm:text-3xl">&ldquo;Revlyn initially helped us clean up and improve our reporting, and that quickly evolved into ongoing support. They&rsquo;ve been hands-on with things like sales rep support, pipeline optimization, and maintaining strong data quality. They also mapped Dialpad to HubSpot, which made it much easier for our sales team to manage everything from a single system.&rdquo;</blockquote>
+              <figcaption className="mt-8 flex flex-wrap items-center justify-between gap-4">
+                <span className="flex items-center gap-4"><span aria-hidden="true" className="grid size-14 place-items-center rounded-[1rem] bg-brand font-display text-xl font-bold text-cream">PR</span><span><span className="block font-bold">Peter Rocke</span><span className="text-sm text-ink/55">General Manager, Datapel</span></span></span>
+                <Link to="/case-studies/datapel" className="inline-flex items-center gap-2 rounded-full border border-ink/20 px-5 py-2.5 text-sm font-bold hover:border-brand hover:text-brand">Read the Datapel story <ArrowUpRight size={16} aria-hidden="true" /></Link>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section aria-labelledby="tools" className="pt-4">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6">
+            <h2 id="tools" className="reveal font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl">Free tools, <span className="text-brand">no strings.</span></h2>
+            <div className="mt-12 grid gap-5 md:grid-cols-3">
+              {[{ t: "HubIQ audit", c: "A free audit of your HubSpot portal, report in under 2 hours.", to: "/hubiq" as const, hash: "", tone: "bg-background" }, { t: "Revenue leak check", c: "Five questions, thirty seconds, right here on this page.", to: "/" as const, hash: "leak-check", tone: "bg-background" }, { t: "Renewals automation guide", c: "Set up 90-day renewal deals in HubSpot, step by step.", to: "/renewals-automation-guide" as const, hash: "", tone: "bg-background" }].map(({ t, c, to, hash, tone }) => (
+                <Tilt key={t} className="rounded-[2rem]"><Link to={to} hash={hash || ""} className={`reveal group flex h-full flex-col justify-between rounded-[2rem] border border-ink/10 ${tone} p-8`}>
+                  <div><h3 className="font-display text-2xl font-bold tracking-tight">{t}</h3><p className="mt-3 leading-relaxed text-ink/65">{c}</p></div>
+                  <span className="mt-8 inline-flex items-center gap-2 text-sm font-bold group-hover:text-brand">Open <ArrowUpRight size={16} aria-hidden="true" /></span>
+                </Link></Tilt>
+              ))}
+            </div>
+          </div>
+        </section>
+        <LeakCheck />
         <section className="pb-24 pt-4">
           <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
             <div className="reveal lg:sticky lg:top-28 lg:self-start">
-              <h2 className="font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl">A few honest answers.</h2>
+              <h2 className="font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl">Things people ask us before they book a call.</h2>
               <p className="mt-6 max-w-sm text-lg leading-relaxed text-ink/60">Still unsure? <Link to="/faq" className="font-bold text-ink underline decoration-brand decoration-2 underline-offset-4 hover:text-brand">See every question</Link> or just ask us.</p>
             </div>
             <div className="reveal border-t border-ink/15" style={{ transitionDelay: "0.1s" }}>
               {faqs.map(([question, answer]) => (
-                <details key={question} className="group border-b border-ink/15 py-6">
+                <details key={question} className="faq-turn group border-b border-ink/15 py-6">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display text-xl font-bold tracking-tight transition-colors hover:text-brand">
                     <span>{question}</span>
                     <span className="grid size-10 shrink-0 place-items-center rounded-full border border-ink/15 text-xl font-normal transition-all duration-300 group-open:rotate-45 group-open:border-brand group-open:bg-brand group-open:text-cream">+</span>
@@ -467,21 +498,28 @@ function Index() {
             </div>
           </div>
         </section>
-
-
+        <section aria-labelledby="next" className="pb-24">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6">
+            <h2 id="next" className="reveal font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl">Where to go next.</h2>
+            <div className="mt-10 grid gap-px overflow-hidden rounded-[2rem] border border-ink/10 bg-ink/10 sm:grid-cols-2 lg:grid-cols-4">
+              {([["Case studies", "/case-studies"], ["HubSpot as a Service", "/hubspot-as-a-service"], ["How we work", "/how-we-work"], ["Life at Revlyn", "/life-at-revlyn"]] as const).map(([t, to]) => (
+                <Link key={t} to={to} className="group flex items-center justify-between bg-background p-7 font-display text-xl font-bold hover:text-brand">{t} <ArrowUpRight size={18} className="transition-transform group-hover:rotate-45" aria-hidden="true" /></Link>
+              ))}
+            </div>
+          </div>
+        </section>
         <section id="contact" className="mx-auto max-w-6xl scroll-mt-8 px-5 pb-24 sm:px-6">
-          <div className="reveal relative overflow-hidden rounded-[2.5rem] bg-ink px-7 py-14 text-center text-cream sm:rounded-[3rem] sm:px-12 sm:py-16">
-                        <div aria-hidden="true" className="absolute -bottom-20 -left-12 size-52 rounded-full bg-brand/40 blur-2xl animate-glow-soft" />
-            <div aria-hidden="true" className="absolute -right-10 -top-16 size-44 rounded-full bg-mint/30 blur-2xl animate-glow-soft" style={{ animationDelay: "2s" }} />
-            <h2 className="relative mt-3 font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl lg:text-7xl">Let’s make CRM useful.</h2>
-            <p className="relative mx-auto mt-4 max-w-lg text-lg text-cream/70">
-              Tell us what feels messy today. We’ll map a clearer CRM path for your team.
+          <div className="reveal relative overflow-hidden rounded-[2.5rem] border border-ink/10 bg-background px-7 py-14 text-center sm:rounded-[3rem] sm:px-12 sm:py-16">
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-hero-glow" />
+            <h2 data-depth="0.06" className="relative mt-3 font-display text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl lg:text-7xl">Let’s make HubSpot earn its seat.</h2>
+            <p className="relative mx-auto mt-4 max-w-lg text-lg text-ink/60">
+              Tell us what feels off today. We’ll bring the fix, a clear plan, and a few strong opinions.
             </p>
             <div className="relative mt-8 flex flex-wrap justify-center gap-3">
-              <BookCallButton className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3 text-sm font-bold text-ink transition-all hover:bg-brand hover:text-cream">
+              <BookCallButton className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-bold text-cream transition-all hover:bg-brand">
                 Book a call <ArrowUpRight size={18} aria-hidden="true" />
               </BookCallButton>
-              <a href="mailto:info@revlyn.io?subject=CRM consultation" className="inline-flex items-center rounded-full border border-cream/25 px-6 py-3 text-sm font-bold text-cream transition-all hover:border-cream/60">
+              <a href="mailto:info@revlyn.io?subject=CRM consultation" className="inline-flex items-center rounded-full border border-ink/20 px-6 py-3 text-sm font-bold transition-all hover:border-ink/60">
                 Email info@revlyn.io
               </a>
             </div>

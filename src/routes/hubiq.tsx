@@ -12,7 +12,7 @@ const faqs = [
   { q: "What access do you need?", a: "We will agree the access with you on the call. You stay in control of it and can remove it the moment the report lands." },
   { q: "Will you change anything in my portal?", a: "No. HubIQ is a look, not a fix. Nothing is edited, deleted, or switched on during the audit." },
   { q: "What happens after I get the report?", a: "You read it. If you want help fixing what it finds, we can talk about that. If not, that is completely fine." },
-  { q: "Who is HubIQ for?", a: "Any team running HubSpot that suspects the portal is doing less than it should: messy data, stalled deals, reports nobody trusts, or workflows nobody remembers building." },
+  { q: "Who is HubIQ for?", a: "Any team running HubSpot that suspects the portal is doing less than it should: inconsistent data, stalled deals, reports nobody trusts, or workflows nobody remembers building." },
 ];
 
 export const Route = createFileRoute("/hubiq")({

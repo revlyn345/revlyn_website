@@ -61,7 +61,7 @@ function IntegrityFireSafetyCaseStudy() {
 
           <section className="mt-16 space-y-7 text-lg leading-relaxed text-ink/75">
             <p className="text-2xl font-bold leading-relaxed text-ink">Having a CRM is not the same as having a system. Integrity Fire Safety had HubSpot, but inside it the data was confused, the integrations fought each other, and the logic behind stages and properties no longer matched how the business worked.</p>
-            <p>Every fix layered on top of that mess made it heavier. Rather than patch it, the decision was to start over: structure everything from scratch first, then scale on a foundation the team could trust.</p>
+            <p>Every fix layered on top of that clutter made it heavier. Rather than patch it, the decision was to start over: structure everything from scratch first, then scale on a foundation the team could trust.</p>
           </section>
 
           <section className="mt-16">

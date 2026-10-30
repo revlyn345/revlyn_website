@@ -39,7 +39,7 @@ const mistakes = [
 
 const faqs = [
   { q: "How is this different from HubSpot's own onboarding?", a: "HubSpot's onboarding teaches you the platform. Ours builds it around your business: your process mapped first, your pipelines and data configured for you, and training done with your team's real deals. Many companies do both; they solve different problems." },
-  { q: "We already bought HubSpot and set it up ourselves. Can you help?", a: "Yes. This is common. We start with an audit of your current setup, keep what works, and fix what is creating friction: messy properties, unused pipelines, broken automation, and reports nobody trusts." },
+  { q: "We already bought HubSpot and set it up ourselves. Can you help?", a: "Yes. This is common. We start with an audit of your current setup, keep what works, and fix what is creating friction: cluttered properties, unused pipelines, broken automation, and reports nobody trusts." },
   { q: "Which HubSpot hubs and tiers do we need?", a: "It depends on your team size, sales motion, and whether marketing needs sit in the same portal. Part of onboarding is giving you an honest recommendation on tiers, including telling you when a cheaper tier is enough." },
   { q: "Will our data be safe during migration?", a: "Yes. We work with test imports before anything final, keep your source files untouched, and agree on dedupe and mapping rules with you in writing before the real import runs." },
   { q: "What happens after go-live?", a: "Launch includes early check-ins while habits form. After that, many teams continue with focused improvement work: reporting, deeper automation, integrations, or periodic reviews. There is no lock-in." },
